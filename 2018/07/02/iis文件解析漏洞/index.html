@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Hello World · Ywc&#39;s blog</title>
+    <title>iis文件解析漏洞 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Hello World</a>
+                <a href="#" class="post-name">iis文件解析漏洞</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Hello World
+            iis文件解析漏洞
             <!-- 404 -->
             
         </h1>
@@ -259,14 +259,20 @@ height:50vh;
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "漏洞">漏洞</a>
+    
+</div>
+                
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">74</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">667</span> / Reading time: <span class="post-count">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/07/20</span>
+                    <span class="post-intro-time">2018/07/02</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -390,23 +396,36 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>题目：<a href="https://mozhe.cn/bug/detail/Umc0Sm5NMnkzbHM0cFl2UlVRenA1UT09bW96aGUmozhe" target="_blank" rel="noopener">https://mozhe.cn/bug/detail/Umc0Sm5NMnkzbHM0cFl2UlVRenA1UT09bW96aGUmozhe</a><br>做法：</p>
+<ul>
+<li>1.点开链接,尝试上传各种文件,发现上传jpg文件成功.</li>
+<li>2.编写一句话木马文件（使用带asp小马的jpg图片）,上传,用burp抓包,修改上传路径,将upload修改为test.asp（也可以是其他名字）</li>
+<li>3.得到一个有解析漏洞的目录以及包含一句话木马的路径，返回地址:test.asp/xxxxxxx.jpg</li>
+<li>4.用菜刀连接找到key文件,即可.<br><img src="/2018/07/02/iis文件解析漏洞/1.png" alt="iis文件解析漏洞"></li>
+</ul>
+<p>总结:</p>
+<h2 id="IIS默认后缀"><a href="#IIS默认后缀" class="headerlink" title="IIS默认后缀"></a>IIS默认后缀</h2><p>IIS将其他后缀的文件都解析为.asp文件.</p>
+<p>可能被IIS当做asp程序执行的后缀有：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.asp</span><br><span class="line">.cer</span><br><span class="line">.asa</span><br><span class="line">.cdx</span><br></pre></td></tr></table></figure></p>
+<h2 id="IIS-5-x-6-0文件解析漏洞"><a href="#IIS-5-x-6-0文件解析漏洞" class="headerlink" title="IIS 5.x/6.0文件解析漏洞"></a>IIS 5.x/6.0文件解析漏洞</h2><p><font color="blue">1.目录解析</font><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/xx.asp/xx.jpg   如：test.asp/test.jpg</span><br></pre></td></tr></table></figure></p>
+<p>即：新建一个名为”test.asp”的目录,该目录中的任何文件都被IIS当做asp程序执行（特殊符号是”/“）</p>
+<p><font color="blue">2.文件解析</font><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">test.asp;.jpg</span><br></pre></td></tr></table></figure></p>
+<p>即分号后的不被解析,仍被IIS当做asp程序执行。</p>
+<h2 id="遇到php时文件解析问题"><a href="#遇到php时文件解析问题" class="headerlink" title="遇到php时文件解析问题"></a>遇到php时文件解析问题</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">test.jpg/.php</span><br></pre></td></tr></table></figure>
+<p>即：若有文件test.jpg，访问时在其后面加/.php，便可以让iis把”test.jpg/.php”交给php，php”修理”文件路径“test.jpg/.php”得到”test.jpg”，该文件存在,便把改文件作为php程序执行了。下图所示，是在 IIS7.5+php5.3+FastCGI 下的测试情况：<br><img src="/2018/07/02/iis文件解析漏洞/2.png" alt="iis文件解析漏洞"><br>IIS和Nginx在这一点上是一样的，一看到URL中文件后缀是.php，便无论该文件是否存在，都直接交给php处理，而php又默认开启“cgi.fix_pathinfo”，会对文件路径进行“修理”，何谓“修理”？举个例子，当php遇到文件路径“/aaa.xxx/bbb.yyy/ccc.zzz”时，若“/aaa.xxx/bbb.yyy/ccc.zzz”不存在，则会去掉最后的“/ccc.zzz”，然后判断“/aaa.xxx/bbb.yyy”是否存在，若存在，则把“/aaa.xxx/bbb.yyy”当做文件“/aaa.xxx/bbb.yyy/ccc.zzz”，若“/aaa.xxx/bbb.yyy”仍不存在，则继续去掉“/bbb.yyy”，以此类推。</p>
+<h2 id="Windows操作系统文件命名规则"><a href="#Windows操作系统文件命名规则" class="headerlink" title="Windows操作系统文件命名规则"></a>Windows操作系统文件命名规则</h2><p>在windows环境下，xx.jpg[空格] 或xx.jpg. 这两类文件都是不允许存在的，若这样命名，windows会默认除去空格或点,黑客可以通过抓包，在文件名后加一个空格或者点绕过黑名单。</p>
+<p>若上传成功，空格和点都会被windows自动消除,这样也可以getshell。</p>
+<p>如果在Apache中.htaccess可被执行.且可被上传.那可以尝试在.htaccess中写入:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;FilesMatch &quot;sec.jpg&quot;&gt; SetHandler application/x-httpd-php &lt;/FilesMatch&gt;</span><br></pre></td></tr></table></figure></p>
+<p>然后再上传shell.jpg的木马,这样shell.jpg就可解析为php文件。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://blog.csdn.net/whatday/article/details/54798718" target="_blank" rel="noopener">https://blog.csdn.net/whatday/article/details/54798718</a></p>
+<p><a href="https://blog.csdn.net/wn314/article/details/77388337" target="_blank" rel="noopener">https://blog.csdn.net/wn314/article/details/77388337</a></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="http://yoursite.com">John Doe</a>
-            <p>原文链接: <a href="http://yoursite.com/2018/07/20/hello-world/">http://yoursite.com/2018/07/20/hello-world/</a>
-            <p>发表日期: <a href="http://yoursite.com/2018/07/20/hello-world/">July 20th 2018, 4:29:31 pm</a>
+            <p>原文链接: <a href="http://yoursite.com/2018/07/02/iis文件解析漏洞/">http://yoursite.com/2018/07/02/iis文件解析漏洞/</a>
+            <p>发表日期: <a href="http://yoursite.com/2018/07/02/iis文件解析漏洞/">July 2nd 2018, 1:53:10 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -415,16 +434,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/07/21/blog/" title= 搭博客的经历 >
-                    <div class="nextTitle">搭博客的经历</div>
+                <a href= "/2018/07/04/mozhe/" title= 墨者学院平台修炼 >
+                    <div class="nextTitle">墨者学院平台修炼</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/07/12/渗透基础/" title= 渗透基础 >
-                    <div class="prevTitle">渗透基础</div>
+                <a href= "/2018/06/14/mimikatz/" title= mimikatz内网渗透 >
+                    <div class="prevTitle">mimikatz内网渗透</div>
                 </a>
             
         </li>
@@ -536,7 +555,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IIS默认后缀"><span class="toc-number">1.</span> <span class="toc-text">IIS默认后缀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IIS-5-x-6-0文件解析漏洞"><span class="toc-number">2.</span> <span class="toc-text">IIS 5.x/6.0文件解析漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#遇到php时文件解析问题"><span class="toc-number">3.</span> <span class="toc-text">遇到php时文件解析问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows操作系统文件命名规则"><span class="toc-number">4.</span> <span class="toc-text">Windows操作系统文件命名规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-number">5.</span> <span class="toc-text">参考链接</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>

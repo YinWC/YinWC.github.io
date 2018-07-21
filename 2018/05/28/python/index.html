@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="John Doe">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="John Doe">
+    <meta name="keywords" content="Hexo | John Doe">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>学习python中遇到的问题及总结 · Ywc&#39;s blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=201807017_1502 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180709 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/ywc.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Ywc&#39;s blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">学习python中遇到的问题及总结</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Ywc's blog</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/blog.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            学习python中遇到的问题及总结
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count">2,395</span> / Reading time: <span class="post-count">10 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/05/28</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="seek（）函数"><a href="#seek（）函数" class="headerlink" title="seek（）函数"></a>seek（）函数</h1><p>seek() 方法用于移动文件读取指针到指定位置.</p>
+<p>语法：</p>
+<pre><code>fileObject.seek(offset[, whence])
+</code></pre><ul>
+<li>offset – 开始的偏移量，也就是代表需要移动偏移的字节数</li>
+<li>whence：可选，默认值为 0。给offset参数一个定义，表示要从哪个位置开始偏移；0代表从文件开头开始算起，1代表从当前位置开始算起，2代表从文件末尾算起。</li>
+</ul>
+<p><a href="https://blog.csdn.net/maxthex/article/details/56484519" target="_blank" rel="noopener">https://blog.csdn.net/maxthex/article/details/56484519</a></p>
+<h1 id="import-sys-与from-sys-import-argv"><a href="#import-sys-与from-sys-import-argv" class="headerlink" title="import sys 与from sys import argv"></a>import sys 与from sys import argv</h1><ul>
+<li>from sys import argv可以通过a,b,c,d……=argv来进行批量参数赋值，将argv中的参数依次赋值给左边的变量。</li>
+<li>而import sys去只能通过a=sys.argv[]这样来逐个赋值。</li>
+<li>Sys.argv[ ]其实就是一个列表，里边的项为用户输入的参数，关键就是要明白这参数是从程序外部输入的，而非代码本身的什么地方，要想看到它的效果就应该将程序保存了，从外部来运行程序并给出参数。<br><a href="https://www.cnblogs.com/aland-1415/p/6613449.html" target="_blank" rel="noopener">https://www.cnblogs.com/aland-1415/p/6613449.html</a></li>
+</ul>
+<h1 id="python中hex-oct-chr-ord函数"><a href="#python中hex-oct-chr-ord函数" class="headerlink" title="python中hex,oct,chr,ord函数"></a>python中hex,oct,chr,ord函数</h1><h3 id="hex"><a href="#hex" class="headerlink" title="hex()"></a>hex()</h3><p>转换一个整数对象为十六进制的字符串表示</p>
+<h3 id="oct"><a href="#oct" class="headerlink" title="oct()"></a>oct()</h3><p>返回一个整数的八进制表示。</p>
+<h3 id="chr"><a href="#chr" class="headerlink" title="chr()"></a>chr()</h3><p>返回整数i对应的ASCII字符。与ord()作用相反。</p>
+<p>参数x：取值范围[0, 255]之间的正数。</p>
+<h3 id="ord"><a href="#ord" class="headerlink" title="ord()"></a>ord()</h3><p>主要用来返回对应字符的ascii码.</p>
+<h1 id="int-from-bytes和int-to-bytes函数"><a href="#int-from-bytes和int-to-bytes函数" class="headerlink" title="int.from_bytes和int.to_bytes函数"></a>int.from_bytes和int.to_bytes函数</h1><h3 id="int-from-bytes函数"><a href="#int-from-bytes函数" class="headerlink" title="int.from_bytes函数"></a>int.from_bytes函数</h3><ul>
+<li>功能:res = int.from_bytes(x)的含义是把bytes类型的变量x，转化为十进制整数，并存入res中。其中bytes类型是python3特有的类型。</li>
+<li>函数参数：int.from_bytes(bytes, byteorder, *, signed=False)。在IDLE或者命令行界面中使用help(int.from_bytes)命令可以查看具体介绍。bytes是输入的变量；byteorder主要有两种：’big’和’little’；signed=True表示需要考虑符号位。</li>
+</ul>
+<h3 id="int-to-bytes函数"><a href="#int-to-bytes函数" class="headerlink" title="int.to_bytes函数"></a>int.to_bytes函数</h3><ul>
+<li>功能：是int.from_bytes的逆过程，把十进制整数，转换为bytes类型的格式。</li>
+</ul>
+<h1 id="abs函数返回数字的绝对值"><a href="#abs函数返回数字的绝对值" class="headerlink" title="abs函数返回数字的绝对值"></a>abs函数返回数字的绝对值</h1><p>eg:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; abs(-1)</span><br><span class="line">1</span><br></pre></td></tr></table></figure></p>
+<h1 id="python安装gmpy2模块"><a href="#python安装gmpy2模块" class="headerlink" title="python安装gmpy2模块"></a>python安装gmpy2模块</h1><p>主要参考pcat大佬的博客：<a href="https://www.cnblogs.com/pcat/p/5746821.html" target="_blank" rel="noopener">https://www.cnblogs.com/pcat/p/5746821.html</a></p>
+<p>gmpy2是依赖GMP、MPFR、MPC三个库，故此在linux上安装前得先安装这3个库。为了后续安装的方便，先建立2个文件夹。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir -p $HOME/src</span><br><span class="line">mkdir -p $HOME/static</span><br></pre></td></tr></table></figure></p>
+<p>测试有没有安装m4模块：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">man m4</span><br></pre></td></tr></table></figure></p>
+<p>如果出现No manual entry for m4，就说明没有安装m4模块。如果没安装m4模块，在编译GMP时候会报错checking for suitable m4… configure: error: No usable m4 in $PATH or /usr/5bin (see config.log for reasons).</p>
+<h3 id="安装m4："><a href="#安装m4：" class="headerlink" title="安装m4："></a>安装m4：</h3><p>当前最新的是1.4.18<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">v=1.4.18</span><br><span class="line">cd $HOME/src</span><br><span class="line">wget http://ftp.gnu.org/gnu/m4/m4-$&#123;v&#125;.tar.gz</span><br><span class="line">tar xf m4-$&#123;v&#125;.tar.gz &amp;&amp; cd m4-$&#123;v&#125;</span><br><span class="line">./configure -prefix=/usr/local</span><br><span class="line">make &amp;&amp; make check &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装GMP"><a href="#安装GMP" class="headerlink" title="安装GMP"></a>安装GMP</h3><p>当前最新的是6.1.2 <a href="https://gmplib.org/" target="_blank" rel="noopener">https://gmplib.org/</a><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd $HOME/src</span><br><span class="line">wget https://gmplib.org/download/gmp/gmp-$&#123;v&#125;.tar.bz2</span><br><span class="line">tar -jxvf gmp-$&#123;v&#125;.tar.bz2 &amp;&amp; cd gmp-$&#123;v&#125;</span><br><span class="line">./configure --prefix=$HOME/static --enable-static --disable-shared --with-pic</span><br><span class="line">make &amp;&amp; make check &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装MPFR"><a href="#安装MPFR" class="headerlink" title="安装MPFR"></a>安装MPFR</h3><p><a href="http://www.mpfr.org/mpfr-current/#download" target="_blank" rel="noopener">http://www.mpfr.org/mpfr-current/#download</a><br>当前最新的是4.0.1 （请自己访问官网，替换成最新的版本号）<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">v=4.0.1</span><br><span class="line">cd $HOME/src</span><br><span class="line">wget http://www.mpfr.org/mpfr-current/mpfr-$&#123;v&#125;.tar.bz2</span><br><span class="line">tar -jxvf mpfr-$&#123;v&#125;.tar.bz2 &amp;&amp; cd mpfr-$&#123;v&#125;</span><br><span class="line">./configure --prefix=$HOME/static --enable-static --disable-shared --with-pic --with-gmp=$HOME/static</span><br><span class="line">make &amp;&amp; make check &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
+<p>如果mpfr.org下载太慢，可以换为 wget <a href="http://ftp.gnu.org/gnu/mpfr/mpfr-${v}.tar.bz2" target="_blank" rel="noopener">http://ftp.gnu.org/gnu/mpfr/mpfr-${v}.tar.bz2</a></p>
+<h3 id="安装MPC"><a href="#安装MPC" class="headerlink" title="安装MPC"></a>安装MPC</h3><p><a href="http://www.multiprecision.org/mpc/download.html" target="_blank" rel="noopener">http://www.multiprecision.org/mpc/download.html</a> （这里最新是1.0.3）<br>但当mpfr版本为4.x以上会报错Makefile:532: recipe for target ‘mul.lo’ failed<br>在<a href="ftp://ftp.gnu.org/gnu/mpc/" target="_blank" rel="noopener">ftp://ftp.gnu.org/gnu/mpc/</a> 可以找到更新的1.1.0版本<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">v=1.1.0</span><br><span class="line">cd $HOME/src</span><br><span class="line">wget ftp://ftp.gnu.org/gnu/mpc/mpc-$&#123;v&#125;.tar.gz</span><br><span class="line">tar -zxvf mpc-$&#123;v&#125;.tar.gz &amp;&amp; cd mpc-$&#123;v&#125;</span><br><span class="line">./configure --prefix=$HOME/static --enable-static --disable-shared --with-pic --with-gmp=$HOME/static --with-mpfr=$HOME/static</span><br><span class="line">make &amp;&amp; make check &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装gmpy2"><a href="#安装gmpy2" class="headerlink" title="安装gmpy2"></a>安装gmpy2</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">v=2.1.0a1</span><br><span class="line">cd $HOME/src</span><br><span class="line">wget https://github.com/aleaxit/gmpy/releases/download/gmpy2-2.1.0a1/gmpy2-$&#123;v&#125;.tar.gz</span><br><span class="line">tar xf gmpy2-$&#123;v&#125;.tar.gz &amp;&amp; cd gmpy2-$&#123;v&#125;</span><br><span class="line">python setup.py build_ext --static=$HOME/static install</span><br></pre></td></tr></table></figure>
+<p>安装后，命令行进入python模式后，输入import gmpy2没报错就成功了。</p>
+<h1 id="python-格式化字符串"><a href="#python-格式化字符串" class="headerlink" title="python 格式化字符串"></a>python 格式化字符串</h1><p>参考：<a href="https://www.cnblogs.com/wilber2013/p/4641616.html" target="_blank" rel="noopener">https://www.cnblogs.com/wilber2013/p/4641616.html</a><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%c        转化为字符（ASCII码值，或者长度为一的字符串）</span><br><span class="line">%r        优先使用repr()函数进行字符串转换 </span><br><span class="line">%s        优先用str()函数进行字符串转换</span><br><span class="line">%d/%i     转成有符号十进制数</span><br><span class="line">%u        转成无符号八进制数</span><br><span class="line">%x/%X     转成无符号十六进制数(x/X代表转化后的十六进制字符的大小写)</span><br><span class="line">%e/%E     转化成科学记数法</span><br><span class="line">%f/%F     转化成浮点数(小数部分自然截断)</span><br><span class="line">%g/%G     %e和%f/%E和%F的简写</span><br><span class="line">%%        输出%（格式化字符串里面包括百分号，那么必须使用%%）</span><br></pre></td></tr></table></figure></p>
+<h1 id="python-之-s-d-f"><a href="#python-之-s-d-f" class="headerlink" title="python 之%s%d%f"></a>python 之%s%d%f</h1><h3 id="s字符串"><a href="#s字符串" class="headerlink" title="%s字符串"></a>%s字符串</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">string=<span class="string">"hello"</span>  </span><br><span class="line">  </span><br><span class="line"><span class="comment">#%s打印时结果是hello  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%s"</span> % string      <span class="comment"># output: string=hello  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%2s意思是字符串长度为2，当原字符串的长度超过2时，按原长度打印，所以%2s的打印结果还是hello  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%2s"</span> % string     <span class="comment"># output: string=hello  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%7s意思是字符串长度为7，当原字符串的长度小于7时，在原字符串左侧补空格，  </span></span><br><span class="line"><span class="comment">#所以%7s的打印结果是  hello  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%7s"</span> % string     <span class="comment"># output: string=  hello  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%-7s意思是字符串长度为7，当原字符串的长度小于7时，在原字符串右侧补空格，  </span></span><br><span class="line"><span class="comment">#所以%-7s的打印结果是  hello  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%-7s!"</span> % string     <span class="comment"># output: string=hello  !  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%.2s意思是截取字符串的前2个字符，所以%.2s的打印结果是he  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%.2s"</span> % string    <span class="comment"># output: string=he  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%.7s意思是截取字符串的前7个字符，当原字符串长度小于7时，即是字符串本身，  </span></span><br><span class="line"><span class="comment">#所以%.7s的打印结果是hello  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%.7s"</span> % string    <span class="comment"># output: string=hello  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%a.bs这种格式是上面两种格式的综合，首先根据小数点后面的数b截取字符串，  </span></span><br><span class="line"><span class="comment">#当截取的字符串长度小于a时，还需要在其左侧补空格  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%7.2s"</span> % string   <span class="comment"># output: string=     he  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%2.7s"</span> % string   <span class="comment"># output: string=hello  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%10.7s"</span> % string  <span class="comment"># output: string=     hello  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#还可以用%*.*s来表示精度，两个*的值分别在后面小括号的前两位数值指定  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%*.*s"</span> % (<span class="number">7</span>,<span class="number">2</span>,string)      <span class="comment"># output: string=     he</span></span><br></pre></td></tr></table></figure>
+<h3 id="d-整型"><a href="#d-整型" class="headerlink" title="%d 整型"></a>%d 整型</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">num=<span class="number">14</span>  </span><br><span class="line">  </span><br><span class="line"><span class="comment">#%d打印时结果是14  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%d"</span> % num            <span class="comment"># output: num=14  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%1d意思是打印结果为1位整数，当整数的位数超过1位时，按整数原值打印，所以%1d的打印结果还是14  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%1d"</span> % num           <span class="comment"># output: num=14  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%3d意思是打印结果为3位整数，当整数的位数不够3位时，在整数左侧补空格，所以%3d的打印结果是 14  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%3d"</span> % num           <span class="comment"># output: num= 14  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%-3d意思是打印结果为3位整数，当整数的位数不够3位时，在整数右侧补空格，所以%3d的打印结果是14_  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%-3d"</span> % num          <span class="comment"># output: num=14_  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%05d意思是打印结果为5位整数，当整数的位数不够5位时，在整数左侧补0，所以%05d的打印结果是00014  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%05d"</span> % num          <span class="comment"># output: num=00014  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%.3d小数点后面的3意思是打印结果为3位整数，  </span></span><br><span class="line"><span class="comment">#当整数的位数不够3位时，在整数左侧补0，所以%.3d的打印结果是014  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%.3d"</span> % num          <span class="comment"># output: num=014  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%.0003d小数点后面的0003和3一样，都表示3，意思是打印结果为3位整数，  </span></span><br><span class="line"><span class="comment">#当整数的位数不够3位时，在整数左侧补0，所以%.3d的打印结果还是014  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%.0003d"</span> % num       <span class="comment"># output: num=014  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%5.3d是两种补齐方式的综合，当整数的位数不够3时，先在左侧补0，还是不够5位时，再在左侧补空格，  </span></span><br><span class="line"><span class="comment">#规则就是补0优先，最终的长度选数值较大的那个，所以%5.3d的打印结果还是  014  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%5.3d"</span> % num         <span class="comment"># output: num=  014  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%05.3d是两种补齐方式的综合，当整数的位数不够3时，先在左侧补0，还是不够5位时，  </span></span><br><span class="line"><span class="comment">#由于是05，再在左侧补0，最终的长度选数值较大的那个，所以%05.3d的打印结果还是00014  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%05.3d"</span> % num        <span class="comment"># output: num=00014  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#还可以用%*.*d来表示精度，两个*的值分别在后面小括号的前两位数值指定  </span></span><br><span class="line"><span class="comment">#如下，不过这种方式04就失去补0的功能，只能补空格，只有小数点后面的3才能补0  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%*.*d"</span> % (<span class="number">04</span>,<span class="number">3</span>,num)  <span class="comment"># output: num= 014</span></span><br></pre></td></tr></table></figure>
+<h3 id="f-浮点型"><a href="#f-浮点型" class="headerlink" title="%f 浮点型"></a>%f 浮点型</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> math  </span><br><span class="line">  </span><br><span class="line"><span class="comment">#%a.bf，a表示浮点数的打印长度，b表示浮点数小数点后面的精度  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#只是%f时表示原值，默认是小数点后5位数  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"PI=%f"</span> % math.pi             <span class="comment"># output: PI=3.141593  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#只是%9f时，表示打印长度9位数，小数点也占一位，不够左侧补空格  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"PI=%9f"</span> % math.pi            <span class="comment"># output: PI=_3.141593  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#只有.没有后面的数字时，表示去掉小数输出整数，03表示不够3位数左侧补0  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"PI=%03.f"</span> % math.pi          <span class="comment"># output: PI=003  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%6.3f表示小数点后面精确到3位，总长度6位数，包括小数点，不够左侧补空格  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"PI=%6.3f"</span> % math.pi          <span class="comment"># output: PI=_3.142  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%-6.3f表示小数点后面精确到3位，总长度6位数，包括小数点，不够右侧补空格  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"PI=%-6.3f"</span> % math.pi         <span class="comment"># output: PI=3.142_  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#还可以用%*.*f来表示精度，两个*的值分别在后面小括号的前两位数值指定  </span></span><br><span class="line"><span class="comment">#如下，不过这种方式06就失去补0的功能，只能补空格  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"PI=%*.*f"</span> % (<span class="number">06</span>,<span class="number">3</span>,math.pi)   <span class="comment"># output: PI=_3.142</span></span><br></pre></td></tr></table></figure>
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: <a href="http://yoursite.com">John Doe</a>
+            <p>原文链接: <a href="http://yoursite.com/2018/05/28/python/">http://yoursite.com/2018/05/28/python/</a>
+            <p>发表日期: <a href="http://yoursite.com/2018/05/28/python/">May 28th 2018, 8:52:57 pm</a>
+            <p>版权声明: </p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/05/29/yuanmaxielou/" title= Web源码泄露总结 >
+                    <div class="nextTitle">Web源码泄露总结</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/05/18/rsa/" title= Crypto_RSA算法总结 >
+                    <div class="prevTitle">Crypto_RSA算法总结</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC和WAP自适应版-->
+
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:2506079477@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/YinWC" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#seek（）函数"><span class="toc-number">1.</span> <span class="toc-text">seek（）函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#import-sys-与from-sys-import-argv"><span class="toc-number">2.</span> <span class="toc-text">import sys 与from sys import argv</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#python中hex-oct-chr-ord函数"><span class="toc-number">3.</span> <span class="toc-text">python中hex,oct,chr,ord函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hex"><span class="toc-number">3.0.1.</span> <span class="toc-text">hex()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#oct"><span class="toc-number">3.0.2.</span> <span class="toc-text">oct()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#chr"><span class="toc-number">3.0.3.</span> <span class="toc-text">chr()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ord"><span class="toc-number">3.0.4.</span> <span class="toc-text">ord()</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#int-from-bytes和int-to-bytes函数"><span class="toc-number">4.</span> <span class="toc-text">int.from_bytes和int.to_bytes函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#int-from-bytes函数"><span class="toc-number">4.0.1.</span> <span class="toc-text">int.from_bytes函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#int-to-bytes函数"><span class="toc-number">4.0.2.</span> <span class="toc-text">int.to_bytes函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#abs函数返回数字的绝对值"><span class="toc-number">5.</span> <span class="toc-text">abs函数返回数字的绝对值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#python安装gmpy2模块"><span class="toc-number">6.</span> <span class="toc-text">python安装gmpy2模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装m4："><span class="toc-number">6.0.1.</span> <span class="toc-text">安装m4：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装GMP"><span class="toc-number">6.0.2.</span> <span class="toc-text">安装GMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装MPFR"><span class="toc-number">6.0.3.</span> <span class="toc-text">安装MPFR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装MPC"><span class="toc-number">6.0.4.</span> <span class="toc-text">安装MPC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装gmpy2"><span class="toc-number">6.0.5.</span> <span class="toc-text">安装gmpy2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#python-格式化字符串"><span class="toc-number">7.</span> <span class="toc-text">python 格式化字符串</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#python-之-s-d-f"><span class="toc-number">8.</span> <span class="toc-text">python 之%s%d%f</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#s字符串"><span class="toc-number">8.0.1.</span> <span class="toc-text">%s字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#d-整型"><span class="toc-number">8.0.2.</span> <span class="toc-text">%d 整型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#f-浮点型"><span class="toc-number">8.0.3.</span> <span class="toc-text">%f 浮点型</span></a></li></ol></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 19
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/20</span><a class="archive-post-title" href= "/2018/07/20/hello-world/" >Hello World</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2018/07/12/渗透基础/" >渗透基础</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/11</span><a class="archive-post-title" href= "/2018/07/11/gameofctf/" >Game-of-Thrones-CTF-1.0靶机实战演练</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span><a class="archive-post-title" href= "/2018/07/05/sqlmap/" >Sqlmap 使用总计</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/mozhe/" >墨者学院平台修炼</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/2018/07/02/iis文件解析漏洞/" >iis文件解析漏洞</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2018/06/14/mimikatz/" >mimikatz内网渗透</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/13</span><a class="archive-post-title" href= "/2018/06/13/luyoubiao/" >配置路由表</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/06</span><a class="archive-post-title" href= "/2018/06/06/wireshark/" >Wireshark-流量分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/03</span><a class="archive-post-title" href= "/2018/06/03/phpmagic/" >反序列化漏洞</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/git/" >git learn</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/docker/" >docker的学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/2018/05/29/yuanmaxielou/" >Web源码泄露总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/28</span><a class="archive-post-title" href= "/2018/05/28/python/" >学习python中遇到的问题及总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/rsa/" >Crypto_RSA算法总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/21/blog/" >搭博客的经历</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/16</span><a class="archive-post-title" href= "/2018/05/16/problem/" >日常学习中问题</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
+    
+        <span class="sidebar-tag-name" data-tags="Record,Problem"><span class="iconfont-archer">&#xe606;</span>Record,Problem</span>
+    
+        <span class="sidebar-tag-name" data-tags="渗透"><span class="iconfont-archer">&#xe606;</span>渗透</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="blog"><span class="iconfont-archer">&#xe60a;</span>blog</span>
+    
+        <span class="sidebar-category-name" data-categories="漏洞总结"><span class="iconfont-archer">&#xe60a;</span>漏洞总结</span>
+    
+        <span class="sidebar-category-name" data-categories="learn"><span class="iconfont-archer">&#xe60a;</span>learn</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "John Doe"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

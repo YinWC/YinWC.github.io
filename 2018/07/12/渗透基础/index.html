@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Hello World · Ywc&#39;s blog</title>
+    <title>渗透基础 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Hello World</a>
+                <a href="#" class="post-name">渗透基础</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Hello World
+            渗透基础
             <!-- 404 -->
             
         </h1>
@@ -259,14 +259,20 @@ height:50vh;
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "渗透">渗透</a>
+    
+</div>
+                
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">74</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">182</span> / Reading time: <span class="post-count">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/07/20</span>
+                    <span class="post-intro-time">2018/07/12</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -390,23 +396,18 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h2 id="ping命令返回的TTL值判断操作系统"><a href="#ping命令返回的TTL值判断操作系统" class="headerlink" title="ping命令返回的TTL值判断操作系统"></a>ping命令返回的TTL值判断操作系统</h2><p>网址：<a href="https://www.cnblogs.com/ziyeqingshang/p/3769542.html" target="_blank" rel="noopener">https://www.cnblogs.com/ziyeqingshang/p/3769542.html</a></p>
+<p>通过简单的ping命令，查看返回的TTL值来判断对方的操作系统<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UNIX 及类 UNIX 操作系统 ICMP 回显应答的 TTL 字段值为              255</span><br><span class="line">Compaq Tru64 5.0 ICMP 回显应答的 TTL 字段值为                    64</span><br><span class="line">Windows NT/2K操作系统 ICMP 回显应答的 TTL 字段值为               128</span><br><span class="line">Windows 95 操作系统 ICMP 回显应答的 TTL 字段值为                 32</span><br></pre></td></tr></table></figure></p>
+<p>不同的操作系统，它的TTL值是不相同的<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Linux系统的TTL值为64或255，</span><br><span class="line">Windows NT/2000/XP系统的TTL值为128，</span><br><span class="line">Windows 98系统的TTL值为32，</span><br><span class="line">UNIX主机的TTL值为255。</span><br></pre></td></tr></table></figure></p>
+<p>同时ping也可以获取网站服务器的IP地址。</p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="http://yoursite.com">John Doe</a>
-            <p>原文链接: <a href="http://yoursite.com/2018/07/20/hello-world/">http://yoursite.com/2018/07/20/hello-world/</a>
-            <p>发表日期: <a href="http://yoursite.com/2018/07/20/hello-world/">July 20th 2018, 4:29:31 pm</a>
+            <p>原文链接: <a href="http://yoursite.com/2018/07/12/渗透基础/">http://yoursite.com/2018/07/12/渗透基础/</a>
+            <p>发表日期: <a href="http://yoursite.com/2018/07/12/渗透基础/">July 12th 2018, 8:07:15 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -415,16 +416,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/07/21/blog/" title= 搭博客的经历 >
-                    <div class="nextTitle">搭博客的经历</div>
+                <a href= "/2018/07/20/hello-world/" title= Hello World >
+                    <div class="nextTitle">Hello World</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/07/12/渗透基础/" title= 渗透基础 >
-                    <div class="prevTitle">渗透基础</div>
+                <a href= "/2018/07/11/gameofctf/" title= Game-of-Thrones-CTF-1.0靶机实战演练 >
+                    <div class="prevTitle">Game-of-Thrones-CTF-1.0靶机实战演练</div>
                 </a>
             
         </li>
@@ -536,7 +537,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ping命令返回的TTL值判断操作系统"><span class="toc-number">1.</span> <span class="toc-text">ping命令返回的TTL值判断操作系统</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>

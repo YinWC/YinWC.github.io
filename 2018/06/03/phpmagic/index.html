@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Hello World · Ywc&#39;s blog</title>
+    <title>反序列化漏洞 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Hello World</a>
+                <a href="#" class="post-name">反序列化漏洞</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Hello World
+            反序列化漏洞
             <!-- 404 -->
             
         </h1>
@@ -259,14 +259,20 @@ height:50vh;
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "漏洞">漏洞</a>
+    
+</div>
+                
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">74</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">702</span> / Reading time: <span class="post-count">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/07/20</span>
+                    <span class="post-intro-time">2018/06/03</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -390,23 +396,37 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h1 id="PHP中的反序列化漏洞"><a href="#PHP中的反序列化漏洞" class="headerlink" title="PHP中的反序列化漏洞"></a>PHP中的反序列化漏洞</h1><h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>好长时间没做php反序列化问题，都快忘了，总结一下防止忘记。</p>
+<h2 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h2><p>php允许保存一个对象方便以后重用，这个过程被称为序列化.</p>
+<p>序列化：把复杂的数据类型压缩到一个字符串中 数据类型可以是数组，字符串，对象等  函数 : serialize()</p>
+<p>反序列化：恢复原先被序列化的变量 函数: unserialize()</p>
+<h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化:"></a>序列化:</h2><p>eg:</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$test1 = <span class="string">"hello world"</span></span><br><span class="line">$test2 = <span class="keyword">array</span>(<span class="string">"hello"</span>,<span class="string">"world"</span>);</span><br><span class="line">$test3 = <span class="number">123456</span>;</span><br><span class="line"><span class="keyword">echo</span> serialize($test1); <span class="comment">//  s:11:"hello world";  序列化字符串</span></span><br><span class="line"><span class="keyword">echo</span> serialize($test2); <span class="comment">// a:2:&#123;i:0;s:5:"hello";i:1;s:5:"world";&#125; 序列化数组</span></span><br><span class="line"><span class="keyword">echo</span> serialize($test3); <span class="comment">//  i:123456;</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">hello</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $test = <span class="string">"hello,world"</span>;</span><br><span class="line">&#125;</span><br><span class="line">$test = <span class="keyword">new</span> hello();</span><br><span class="line"><span class="keyword">echo</span> serialize($test);  <span class="comment">//  O:5:"hello":1:&#123;s:5:"test4";s:11:"hello,world";</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>序列化对象时，首字母代表参数类型。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a – array 数组</span><br><span class="line">b – boolean布尔型</span><br><span class="line">d – double双精度型</span><br><span class="line">i – integer(int)</span><br><span class="line">o – common object一般对象</span><br><span class="line">r – reference</span><br><span class="line">s – string</span><br><span class="line">C – custom object 自定义对象</span><br><span class="line">O – class</span><br><span class="line">N – null</span><br><span class="line">R – pointer reference</span><br><span class="line">U – unicode string unicode编码的字符串</span><br></pre></td></tr></table></figure></p>
+<p>参数后面的数字代表参数的长度。</p>
+<p>序列化字符串格式： 变量类型：变量长度：变量内容</p>
+<p>如果序列化的是一个对象，序列化字符串格式为：</p>
+<p>变量类型：类名长度：类名：属性数量：｛属性类型：属性名长度：属性名；属性值类型：属性值长度：属性值内容｝</p>
+<p>如上面的O:5:”hello”:1:{s:5:”test4”;s:11:”hello,world”.</p>
+<h2 id="反序列化存在的问题"><a href="#反序列化存在的问题" class="headerlink" title="反序列化存在的问题"></a>反序列化存在的问题</h2><p><a href="http://php.net/manual/zh/language.oop5.magic.php" target="_blank" rel="noopener">魔术方法：官方文档中介绍</a></p>
+<p><font color="blue"><strong>construct()， </strong>destruct()， <strong>call()， </strong>callStatic()， <strong>get()， </strong>set()， <strong>isset()， </strong>unset()，<br><strong>sleep()， </strong>wakeup()， <strong>toString()， </strong>invoke()， <strong>set_state()， </strong>clone() 和 __debugInfo() </font>等方法在 PHP 中被称为”魔术方法”（Magic methods）。在命名自己的类方法时不能使用这些方法名，除非是想使用其魔术功能。 </p>
+<p>问题原因：漏洞的根源在于unserialize()函数的参数可控。如果反序列化对象中存在魔术方法，而且魔术方法中的代码或变量用户可控，就可能产生反序列化漏洞，根据反序列化后不同的代码可以导致各种攻击，如代码注入、SQL注入、目录遍历等等。</p>
+<p>反序列化漏洞中常见到有一些魔术方法：<strong>__construct()</strong>：在对象创建时自动被调用； <strong>__destruct()</strong>：在脚本运行结束时自动被调用；<strong>__sleep()</strong>：在对象序列化的时候自动被调用；<strong>__wakeup()</strong>：在反序列化为对象时自动被调用；<strong>__toString()</strong>： 直接输出对象引用时自动被调用；</p>
+<p>魔术方法的使用方法及案列详见<a href="http://php.net/manual/zh/language.oop5.magic.php" target="_blank" rel="noopener">官方文档介绍</a></p>
+<p>参考链接：</p>
+<p><a href="http://www.freebuf.com/column/151447.html" target="_blank" rel="noopener">http://www.freebuf.com/column/151447.html</a></p>
+<p><a href="http://www.lsablog.com/network_security/penetration/php-unserialize-bug-summary/" target="_blank" rel="noopener">http://www.lsablog.com/network_security/penetration/php-unserialize-bug-summary/</a></p>
+<p><a href="http://www.freebuf.com/vuls/116705.html" target="_blank" rel="noopener">http://www.freebuf.com/vuls/116705.html</a></p>
+<p><a href="https://www.cnblogs.com/Mrsm1th/p/6835592.html" target="_blank" rel="noopener">https://www.cnblogs.com/Mrsm1th/p/6835592.html</a></p>
+<p><a href="http://www.5idev.com/p-php_member_overloading.shtml" target="_blank" rel="noopener">http://www.5idev.com/p-php_member_overloading.shtml</a></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="http://yoursite.com">John Doe</a>
-            <p>原文链接: <a href="http://yoursite.com/2018/07/20/hello-world/">http://yoursite.com/2018/07/20/hello-world/</a>
-            <p>发表日期: <a href="http://yoursite.com/2018/07/20/hello-world/">July 20th 2018, 4:29:31 pm</a>
+            <p>原文链接: <a href="http://yoursite.com/2018/06/03/phpmagic/">http://yoursite.com/2018/06/03/phpmagic/</a>
+            <p>发表日期: <a href="http://yoursite.com/2018/06/03/phpmagic/">June 3rd 2018, 3:46:59 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -415,16 +435,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/07/21/blog/" title= 搭博客的经历 >
-                    <div class="nextTitle">搭博客的经历</div>
+                <a href= "/2018/06/06/wireshark/" title= Wireshark-流量分析 >
+                    <div class="nextTitle">Wireshark-流量分析</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/07/12/渗透基础/" title= 渗透基础 >
-                    <div class="prevTitle">渗透基础</div>
+                <a href= "/2018/06/01/git/" title= git learn >
+                    <div class="prevTitle">git learn</div>
                 </a>
             
         </li>
@@ -536,7 +556,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP中的反序列化漏洞"><span class="toc-number">1.</span> <span class="toc-text">PHP中的反序列化漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言："><span class="toc-number">1.1.</span> <span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原理："><span class="toc-number">1.2.</span> <span class="toc-text">原理：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#序列化"><span class="toc-number">1.3.</span> <span class="toc-text">序列化:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反序列化存在的问题"><span class="toc-number">1.4.</span> <span class="toc-text">反序列化存在的问题</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>

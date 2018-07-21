@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Hello World · Ywc&#39;s blog</title>
+    <title>docker的学习 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Hello World</a>
+                <a href="#" class="post-name">docker的学习</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Hello World
+            docker的学习
             <!-- 404 -->
             
         </h1>
@@ -261,12 +261,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">74</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">225</span> / Reading time: <span class="post-count">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/07/20</span>
+                    <span class="post-intro-time">2018/05/30</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -390,23 +390,37 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>  SUCTF题目docker镜像都放出来了,结果..docker指令还不熟悉，于是恶补了一波。。</p>
+<h2 id="SUCTF题目的docker镜像："><a href="#SUCTF题目的docker镜像：" class="headerlink" title="SUCTF题目的docker镜像："></a>SUCTF题目的docker镜像：</h2><pre><code>suctf/2018-web-multi_sql suctf/2018-web-homework
+suctf/2018-web-hateit 
+suctf/2018-web-getshell
+suctf/2018-web-annonymous suctf/2018-pwn-note 
+suctf/2018-pwn-noend 
+suctf/2018-pwn-lock2 
+suctf/2018-pwn-heapprint suctf/2018-pwn-heap 
+suctf/2018-misc-padding
+suctf/2018-misc-game 
+suctf/2018-misc-rsagood
+suctf/2018-misc-rsa 
+suctf/2018-misc-enjoy 
+suctf/2018-misc-pass 
+</code></pre><h2 id="启动doker"><a href="#启动doker" class="headerlink" title="启动doker"></a>启动doker</h2><pre><code>sudo service docker start
+</code></pre><h2 id="查看SUCTF，发现只有一个开放。。"><a href="#查看SUCTF，发现只有一个开放。。" class="headerlink" title="查看SUCTF，发现只有一个开放。。"></a>查看SUCTF，发现只有一个开放。。</h2><pre><code>sudo docker search suctf
+</code></pre><p><img src="/2018/05/30/docker/1.jpg" alt="docker"></p>
+<h2 id="题目是在80端口开放，运行即可。"><a href="#题目是在80端口开放，运行即可。" class="headerlink" title="题目是在80端口开放，运行即可。"></a>题目是在80端口开放，运行即可。</h2><pre><code>sudo docker run -d -p 80:80 suctf/2018-web-getshell
+</code></pre><p><img src="/2018/05/30/docker/2.jpg" alt="docker"></p>
+<h2 id="在VPS中输入0-0-0-0-80即可看到题目，也可以ifconfig查看虚拟机ip-在虚拟机或者主机中-ip加上端口即可看到题目。"><a href="#在VPS中输入0-0-0-0-80即可看到题目，也可以ifconfig查看虚拟机ip-在虚拟机或者主机中-ip加上端口即可看到题目。" class="headerlink" title="在VPS中输入0.0.0.0:80即可看到题目，也可以ifconfig查看虚拟机ip,在虚拟机或者主机中 ip加上端口即可看到题目。"></a>在VPS中输入0.0.0.0:80即可看到题目，也可以ifconfig查看虚拟机ip,在虚拟机或者主机中 ip加上端口即可看到题目。</h2><p><img src="/2018/05/30/docker/3.jpg" alt="docker"><br><img src="/2018/05/30/docker/4.jpg" alt="docker"></p>
+<h2 id="一些指令："><a href="#一些指令：" class="headerlink" title="一些指令："></a>一些指令：</h2><pre><code>docker ps :查看正在运行的容器
+docker image ls/docker images :列出本地镜像
+</code></pre><p>参考链接：<a href="http://www.runoob.com/docker/docker-command-manual.html" target="_blank" rel="noopener">http://www.runoob.com/docker/docker-command-manual.html</a></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="http://yoursite.com">John Doe</a>
-            <p>原文链接: <a href="http://yoursite.com/2018/07/20/hello-world/">http://yoursite.com/2018/07/20/hello-world/</a>
-            <p>发表日期: <a href="http://yoursite.com/2018/07/20/hello-world/">July 20th 2018, 4:29:31 pm</a>
+            <p>原文链接: <a href="http://yoursite.com/2018/05/30/docker/">http://yoursite.com/2018/05/30/docker/</a>
+            <p>发表日期: <a href="http://yoursite.com/2018/05/30/docker/">May 30th 2018, 8:45:00 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -415,16 +429,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/07/21/blog/" title= 搭博客的经历 >
-                    <div class="nextTitle">搭博客的经历</div>
+                <a href= "/2018/06/01/git/" title= git learn >
+                    <div class="nextTitle">git learn</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/07/12/渗透基础/" title= 渗透基础 >
-                    <div class="prevTitle">渗透基础</div>
+                <a href= "/2018/05/29/yuanmaxielou/" title= Web源码泄露总结 >
+                    <div class="prevTitle">Web源码泄露总结</div>
                 </a>
             
         </li>
@@ -536,7 +550,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SUCTF题目的docker镜像："><span class="toc-number">1.</span> <span class="toc-text">SUCTF题目的docker镜像：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动doker"><span class="toc-number">2.</span> <span class="toc-text">启动doker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看SUCTF，发现只有一个开放。。"><span class="toc-number">3.</span> <span class="toc-text">查看SUCTF，发现只有一个开放。。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题目是在80端口开放，运行即可。"><span class="toc-number">4.</span> <span class="toc-text">题目是在80端口开放，运行即可。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在VPS中输入0-0-0-0-80即可看到题目，也可以ifconfig查看虚拟机ip-在虚拟机或者主机中-ip加上端口即可看到题目。"><span class="toc-number">5.</span> <span class="toc-text">在VPS中输入0.0.0.0:80即可看到题目，也可以ifconfig查看虚拟机ip,在虚拟机或者主机中 ip加上端口即可看到题目。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些指令："><span class="toc-number">6.</span> <span class="toc-text">一些指令：</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
