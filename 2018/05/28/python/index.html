@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">2,431</span> / Reading time: <span class="post-count">10 min</span></span>
+                        <span>Word count: <span class="post-count">2,730</span> / Reading time: <span class="post-count">12 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,7 +396,17 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="urllib-unquote"><a href="#urllib-unquote" class="headerlink" title="urllib.unquote()"></a>urllib.unquote()</h2><p>把字典形式的参数进行url编码.<br>eg:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = <span class="string">"url=%2F&amp;email=imtesting%40tempmail.com&amp;password=hereispassword"</span></span><br><span class="line"><span class="keyword">print</span> urllib.unquote(s)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>url=/&amp;email=imtesting@tempmail.com&amp;password=hereispassword</span><br></pre></td></tr></table></figure></p>
+        <h2 id="python-xrange与range的区别"><a href="#python-xrange与range的区别" class="headerlink" title="python xrange与range的区别"></a>python xrange与range的区别</h2><p>参考链接：<a href="http://www.nowamagic.net/academy/detail/1302446" target="_blank" rel="noopener">http://www.nowamagic.net/academy/detail/1302446</a></p>
+<p>range(start,stop,step)</p>
+<p>xrange与range完全相同，所不同的是生成的不是一个list对象,而是一个生成器。要生成很大的数字序列的时候，用xrange会比range性能优很多，因为不需要一上来就开辟一块很大的内存空间。</p>
+<p>所以xrange做循环的性能比range好，尤其是返回很大的时候。尽量用xrange吧，除非你是要返回一个列表。</p>
+<h2 id="python中使用md5和sha1"><a href="#python中使用md5和sha1" class="headerlink" title="python中使用md5和sha1"></a>python中使用md5和sha1</h2><p>参考链接：<a href="https://www.cnblogs.com/shanys/p/5890265.html" target="_blank" rel="noopener">https://www.cnblogs.com/shanys/p/5890265.html</a></p>
+<h3 id="md5使用例子"><a href="#md5使用例子" class="headerlink" title="md5使用例子"></a>md5使用例子</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line">data_str=<span class="string">"hello world"</span></span><br><span class="line">hash_md5=md5(data_str).hexdigest()</span><br><span class="line"><span class="keyword">print</span> hash_md5</span><br></pre></td></tr></table></figure>
+<h3 id="sha1使用例子"><a href="#sha1使用例子" class="headerlink" title="sha1使用例子"></a>sha1使用例子</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha1</span><br><span class="line">data_str = <span class="string">"hello world"</span></span><br><span class="line">hash_sha1=sha1(data_str).hexdigest()</span><br><span class="line"><span class="keyword">print</span> hash_sha1</span><br></pre></td></tr></table></figure>
+<h3 id="md5-os-urandom-n-产生随机字符串"><a href="#md5-os-urandom-n-产生随机字符串" class="headerlink" title="md5+os.urandom(n)产生随机字符串"></a>md5+os.urandom(n)产生随机字符串</h3><p>有点时候我们会需要产生一个全局唯一的id，这个时候，md5 + os.urandom 就派上用场了。</p>
+<p>os.urandom(n) 是一种随机生成n个字节字符串的方法，而且每次生成的值都不相同。再加上md5的处理，就能够成内容不同长度相同的字符串了。</p>
+<p>例子：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    <span class="keyword">print</span> md5(os.urandom(<span class="number">24</span>)).hexdigest()</span><br></pre></td></tr></table></figure></p>
+<h2 id="urllib-unquote"><a href="#urllib-unquote" class="headerlink" title="urllib.unquote()"></a>urllib.unquote()</h2><p>把字典形式的参数进行url编码.<br>eg:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = <span class="string">"url=%2F&amp;email=imtesting%40tempmail.com&amp;password=hereispassword"</span></span><br><span class="line"><span class="keyword">print</span> urllib.unquote(s)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>url=/&amp;email=imtesting@tempmail.com&amp;password=hereispassword</span><br></pre></td></tr></table></figure></p>
 <h2 id="seek（）函数"><a href="#seek（）函数" class="headerlink" title="seek（）函数"></a>seek（）函数</h2><p>seek() 方法用于移动文件读取指针到指定位置.</p>
 <p>语法：</p>
 <pre><code>fileObject.seek(offset[, whence])
@@ -574,7 +584,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#urllib-unquote"><span class="toc-number">1.</span> <span class="toc-text">urllib.unquote()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#seek（）函数"><span class="toc-number">2.</span> <span class="toc-text">seek（）函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#import-sys-与from-sys-import-argv"><span class="toc-number">3.</span> <span class="toc-text">import sys 与from sys import argv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python中hex-oct-chr-ord函数"><span class="toc-number">4.</span> <span class="toc-text">python中hex,oct,chr,ord函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hex"><span class="toc-number">4.1.</span> <span class="toc-text">hex()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#oct"><span class="toc-number">4.2.</span> <span class="toc-text">oct()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#chr"><span class="toc-number">4.3.</span> <span class="toc-text">chr()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ord"><span class="toc-number">4.4.</span> <span class="toc-text">ord()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#int-from-bytes和int-to-bytes函数"><span class="toc-number">5.</span> <span class="toc-text">int.from_bytes和int.to_bytes函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#int-from-bytes函数"><span class="toc-number">5.1.</span> <span class="toc-text">int.from_bytes函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#int-to-bytes函数"><span class="toc-number">5.2.</span> <span class="toc-text">int.to_bytes函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#abs函数返回数字的绝对值"><span class="toc-number">6.</span> <span class="toc-text">abs函数返回数字的绝对值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python安装gmpy2模块"><span class="toc-number">7.</span> <span class="toc-text">python安装gmpy2模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装m4："><span class="toc-number">7.1.</span> <span class="toc-text">安装m4：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装GMP"><span class="toc-number">7.2.</span> <span class="toc-text">安装GMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装MPFR"><span class="toc-number">7.3.</span> <span class="toc-text">安装MPFR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装MPC"><span class="toc-number">7.4.</span> <span class="toc-text">安装MPC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装gmpy2"><span class="toc-number">7.5.</span> <span class="toc-text">安装gmpy2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python-格式化字符串"><span class="toc-number">8.</span> <span class="toc-text">python 格式化字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python-之-s-d-f"><span class="toc-number">9.</span> <span class="toc-text">python 之%s%d%f</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#s字符串"><span class="toc-number">9.1.</span> <span class="toc-text">%s字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#d-整型"><span class="toc-number">9.2.</span> <span class="toc-text">%d 整型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#f-浮点型"><span class="toc-number">9.3.</span> <span class="toc-text">%f 浮点型</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#python-xrange与range的区别"><span class="toc-number">1.</span> <span class="toc-text">python xrange与range的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python中使用md5和sha1"><span class="toc-number">2.</span> <span class="toc-text">python中使用md5和sha1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#md5使用例子"><span class="toc-number">2.1.</span> <span class="toc-text">md5使用例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sha1使用例子"><span class="toc-number">2.2.</span> <span class="toc-text">sha1使用例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#md5-os-urandom-n-产生随机字符串"><span class="toc-number">2.3.</span> <span class="toc-text">md5+os.urandom(n)产生随机字符串</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#urllib-unquote"><span class="toc-number">3.</span> <span class="toc-text">urllib.unquote()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#seek（）函数"><span class="toc-number">4.</span> <span class="toc-text">seek（）函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#import-sys-与from-sys-import-argv"><span class="toc-number">5.</span> <span class="toc-text">import sys 与from sys import argv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python中hex-oct-chr-ord函数"><span class="toc-number">6.</span> <span class="toc-text">python中hex,oct,chr,ord函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hex"><span class="toc-number">6.1.</span> <span class="toc-text">hex()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#oct"><span class="toc-number">6.2.</span> <span class="toc-text">oct()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#chr"><span class="toc-number">6.3.</span> <span class="toc-text">chr()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ord"><span class="toc-number">6.4.</span> <span class="toc-text">ord()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#int-from-bytes和int-to-bytes函数"><span class="toc-number">7.</span> <span class="toc-text">int.from_bytes和int.to_bytes函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#int-from-bytes函数"><span class="toc-number">7.1.</span> <span class="toc-text">int.from_bytes函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#int-to-bytes函数"><span class="toc-number">7.2.</span> <span class="toc-text">int.to_bytes函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#abs函数返回数字的绝对值"><span class="toc-number">8.</span> <span class="toc-text">abs函数返回数字的绝对值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python安装gmpy2模块"><span class="toc-number">9.</span> <span class="toc-text">python安装gmpy2模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装m4："><span class="toc-number">9.1.</span> <span class="toc-text">安装m4：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装GMP"><span class="toc-number">9.2.</span> <span class="toc-text">安装GMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装MPFR"><span class="toc-number">9.3.</span> <span class="toc-text">安装MPFR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装MPC"><span class="toc-number">9.4.</span> <span class="toc-text">安装MPC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装gmpy2"><span class="toc-number">9.5.</span> <span class="toc-text">安装gmpy2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python-格式化字符串"><span class="toc-number">10.</span> <span class="toc-text">python 格式化字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python-之-s-d-f"><span class="toc-number">11.</span> <span class="toc-text">python 之%s%d%f</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#s字符串"><span class="toc-number">11.1.</span> <span class="toc-text">%s字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#d-整型"><span class="toc-number">11.2.</span> <span class="toc-text">%d 整型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#f-浮点型"><span class="toc-number">11.3.</span> <span class="toc-text">%f 浮点型</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -819,9 +829,16 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 18
+        Total : 19
         </div>
         <!-- search  -->
         
@@ -857,12 +874,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
         </li>
     
     
@@ -925,6 +942,20 @@ top:50vh;
             <span class="archive-post-date">05/16</span><a class="archive-post-title" href= "/2018/05/16/problem/" >日常学习中问题</a>
         </li>
     
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+        </li>
+    
     </div>
   </div>
         <div class="sidebar-panel-tags">
@@ -936,9 +967,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Record,Problem"><span class="iconfont-archer">&#xe606;</span>Record,Problem</span>
     
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+        <span class="sidebar-tag-name" data-tags="漏洞、CTF"><span class="iconfont-archer">&#xe606;</span>漏洞、CTF</span>
     
         <span class="sidebar-tag-name" data-tags="渗透"><span class="iconfont-archer">&#xe606;</span>渗透</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -973,9 +1006,9 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="漏洞总结"><span class="iconfont-archer">&#xe60a;</span>漏洞总结</span>
-    
         <span class="sidebar-category-name" data-categories="blog"><span class="iconfont-archer">&#xe60a;</span>blog</span>
+    
+        <span class="sidebar-category-name" data-categories="漏洞总结"><span class="iconfont-archer">&#xe60a;</span>漏洞总结</span>
     
         <span class="sidebar-category-name" data-categories="learn"><span class="iconfont-archer">&#xe60a;</span>learn</span>
     
