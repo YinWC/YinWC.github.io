@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>日常学习中问题 · Ywc&#39;s blog</title>
+    <title>hydra · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">日常学习中问题</a>
+                <a href="#" class="post-name">hydra</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            日常学习中问题
+            hydra
             <!-- 404 -->
             
         </h1>
@@ -261,12 +261,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,405</span> / Reading time: <span class="post-count">6 min</span></span>
+                        <span>Word count: <span class="post-count">0</span> / Reading time: <span class="post-count">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/05/16</span>
+                    <span class="post-intro-time">2018/07/26</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -390,57 +390,14 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>记录日常学习中遇到的各种问题。</p>
-<h2 id="windows下python2与python3共存及pip的使用。"><a href="#windows下python2与python3共存及pip的使用。" class="headerlink" title="windows下python2与python3共存及pip的使用。"></a>windows下python2与python3共存及pip的使用。</h2><p>主要参考：<a href="https://www.cnblogs.com/lonkiss/p/python2-python3-coexist-in-windows.html" target="_blank" rel="noopener">https://www.cnblogs.com/lonkiss/p/python2-python3-coexist-in-windows.html</a><br>运行代码：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">py -2 helloworld.py</span><br><span class="line">py -3 helloworld.py</span><br></pre></td></tr></table></figure></p>
-<p>pip使用：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">py -2 -m pip install requests</span><br><span class="line">py -3 -m pip install requests</span><br></pre></td></tr></table></figure></p>
-<p>目前我的电脑默认python3，用python2需要用指令py -2</p>
-<h2 id="编辑博客的格式问题记录"><a href="#编辑博客的格式问题记录" class="headerlink" title="编辑博客的格式问题记录."></a>编辑博客的格式问题记录.</h2><p>1.标题：</p>
-<pre><code># 代表一级标题 最大
-## 二级标题
-### 三级标题
-</code></pre><p>2.代码高亮: 两组`（每组三个）中间放代码即可。<br>3.在两端文字前加-后面再加个空格,就可实现如下图的效果。<br>4.字体加粗：两组**中加文字即可。<br><img src="/2018/05/16/problem/2.png" alt="problem"><br>4.文字超链接格式：<a href="url">文字</a></p>
-<h2 id="sublime打开工程是出现Unable-to-read-project-这种对话框-。"><a href="#sublime打开工程是出现Unable-to-read-project-这种对话框-。" class="headerlink" title="sublime打开工程是出现Unable to read project 这种对话框 。"></a>sublime打开工程是出现Unable to read project 这种对话框 。</h2><p>1、删除文件夹C:\Users\Administrator\AppData\Roaming\Sublime Text 3\Local下的两个文件session和seesion.sublime_metrics.<br>2、关闭sublime text再重新打开就OK啦~<br>参考：<a href="https://blog.csdn.net/u010724874/article/details/17249461" target="_blank" rel="noopener">https://blog.csdn.net/u010724874/article/details/17249461</a></p>
-<h2 id="做Crypto题-python缺乏gmpy2模块，windows太难安装，于是花了一些时间在ubuntu中装了此模块。"><a href="#做Crypto题-python缺乏gmpy2模块，windows太难安装，于是花了一些时间在ubuntu中装了此模块。" class="headerlink" title="做Crypto题,python缺乏gmpy2模块，windows太难安装，于是花了一些时间在ubuntu中装了此模块。"></a>做Crypto题,python缺乏gmpy2模块，windows太难安装，于是花了一些时间在ubuntu中装了此模块。</h2><p>主要参考pcat大佬的博客：<a href="https://www.cnblogs.com/pcat/p/5746821.html" target="_blank" rel="noopener">https://www.cnblogs.com/pcat/p/5746821.html</a></p>
-<p>gmpy2是依赖GMP、MPFR、MPC三个库，故此在linux上安装前得先安装这3个库。为了后续安装的方便，先建立2个文件夹。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir -p $HOME/src</span><br><span class="line">mkdir -p $HOME/static</span><br></pre></td></tr></table></figure></p>
-<p>测试有没有安装m4模块：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">man m4</span><br></pre></td></tr></table></figure></p>
-<p>如果出现No manual entry for m4，就说明没有安装m4模块。如果没安装m4模块，在编译GMP时候会报错checking for suitable m4… configure: error: No usable m4 in $PATH or /usr/5bin (see config.log for reasons).</p>
-<h3 id="安装m4："><a href="#安装m4：" class="headerlink" title="安装m4："></a>安装m4：</h3><p>当前最新的是1.4.18<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">v=1.4.18</span><br><span class="line">cd $HOME/src</span><br><span class="line">wget http://ftp.gnu.org/gnu/m4/m4-$&#123;v&#125;.tar.gz</span><br><span class="line">tar xf m4-$&#123;v&#125;.tar.gz &amp;&amp; cd m4-$&#123;v&#125;</span><br><span class="line">./configure -prefix=/usr/local</span><br><span class="line">make &amp;&amp; make check &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
-<h3 id="安装GMP"><a href="#安装GMP" class="headerlink" title="安装GMP"></a>安装GMP</h3><p>当前最新的是6.1.2 <a href="https://gmplib.org/" target="_blank" rel="noopener">https://gmplib.org/</a><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd $HOME/src</span><br><span class="line">wget https://gmplib.org/download/gmp/gmp-$&#123;v&#125;.tar.bz2</span><br><span class="line">tar -jxvf gmp-$&#123;v&#125;.tar.bz2 &amp;&amp; cd gmp-$&#123;v&#125;</span><br><span class="line">./configure --prefix=$HOME/static --enable-static --disable-shared --with-pic</span><br><span class="line">make &amp;&amp; make check &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
-<h3 id="安装MPFR"><a href="#安装MPFR" class="headerlink" title="安装MPFR"></a>安装MPFR</h3><p><a href="http://www.mpfr.org/mpfr-current/#download" target="_blank" rel="noopener">http://www.mpfr.org/mpfr-current/#download</a><br>当前最新的是4.0.1 （请自己访问官网，替换成最新的版本号）<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">v=4.0.1</span><br><span class="line">cd $HOME/src</span><br><span class="line">wget http://www.mpfr.org/mpfr-current/mpfr-$&#123;v&#125;.tar.bz2</span><br><span class="line">tar -jxvf mpfr-$&#123;v&#125;.tar.bz2 &amp;&amp; cd mpfr-$&#123;v&#125;</span><br><span class="line">./configure --prefix=$HOME/static --enable-static --disable-shared --with-pic --with-gmp=$HOME/static</span><br><span class="line">make &amp;&amp; make check &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
-<p>如果mpfr.org下载太慢，可以换为 wget <a href="http://ftp.gnu.org/gnu/mpfr/mpfr-${v}.tar.bz2" target="_blank" rel="noopener">http://ftp.gnu.org/gnu/mpfr/mpfr-${v}.tar.bz2</a></p>
-<h3 id="安装MPC"><a href="#安装MPC" class="headerlink" title="安装MPC"></a>安装MPC</h3><p><a href="http://www.multiprecision.org/mpc/download.html" target="_blank" rel="noopener">http://www.multiprecision.org/mpc/download.html</a> （这里最新是1.0.3）<br>但当mpfr版本为4.x以上会报错Makefile:532: recipe for target ‘mul.lo’ failed<br>在<a href="ftp://ftp.gnu.org/gnu/mpc/" target="_blank" rel="noopener">ftp://ftp.gnu.org/gnu/mpc/</a> 可以找到更新的1.1.0版本<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">v=1.1.0</span><br><span class="line">cd $HOME/src</span><br><span class="line">wget ftp://ftp.gnu.org/gnu/mpc/mpc-$&#123;v&#125;.tar.gz</span><br><span class="line">tar -zxvf mpc-$&#123;v&#125;.tar.gz &amp;&amp; cd mpc-$&#123;v&#125;</span><br><span class="line">./configure --prefix=$HOME/static --enable-static --disable-shared --with-pic --with-gmp=$HOME/static --with-mpfr=$HOME/static</span><br><span class="line">make &amp;&amp; make check &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
-<h3 id="安装gmpy2"><a href="#安装gmpy2" class="headerlink" title="安装gmpy2"></a>安装gmpy2</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">v=2.1.0a1</span><br><span class="line">cd $HOME/src</span><br><span class="line">wget https://github.com/aleaxit/gmpy/releases/download/gmpy2-2.1.0a1/gmpy2-$&#123;v&#125;.tar.gz</span><br><span class="line">tar xf gmpy2-$&#123;v&#125;.tar.gz &amp;&amp; cd gmpy2-$&#123;v&#125;</span><br><span class="line">python setup.py build_ext --static=$HOME/static install</span><br></pre></td></tr></table></figure>
-<p>安装后，命令行进入python模式后，输入import gmpy2没报错就成功了。</p>
-<h2 id="vmware的一系列问题。"><a href="#vmware的一系列问题。" class="headerlink" title="vmware的一系列问题。"></a>vmware的一系列问题。</h2><p>虚惊一场。。。直接卸载重新装就行。千万不要动原来的虚拟机的文件。重装后以前有的还有。</p>
-<h2 id="zsh-corrupt-history-file-home-XXX-zsh-history"><a href="#zsh-corrupt-history-file-home-XXX-zsh-history" class="headerlink" title="zsh: corrupt history file /home/XXX/.zsh_history"></a>zsh: corrupt history file /home/XXX/.zsh_history</h2><p>解决方法：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp .zsh_history zsh_history</span><br><span class="line">rm -f .zsh_history </span><br><span class="line">strings zsh_history .zsh_history</span><br></pre></td></tr></table></figure></p>
-<h2 id="翻墙问题"><a href="#翻墙问题" class="headerlink" title="翻墙问题"></a>翻墙问题</h2><p>刚续费的服务器就凉了。。。于是又重新买了一个服务器。。之前布置SSR的方法忘了，于是又花了一些时间搞了下。记录下，防止再忘记。方法为SSR一键安装脚本。百度安装教程即可，但教程有的没用，记录下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</span><br><span class="line">chmod +x shadowsocksR.sh</span><br><span class="line">./shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log</span><br></pre></td></tr></table></figure></p>
-<p>一步步安装即可。当服务器发生错误时，关掉重新安装即可,重新安装需要等10-15分钟。另外服务器的源也不要更换。</p>
-<h2 id="写博客时遇到的代码高亮问题"><a href="#写博客时遇到的代码高亮问题" class="headerlink" title="写博客时遇到的代码高亮问题"></a>写博客时遇到的代码高亮问题</h2><p>在三个`后面加语言就ok。</p>
-<p>eg:<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"hello world"</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>在三个`后面加了php 就可以代码高亮了。</p>
-<h2 id="sublime运行python停止，按Esc即可。"><a href="#sublime运行python停止，按Esc即可。" class="headerlink" title="sublime运行python停止，按Esc即可。"></a>sublime运行python停止，按Esc即可。</h2><h2 id="Ubuntu-下安装zsh-autosuggestions语法历史记录插件"><a href="#Ubuntu-下安装zsh-autosuggestions语法历史记录插件" class="headerlink" title="Ubuntu 下安装zsh-autosuggestions语法历史记录插件."></a>Ubuntu 下安装zsh-autosuggestions语法历史记录插件.</h2><p>主要参照:<a href="https://www.cnblogs.com/EasonJim/p/7863099.html(其中包含zsh的安装及其他插件的安装)" target="_blank" rel="noopener">https://www.cnblogs.com/EasonJim/p/7863099.html(其中包含zsh的安装及其他插件的安装)</a></p>
-<p>安装:</p>
-<pre><code>git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-</code></pre><p>plugins=(zsh-autosuggestions)</p>
-<p>然后发现上面的这句话是不会生效的。这里科普一下：在~/.oh-my-zsh/plugins下有很多插件，直接使用plugins=(ant mvn svn git)这样的命令是可以直接加载插件的。</p>
-<p>经过研究发现，如果使用plugins去执行插件的，首先要在本机已经安装了这个软件之后才可以使用。且这种方式在Ubuntu下不支持命令去执行，只能放在.zshrc文件下使用，然后再通过source ~/.zshrc使其生效。这个是对于Ubuntu比较吭的地方。</p>
-<p>所以上面的plugins要放在~/.zshrc，具体修改如下：</p>
-<pre><code>vim ~/.zshrc
-</code></pre><p>增加插件：<br><img src="/2018/05/16/problem/1.png" alt="problem"><br>然后增加zsh的执行文件在最后一行：</p>
-<pre><code>source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-</code></pre><p>生效:</p>
-<pre><code>source ~/.zshrc
-</code></pre><h2 id="Ubuntu中ifconfig命令找不到"><a href="#Ubuntu中ifconfig命令找不到" class="headerlink" title="Ubuntu中ifconfig命令找不到"></a>Ubuntu中ifconfig命令找不到</h2><p>需要安装tools,也可用ip addr命令<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install net-tools</span><br></pre></td></tr></table></figure></p>
-<h2 id="phpstudy端口被占用：cmd查看端口netstat-aon"><a href="#phpstudy端口被占用：cmd查看端口netstat-aon" class="headerlink" title="phpstudy端口被占用：cmd查看端口netstat -aon"></a>phpstudy端口被占用：cmd查看端口netstat -aon</h2><h2 id="尝试各种伪造IP的HTTP头"><a href="#尝试各种伪造IP的HTTP头" class="headerlink" title="尝试各种伪造IP的HTTP头:"></a>尝试各种伪造IP的HTTP头:</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">X-Forwarded-For</span><br><span class="line">Client-IP</span><br><span class="line">x-remote-IP</span><br><span class="line">x-originating-IP</span><br><span class="line">x-remote-addr</span><br></pre></td></tr></table></figure>
-<h2 id="xshell-导入文件-rz-或者装XFTP"><a href="#xshell-导入文件-rz-或者装XFTP" class="headerlink" title="xshell 导入文件 rz,或者装XFTP."></a>xshell 导入文件 rz,或者装XFTP.</h2><h2 id="在Ubuntu下解决E-无法对目录-var-lib-apt-lists-加锁的问题"><a href="#在Ubuntu下解决E-无法对目录-var-lib-apt-lists-加锁的问题" class="headerlink" title="在Ubuntu下解决E: 无法对目录 /var/lib/apt/lists/ 加锁的问题"></a>在Ubuntu下解决E: 无法对目录 /var/lib/apt/lists/ 加锁的问题</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo rm /var/cache/apt/archives/lock</span><br><span class="line">sudo rm /var/lib/dpkg/lock</span><br></pre></td></tr></table></figure>
-
+        
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/05/16/problem/">https://yinwc.github.io/2018/05/16/problem/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/05/16/problem/">May 16th 2018, 6:57:08 pm</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2018/07/26/hydra/">https://yinwc.github.io/2018/07/26/hydra/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2018/07/26/hydra/">July 26th 2018, 10:01:58 am</a>
             <p>版权声明: </p>
         </div>
     
@@ -449,12 +406,17 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/05/18/rsa/" title= Crypto_RSA算法总结 >
-                    <div class="nextTitle">Crypto_RSA算法总结</div>
+                <a href= "/2018/07/26/daimashenji/" title= solveme.peng.kr 代码审计练习 >
+                    <div class="nextTitle">solveme.peng.kr 代码审计练习</div>
                 </a>
             
         </li>
         <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/07/25/dianfengjike/" title= 巅峰极客第一场web复现 >
+                    <div class="prevTitle">巅峰极客第一场web复现</div>
+                </a>
             
         </li>
     </ul>
@@ -565,7 +527,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#windows下python2与python3共存及pip的使用。"><span class="toc-number">1.</span> <span class="toc-text">windows下python2与python3共存及pip的使用。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编辑博客的格式问题记录"><span class="toc-number">2.</span> <span class="toc-text">编辑博客的格式问题记录.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sublime打开工程是出现Unable-to-read-project-这种对话框-。"><span class="toc-number">3.</span> <span class="toc-text">sublime打开工程是出现Unable to read project 这种对话框 。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#做Crypto题-python缺乏gmpy2模块，windows太难安装，于是花了一些时间在ubuntu中装了此模块。"><span class="toc-number">4.</span> <span class="toc-text">做Crypto题,python缺乏gmpy2模块，windows太难安装，于是花了一些时间在ubuntu中装了此模块。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装m4："><span class="toc-number">4.1.</span> <span class="toc-text">安装m4：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装GMP"><span class="toc-number">4.2.</span> <span class="toc-text">安装GMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装MPFR"><span class="toc-number">4.3.</span> <span class="toc-text">安装MPFR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装MPC"><span class="toc-number">4.4.</span> <span class="toc-text">安装MPC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装gmpy2"><span class="toc-number">4.5.</span> <span class="toc-text">安装gmpy2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vmware的一系列问题。"><span class="toc-number">5.</span> <span class="toc-text">vmware的一系列问题。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zsh-corrupt-history-file-home-XXX-zsh-history"><span class="toc-number">6.</span> <span class="toc-text">zsh: corrupt history file /home/XXX/.zsh_history</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#翻墙问题"><span class="toc-number">7.</span> <span class="toc-text">翻墙问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写博客时遇到的代码高亮问题"><span class="toc-number">8.</span> <span class="toc-text">写博客时遇到的代码高亮问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sublime运行python停止，按Esc即可。"><span class="toc-number">9.</span> <span class="toc-text">sublime运行python停止，按Esc即可。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ubuntu-下安装zsh-autosuggestions语法历史记录插件"><span class="toc-number">10.</span> <span class="toc-text">Ubuntu 下安装zsh-autosuggestions语法历史记录插件.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ubuntu中ifconfig命令找不到"><span class="toc-number">11.</span> <span class="toc-text">Ubuntu中ifconfig命令找不到</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#phpstudy端口被占用：cmd查看端口netstat-aon"><span class="toc-number">12.</span> <span class="toc-text">phpstudy端口被占用：cmd查看端口netstat -aon</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#尝试各种伪造IP的HTTP头"><span class="toc-number">13.</span> <span class="toc-text">尝试各种伪造IP的HTTP头:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xshell-导入文件-rz-或者装XFTP"><span class="toc-number">14.</span> <span class="toc-text">xshell 导入文件 rz,或者装XFTP.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在Ubuntu下解决E-无法对目录-var-lib-apt-lists-加锁的问题"><span class="toc-number">15.</span> <span class="toc-text">在Ubuntu下解决E: 无法对目录 /var/lib/apt/lists/ 加锁的问题</span></a></li></ol>
+        
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
