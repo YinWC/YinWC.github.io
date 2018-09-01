@@ -261,7 +261,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">327</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">335</span> / Reading time: <span class="post-count">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -391,7 +391,8 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <p>  SUCTF题目docker镜像都放出来了,结果..docker指令还不熟悉，于是恶补了一波。。</p>
-<h2 id="SUCTF题目的docker镜像："><a href="#SUCTF题目的docker镜像：" class="headerlink" title="SUCTF题目的docker镜像："></a>SUCTF题目的docker镜像：</h2><pre><code>suctf/2018-web-multi_sql suctf/2018-web-homework
+<h2 id="实战："><a href="#实战：" class="headerlink" title="实战："></a>实战：</h2><p>SUCTF题目的docker镜像：</p>
+<pre><code>suctf/2018-web-multi_sql suctf/2018-web-homework
 suctf/2018-web-hateit 
 suctf/2018-web-getshell
 suctf/2018-web-annonymous suctf/2018-pwn-note 
@@ -404,15 +405,19 @@ suctf/2018-misc-rsagood
 suctf/2018-misc-rsa 
 suctf/2018-misc-enjoy 
 suctf/2018-misc-pass 
-</code></pre><h2 id="启动doker"><a href="#启动doker" class="headerlink" title="启动doker"></a>启动doker</h2><pre><code>sudo service docker start
-</code></pre><h2 id="查看SUCTF，发现只有一个开放。。"><a href="#查看SUCTF，发现只有一个开放。。" class="headerlink" title="查看SUCTF，发现只有一个开放。。"></a>查看SUCTF，发现只有一个开放。。</h2><pre><code>sudo docker search suctf
+</code></pre><p>启动doker</p>
+<pre><code>sudo service docker start
+</code></pre><p>查看SUCTF，发现只有一个开放。。</p>
+<pre><code>sudo docker search suctf
 </code></pre><p><img src="/2018/05/30/docker/1.jpg" alt="docker"></p>
-<h2 id="题目是在80端口开放，运行即可。"><a href="#题目是在80端口开放，运行即可。" class="headerlink" title="题目是在80端口开放，运行即可。"></a>题目是在80端口开放，运行即可。</h2><pre><code>sudo docker run -d -p 80:80 suctf/2018-web-getshell
+<p>题目是在80端口开放，运行即可。</p>
+<pre><code>sudo docker run -d -p 80:80 suctf/2018-web-getshell
 </code></pre><p><img src="/2018/05/30/docker/2.jpg" alt="docker"></p>
-<h2 id="在VPS中输入0-0-0-0-80即可看到题目，也可以ifconfig查看虚拟机ip-在虚拟机或者主机中-ip加上端口即可看到题目。"><a href="#在VPS中输入0-0-0-0-80即可看到题目，也可以ifconfig查看虚拟机ip-在虚拟机或者主机中-ip加上端口即可看到题目。" class="headerlink" title="在VPS中输入0.0.0.0:80即可看到题目，也可以ifconfig查看虚拟机ip,在虚拟机或者主机中 ip加上端口即可看到题目。"></a>在VPS中输入0.0.0.0:80即可看到题目，也可以ifconfig查看虚拟机ip,在虚拟机或者主机中 ip加上端口即可看到题目。</h2><p><img src="/2018/05/30/docker/3.jpg" alt="docker"><br><img src="/2018/05/30/docker/4.jpg" alt="docker"></p>
+<p>在VPS中输入0.0.0.0:80即可看到题目，也可以ifconfig查看虚拟机ip,在虚拟机或者主机中 ip加上端口即可看到题目。<br><img src="/2018/05/30/docker/3.jpg" alt="docker"><br><img src="/2018/05/30/docker/4.jpg" alt="docker"></p>
 <h2 id="一些指令："><a href="#一些指令：" class="headerlink" title="一些指令："></a>一些指令：</h2><pre><code>docker ps :查看正在运行的容器
 docker image ls/docker images :列出本地镜像
-</code></pre><h2 id="删除本地镜像"><a href="#删除本地镜像" class="headerlink" title="删除本地镜像"></a>删除本地镜像</h2><ul>
+</code></pre><h2 id="删除本地镜像"><a href="#删除本地镜像" class="headerlink" title="删除本地镜像"></a>删除本地镜像</h2><p>参考链接：<a href="https://blog.csdn.net/winy_lm/article/details/77980529" target="_blank" rel="noopener">文章</a></p>
+<ul>
 <li>1.查询镜像<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -579,7 +584,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SUCTF题目的docker镜像："><span class="toc-number">1.</span> <span class="toc-text">SUCTF题目的docker镜像：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动doker"><span class="toc-number">2.</span> <span class="toc-text">启动doker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看SUCTF，发现只有一个开放。。"><span class="toc-number">3.</span> <span class="toc-text">查看SUCTF，发现只有一个开放。。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题目是在80端口开放，运行即可。"><span class="toc-number">4.</span> <span class="toc-text">题目是在80端口开放，运行即可。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在VPS中输入0-0-0-0-80即可看到题目，也可以ifconfig查看虚拟机ip-在虚拟机或者主机中-ip加上端口即可看到题目。"><span class="toc-number">5.</span> <span class="toc-text">在VPS中输入0.0.0.0:80即可看到题目，也可以ifconfig查看虚拟机ip,在虚拟机或者主机中 ip加上端口即可看到题目。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些指令："><span class="toc-number">6.</span> <span class="toc-text">一些指令：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除本地镜像"><span class="toc-number">7.</span> <span class="toc-text">删除本地镜像</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#实战："><span class="toc-number">1.</span> <span class="toc-text">实战：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些指令："><span class="toc-number">2.</span> <span class="toc-text">一些指令：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除本地镜像"><span class="toc-number">3.</span> <span class="toc-text">删除本地镜像</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
