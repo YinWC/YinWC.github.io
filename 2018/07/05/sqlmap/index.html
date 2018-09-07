@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,488</span> / Reading time: <span class="post-count">8 min</span></span>
+                        <span>Word count: <span class="post-count">1,508</span> / Reading time: <span class="post-count">8 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -402,18 +402,18 @@ height:50vh;
 <p><a href="https://blog.csdn.net/zgyulongfei/article/details/41017493" target="_blank" rel="noopener">https://blog.csdn.net/zgyulongfei/article/details/41017493</a></p>
 <p><a href="https://www.cnblogs.com/r00tuser/p/7252796.html" target="_blank" rel="noopener">https://www.cnblogs.com/r00tuser/p/7252796.html</a></p>
 <p><a href="https://www.cnblogs.com/handt/p/855fc3559d82e3f133a0bc314bfedc29.html" target="_blank" rel="noopener">https://www.cnblogs.com/handt/p/855fc3559d82e3f133a0bc314bfedc29.html</a></p>
-<h2 id="一般注入流程-mysql-："><a href="#一般注入流程-mysql-：" class="headerlink" title="一般注入流程(mysql)："></a>一般注入流程(mysql)：</h2><p>1.验证注入<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">sqlmap -u “注入点URL”</span><br></pre></td></tr></table></figure></p>
+<h2 id="一般注入流程-mysql-："><a href="#一般注入流程-mysql-：" class="headerlink" title="一般注入流程(mysql)："></a>一般注入流程(mysql)：</h2><p>1.验证注入<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u “注入点URL”</span><br></pre></td></tr></table></figure></p>
 <p>从中可以发现存在注入的类型，数据库类型和web应用程序PHP和Apache等版本信息。</p>
-<p>2.列举数据库名<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">sqlmap -u <span class="string">"注入点"</span> --dbs</span><br><span class="line">sqlmap -u <span class="string">"注入点"</span> --current-db  <span class="comment">#列举当前使用的数据库</span></span><br></pre></td></tr></table></figure></p>
-<p>3.查询某一数据库的所有表名<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">sqlmap -u <span class="string">"注入点"</span> -D 数据库名 --tables</span><br></pre></td></tr></table></figure></p>
-<p>4.列举这一数据库的表的所有列（字段）<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">sqlmap -u <span class="string">"注入点"</span> -D 数据库名 -T 表名 --columns</span><br></pre></td></tr></table></figure></p>
-<p>5.暴字段内容<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">sqlmap -u <span class="string">"注入点"</span> -D 数据库名 -T 表名 -C <span class="string">"要爆的字段名"</span> --dump</span><br></pre></td></tr></table></figure></p>
+<p>2.列举数据库名<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u <span class="string">"注入点"</span> --dbs</span><br><span class="line">sqlmap -u <span class="string">"注入点"</span> --current-db  <span class="comment">#列举当前使用的数据库</span></span><br></pre></td></tr></table></figure></p>
+<p>3.查询某一数据库的所有表名<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u <span class="string">"注入点"</span> -D 数据库名 --tables</span><br></pre></td></tr></table></figure></p>
+<p>4.列举这一数据库的表的所有列（字段）<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u <span class="string">"注入点"</span> -D 数据库名 -T 表名 --columns</span><br></pre></td></tr></table></figure></p>
+<p>5.暴字段内容<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u <span class="string">"注入点"</span> -D 数据库名 -T 表名 -C <span class="string">"要爆的字段名"</span> --dump</span><br></pre></td></tr></table></figure></p>
 <p>爆一个字段的话可能会很慢或者出错，全部暴出最好。</p>
 <p>可以在后面加个 –batch 可以不用手动选择yes或no的选项。</p>
-<h2 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h2><h3 id="sqlmap-tamper-的使用"><a href="#sqlmap-tamper-的使用" class="headerlink" title="sqlmap tamper 的使用"></a>sqlmap tamper 的使用</h3><p>可以进行各种绕过防火墙和waf<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">--tamper xxx.py  (.py可以不加)</span><br></pre></td></tr></table></figure></p>
-<p>eg:python sqlmap.py -u “” – tamper base64encode.py<br>1.普通的tamper搭配方式:<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">tamper=apostrophemask,apostrophenullencode,base64encode,between,chardoubleencode,</span><br><span class="line">charencode,charunicodeencode,equaltolike,greatest,ifnull2ifisnull,multiplespaces,</span><br><span class="line">nonrecursivereplacement,percentage,randomcase,securesphere,space2comment,space2plus,</span><br><span class="line">space2randomblank,unionalltounion,unmagicquotes</span><br></pre></td></tr></table></figure></p>
-<p>2.数据库为MSSQL的搭配方式：<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">tamper=between,charencode,charunicodeencode,equaltolike,greatest,multiplespaces,</span><br><span class="line">nonrecursivereplacement,percentage,randomcase,securesphere,sp_password,space2comment,</span><br><span class="line">space2dash,space2mssqlblank,space2mysqldash,space2plus,space2randomblank,unionalltounion,</span><br><span class="line">unmagicquotes</span><br></pre></td></tr></table></figure></p>
-<p>3.数据库为Mysql的搭配方式:<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">tamper=between,bluecoat,charencode,charunicodeencode,concat2concatws,equaltolike,</span><br><span class="line">greatest,halfversionedmorekeywords,ifnull2ifisnull,modsecurityversioned,modsecurityzeroversioned,</span><br><span class="line">multiplespaces,nonrecursivereplacement,percentage,randomcase,securesphere,space2comment,space2hash,</span><br><span class="line">space2morehash,space2mysqldash,space2plus,space2randomblank,unionalltounion,unmagicquotes,</span><br><span class="line">versionedkeywords,versionedmorekeywords,xforwardedfor</span><br></pre></td></tr></table></figure></p>
+<h2 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h2><h3 id="sqlmap-tamper-的使用"><a href="#sqlmap-tamper-的使用" class="headerlink" title="sqlmap tamper 的使用"></a>sqlmap tamper 的使用</h3><p>可以进行各种绕过防火墙和waf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--tamper xxx.py  (.py可以不加)</span><br></pre></td></tr></table></figure></p>
+<p>eg:python sqlmap.py -u “” – tamper base64encode.py<br>1.普通的tamper搭配方式:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tamper=apostrophemask,apostrophenullencode,base64encode,between,chardoubleencode,</span><br><span class="line">charencode,charunicodeencode,equaltolike,greatest,ifnull2ifisnull,multiplespaces,</span><br><span class="line">nonrecursivereplacement,percentage,randomcase,securesphere,space2comment,space2plus,</span><br><span class="line">space2randomblank,unionalltounion,unmagicquotes</span><br></pre></td></tr></table></figure></p>
+<p>2.数据库为MSSQL的搭配方式：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tamper=between,charencode,charunicodeencode,equaltolike,greatest,multiplespaces,</span><br><span class="line">nonrecursivereplacement,percentage,randomcase,securesphere,sp_password,space2comment,</span><br><span class="line">space2dash,space2mssqlblank,space2mysqldash,space2plus,space2randomblank,unionalltounion,</span><br><span class="line">unmagicquotes</span><br></pre></td></tr></table></figure></p>
+<p>3.数据库为Mysql的搭配方式:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tamper=between,bluecoat,charencode,charunicodeencode,concat2concatws,equaltolike,</span><br><span class="line">greatest,halfversionedmorekeywords,ifnull2ifisnull,modsecurityversioned,modsecurityzeroversioned,</span><br><span class="line">multiplespaces,nonrecursivereplacement,percentage,randomcase,securesphere,space2comment,space2hash,</span><br><span class="line">space2morehash,space2mysqldash,space2plus,space2randomblank,unionalltounion,unmagicquotes,</span><br><span class="line">versionedkeywords,versionedmorekeywords,xforwardedfor</span><br></pre></td></tr></table></figure></p>
 <p>4.常用脚本用法：</p>
 <p>apostrophemask.py UTF-8编码<br>Example: </p>
 <ul>
@@ -628,8 +628,8 @@ height:50vh;
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/07/04/sql注入总结/" title= SQL注入总结 >
-                    <div class="prevTitle">SQL注入总结</div>
+                <a href= "/2018/07/04/java环境配置/" title= java环境配置及版本共存问题 >
+                    <div class="prevTitle">java环境配置及版本共存问题</div>
                 </a>
             
         </li>
@@ -1137,38 +1137,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 29
@@ -1181,20 +1149,6 @@ top:50vh;
     
     
     
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -1330,6 +1284,29 @@ top:50vh;
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/rsa/" >Crypto_RSA算法总结</a>
         </li>
@@ -1346,9 +1323,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     

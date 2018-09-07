@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">415</span> / Reading time: <span class="post-count">2 min</span></span>
+                        <span>Word count: <span class="post-count">421</span> / Reading time: <span class="post-count">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -397,7 +397,7 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <h2 id="最新总结"><a href="#最新总结" class="headerlink" title="最新总结:"></a>最新总结:</h2><pre><code>route print -4 打印所有的ipv4地址
-</code></pre><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">route delete 0.0.0.0     //删除所有路由</span><br><span class="line">route add 172.16.0.0 mask 255.255.0.0 172.16.8.1   //将 内网所有地址 全部都走 内网默认网关</span><br><span class="line">route add 0.0.0.0 mask 0.0.0.0 192.168.20.254     // 将所有的路由 全部走 外网默认网关</span><br></pre></td></tr></table></figure>
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">route delete 0.0.0.0     //删除所有路由</span><br><span class="line">route add 172.16.0.0 mask 255.255.0.0 172.16.8.1   //将 内网所有地址 全部都走 内网默认网关</span><br><span class="line">route add 0.0.0.0 mask 0.0.0.0 192.168.20.254     // 将所有的路由 全部走 外网默认网关</span><br></pre></td></tr></table></figure>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于比赛的需要，学一波配置路由表，使电脑在内网和外网都连的情况下，可以随时切换。</p>
 <p>参考链接：<a href="https://www.cnblogs.com/fetty/p/4524029.html" target="_blank" rel="noopener">https://www.cnblogs.com/fetty/p/4524029.html</a></p>
 <p><a href="http://blog.51cto.com/skypegnu1/1562582" target="_blank" rel="noopener">http://blog.51cto.com/skypegnu1/1562582</a></p>
@@ -413,7 +413,7 @@ height:50vh;
 <p>这里默认网关没显示，可以适当的猜测一下，一般为.1 或.254</p>
 <p><img src="/2018/08/27/luyoubiao/2.png" alt="luyoubiao"></p>
 <h3 id="route-add-0-0-0-0-mask-0-0-0-0-192-168-43-1"><a href="#route-add-0-0-0-0-mask-0-0-0-0-192-168-43-1" class="headerlink" title="route add 0.0.0.0 mask 0.0.0.0 192.168.43.1"></a>route add 0.0.0.0 mask 0.0.0.0 192.168.43.1</h3><p>将所有的路由都走外网默认网关。</p>
-<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>就三条指令，具体还要视具体情况而定。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">route delete 0.0.0.0</span><br><span class="line">route add 172.16.4.0 mask 255.255.255.0 172.16.8.1</span><br><span class="line">route add 0.0.0.0 mask 0.0.0.0 192.168.43.1</span><br></pre></td></tr></table></figure></p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>就三条指令，具体还要视具体情况而定。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">route delete 0.0.0.0</span><br><span class="line">route add 172.16.4.0 mask 255.255.255.0 172.16.8.1</span><br><span class="line">route add 0.0.0.0 mask 0.0.0.0 192.168.43.1</span><br></pre></td></tr></table></figure></p>
 <p><img src="/2018/08/27/luyoubiao/3.png" alt="luyoubiao"></p>
 
     </article>
@@ -948,38 +948,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 29
@@ -992,20 +960,6 @@ top:50vh;
     
     
     
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -1141,6 +1095,29 @@ top:50vh;
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/rsa/" >Crypto_RSA算法总结</a>
         </li>
@@ -1157,9 +1134,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     

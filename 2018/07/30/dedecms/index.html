@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">846</span> / Reading time: <span class="post-count">3 min</span></span>
+                        <span>Word count: <span class="post-count">848</span> / Reading time: <span class="post-count">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -397,7 +397,7 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近发现 dedecms 的 nday后台getshell ，于是打算还原一下。根据日志显示，攻击者访问了 dede/ad_add.php 文件后，转而访问 plus/ad_js.php 文件，提交的 payload 为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">plus/adjs.php?nocache=1&amp;aid=1&amp;=whoami</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plus/adjs.php?nocache=1&amp;aid=1&amp;=whoami</span><br></pre></td></tr></table></figure>
 <h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><p>DedeCMS V5.7 SP2正式版下载：<a href="http://updatenew.dedecms.com/base-v57/package/DedeCMS-V5.7-UTF8-SP2.tar.gz" target="_blank" rel="noopener">http://updatenew.dedecms.com/base-v57/package/DedeCMS-V5.7-UTF8-SP2.tar.gz</a></p>
 <p>我们先来看一下 dede/ad_add.php 文件。可以看到这是一个增加广告的页面，如下图：</p>
 <p><img src="/2018/07/30/dedecms/1.png" alt="dedecms"></p>
@@ -423,7 +423,7 @@ height:50vh;
 <p>此时整个漏洞发生的流程便十分清晰了，程序将来自用户的数据 $normbody[‘htmlcode’] 仅仅只是用 addslashes 函数处理，并没有对代码进行分析，然后便直接存储在数据库 dede_myad 表的 normbody 字段，导致用户可以将PHP代码存储在数据库中。如果攻击者此时访问 plus/ad_js.php 文件，则调用 normbody 字段并写入缓存文件，最终利用文件包含该getshell。</p>
 <h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><p>在明白了上述分析流程，想利用该漏洞便十分简单。我们在广告内容处插入 –&gt;&lt;?php phpinfo();?&gt;&lt;!–</p>
 <p><img src="/2018/07/30/dedecms/12.png" alt="dedecms"></p>
-<p>然后访问如下链接( 这里的aid值为第几个广告 )：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://localhost/dedecms/plus/ad_js.php?nocache=1&amp;aid=3</span><br></pre></td></tr></table></figure></p>
+<p>然后访问如下链接( 这里的aid值为第几个广告 )：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/dedecms/plus/ad_js.php?nocache=1&amp;aid=3</span><br></pre></td></tr></table></figure></p>
 <p><img src="/2018/07/30/dedecms/11.png" alt="dedecms"></p>
 
     </article>
@@ -958,38 +958,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 29
@@ -1002,20 +970,6 @@ top:50vh;
     
     
     
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -1151,6 +1105,29 @@ top:50vh;
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/rsa/" >Crypto_RSA算法总结</a>
         </li>
@@ -1167,9 +1144,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     

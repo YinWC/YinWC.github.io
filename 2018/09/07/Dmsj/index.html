@@ -261,7 +261,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">384</span> / Reading time: <span class="post-count">2 min</span></span>
+                        <span>Word count: <span class="post-count">405</span> / Reading time: <span class="post-count">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -405,7 +405,7 @@ height:50vh;
 <blockquote>
 <p>在 $haystack 中搜索 $needle ，如果第三个参数 $strict 的值为 TRUE ，则 in_array() 函数会进行强检查，检查 $needle 的类型是否和 $haystack 中的相同。如果找到 $haystack ，则返回 TRUE，否则返回 FALSE。</p>
 </blockquote>
-<p>题目叫做愿望清单,代码如下<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Challenge</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> UPLOAD_DIRECTORY = <span class="string">'./solutions/'</span>;</span><br><span class="line">    <span class="keyword">private</span> $file;</span><br><span class="line">    <span class="keyword">private</span> $whitelist;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">__construct</span><span class="params">($file)</span> </span>&#123;</span><br><span class="line">        $<span class="keyword">this</span>-&gt;file = $file;</span><br><span class="line">        $<span class="keyword">this</span>-&gt;whitelist = range(<span class="number">1</span>, <span class="number">24</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">__destruct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (in_array($<span class="keyword">this</span>-&gt;file[<span class="string">'name'</span>], $<span class="keyword">this</span>-&gt;whitelist)) &#123;</span><br><span class="line">            move_uploaded_file(</span><br><span class="line">                $<span class="keyword">this</span>-&gt;file[<span class="string">'tmp_name'</span>],</span><br><span class="line">                self::UPLOAD_DIRECTORY . $<span class="keyword">this</span>-&gt;file[<span class="string">'name'</span>]</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$challenge = <span class="keyword">new</span> Challenge($_FILES[<span class="string">'solution'</span>]);</span><br></pre></td></tr></table></figure></p>
+<p>题目叫做愿望清单,代码如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Challenge</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> UPLOAD_DIRECTORY = <span class="string">'./solutions/'</span>;</span><br><span class="line">    <span class="keyword">private</span> $file;</span><br><span class="line">    <span class="keyword">private</span> $whitelist;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">__construct</span><span class="params">($file)</span> </span>&#123;</span><br><span class="line">        $<span class="keyword">this</span>-&gt;file = $file;</span><br><span class="line">        $<span class="keyword">this</span>-&gt;whitelist = range(<span class="number">1</span>, <span class="number">24</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">__destruct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (in_array($<span class="keyword">this</span>-&gt;file[<span class="string">'name'</span>], $<span class="keyword">this</span>-&gt;whitelist)) &#123;</span><br><span class="line">            move_uploaded_file(</span><br><span class="line">                $<span class="keyword">this</span>-&gt;file[<span class="string">'tmp_name'</span>],</span><br><span class="line">                self::UPLOAD_DIRECTORY . $<span class="keyword">this</span>-&gt;file[<span class="string">'name'</span>]</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$challenge = <span class="keyword">new</span> Challenge($_FILES[<span class="string">'solution'</span>]);</span><br></pre></td></tr></table></figure></p>
 <p>这一关卡考察的是一个任意文件上传漏洞，而导致这一漏洞的发生则是不安全的使用 <strong>in_array()</strong> 函数来检测上传的文件名，即上图中的第12行部分。由于该函数并未将第三个参数设置为 true ，这导致攻击者可以通过构造的文件名来绕过服务端的检测，例如文件名为 7shell.php 。因为PHP在使用 in_array() 函数判断时，会将 7shell.php 强制转换成数字7，而数字7在 range(1,24) 数组中，最终绕过 in_array() 函数判断，导致任意文件上传漏洞。（这里之所以会发生强制类型转换，是因为目标数组中的元素为数字类型）</p>
 <p>参考<a href="https://xz.aliyun.com/t/2451#toc-5" target="_blank" rel="noopener">文章</a></p>
 
@@ -936,38 +936,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 29
@@ -980,20 +948,6 @@ top:50vh;
     
     
     
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -1129,6 +1083,29 @@ top:50vh;
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/rsa/" >Crypto_RSA算法总结</a>
         </li>
@@ -1145,9 +1122,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     

@@ -261,7 +261,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,493</span> / Reading time: <span class="post-count">6 min</span></span>
+                        <span>Word count: <span class="post-count">1,525</span> / Reading time: <span class="post-count">6 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -460,9 +460,9 @@ c 和 m：分别是密文和明文，这里一般指的是一个十进制的数�
 <p>如果你知道明文中最重要的部分，您可以使用此方法找到消息的其余部分。</p>
 <p><strong>Basic Broadcast Attack</strong></p>
 <p>同一个加密指数e和不同且互素的模数N加密了同一个密文，并发送给了其他e个用户</p>
-<h2 id="CTF中RSA的一些题目"><a href="#CTF中RSA的一些题目" class="headerlink" title="CTF中RSA的一些题目"></a>CTF中RSA的一些题目</h2><h3 id="在一次RSA密钥对生成中，假设p-473398607161，q-4511491，e-17，求d"><a href="#在一次RSA密钥对生成中，假设p-473398607161，q-4511491，e-17，求d" class="headerlink" title="在一次RSA密钥对生成中，假设p=473398607161，q=4511491，e=17，求d"></a>在一次RSA密钥对生成中，假设p=473398607161，q=4511491，e=17，求d</h3><p><a href="http://www.shiyanbar.com/ctf/1828" target="_blank" rel="noopener">http://www.shiyanbar.com/ctf/1828</a><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># coding=utf-8</span><br><span class="line">import gmpy2</span><br><span class="line"></span><br><span class="line">p = 473398607161</span><br><span class="line">q = 4511491</span><br><span class="line">e = 17</span><br><span class="line"></span><br><span class="line">phi = (p - 1) * (q - 1)</span><br><span class="line"># 计算得到私钥（n, d）</span><br><span class="line">d = long(gmpy2.invert(e, phi))</span><br><span class="line">print d</span><br></pre></td></tr></table></figure></p>
+<h2 id="CTF中RSA的一些题目"><a href="#CTF中RSA的一些题目" class="headerlink" title="CTF中RSA的一些题目"></a>CTF中RSA的一些题目</h2><h3 id="在一次RSA密钥对生成中，假设p-473398607161，q-4511491，e-17，求d"><a href="#在一次RSA密钥对生成中，假设p-473398607161，q-4511491，e-17，求d" class="headerlink" title="在一次RSA密钥对生成中，假设p=473398607161，q=4511491，e=17，求d"></a>在一次RSA密钥对生成中，假设p=473398607161，q=4511491，e=17，求d</h3><p><a href="http://www.shiyanbar.com/ctf/1828" target="_blank" rel="noopener">http://www.shiyanbar.com/ctf/1828</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># coding=utf-8</span><br><span class="line">import gmpy2</span><br><span class="line"></span><br><span class="line">p = 473398607161</span><br><span class="line">q = 4511491</span><br><span class="line">e = 17</span><br><span class="line"></span><br><span class="line">phi = (p - 1) * (q - 1)</span><br><span class="line"># 计算得到私钥（n, d）</span><br><span class="line">d = long(gmpy2.invert(e, phi))</span><br><span class="line">print d</span><br></pre></td></tr></table></figure></p>
 <h3 id="c-是密文-已知-p、q、e-求明文"><a href="#c-是密文-已知-p、q、e-求明文" class="headerlink" title="c 是密文 已知 p、q、e 求明文."></a>c 是密文 已知 p、q、e 求明文.</h3><p><a href="http://www.shiyanbar.com/ctf/1979" target="_blank" rel="noopener">http://www.shiyanbar.com/ctf/1979</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import gmpy2</span><br><span class="line"></span><br><span class="line">p = 9648423029010515676590551740010426534945737639235739800643989352039852507298491399561035009163427050370107570733633350911691280297777160200625281665378483L</span><br><span class="line"></span><br><span class="line">q = 11874843837980297032092405848653656852760910154543380907650040190704283358909208578251063047732443992230647903887510065547947313543299303261986053486569407L</span><br><span class="line"></span><br><span class="line">e = 65537L</span><br><span class="line"></span><br><span class="line">c= 83208298995174604174773590298203639360540024871256126892889661345742403314929861939100492666605647316646576486526217457006376842280869728581726746401583705899941768214138742259689334840735633553053887641847651173776251820293087212885670180367406807406765923638973161375817392737747832762751690104423869019034L</span><br><span class="line"></span><br><span class="line">phi = (p - 1) * (q - 1)</span><br><span class="line"></span><br><span class="line"># 计算得到私钥（n, d）</span><br><span class="line"></span><br><span class="line">d = long(gmpy2.invert(e, phi))</span><br><span class="line"></span><br><span class="line">n = p * q</span><br><span class="line"></span><br><span class="line"># 计算并输出c^d mod n</span><br><span class="line"></span><br><span class="line">print pow(c, d, n)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import gmpy2</span><br><span class="line"></span><br><span class="line">p = 9648423029010515676590551740010426534945737639235739800643989352039852507298491399561035009163427050370107570733633350911691280297777160200625281665378483L</span><br><span class="line"></span><br><span class="line">q = 11874843837980297032092405848653656852760910154543380907650040190704283358909208578251063047732443992230647903887510065547947313543299303261986053486569407L</span><br><span class="line"></span><br><span class="line">e = 65537L</span><br><span class="line"></span><br><span class="line">c= 83208298995174604174773590298203639360540024871256126892889661345742403314929861939100492666605647316646576486526217457006376842280869728581726746401583705899941768214138742259689334840735633553053887641847651173776251820293087212885670180367406807406765923638973161375817392737747832762751690104423869019034L</span><br><span class="line"></span><br><span class="line">phi = (p - 1) * (q - 1)</span><br><span class="line"></span><br><span class="line"># 计算得到私钥（n, d）</span><br><span class="line"></span><br><span class="line">d = long(gmpy2.invert(e, phi))</span><br><span class="line"></span><br><span class="line">n = p * q</span><br><span class="line"></span><br><span class="line"># 计算并输出c^d mod n</span><br><span class="line"></span><br><span class="line">print pow(c, d, n)</span><br></pre></td></tr></table></figure>
 
     </article>
     <!-- license  -->
@@ -996,38 +996,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 29
@@ -1040,20 +1008,6 @@ top:50vh;
     
     
     
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -1189,6 +1143,29 @@ top:50vh;
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/rsa/" >Crypto_RSA算法总结</a>
         </li>
@@ -1205,9 +1182,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     

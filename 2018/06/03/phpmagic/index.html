@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">702</span> / Reading time: <span class="post-count">3 min</span></span>
+                        <span>Word count: <span class="post-count">729</span> / Reading time: <span class="post-count">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -401,8 +401,8 @@ height:50vh;
 <p>序列化：把复杂的数据类型压缩到一个字符串中 数据类型可以是数组，字符串，对象等  函数 : serialize()</p>
 <p>反序列化：恢复原先被序列化的变量 函数: unserialize()</p>
 <h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化:"></a>序列化:</h2><p>eg:</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$test1 = <span class="string">"hello world"</span></span><br><span class="line">$test2 = <span class="keyword">array</span>(<span class="string">"hello"</span>,<span class="string">"world"</span>);</span><br><span class="line">$test3 = <span class="number">123456</span>;</span><br><span class="line"><span class="keyword">echo</span> serialize($test1); <span class="comment">//  s:11:"hello world";  序列化字符串</span></span><br><span class="line"><span class="keyword">echo</span> serialize($test2); <span class="comment">// a:2:&#123;i:0;s:5:"hello";i:1;s:5:"world";&#125; 序列化数组</span></span><br><span class="line"><span class="keyword">echo</span> serialize($test3); <span class="comment">//  i:123456;</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">hello</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $test = <span class="string">"hello,world"</span>;</span><br><span class="line">&#125;</span><br><span class="line">$test = <span class="keyword">new</span> hello();</span><br><span class="line"><span class="keyword">echo</span> serialize($test);  <span class="comment">//  O:5:"hello":1:&#123;s:5:"test4";s:11:"hello,world";</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p>序列化对象时，首字母代表参数类型。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a – array 数组</span><br><span class="line">b – boolean布尔型</span><br><span class="line">d – double双精度型</span><br><span class="line">i – integer(int)</span><br><span class="line">o – common object一般对象</span><br><span class="line">r – reference</span><br><span class="line">s – string</span><br><span class="line">C – custom object 自定义对象</span><br><span class="line">O – class</span><br><span class="line">N – null</span><br><span class="line">R – pointer reference</span><br><span class="line">U – unicode string unicode编码的字符串</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$test1 = <span class="string">"hello world"</span></span><br><span class="line">$test2 = <span class="keyword">array</span>(<span class="string">"hello"</span>,<span class="string">"world"</span>);</span><br><span class="line">$test3 = <span class="number">123456</span>;</span><br><span class="line"><span class="keyword">echo</span> serialize($test1); <span class="comment">//  s:11:"hello world";  序列化字符串</span></span><br><span class="line"><span class="keyword">echo</span> serialize($test2); <span class="comment">// a:2:&#123;i:0;s:5:"hello";i:1;s:5:"world";&#125; 序列化数组</span></span><br><span class="line"><span class="keyword">echo</span> serialize($test3); <span class="comment">//  i:123456;</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">hello</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $test = <span class="string">"hello,world"</span>;</span><br><span class="line">&#125;</span><br><span class="line">$test = <span class="keyword">new</span> hello();</span><br><span class="line"><span class="keyword">echo</span> serialize($test);  <span class="comment">//  O:5:"hello":1:&#123;s:5:"test4";s:11:"hello,world";</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>序列化对象时，首字母代表参数类型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">a – array 数组</span><br><span class="line">b – boolean布尔型</span><br><span class="line">d – double双精度型</span><br><span class="line">i – integer(int)</span><br><span class="line">o – common object一般对象</span><br><span class="line">r – reference</span><br><span class="line">s – string</span><br><span class="line">C – custom object 自定义对象</span><br><span class="line">O – class</span><br><span class="line">N – null</span><br><span class="line">R – pointer reference</span><br><span class="line">U – unicode string unicode编码的字符串</span><br></pre></td></tr></table></figure></p>
 <p>参数后面的数字代表参数的长度。</p>
 <p>序列化字符串格式： 变量类型：变量长度：变量内容</p>
 <p>如果序列化的是一个对象，序列化字符串格式为：</p>
@@ -952,38 +952,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 29
@@ -996,20 +964,6 @@ top:50vh;
     
     
     
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -1145,6 +1099,29 @@ top:50vh;
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/rsa/" >Crypto_RSA算法总结</a>
         </li>
@@ -1161,9 +1138,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     

