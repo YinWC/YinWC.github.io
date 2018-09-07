@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">289</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">350</span> / Reading time: <span class="post-count">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -413,8 +413,14 @@ height:50vh;
 <pre><code>Horse Clip-Clop A strange filesystem is recovered from a damaged old hard disk.
 </code></pre><p>想到内存分析，然而并不是</p>
 <p>用winhex打开disk文件,ctrl+f 搜索idat</p>
+<p><img src="/2018/08/31/wangdingbei/clip_1.png" alt="wangdingbei"></p>
 <p>有png头，然后搜索下一个</p>
-<p>无PNG头</p>
+<p><img src="/2018/08/31/wangdingbei/clip_2.png" alt="wangdingbei"></p>
+<p>无PNG头,需要补写一下</p>
+<p><img src="/2018/08/31/wangdingbei/clip_3.png" alt="wangdingbei"></p>
+<p>然后将这两张图片导出。winhex操作为：选中图片域，右击编辑-&gt;复制选块-&gt;至新文件，保存为图片格式。</p>
+<p>使用PS将两张图拼接一下即可。</p>
+<p>参考<a href="https://blog.csdn.net/SWEET0SWAT/article/details/81879942" target="_blank" rel="noopener">文章</a></p>
 
     </article>
     <!-- license  -->
@@ -429,6 +435,11 @@ height:50vh;
     <!-- paginator  -->
     <ul class="post-paginator">
         <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/09/07/Dmsj/" title= 代码审计练习 >
+                    <div class="nextTitle">代码审计练习</div>
+                </a>
             
         </li>
         <li class="previous">
@@ -956,9 +967,28 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 28
+        Total : 29
         </div>
         <!-- search  -->
         
@@ -969,8 +999,27 @@ top:50vh;
     
     
     
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/07</span><a class="archive-post-title" href= "/2018/09/07/Dmsj/" >代码审计练习</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1044,12 +1093,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
         </li>
     
     
@@ -1093,29 +1142,6 @@ top:50vh;
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
             <span class="archive-post-date">05/28</span><a class="archive-post-title" href= "/2018/05/28/python/" >学习python中遇到的问题及总结</a>
         </li>
@@ -1137,9 +1163,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
-    
         <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
+    
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     
