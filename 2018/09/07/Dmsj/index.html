@@ -261,7 +261,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">405</span> / Reading time: <span class="post-count">2 min</span></span>
+                        <span>Word count: <span class="post-count">981</span> / Reading time: <span class="post-count">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -408,6 +408,47 @@ height:50vh;
 <p>题目叫做愿望清单,代码如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Challenge</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> UPLOAD_DIRECTORY = <span class="string">'./solutions/'</span>;</span><br><span class="line">    <span class="keyword">private</span> $file;</span><br><span class="line">    <span class="keyword">private</span> $whitelist;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">__construct</span><span class="params">($file)</span> </span>&#123;</span><br><span class="line">        $<span class="keyword">this</span>-&gt;file = $file;</span><br><span class="line">        $<span class="keyword">this</span>-&gt;whitelist = range(<span class="number">1</span>, <span class="number">24</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">__destruct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (in_array($<span class="keyword">this</span>-&gt;file[<span class="string">'name'</span>], $<span class="keyword">this</span>-&gt;whitelist)) &#123;</span><br><span class="line">            move_uploaded_file(</span><br><span class="line">                $<span class="keyword">this</span>-&gt;file[<span class="string">'tmp_name'</span>],</span><br><span class="line">                self::UPLOAD_DIRECTORY . $<span class="keyword">this</span>-&gt;file[<span class="string">'name'</span>]</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$challenge = <span class="keyword">new</span> Challenge($_FILES[<span class="string">'solution'</span>]);</span><br></pre></td></tr></table></figure></p>
 <p>这一关卡考察的是一个任意文件上传漏洞，而导致这一漏洞的发生则是不安全的使用 <strong>in_array()</strong> 函数来检测上传的文件名，即上图中的第12行部分。由于该函数并未将第三个参数设置为 true ，这导致攻击者可以通过构造的文件名来绕过服务端的检测，例如文件名为 7shell.php 。因为PHP在使用 in_array() 函数判断时，会将 7shell.php 强制转换成数字7，而数字7在 range(1,24) 数组中，最终绕过 in_array() 函数判断，导致任意文件上传漏洞。（这里之所以会发生强制类型转换，是因为目标数组中的元素为数字类型）</p>
 <p>参考<a href="https://xz.aliyun.com/t/2451#toc-5" target="_blank" rel="noopener">文章</a></p>
+<h2 id="Twig"><a href="#Twig" class="headerlink" title="Twig"></a>Twig</h2><p>题目叫做Twig,代码如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// composer require "twig/twig"</span></span><br><span class="line">require <span class="string">'vendor/autoload.php'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Template</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> $twig;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">__construct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        $indexTemplate = <span class="string">'&lt;img '</span> .</span><br><span class="line">            <span class="string">'src="https://loremflickr.com/320/240"&gt;'</span> .</span><br><span class="line">            <span class="string">'&lt;a href="&#123;&#123;link|escape&#125;&#125;"&gt;Next slide »&lt;/a&gt;'</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Default twig setup, simulate loading</span></span><br><span class="line">        <span class="comment">// index.html file from disk</span></span><br><span class="line">        $loader = <span class="keyword">new</span> Twig\Loader\ArrayLoader([</span><br><span class="line">            <span class="string">'index.html'</span> =&gt; $indexTemplate</span><br><span class="line">        ]);</span><br><span class="line">        $<span class="keyword">this</span>-&gt;twig = <span class="keyword">new</span> Twig\Environment($loader);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">getNexSlideUrl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        $nextSlide = $_GET[<span class="string">'nextSlide'</span>];</span><br><span class="line">        <span class="keyword">return</span> filter_var($nextSlide, FILTER_VALIDATE_URL);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">render</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        echo $<span class="keyword">this</span>-&gt;twig-&gt;render(</span><br><span class="line">            <span class="string">'index.html'</span>,</span><br><span class="line">            [<span class="string">'link'</span> =&gt; $<span class="keyword">this</span>-&gt;getNexSlideUrl()]</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">(<span class="keyword">new</span> Template())-&gt;render();</span><br></pre></td></tr></table></figure></p>
+<p>这一关题目实际上用的是PHP的一个模板引擎 Twig ，本题考察XSS(跨站脚本攻击)漏洞。虽然题目代码分别用了 escape 和 filter_var 两个过滤方法，但是还是可以被攻击者绕过。在上图 第10行 中，程序使用 Twig 模板引擎定义的 escape 过滤器来过滤link，而实际上这里的 escape 过滤器，是用PHP内置函数 htmlspecialchars 来实现的，具体可以点击 这里 了解 escape 过滤器， htmlspecialchars 函数定义如下：</p>
+<blockquote>
+<p>htmlspecialchars ：(PHP 4, PHP 5, PHP 7)</p>
+</blockquote>
+<blockquote>
+<p>功能 ：将特殊字符转换为 HTML 实体</p>
+</blockquote>
+<blockquote>
+<p>定义 ：string htmlspecialchars ( string $string [, int $flags = ENT_COMPAT | ENT_HTML401 [, string$encoding = ini_get(“default_charset”) [, bool $double_encode = TRUE ]]] )</p>
+</blockquote>
+<blockquote>
+<p>&amp; (&amp; 符号)  ===============  &amp;</p>
+</blockquote>
+<blockquote>
+<p>“ (双引号)  ===============  &quot;</p>
+</blockquote>
+<blockquote>
+<p>‘ (单引号)  ===============  &apos;</p>
+</blockquote>
+<blockquote>
+<p>&lt; (小于号)  ===============  &lt;</p>
+</blockquote>
+<blockquote>
+<pre><code>&gt;(大于号)  ===============  &amp;gt;
+</code></pre></blockquote>
+<p>第二处过滤在 第17行 ，这里用了 filter_var 函数来过滤 nextSlide 变量，且用了 FILTER_VALIDATE_URL 过滤器来判断是否是一个合法的url，具体的 filter_var 定义如下：</p>
+<blockquote>
+<p>filter_var ： (PHP 5 &gt;= 5.2.0, PHP 7)</p>
+</blockquote>
+<blockquote>
+<p>功能 ：使用特定的过滤器过滤一个变量\</p>
+</blockquote>
+<blockquote>
+<p>定义 ：mixed filter_var ( mixed $variable [, int $filter = FILTER_DEFAULT [, mixed $options ]] )</p>
+</blockquote>
+<p>针对两处过滤，可以使用javascript伪协议绕过。demo代码示例</p>
+<p><img src="/2018/09/07/Dmsj/1.png" alt="Dmsj"></p>
+<p>使用 payload ：?url=javascript://comment％250aalert(1) ，可以执行 alert 函数：</p>
+<p><img src="/2018/09/07/Dmsj/2.png" alt="Dmsj"></p>
+<p>实际上，这里的 // 在JavaScript中表示单行注释，所以后面的内容均为注释，那为什么会执行 alert 函数呢？那是因为我们这里用了字符 %0a ，该字符为换行符，所以 alert 语句与注释符 // 就不在同一行，就能执行。当然，这里我们要对 % 百分号编码成 %25 ，因为程序将浏览器发来的payload：javascript://comment％250aalert(1) 先解码成： javascript://comment%0aalert(1) 存储在变量 $url 中（上图第二行代码），然后用户点击a标签链接就会触发 alert 函数。</p>
 
     </article>
     <!-- license  -->
@@ -540,7 +581,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wish-List"><span class="toc-number">2.</span> <span class="toc-text">Wish List</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wish-List"><span class="toc-number">2.</span> <span class="toc-text">Wish List</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Twig"><span class="toc-number">3.</span> <span class="toc-text">Twig</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
