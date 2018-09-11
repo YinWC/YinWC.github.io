@@ -261,7 +261,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">991</span> / Reading time: <span class="post-count">4 min</span></span>
+                        <span>Word count: <span class="post-count">1,601</span> / Reading time: <span class="post-count">7 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -450,6 +450,35 @@ height:50vh;
 <p><img src="/2018/09/07/Dmsj/2.png" alt="Dmsj"></p>
 <p>实际上，这里的 // 在JavaScript中表示单行注释，所以后面的内容均为注释，那为什么会执行 alert 函数呢？那是因为我们这里用了字符 %0a ，该字符为换行符，所以 alert 语句与注释符 // 就不在同一行，就能执行。当然，这里我们要对 % 百分号编码成 %25 ，因为程序将浏览器发来的payload：javascript://comment％250aalert(1) 先解码成： javascript://comment%0aalert(1) 存储在变量 $url 中（上图第二行代码），然后用户点击a标签链接就会触发 alert 函数。</p>
 <p>参考文章：<a href="https://xz.aliyun.com/t/2457" target="_blank" rel="noopener">https://xz.aliyun.com/t/2457</a></p>
+<h2 id="Snow-Flake"><a href="#Snow-Flake" class="headerlink" title="Snow Flake"></a>Snow Flake</h2><p>考察内容：</p>
+<ul>
+<li><strong>class_exits()</strong> 函数-&gt;可以使用<strong>路径穿越</strong>来包含任意文件。</li>
+<li>使用PHP的内置类 SimpleXMLElement 来进行 XXE 攻击</li>
+</ul>
+<p>代码如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">__autoload</span><span class="params">($className)</span> </span>&#123;</span><br><span class="line">    include $className;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$controllerName = $_GET[<span class="string">'c'</span>];</span><br><span class="line">$data = $_GET[<span class="string">'d'</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (class_exists($controllerName)) &#123;</span><br><span class="line">    $controller = <span class="keyword">new</span> $controllerName($data[<span class="string">'t'</span>], $data[<span class="string">'v'</span>]);</span><br><span class="line">    $controller-&gt;render();</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    echo <span class="string">'There is no page with this name'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomeController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> $template;</span><br><span class="line">    <span class="keyword">private</span> $variables;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">__construct</span><span class="params">($template, $variables)</span> </span>&#123;</span><br><span class="line">        $<span class="keyword">this</span>-&gt;template = $template;</span><br><span class="line">        $<span class="keyword">this</span>-&gt;variables = $variables;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">render</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ($<span class="keyword">this</span>-&gt;variables[<span class="string">'new'</span>]) &#123;</span><br><span class="line">            echo <span class="string">'controller rendering new response'</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            echo <span class="string">'controller rendering old response'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>第一个漏洞：文件包含漏洞，第8行中使用了 class_exists() 函数来判断用户传过来的控制器是否存在，默认情况下，如果程序存在 <strong>autoload 函数，那么在使用 class_exists() 函数就会自动调用本程序中的 </strong>autoload 函数，这题的文件包含漏洞就出现在这个地方。攻击者可以使用 路径穿越 来包含任意文件，当然使用路径穿越符号的前提是 PHP5~5.3(包含5.3版本)版本 之间才可以。例如类名为： ../../../../etc/passwd 的查找，将查看passwd文件内容，我们来看一下PHP手册对 class_exists() 函数的定义：</p>
+<blockquote>
+<p>class_exists ：(PHP 4, PHP 5, PHP 7)</p>
+</blockquote>
+<blockquote>
+<p>功能 ：检查类是否已定义</p>
+</blockquote>
+<blockquote>
+<p>定义 ： bool class_exists ( string $class_name[, bool $autoload = true ] )</p>
+</blockquote>
+<blockquote>
+<p>$class_name 为类的名字，在匹配的时候不区分大小写。默认情况下 $autoload 为 true ，当 $autoload 为 true 时，会自动加载本程序中的 <strong>autoload 函数；当 $autoload 为 false 时，则不调用 </strong>autoload 函数。<br>第二个漏洞：在第9行中，实例化类的类名和传入类的参数均在用户的控制之下，可以通过该漏洞，调用PHP代码库的任意构造函数。即使代码本身不包含易受攻击的构造函数，也可以使用PHP的内置类 SimpleXMLElement 来进行 XXE 攻击，进而读取目标文件的内容，甚至命令执行（前提是安装了PHP拓展插件expect）。PHP手册对 SimpleXMLElement 类的定义：</p>
+</blockquote>
+<blockquote>
+<p>SimpleXMLElement ：(PHP 5, PHP 7)</p>
+</blockquote>
+<blockquote>
+<p>功能 ：用来表示XML文档中的元素，为PHP的内置类。</p>
+</blockquote>
+<p>关于 SimpleXMLElement 导致的XXE攻击,demo:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$xml=<span class="string">&lt;&lt;&lt;EOF</span></span><br><span class="line"><span class="string">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="string">&lt;!DOCTYPE ANY [</span></span><br><span class="line"><span class="string">	&lt;!ENTITY xxe SYSTEM "file:///D:tools/phpStudy/PHPTutorial/WWW/flag.txt"&gt;</span></span><br><span class="line"><span class="string">]&gt;</span></span><br><span class="line"><span class="string">&lt;x&gt;&amp;xxe;&lt;/x&gt;</span></span><br><span class="line"><span class="string">EOF;</span></span><br><span class="line">$xml_class=<span class="keyword">new</span> SimpleXMLElement($xml,LIBXML_NOENT);</span><br><span class="line">var_dump($xml_class);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>运行结果:</p>
+<p><img src="/2018/09/07/Dmsj/3.png" alt="Dmsj"></p>
+<p>参考：<a href="https://xz.aliyun.com/t/2459" target="_blank" rel="noopener">https://xz.aliyun.com/t/2459</a></p>
 
     </article>
     <!-- license  -->
@@ -587,7 +616,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wish-List"><span class="toc-number">2.</span> <span class="toc-text">Wish List</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Twig"><span class="toc-number">3.</span> <span class="toc-text">Twig</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wish-List"><span class="toc-number">2.</span> <span class="toc-text">Wish List</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Twig"><span class="toc-number">3.</span> <span class="toc-text">Twig</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Snow-Flake"><span class="toc-number">4.</span> <span class="toc-text">Snow Flake</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
