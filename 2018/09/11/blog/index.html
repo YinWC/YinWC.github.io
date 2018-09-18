@@ -261,7 +261,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">454</span> / Reading time: <span class="post-count">2 min</span></span>
+                        <span>Word count: <span class="post-count">479</span> / Reading time: <span class="post-count">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -401,6 +401,7 @@ height:50vh;
 <p>2.在博客的根目录执行<br>    npm install <a href="https://github.com/CodeFalling/hexo-asset-image" target="_blank" rel="noopener">https://github.com/CodeFalling/hexo-asset-image</a> –save<br>    命令来进行插件的安装。</p>
 <p>3.然后创建一文章 hexo new “test” 然后查看博客的 ../source/_posts 目录下的文件，会看到存在一个test 文件夹 和 test.md 文件。</p>
 <p>4.将所需要的图片资源放到test文件内，即可直接使用。</p>
+<p>5.title 前面不能加”” 否则会报 少空格的错误，不知道是啥原因2333</p>
 <h2 id="关于代码高亮的问题："><a href="#关于代码高亮的问题：" class="headerlink" title="关于代码高亮的问题："></a>关于代码高亮的问题：</h2><ul>
 <li>代码高亮前面的数字只要改在_config.yml下的highlight配置即可。</li>
 <li>代码高亮的背景要在themes\archer\src\scss_partial_post 下的_code.scss 文件中 light color 下面的配色方案即可，配色的颜色去 <a href="https://github.com/isagalaev/highlight.js/tree/master/src/styles" target="_blank" rel="noopener">https://github.com/isagalaev/highlight.js/tree/master/src/styles</a> hightlight 这个库里选一个喜欢的颜色对应着替换即可，换完之后参照<a href="https://github.com/fi3ework/hexo-theme-archer/blob/master/docs/develop-guide-zh.md" target="_blank" rel="noopener">二次开发文档</a>重新生成即可。</li>
@@ -979,9 +980,22 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 32
+        Total : 31
         </div>
         <!-- search  -->
         
@@ -997,12 +1011,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/2018/09/18/test/" >test</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2018/09/16/yilinbo/" >易霖博杯赛后总结</a>
+            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2018/09/16/yilinbo/" >易霖博杯 赛后总结</a>
         </li>
     
     
@@ -1106,6 +1115,29 @@ top:50vh;
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/09/11/blog/" >搭博客的经历</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2018/06/14/mimikatz/" >mimikatz内网渗透</a>
         </li>
@@ -1129,29 +1161,6 @@ top:50vh;
         <li class="archive-post-item">
             <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/docker/" >docker的学习</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/09/11/blog/" >搭博客的经历</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">
