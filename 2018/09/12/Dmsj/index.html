@@ -261,7 +261,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,601</span> / Reading time: <span class="post-count">7 min</span></span>
+                        <span>Word count: <span class="post-count">2,113</span> / Reading time: <span class="post-count">9 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -479,6 +479,26 @@ height:50vh;
 <p>运行结果:</p>
 <p><img src="/2018/09/12/Dmsj/3.png" alt="Dmsj"></p>
 <p>参考：<a href="https://xz.aliyun.com/t/2459" target="_blank" rel="noopener">https://xz.aliyun.com/t/2459</a></p>
+<h2 id="False-Beard"><a href="#False-Beard" class="headerlink" title="False Beard"></a>False Beard</h2><p>考察内容：</p>
+<ul>
+<li><strong>strpos</strong>使用不当引发漏洞</li>
+<li>只考虑到 strpos 函数返回 false 的情况，却忽略了匹配到的字符在首位时会返回 0 的情况</li>
+</ul>
+<p>题目代码如下:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($user, $pass)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;loginViaXml($user, $pass);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">loginViaXml</span><span class="params">($user, $pass)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (</span><br><span class="line">            (!strpos($user, <span class="string">'&lt;'</span>) || !strpos($user, <span class="string">'&gt;'</span>)) &amp;&amp;</span><br><span class="line">            (!strpos($pass, <span class="string">'&lt;'</span>) || !strpos($pass, <span class="string">'&gt;'</span>))</span><br><span class="line">        ) &#123;</span><br><span class="line">            $format = <span class="string">'&lt;?xml version="1.0"?&gt;'</span> .</span><br><span class="line">                      <span class="string">'&lt;user v="%s"/&gt;&lt;pass v="%s"/&gt;'</span>;</span><br><span class="line">            $xml = sprintf($format, $user, $pass);</span><br><span class="line">            $xmlElement = <span class="keyword">new</span> SimpleXMLElement($xml);</span><br><span class="line">            <span class="comment">// Perform the actual login.</span></span><br><span class="line">            <span class="keyword">$this</span>-&gt;login($xmlElement);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Login($_POST[<span class="string">'username'</span>], $_POST[<span class="string">'password'</span>]);</span><br></pre></td></tr></table></figure></p>
+<p><strong>题目分析</strong>：<br>第11行 和 第12行 ，程序通过格式化字符串的方式，使用 xml 结构存储用户的登录信息。实际上这样很容易造成数据注入。然后 第21行 实例化 Login 类，并在 第16行 处调用 login 方法进行登陆操作。在进行登录操作之前，代码在 第8行 和 第9行 使用 strpos 函数来防止输入的参数含有 &lt; 和 &gt; 符号，猜测开发者应该是考虑到非法字符注入问题。我们先来看一下 strpos 函数的定义：</p>
+<blockquote>
+<p>strpos — 查找字符串首次出现的位置</p>
+</blockquote>
+<blockquote>
+<p>作用：主要是用来查找字符在字符串中首次出现的位置。</p>
+</blockquote>
+<blockquote>
+<p>结构：int strpos ( string $haystack , mixed $needle [, int $offset = 0 ] )</p>
+</blockquote>
+<p><img src="/2018/09/12/Dmsj/4.png" alt="Dmsj"></p>
+<p>在上面这个例子中，strpos 函数返回查找到的子字符串的下标。如果字符串开头就是我们要搜索的目标，则返回下标 0 ；如果搜索不到，则返回 false 。在这道题目中，开发者只考虑到 strpos 函数返回 false 的情况，却忽略了匹配到的字符在首位时会返回 0 的情况，因为 false 和 0 的取反均为 true 。这样我们就可以在用户名和密码首字符注入 &lt; 符号，从而注入xml数据。我们尝试使用以下 payload ，观察 strpos 函数的返回结果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user=&lt;&quot;&gt;&lt;injected-tag%20property=&quot;&amp;pass=&lt;injected-tag&gt;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/12/Dmsj/5.png" alt="Dmsj"></p>
+<p>如上图所示，很明显是可以注入xml数据的。</p>
 
     </article>
     <!-- license  -->
@@ -616,7 +636,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wish-List"><span class="toc-number">2.</span> <span class="toc-text">Wish List</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Twig"><span class="toc-number">3.</span> <span class="toc-text">Twig</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Snow-Flake"><span class="toc-number">4.</span> <span class="toc-text">Snow Flake</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wish-List"><span class="toc-number">2.</span> <span class="toc-text">Wish List</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Twig"><span class="toc-number">3.</span> <span class="toc-text">Twig</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Snow-Flake"><span class="toc-number">4.</span> <span class="toc-text">Snow Flake</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#False-Beard"><span class="toc-number">5.</span> <span class="toc-text">False Beard</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
