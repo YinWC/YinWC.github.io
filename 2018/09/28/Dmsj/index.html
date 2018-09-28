@@ -266,7 +266,7 @@ height:50vh;
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/09/12</span>
+                    <span class="post-intro-time">2018/09/28</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -445,9 +445,9 @@ height:50vh;
 <p>定义 ：mixed filter_var ( mixed $variable [, int $filter = FILTER_DEFAULT [, mixed $options ]] )</p>
 </blockquote>
 <p>针对两处过滤，可以使用javascript伪协议绕过。demo代码示例</p>
-<p><img src="/2018/09/12/Dmsj/1.png" alt="Dmsj"></p>
+<p><img src="/2018/09/28/Dmsj/1.png" alt="Dmsj"></p>
 <p>使用 payload ：?url=javascript://comment％250aalert(1) ，可以执行 alert 函数：</p>
-<p><img src="/2018/09/12/Dmsj/2.png" alt="Dmsj"></p>
+<p><img src="/2018/09/28/Dmsj/2.png" alt="Dmsj"></p>
 <p>实际上，这里的 // 在JavaScript中表示单行注释，所以后面的内容均为注释，那为什么会执行 alert 函数呢？那是因为我们这里用了字符 %0a ，该字符为换行符，所以 alert 语句与注释符 // 就不在同一行，就能执行。当然，这里我们要对 % 百分号编码成 %25 ，因为程序将浏览器发来的payload：javascript://comment％250aalert(1) 先解码成： javascript://comment%0aalert(1) 存储在变量 $url 中（上图第二行代码），然后用户点击a标签链接就会触发 alert 函数。</p>
 <p>参考文章：<a href="https://xz.aliyun.com/t/2457" target="_blank" rel="noopener">https://xz.aliyun.com/t/2457</a></p>
 <h2 id="Snow-Flake"><a href="#Snow-Flake" class="headerlink" title="Snow Flake"></a>Snow Flake</h2><p>考察内容：</p>
@@ -477,7 +477,7 @@ height:50vh;
 </blockquote>
 <p>关于 SimpleXMLElement 导致的XXE攻击,demo:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$xml=<span class="string">&lt;&lt;&lt;EOF</span></span><br><span class="line"><span class="string">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="string">&lt;!DOCTYPE ANY [</span></span><br><span class="line"><span class="string">	&lt;!ENTITY xxe SYSTEM "file:///D:tools/phpStudy/PHPTutorial/WWW/flag.txt"&gt;</span></span><br><span class="line"><span class="string">]&gt;</span></span><br><span class="line"><span class="string">&lt;x&gt;&amp;xxe;&lt;/x&gt;</span></span><br><span class="line"><span class="string">EOF;</span></span><br><span class="line">$xml_class=<span class="keyword">new</span> SimpleXMLElement($xml,LIBXML_NOENT);</span><br><span class="line">var_dump($xml_class);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>运行结果:</p>
-<p><img src="/2018/09/12/Dmsj/3.png" alt="Dmsj"></p>
+<p><img src="/2018/09/28/Dmsj/3.png" alt="Dmsj"></p>
 <p>参考：<a href="https://xz.aliyun.com/t/2459" target="_blank" rel="noopener">https://xz.aliyun.com/t/2459</a></p>
 <h2 id="False-Beard"><a href="#False-Beard" class="headerlink" title="False Beard"></a>False Beard</h2><p>考察内容：</p>
 <ul>
@@ -495,9 +495,9 @@ height:50vh;
 <blockquote>
 <p>结构：int strpos ( string $haystack , mixed $needle [, int $offset = 0 ] )</p>
 </blockquote>
-<p><img src="/2018/09/12/Dmsj/4.png" alt="Dmsj"></p>
+<p><img src="/2018/09/28/Dmsj/4.png" alt="Dmsj"></p>
 <p>在上面这个例子中，strpos 函数返回查找到的子字符串的下标。如果字符串开头就是我们要搜索的目标，则返回下标 0 ；如果搜索不到，则返回 false 。在这道题目中，开发者只考虑到 strpos 函数返回 false 的情况，却忽略了匹配到的字符在首位时会返回 0 的情况，因为 false 和 0 的取反均为 true 。这样我们就可以在用户名和密码首字符注入 &lt; 符号，从而注入xml数据。我们尝试使用以下 payload ，观察 strpos 函数的返回结果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user=&lt;&quot;&gt;&lt;injected-tag%20property=&quot;&amp;pass=&lt;injected-tag&gt;</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/09/12/Dmsj/5.png" alt="Dmsj"></p>
+<p><img src="/2018/09/28/Dmsj/5.png" alt="Dmsj"></p>
 <p>如上图所示，很明显是可以注入xml数据的。</p>
 
     </article>
@@ -505,8 +505,8 @@ height:50vh;
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/09/12/Dmsj/">https://yinwc.github.io/2018/09/12/Dmsj/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/09/12/Dmsj/">September 12th 2018, 1:16:34 pm</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2018/09/28/Dmsj/">https://yinwc.github.io/2018/09/28/Dmsj/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2018/09/28/Dmsj/">September 28th 2018, 1:16:34 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -514,17 +514,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/09/16/yilinbo/" title= 易霖博杯 赛后总结 >
-                    <div class="nextTitle">易霖博杯 赛后总结</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/09/11/onethinkcms/" title= OneThink/Thinkphp 的缓存getshell漏洞 >
-                    <div class="prevTitle">OneThink/Thinkphp 的缓存getshell漏洞</div>
+                <a href= "/2018/09/16/yilinbo/" title= 易霖博杯 赛后总结 >
+                    <div class="prevTitle">易霖博杯 赛后总结</div>
                 </a>
             
         </li>
@@ -1104,12 +1099,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2018/09/16/yilinbo/" >易霖博杯 赛后总结</a>
+            <span class="archive-post-date">09/28</span><a class="archive-post-title" href= "/2018/09/28/Dmsj/" >代码审计练习</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/12</span><a class="archive-post-title" href= "/2018/09/12/Dmsj/" >代码审计练习</a>
+            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2018/09/16/yilinbo/" >易霖博杯 赛后总结</a>
         </li>
     
     
