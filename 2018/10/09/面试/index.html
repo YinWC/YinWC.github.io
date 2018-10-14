@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,175</span> / Reading time: <span class="post-count">5 min</span></span>
+                        <span>Word count: <span class="post-count">1,212</span> / Reading time: <span class="post-count">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -398,7 +398,8 @@ height:50vh;
     <article class="article-entry">
         <h2 id="PHP的字符串中单引号与双引号的区别"><a href="#PHP的字符串中单引号与双引号的区别" class="headerlink" title="PHP的字符串中单引号与双引号的区别"></a>PHP的字符串中单引号与双引号的区别</h2><p>“ “双引号里面的字段会经过编译器解释，然后再当作HTML代码输出。<br>‘ ‘单引号里面的不进行解释，直接输出。<br>单引号解析的时间比双引号快 。<br>单引号支持\转义符,双引号支持的转义符更多 。</p>
 <h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><p>同源策略是浏览器的一个安全功能，不同源的客户端脚本在没有明确授权的情况下，不能读写对方资源，同源是指，域名，协议，端口相同。</p>
-<h2 id="常见端口"><a href="#常见端口" class="headerlink" title="常见端口"></a>常见端口</h2><table>
+<h2 id="常见端口"><a href="#常见端口" class="headerlink" title="常见端口"></a>常见端口</h2><p>复习文章：<code>https://zhuanlan.zhihu.com/p/24926870</code></p>
+<table>
 <thead>
 <tr>
 <th style="text-align:left">端口号</th>
@@ -408,7 +409,7 @@ height:50vh;
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">22/69</td>
+<td style="text-align:left">21/69</td>
 <td style="text-align:right">ftp/tftp:文件传输协议</td>
 <td style="text-align:center">爆破/嗅探/溢出/后门</td>
 </tr>
@@ -443,9 +444,9 @@ height:50vh;
 <td style="text-align:center">爆破</td>
 </tr>
 <tr>
-<td style="text-align:left">139</td>
+<td style="text-align:left">137/139/445</td>
 <td style="text-align:right">samba</td>
-<td style="text-align:center">爆破\未授权访问\远程代码执行</td>
+<td style="text-align:center">可尝试爆破以及smb自身的各种远程执行类漏洞利用,如,ms08-067,ms17-010,嗅探等……</td>
 </tr>
 <tr>
 <td style="text-align:left">143</td>
@@ -461,6 +462,11 @@ height:50vh;
 <td style="text-align:left">389</td>
 <td style="text-align:right">ldap</td>
 <td style="text-align:center">注入攻击\未授权访问</td>
+</tr>
+<tr>
+<td style="text-align:left">443</td>
+<td style="text-align:right">SSL心脏滴血</td>
+<td style="text-align:center">web漏洞测试 </td>
 </tr>
 <tr>
 <td style="text-align:left">512/513/514</td>
@@ -657,6 +663,11 @@ height:50vh;
     <!-- paginator  -->
     <ul class="post-paginator">
         <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/10/14/windows-应急流程及实战演练/" title= windows 应急流程及实战演练 >
+                    <div class="nextTitle">windows 应急流程及实战演练</div>
+                </a>
             
         </li>
         <li class="previous">
@@ -1267,12 +1278,9 @@ top:50vh;
     
     
     
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 34
+        Total : 35
         </div>
         <!-- search  -->
         
@@ -1285,6 +1293,11 @@ top:50vh;
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2018/10/14/windows-应急流程及实战演练/" >windows 应急流程及实战演练</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1383,12 +1396,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
         </li>
     
     
@@ -1417,29 +1430,6 @@ top:50vh;
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/09/11/blog/" >搭博客的经历</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
             <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/git/" >git learn</a>
         </li>
@@ -1465,6 +1455,29 @@ top:50vh;
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/09/11/blog/" >搭博客的经历</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">05/16</span><a class="archive-post-title" href= "/2018/05/16/problem/" >日常学习中问题</a>
         </li>
@@ -1479,9 +1492,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
