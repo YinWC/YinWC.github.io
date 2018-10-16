@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">558</span> / Reading time: <span class="post-count">2 min</span></span>
+                        <span>Word count: <span class="post-count">2,224</span> / Reading time: <span class="post-count">8 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,7 +396,7 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文摘自信安之路公众号，Bypass巨佬写的文章。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文摘自信安之路公众号的<a href="https://mp.weixin.qq.com/s?__biz=MzI5MDQ2NjExOQ==&amp;mid=2247488603&amp;idx=1&amp;sn=3233cc050ee4ef9344aac96356a4f5d4&amp;chksm=ec1e2473db69ad65ce50b9700d649a8d255c249a1317571d84c23e531c35b74e7bf4acb9e100&amp;mpshare=1&amp;scene=23&amp;srcid=1012sW8ziEE4JtFaRg9pku6J#rd" target="_blank" rel="noopener">文章</a>。</p>
 <p>当企业发生黑客入侵、系统崩溃或其它影响业务正常运行的安全事件时，急需第一时间进行处理，使企业的网络信息系统在最短时间内恢复正常工作，进一步查找入侵来源，还原入侵事故过程，同时给出解决方案与防范措施，为企业挽回或减少经济损失。  </p>
 <h2 id="常见的应急响应事件分类："><a href="#常见的应急响应事件分类：" class="headerlink" title="常见的应急响应事件分类："></a>常见的应急响应事件分类：</h2><p>web 入侵：网页挂马、主页篡改、Webshell</p>
 <p>系统入侵：病毒木马、勒索软件、远控后门</p>
@@ -423,6 +423,165 @@ height:50vh;
 <p><img src="/2018/10/14/windows-应急流程及实战演练/3.png" alt="windows-应急流程及实战演练"></p>
 <p><strong>2、进程</strong></p>
 <p>检查方法：</p>
+<p>a、开始–运行–输入<code>msinfo32</code>，依次点击“软件环境→正在运行任务”就可以查看到进程的详细信息，比如进程路径、进程 ID、文件创建日期、启动时间等。</p>
+<p>b、打开 D 盾 _web 查杀工具，进程查看，关注没有签名信息的进程。</p>
+<p>c、通过微软官方提供的 Process Explorer 等工具进行排查 。</p>
+<p>d、查看可疑的进程及其子进程。可以通过观察以下内容：</p>
+<blockquote>
+<p>没有签名验证信息的进程<br>没有描述信息的进程<br>进程的属主<br>进程的路径是否合法<br>CPU 或内存资源占用长时间过高的进程</p>
+</blockquote>
+<p><strong>3、小技巧：</strong></p>
+<p>a、查看端口对应的 PID： netstat -ano | findstr “port”</p>
+<p>b、查看进程对应的 PID：任务管理器–查看–选择列–PID 或者 <code>tasklist  | findstr &quot;PID&quot;</code></p>
+<p>c、查看进程对应的程序位置：</p>
+<blockquote>
+<p>任务管理器–选择对应进程–右键打开文件位置<br>运行输入 wmic，cmd界面 输入  process</p>
+</blockquote>
+<p>d、<code>tasklist /svc</code>   进程– PID –服务</p>
+<p>e、查看 Windows 服务所对应的端口：</p>
+<blockquote>
+<p>%system%/system32/drivers/etc/services（一般 %system%就是 C:\Windows）</p>
+</blockquote>
+<h3 id="三、检查启动项、计划任务、服务"><a href="#三、检查启动项、计划任务、服务" class="headerlink" title="三、检查启动项、计划任务、服务"></a>三、检查启动项、计划任务、服务</h3><p><strong>1、检查服务器是否有异常的启动项。</strong></p>
+<p>检查方法：</p>
+<p>a、登录服务器，单击【开始】&gt;【所有程序】&gt;【启动】，默认情况下此目录在是一个空目录，确认是否有非业务程序在该目录下。</p>
+<p>b、单击开始菜单 &gt;【运行】，输入 msconfig，查看是否存在命名异常的启动项目，是则取消勾选命名异常的启动项目，并到命令中显示的路径删除文件。</p>
+<p>c、单击【开始】&gt;【运行】，输入 regedit，打开注册表，查看开机启动项是否正常，特别注意如下三个注册表项：</p>
+<blockquote>
+<p>HKEY_CURRENT_USER\software\micorsoft\windows\currentversion\run<br>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run<br>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Runonce</p>
+</blockquote>
+<p>检查右侧是否有启动异常的项目，如有请删除，并建议安装杀毒软件进行病毒查杀，清除残留病毒或木马。</p>
+<p>d、利用安全软件查看启动项、开机时间管理等。</p>
+<p>e、组策略，运行 gpedit.msc。</p>
+<p><img src="/2018/10/14/windows-应急流程及实战演练/4.png" alt="windows-应急流程及实战演练"></p>
+<p><strong>2、检查计划任务</strong></p>
+<p>检查方法：</p>
+<p>a、单击【开始】&gt;【设置】&gt;【控制面板】&gt;【任务计划】，查看计划任务属性，便可以发现木马文件的路径。</p>
+<p>b、单击【开始】&gt;【运行】；输入 cmd，然后输入at，检查计算机与网络上的其它计算机之间的会话或计划任务，如有，则确认是否为正常连接。</p>
+<p><strong>3、服务自启动</strong></p>
+<p>检查方法：</p>
+<p>单击【开始】&gt;【运行】，输入 services.msc，注意服务状态和启动类型，检查是否有异常服务。</p>
+<h3 id="四、检查系统相关信息"><a href="#四、检查系统相关信息" class="headerlink" title="四、检查系统相关信息"></a>四、检查系统相关信息</h3><p><strong>1、查看系统版本以及补丁信息</strong></p>
+<p>检查方法：</p>
+<p>单击【开始】&gt;【运行】，输入 systeminfo，查看系统信息</p>
+<p><strong>2、查找可疑目录及文件</strong></p>
+<p>检查方法：</p>
+<p>a、 查看用户目录，新建账号会在这个目录生成一个用户目录，查看是否有新建用户目录。</p>
+<p>Window 2003: <code>C:\Documents and Settings</code></p>
+<p>Window 2008R2: <code>C:\Users\</code></p>
+<p>b、单击【开始】&gt;【运行】，输入<code>%UserProfile%\Recent</code>，分析最近打开分析可疑文件。</p>
+<p>c、在服务器各个目录，可根据文件夹内文件列表时间进行排序，查找可疑文件。</p>
+<h3 id="五、自动化查杀"><a href="#五、自动化查杀" class="headerlink" title="五、自动化查杀"></a>五、自动化查杀</h3><p><strong>病毒查杀</strong></p>
+<p>检查方法：</p>
+<p>下载安全软件，更新最新病毒库，进行全盘扫描。</p>
+<p><strong>webshell 查杀</strong></p>
+<p>检查方法：</p>
+<p>选择具体站点路径进行 webshell 查杀，建议使用两款 webshell 查杀工具同时查杀，可相互补充规则库的不足。</p>
+<h2 id="六、日志分析"><a href="#六、日志分析" class="headerlink" title="六、日志分析"></a>六、日志分析</h2><p><strong>系统日志</strong></p>
+<p>分析方法：</p>
+<p>a、前提：开启审核策略，若日后系统出现故障、安全事故则可以查看系统的日志文件，排除故障，追查入侵者的信息等</p>
+<p>b、Win+R 打开运行，输入<code>eventvwr.msc</code>，回车运行，打开“事件查看器”。</p>
+<p>c、导出应用程序日志、安全日志、系统日志，利用 Log Parser 进行分析。</p>
+<p><strong>WEB 访问日志</strong></p>
+<p>分析方法：</p>
+<p>a、找到中间件的 web 日志，打包到本地方便进行分析。</p>
+<p>b、推荐工具：</p>
+<p>Window 下，推荐用 EmEditor 进行日志分析，支持大文本，搜索效率还不错。</p>
+<p>Linux 下，使用 Shell 命令组合查询分析</p>
+<h2 id="0x02-工具篇"><a href="#0x02-工具篇" class="headerlink" title="0x02 工具篇"></a>0x02 工具篇</h2><h3 id="webshell-查杀："><a href="#webshell-查杀：" class="headerlink" title="webshell 查杀："></a>webshell 查杀：</h3><p>D盾_Web查杀：</p>
+<blockquote>
+<p><a href="http://www.d99net.net/index.asp" target="_blank" rel="noopener">http://www.d99net.net/index.asp</a></p>
+</blockquote>
+<p>河马 webshell 查杀：</p>
+<blockquote>
+<p><a href="http://www.shellpub.com" target="_blank" rel="noopener">http://www.shellpub.com</a></p>
+</blockquote>
+<p>深信服 Webshell 网站后门检测工具：</p>
+<blockquote>
+<p><a href="http://edr.sangfor.com.cn/backdoor_detection.html" target="_blank" rel="noopener">http://edr.sangfor.com.cn/backdoor_detection.html</a></p>
+</blockquote>
+<p>Safe3：</p>
+<blockquote>
+<p><a href="http://www.uusec.com/webshell.zip" target="_blank" rel="noopener">http://www.uusec.com/webshell.zip</a></p>
+</blockquote>
+<h3 id="病毒分析-："><a href="#病毒分析-：" class="headerlink" title="病毒分析 ："></a>病毒分析 ：</h3><p>PCHunter：</p>
+<blockquote>
+<p><a href="http://www.xuetr.com" target="_blank" rel="noopener">http://www.xuetr.com</a></p>
+</blockquote>
+<p>火绒剑：</p>
+<blockquote>
+<p><a href="https://www.huorong.cn" target="_blank" rel="noopener">https://www.huorong.cn</a></p>
+</blockquote>
+<p>Process Explorer：</p>
+<blockquote>
+<p><a href="https://docs.microsoft.com/zh-cn/sysinternals/downloads/process-explorer" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/sysinternals/downloads/process-explorer</a></p>
+</blockquote>
+<p>processhacker：</p>
+<blockquote>
+<p><a href="https://processhacker.sourceforge.io/downloads.php" target="_blank" rel="noopener">https://processhacker.sourceforge.io/downloads.php</a></p>
+</blockquote>
+<p>autoruns：</p>
+<blockquote>
+<p><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns</a></p>
+</blockquote>
+<p>OTL：</p>
+<blockquote>
+<p><a href="https://www.bleepingcomputer.com/download/otl/" target="_blank" rel="noopener">https://www.bleepingcomputer.com/download/otl/</a></p>
+</blockquote>
+<h3 id="病毒查杀："><a href="#病毒查杀：" class="headerlink" title="病毒查杀："></a>病毒查杀：</h3><p>卡巴斯基（推荐理由：绿色版、最新病毒库）：</p>
+<blockquote>
+<p><a href="http://devbuilds.kaspersky-labs.com/devbuilds/KVRT/latest/full/KVRT.exe" target="_blank" rel="noopener">http://devbuilds.kaspersky-labs.com/devbuilds/KVRT/latest/full/KVRT.exe</a>  </p>
+</blockquote>
+<p>大蜘蛛（推荐理由：扫描快、一次下载只能用1周，更新病毒库）：</p>
+<blockquote>
+<p><a href="http://free.drweb.ru/download+cureit+free" target="_blank" rel="noopener">http://free.drweb.ru/download+cureit+free</a></p>
+</blockquote>
+<p>火绒安全软件：</p>
+<blockquote>
+<p><a href="https://www.huorong.cn" target="_blank" rel="noopener">https://www.huorong.cn</a></p>
+</blockquote>
+<p>360杀毒：</p>
+<blockquote>
+<p><a href="http://sd.360.cn/download_center.html" target="_blank" rel="noopener">http://sd.360.cn/download_center.html</a></p>
+</blockquote>
+<h3 id="病毒动态："><a href="#病毒动态：" class="headerlink" title="病毒动态："></a>病毒动态：</h3><p>CVERC-国家计算机病毒应急处理中心：</p>
+<blockquote>
+<p><a href="http://www.cverc.org.cn" target="_blank" rel="noopener">http://www.cverc.org.cn</a></p>
+</blockquote>
+<p>微步在线威胁情报社区：</p>
+<blockquote>
+<p><a href="https://x.threatbook.cn" target="_blank" rel="noopener">https://x.threatbook.cn</a></p>
+</blockquote>
+<p>火绒安全论坛：</p>
+<blockquote>
+<p><a href="http://bbs.huorong.cn/forum-59-1.html" target="_blank" rel="noopener">http://bbs.huorong.cn/forum-59-1.html</a></p>
+</blockquote>
+<p>爱毒霸社区：</p>
+<blockquote>
+<p><a href="http://bbs.duba.net" target="_blank" rel="noopener">http://bbs.duba.net</a></p>
+</blockquote>
+<p>腾讯电脑管家：</p>
+<blockquote>
+<p><a href="http://bbs.guanjia.qq.com/forum-2-1.html" target="_blank" rel="noopener">http://bbs.guanjia.qq.com/forum-2-1.html</a></p>
+</blockquote>
+<h3 id="在线病毒扫描网站："><a href="#在线病毒扫描网站：" class="headerlink" title="在线病毒扫描网站："></a>在线病毒扫描网站：</h3><p>多引擎在线病毒扫描网 v1.02，当前支持 41 款杀毒引擎:</p>
+<blockquote>
+<p><a href="http://www.virscan.org" target="_blank" rel="noopener">http://www.virscan.org</a>  </p>
+</blockquote>
+<p>腾讯哈勃分析系统:</p>
+<blockquote>
+<p><a href="https://habo.qq.com" target="_blank" rel="noopener">https://habo.qq.com</a> </p>
+</blockquote>
+<p>Jotti 恶意软件扫描系统:</p>
+<blockquote>
+<p><a href="https://virusscan.jotti.org" target="_blank" rel="noopener">https://virusscan.jotti.org</a>   </p>
+</blockquote>
+<p>针对计算机病毒、手机病毒、可疑文件等进行检测分析:</p>
+<blockquote>
+<p><a href="http://www.scanvir.com" target="_blank" rel="noopener">http://www.scanvir.com</a>     </p>
+</blockquote>
+<h2 id="0x03-应急响应实战之-FTP-暴力破解"><a href="#0x03-应急响应实战之-FTP-暴力破解" class="headerlink" title="0x03 应急响应实战之 FTP 暴力破解"></a>0x03 应急响应实战之 FTP 暴力破解</h2><p>FTP 是一个文件传输协议，用户通过 FTP 可从客户机程序向远程主机上传或下载文件，常用于网站代码维护、日常源码备份等。如果攻击者通过 FTP 匿名访问或者弱口令获取FTP权限，可直接上传 webshell，进一步渗透提权，直至控制整个网站服务器。</p>
+<h3 id="应急场景"><a href="#应急场景" class="headerlink" title="应急场景"></a>应急场景</h3><p>从昨天开始，网站响应速度变得缓慢，网站服务器登录上去非常卡，重启服务器就能保证一段时间的正常访问，网站响应状态时而飞快时而缓慢，多数时间是缓慢的。针对网站服务器异常，系统日志和网站日志，是我们排查处理的重点。查看 Window 安全日志，发现大量的登录失败记录：</p>
 
     </article>
     <!-- license  -->
@@ -555,7 +714,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的应急响应事件分类："><span class="toc-number">2.</span> <span class="toc-text">常见的应急响应事件分类：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-入侵排查思路"><span class="toc-number">3.</span> <span class="toc-text">0x01 入侵排查思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、检查系统账号安全"><span class="toc-number">3.1.</span> <span class="toc-text">一、检查系统账号安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、检查异常端口、进程"><span class="toc-number">3.2.</span> <span class="toc-text">二、检查异常端口、进程</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的应急响应事件分类："><span class="toc-number">2.</span> <span class="toc-text">常见的应急响应事件分类：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-入侵排查思路"><span class="toc-number">3.</span> <span class="toc-text">0x01 入侵排查思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、检查系统账号安全"><span class="toc-number">3.1.</span> <span class="toc-text">一、检查系统账号安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、检查异常端口、进程"><span class="toc-number">3.2.</span> <span class="toc-text">二、检查异常端口、进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、检查启动项、计划任务、服务"><span class="toc-number">3.3.</span> <span class="toc-text">三、检查启动项、计划任务、服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、检查系统相关信息"><span class="toc-number">3.4.</span> <span class="toc-text">四、检查系统相关信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、自动化查杀"><span class="toc-number">3.5.</span> <span class="toc-text">五、自动化查杀</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、日志分析"><span class="toc-number">4.</span> <span class="toc-text">六、日志分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-工具篇"><span class="toc-number">5.</span> <span class="toc-text">0x02 工具篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#webshell-查杀："><span class="toc-number">5.1.</span> <span class="toc-text">webshell 查杀：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#病毒分析-："><span class="toc-number">5.2.</span> <span class="toc-text">病毒分析 ：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#病毒查杀："><span class="toc-number">5.3.</span> <span class="toc-text">病毒查杀：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#病毒动态："><span class="toc-number">5.4.</span> <span class="toc-text">病毒动态：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在线病毒扫描网站："><span class="toc-number">5.5.</span> <span class="toc-text">在线病毒扫描网站：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-应急响应实战之-FTP-暴力破解"><span class="toc-number">6.</span> <span class="toc-text">0x03 应急响应实战之 FTP 暴力破解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#应急场景"><span class="toc-number">6.1.</span> <span class="toc-text">应急场景</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1047,9 +1206,52 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 35
+        Total : 36
         </div>
         <!-- search  -->
         
@@ -1071,6 +1273,11 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">10/09</span><a class="archive-post-title" href= "/2018/10/09/面试/" >Web安全知识整理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span><a class="archive-post-title" href= "/2018/10/03/markdown语法总结/" >Markdown语法总结</a>
         </li>
     
     
@@ -1165,12 +1372,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
         </li>
     
     
@@ -1224,29 +1431,6 @@ top:50vh;
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/09/11/blog/" >搭博客的经历</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
             <span class="archive-post-date">05/16</span><a class="archive-post-title" href= "/2018/05/16/problem/" >日常学习中问题</a>
         </li>
@@ -1254,6 +1438,11 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/24</span><a class="archive-post-title" href= "/2018/03/24/2018-QWB/" >2018 QWB 题目整理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span><a class="archive-post-title" href= "/2018/02/14/blog/" >搭博客的经历</a>
         </li>
     
     </div>
@@ -1265,15 +1454,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
-    
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="Record,Problem"><span class="iconfont-archer">&#xe606;</span>Record,Problem</span>
     
-        <span class="sidebar-tag-name" data-tags="problem"><span class="iconfont-archer">&#xe606;</span>problem</span>
-    
         <span class="sidebar-tag-name" data-tags="漏洞、CTF"><span class="iconfont-archer">&#xe606;</span>漏洞、CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="problem"><span class="iconfont-archer">&#xe606;</span>problem</span>
     
         <span class="sidebar-tag-name" data-tags="渗透"><span class="iconfont-archer">&#xe606;</span>渗透</span>
     
