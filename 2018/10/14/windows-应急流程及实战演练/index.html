@@ -259,9 +259,15 @@ height:50vh;
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "应急响应">应急响应</a>
+    
+</div>
+                
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">0</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">558</span> / Reading time: <span class="post-count">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -390,7 +396,34 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文摘自信安之路公众号，Bypass巨佬写的文章。</p>
+<p>当企业发生黑客入侵、系统崩溃或其它影响业务正常运行的安全事件时，急需第一时间进行处理，使企业的网络信息系统在最短时间内恢复正常工作，进一步查找入侵来源，还原入侵事故过程，同时给出解决方案与防范措施，为企业挽回或减少经济损失。  </p>
+<h2 id="常见的应急响应事件分类："><a href="#常见的应急响应事件分类：" class="headerlink" title="常见的应急响应事件分类："></a>常见的应急响应事件分类：</h2><p>web 入侵：网页挂马、主页篡改、Webshell</p>
+<p>系统入侵：病毒木马、勒索软件、远控后门</p>
+<p>网络攻击：DDOS 攻击、DNS 劫持、ARP 欺骗</p>
+<p>针对常见的攻击事件，结合工作中应急响应事件分析和解决的方法，总结了一些 Window 服务器入侵排查的思路。</p>
+<h2 id="0x01-入侵排查思路"><a href="#0x01-入侵排查思路" class="headerlink" title="0x01 入侵排查思路"></a>0x01 入侵排查思路</h2><h3 id="一、检查系统账号安全"><a href="#一、检查系统账号安全" class="headerlink" title="一、检查系统账号安全"></a>一、检查系统账号安全</h3><p><strong>1、查看服务器是否有弱口令，远程管理端口是否对公网开放。</strong></p>
+<p>检查方法：据实际情况咨询相关服务器管理员。</p>
+<p><strong>2、查看服务器是否存在可疑账号、新增账号。</strong></p>
+<p>检查方法：打开 cmd 窗口，输入lusrmgr.msc命令，查看是否有新增/可疑的账号，如有管理员群组的（Administrators）里的新增账户，如有，请立即禁用或删除掉。 </p>
+<p><strong>3、查看服务器是否存在隐藏账号、克隆账号。</strong></p>
+<p>检查方法：</p>
+<p>a、打开注册表 ，查看管理员对应键值。</p>
+<p>b、使用 D 盾 _web 查杀工具，集成了对克隆账号检测的功能。</p>
+<p><img src="/2018/10/14/windows-应急流程及实战演练/1.png" alt="windows-应急流程及实战演练"></p>
+<p><strong>4、结合日志，查看管理员登录时间、用户名是否存在异常。</strong></p>
+<p>检查方法：</p>
+<p>a、Win+R 打开运行，输入“eventvwr.msc”，回车运行，打开“事件查看器”。</p>
+<p>b、导出 Windows 日志–安全，利用 Log Parser 进行分析。</p>
+<p><img src="/2018/10/14/windows-应急流程及实战演练/2.png" alt="windows-应急流程及实战演练"></p>
+<h3 id="二、检查异常端口、进程"><a href="#二、检查异常端口、进程" class="headerlink" title="二、检查异常端口、进程"></a>二、检查异常端口、进程</h3><p><strong>1、检查端口连接情况，是否有远程连接、可疑连接。</strong></p>
+<p>检查方法：</p>
+<p>a、netstat -ano 查看目前的网络连接，定位可疑的 ESTABLISHED </p>
+<p>b、根据 netstat 定位出的 pid，再通过 tasklist 命令进行进程定位 tasklist  | findstr “PID”</p>
+<p><img src="/2018/10/14/windows-应急流程及实战演练/3.png" alt="windows-应急流程及实战演练"></p>
+<p><strong>2、进程</strong></p>
+<p>检查方法：</p>
+
     </article>
     <!-- license  -->
     
@@ -522,7 +555,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的应急响应事件分类："><span class="toc-number">2.</span> <span class="toc-text">常见的应急响应事件分类：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-入侵排查思路"><span class="toc-number">3.</span> <span class="toc-text">0x01 入侵排查思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、检查系统账号安全"><span class="toc-number">3.1.</span> <span class="toc-text">一、检查系统账号安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、检查异常端口、进程"><span class="toc-number">3.2.</span> <span class="toc-text">二、检查异常端口、进程</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1245,6 +1278,8 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="渗透"><span class="iconfont-archer">&#xe606;</span>渗透</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="应急响应"><span class="iconfont-archer">&#xe606;</span>应急响应</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
