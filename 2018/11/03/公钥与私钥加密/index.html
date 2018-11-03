@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Ubuntu 18.04 mysql的使用 · Ywc&#39;s blog</title>
+    <title>理解公钥与私钥 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Ubuntu 18.04 mysql的使用</a>
+                <a href="#" class="post-name">理解公钥与私钥</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Ubuntu 18.04 mysql的使用
+            理解公钥与私钥
             <!-- 404 -->
             
         </h1>
@@ -261,18 +261,18 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "learn">learn</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Crypto">Crypto</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">493</span> / Reading time: <span class="post-count">2 min</span></span>
+                        <span>Word count: <span class="post-count">1,758</span> / Reading time: <span class="post-count">6 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/07/27</span>
+                    <span class="post-intro-time">2018/11/03</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -396,29 +396,75 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="linux下mysql的操作命令"><a href="#linux下mysql的操作命令" class="headerlink" title="linux下mysql的操作命令"></a>linux下mysql的操作命令</h2><p>终端启动MySQL(几种方法)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo service mysql start </span><br><span class="line">sudo start mysql</span><br><span class="line">sudo /etc/init.d/mysql start  </span><br><span class="line">sudo mysql</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">重启mysql：</span><br></pre></td></tr></table></figure></p>
-<p>sudo restart mysql<br>sudo service mysql restart<br>sudo /etc/init.d/mysql restart<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">关闭mysql:</span><br></pre></td></tr></table></figure></p>
-<p>sudo service mysql stop<br>sudo stop mysql<br>sudo /etc/init.d/mysql stop<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">登录MySQL：</span><br></pre></td></tr></table></figure></p>
-<p>mysql -u root(用户名) -p  然后输入密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">数据库的一些命令：</span><br></pre></td></tr></table></figure></p>
-<p>show databases；         查看所有的数据库名字<br>use database_name;       选择一个数据库进行操作<br>show tables;             查看当前数据下所有的表名<br>create database database_name;   创建一个数据库<br>drop database database_name;     删除一个数据库<br>truncate table 数据表名称         删除表中所有数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">## 在ubuntu18.04里安装mysql</span><br><span class="line">参考文[文章](https://blog.csdn.net/u011124171/article/details/80247273)</span><br><span class="line"></span><br><span class="line">1.使用Ubuntu自带包管理器安装</span><br></pre></td></tr></table></figure></p>
-<p>sudo apt install mysql-server<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">新版本安装过程中没有提示设置root用户密码</span><br><span class="line"></span><br><span class="line">安装好后，用root账号登录，密码不知道23333</span><br><span class="line"></span><br><span class="line">2.无密码登录</span><br></pre></td></tr></table></figure></p>
-<p>sudo mysql -u root –skip-password<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3.登录之后，设置root用户密码：</span><br><span class="line">```sql</span><br><span class="line">mysql&gt; ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;new_password&apos;;</span><br></pre></td></tr></table></figure></p>
-<p>然后就可以登录进去了，新版本真坑2333333</p>
-<h2 id="远程连接Ubuntu上的Mysql数据库"><a href="#远程连接Ubuntu上的Mysql数据库" class="headerlink" title="远程连接Ubuntu上的Mysql数据库"></a>远程连接Ubuntu上的Mysql数据库</h2><p>参考<a href="https://www.cnblogs.com/zhangkaiqiang/p/6646488.html" target="_blank" rel="noopener">文章</a></p>
-<h3 id="修改配置文件的端口绑定"><a href="#修改配置文件的端口绑定" class="headerlink" title="修改配置文件的端口绑定"></a>修改配置文件的端口绑定</h3><p>打开的目录可能会根据MySQL的版本稍有不同，可以先尝试打开/etc/mysql/my.cnf这个配置文件，若该文件不存在或文件内容为空，则尝试下面的文件路径。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf</span><br></pre></td></tr></table></figure></p>
-<p>在下面行的开头加上#，注释掉该行，然后保存退出vim：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bind-address = 127.0.0.1</span><br></pre></td></tr></table></figure></p>
-<h3 id="修改访问权限"><a href="#修改访问权限" class="headerlink" title="修改访问权限"></a>修改访问权限</h3><p>进入mysql,输入如下命令，输入密码，进入mysql命令行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure></p>
-<p>进入后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">use mysgrant all privileges on *.* to root@&quot;%&quot; identified by &quot;pwd&quot; with grant option;</span><br><span class="line">flush privileges;</span><br><span class="line">exit;</span><br></pre></td></tr></table></figure></p>
-<h3 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysql restart</span><br></pre></td></tr></table></figure>
-<p>参考<a href="https://blog.csdn.net/xiongchun11/article/details/65631216" target="_blank" rel="noopener">文章</a></p>
+        <p>一直都对公钥和私钥的概念不清不楚，在长亭面试的过程中模模糊糊不知道有没有答对emmm</p>
+<p>今天查阅了一些资料，决定写一篇总结文章来加深自己的理解。</p>
+<h2 id="公钥算法与私钥算法"><a href="#公钥算法与私钥算法" class="headerlink" title="公钥算法与私钥算法"></a>公钥算法与私钥算法</h2><h3 id="私钥算法"><a href="#私钥算法" class="headerlink" title="私钥算法"></a>私钥算法</h3><p>私钥加密算法，又称 <strong>对称加密算法</strong>，因为这种算法解密密钥和加密密钥是相同的。也正因为同一密钥既用于加密又用于解密，所以这个密钥是不能公开的。常见的有DES加密算法、AES加密算法。</p>
+<h3 id="公钥算法"><a href="#公钥算法" class="headerlink" title="公钥算法"></a>公钥算法</h3><p>公钥加密算法，也就是 <strong>非对称加密算法</strong>，这种算法加密和解密的密码不一样，一个是公钥，另一个是私钥：</p>
+<ul>
+<li>公钥和私钥成对出现</li>
+<li>公开的密钥叫公钥，只有自己知道的叫私钥</li>
+<li>用公钥加密的数据只有对应的私钥可以解密</li>
+<li>用私钥加密的数据只有对应的公钥可以解密</li>
+<li>如果可以用公钥解密，则必然是对应的私钥加的密</li>
+<li>如果可以用私钥解密，则必然是对应的公钥加的密</li>
+</ul>
+<p>公钥和私钥是相对的，两者本身并没有规定哪一个必须是公钥或私钥。</p>
+<h2 id="公钥加密"><a href="#公钥加密" class="headerlink" title="公钥加密"></a>公钥加密</h2><p>假设一下，我找了两个数字，一个是1，一个是2。我喜欢2这个数字，就保留起来，不告诉你们(私钥），然后我告诉大家，1是我的公钥。</p>
+<p>我有一个文件，不能让别人看，我就用1加密了。别人找到了这个文件，但是他不知道2就是解密的私钥啊，所以他解不开，只有我可以用<br>数字2，就是我的私钥，来解密。这样我就可以保护数据了。</p>
+<p>我的好朋友x用我的公钥1加密了字符a，加密后成了b，放在网上。别人偷到了这个文件，但是别人解不开，因为别人不知道2就是我的私钥，<br>只有我才能解密，解密后就得到a。这样，我们就可以传送加密的数据了。</p>
+<h2 id="私钥签名"><a href="#私钥签名" class="headerlink" title="私钥签名"></a>私钥签名</h2><p>如果我用私钥加密一段数据（当然只有我可以用私钥加密，因为只有我知道2是我的私钥），结果所有的人都看到我的内容了，因为他们都知<br>道我的公钥是1，那么这种加密有什么用处呢？</p>
+<p>但是我的好朋友x说有人冒充我给他发信。怎么办呢？我把我要发的信，内容是c，用我的私钥2，加密，加密后的内容是d，发给x，再告诉他<br>解密看是不是c。他用我的公钥1解密，发现果然是c。<br>这个时候，他会想到，能够用我的公钥解密的数据，必然是用我的私钥加的密。只有我知道我得私钥，因此他就可以确认确实是我发的东西。<br>这样我们就能确认发送方身份了。这个过程叫做数字签名。当然具体的过程要稍微复杂一些。用私钥来加密数据，用途就是数字签名。</p>
+<p>总结：</p>
+<ul>
+<li><p>公钥和私钥是成对的，它们互相解密。</p>
+</li>
+<li><p>公钥加密，私钥解密。</p>
+</li>
+<li><p>私钥数字签名，公钥验证。</p>
+</li>
+</ul>
+<h2 id="实现数据的安全传输"><a href="#实现数据的安全传输" class="headerlink" title="实现数据的安全传输"></a>实现数据的安全传输</h2><p>要实现数据的安全传输，当然就要对数据进行加密了。</p>
+<p>如果使用对称加密算法，加解密使用同一个密钥，除了自己保存外，对方也要知道这个密钥，才能对数据进行解密。如果你把密钥也一起传过去，就存在密码泄漏的可能。所以我们使用非对称算法，过程如下：</p>
+<p>首先 接收方 生成一对密钥，即私钥和公钥；</p>
+<p>然后，接收方 将公钥发送给 发送方；</p>
+<p>发送方用收到的公钥对数据加密，再发送给接收方；</p>
+<p>接收方收到数据后，使用自己的私钥解密。</p>
+<p>由于在非对称算法中，公钥加密的数据必须用对应的私钥才能解密，而私钥又只有接收方自己知道，这样就保证了数据传输的安全性。</p>
+<h2 id="对信息进行数字签名"><a href="#对信息进行数字签名" class="headerlink" title="对信息进行数字签名"></a>对信息进行数字签名</h2><p>除了保证数据的安全传输之外，公钥体系的另一个用途就是对数据进行签名。通常“数字签名”是用来验证发送方的身份并帮助保护数据的完整性。</p>
+<p>例如：一个发送者 A 想要传些资料给大家，用自己的私钥对资料加密，即签名。这样一来，所有收到资料的人都可以用发送者的公钥进行验证，便可确认资料是由 A 发出来的了。（因为只有Ａ使用私钥签名得到的信息，才能用这个公钥来解） 采用数字签名，可以确认两点：</p>
+<ul>
+<li>保证信息是由签名者自己签名发送的，签名者不能否认或难以否认。</li>
+<li>保证信息自签发后到收到为止未曾作过任何修改。</li>
+</ul>
+<p>之所以可以确认这两点，是因为用公钥可以解密的必然是用对应的私钥加的密，而私钥只有签名者持有。</p>
+<h2 id="公钥算法的缺点"><a href="#公钥算法的缺点" class="headerlink" title="公钥算法的缺点"></a>公钥算法的缺点</h2><p>现实中，公钥机制也有它的缺点，那就是效率非常低，比常用的私钥算法（如 DES 和 AES）慢上一两个数量级都有可能。所以它不适合为大量的原始信息进行加密。为了同时兼顾安全和效率，我们通常结合使用公钥算法和私钥算法：</p>
+<ul>
+<li>首先，发送方使用对称算法对原始信息进行加密。</li>
+<li>接收方通过公钥机制生成一对密钥，一个公钥，一个私钥。</li>
+<li>接收方 将公钥发送给 发送方。</li>
+<li>发送方用公钥对对称算法的密钥进行加密，并发送给接收方。</li>
+<li>接收方用私钥进行解密得到对称算法的密钥。</li>
+<li>发送方再把已加密的原始信息发送给接收方。</li>
+<li>接收方使用对称算法的密钥进行解密。</li>
+</ul>
+<p>总结：</p>
+<p>每个用户都有一对私钥和公钥。</p>
+<ul>
+<li>私钥用来进行解密和签名，是给自己用的。</li>
+<li>公钥由本人公开，用于加密和验证签名，是给别人用的。</li>
+</ul>
+<p>当该用户发送文件时，用私钥签名，别人用他给的公钥解密，可以保证该信息是由他发送的。即数字签名。</p>
+<p>当该用户接受文件时，别人用他的公钥加密，他用私钥解密，可以保证该信息只能由他看到。即安全传输。</p>
+<p>参考文章：<a href="https://blog.csdn.net/tabactivity/article/details/49685319" target="_blank" rel="noopener">https://blog.csdn.net/tabactivity/article/details/49685319</a></p>
+<p><a href="https://songlee24.github.io/2015/05/03/public-key-and-private-key/" target="_blank" rel="noopener">https://songlee24.github.io/2015/05/03/public-key-and-private-key/</a></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/07/27/ubuntumysql/">https://yinwc.github.io/2018/07/27/ubuntumysql/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/07/27/ubuntumysql/">July 27th 2018, 2:01:29 pm</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2018/11/03/公钥与私钥加密/">https://yinwc.github.io/2018/11/03/公钥与私钥加密/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2018/11/03/公钥与私钥加密/">November 3rd 2018, 5:48:42 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -426,17 +472,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/07/30/Padding-Oracle-Attack/" title= Padding Oracle Attack >
-                    <div class="nextTitle">Padding Oracle Attack</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/07/26/daimashenji/" title= solveme.peng.kr 代码审计练习 >
-                    <div class="prevTitle">solveme.peng.kr 代码审计练习</div>
+                <a href= "/2018/10/29/WEB安全攻防渗透测试实战指南脑图/" title= WEB安全攻防渗透测试实战指南脑图 >
+                    <div class="prevTitle">WEB安全攻防渗透测试实战指南脑图</div>
                 </a>
             
         </li>
@@ -548,7 +589,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#linux下mysql的操作命令"><span class="toc-number">1.</span> <span class="toc-text">linux下mysql的操作命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#远程连接Ubuntu上的Mysql数据库"><span class="toc-number">2.</span> <span class="toc-text">远程连接Ubuntu上的Mysql数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改配置文件的端口绑定"><span class="toc-number">2.1.</span> <span class="toc-text">修改配置文件的端口绑定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改访问权限"><span class="toc-number">2.2.</span> <span class="toc-text">修改访问权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重启"><span class="toc-number">2.3.</span> <span class="toc-text">重启</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#公钥算法与私钥算法"><span class="toc-number">1.</span> <span class="toc-text">公钥算法与私钥算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#私钥算法"><span class="toc-number">1.1.</span> <span class="toc-text">私钥算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#公钥算法"><span class="toc-number">1.2.</span> <span class="toc-text">公钥算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#公钥加密"><span class="toc-number">2.</span> <span class="toc-text">公钥加密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#私钥签名"><span class="toc-number">3.</span> <span class="toc-text">私钥签名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现数据的安全传输"><span class="toc-number">4.</span> <span class="toc-text">实现数据的安全传输</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对信息进行数字签名"><span class="toc-number">5.</span> <span class="toc-text">对信息进行数字签名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#公钥算法的缺点"><span class="toc-number">6.</span> <span class="toc-text">公钥算法的缺点</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
