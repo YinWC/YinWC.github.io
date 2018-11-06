@@ -272,7 +272,7 @@ height:50vh;
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/11/05</span>
+                    <span class="post-intro-time">2018/08/05</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -397,7 +397,7 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>nc连接后，可以看到商品列表，里面有一件商品是flag，需要足够的价格以及相关的sign、timestamp才能购买成功。</p>
-<p><img src="/2018/11/05/RCTF-2018/1.png" alt="RCTF-2018"></p>
+<p><img src="/2018/08/05/RCTF-2018/1.png" alt="RCTF-2018"></p>
 <h2 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> urlparse <span class="keyword">import</span> parse_qsl</span><br><span class="line"><span class="keyword">from</span> hashpumpy <span class="keyword">import</span> hashpump</span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">'10.10.55.153'</span>, <span class="number">30197</span>)</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">'2'</span>)</span><br><span class="line">p.sendline(<span class="string">'8'</span>)</span><br><span class="line">p.recvuntil(<span class="string">'Your order:\n'</span>)</span><br><span class="line">order = p.recvline().strip()</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> order</span><br><span class="line">o = parse_qsl(order)</span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> o:</span><br><span class="line">    <span class="keyword">if</span> (k == <span class="string">'sign'</span>):</span><br><span class="line">        sign = v</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> sign</span><br><span class="line">data = order[:<span class="number">-70</span>]</span><br><span class="line"><span class="keyword">print</span> data</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">8</span>, <span class="number">32</span>):</span><br><span class="line">    payload = hashpump(sign, data, <span class="string">'&amp;product=Flag'</span>, i)</span><br><span class="line">    <span class="comment"># print payload</span></span><br><span class="line">    new_sign = payload[<span class="number">0</span>]</span><br><span class="line">    new_data = payload[<span class="number">1</span>]</span><br><span class="line">    payload = new_data + <span class="string">'&amp;sign='</span> + new_sign</span><br><span class="line">    p.sendline(<span class="string">'3'</span>)</span><br><span class="line">    p.sendline(payload)</span><br><span class="line">    <span class="keyword">print</span> p.recv()</span><br></pre></td></tr></table></figure>
 
     </article>
@@ -405,8 +405,8 @@ height:50vh;
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/11/05/RCTF-2018/">https://yinwc.github.io/2018/11/05/RCTF-2018/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/11/05/RCTF-2018/">November 5th 2018, 4:53:25 pm</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2018/08/05/RCTF-2018/">https://yinwc.github.io/2018/08/05/RCTF-2018/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2018/08/05/RCTF-2018/">August 5th 2018, 4:53:25 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -414,12 +414,17 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/08/08/SJU-game/" title= SJU集训结业&淘汰赛 Write Up >
+                    <div class="nextTitle">SJU集训结业&淘汰赛 Write Up</div>
+                </a>
+            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/11/03/公钥与私钥加密/" title= 理解公钥与私钥 >
-                    <div class="prevTitle">理解公钥与私钥</div>
+                <a href= "/2018/07/31/Gopher/" title= Gopher攻击MySql >
+                    <div class="prevTitle">Gopher攻击MySql</div>
                 </a>
             
         </li>
@@ -1133,6 +1138,82 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 41
@@ -1148,11 +1229,6 @@ top:50vh;
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">11/05</span><a class="archive-post-title" href= "/2018/11/05/RCTF-2018/" >RCTF-2018 cpushop</a>
-        </li>
     
     
         <li class="archive-post-item">
@@ -1222,6 +1298,11 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2018/08/08/SJU-game/" >SJU集训结业&淘汰赛 Write Up</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/RCTF-2018/" >RCTF-2018 cpushop</a>
         </li>
     
     
