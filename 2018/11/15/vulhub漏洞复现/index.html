@@ -401,13 +401,13 @@ height:50vh;
 <p>PHP5.6.24版本修复了该漏洞，不会再将<code>Proxy</code>放入环境变量中。本环境使用PHP 5.6.23为例。</p>
 <p>当然，该漏洞不止影响PHP，所有以CGI或Fastcgi运行的程序理论上都受到影响。</p>
 <h2 id="测试流程"><a href="#测试流程" class="headerlink" title="测试流程"></a>测试流程</h2><p>正常请求<code>http://your-ip/index.php</code>，可见其Origin为当前请求的服务器，二者IP相等：</p>
-<p><img src="/2018/11/15/vulhub漏洞复现/1.png" alt="vulhub漏洞复现"></p>
+<p><img src="/2018/11/15/vulhub漏洞复现/1.jpg" alt="vulhub漏洞复现"></p>
 <p>在其他地方找到一个可以正常运行的http代理，如<code>http://x.x.122.65:8888/</code>。</p>
 <p>附带<code>Proxy: http://x.x.122.65:8888/</code>头，再次访问<code>http://your-ip/index.php</code>：</p>
-<p><img src="/2018/11/15/vulhub漏洞复现/2.png" alt="vulhub漏洞复现"></p>
+<p><img src="/2018/11/15/vulhub漏洞复现/2.jpg" alt="vulhub漏洞复现"></p>
 <p>如上图，可见此时的Origin已经变成<code>x.x.122.65</code>，也就是说真正进行HTTP访问的服务器是<code>x.x.122.65</code>，也就是说<code>x.x.122.65</code>已经将正常的HTTP请求代理了。</p>
 <p>在<code>x.x.122.65</code>上使用NC，就可以捕获当前请求的数据包，其中可能包含敏感数据：</p>
-<p><img src="/2018/11/15/vulhub漏洞复现/3.png" alt="vulhub漏洞复现"></p>
+<p><img src="/2018/11/15/vulhub漏洞复现/3.jpg" alt="vulhub漏洞复现"></p>
 
     </article>
     <!-- license  -->
