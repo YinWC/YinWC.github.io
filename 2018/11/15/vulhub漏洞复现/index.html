@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">360</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">453</span> / Reading time: <span class="post-count">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -408,6 +408,11 @@ height:50vh;
 <p>如上图，可见此时的Origin已经变成<code>x.x.122.65</code>，也就是说真正进行HTTP访问的服务器是<code>x.x.122.65</code>，也就是说<code>x.x.122.65</code>已经将正常的HTTP请求代理了。</p>
 <p>在<code>x.x.122.65</code>上使用NC，就可以捕获当前请求的数据包，其中可能包含敏感数据：</p>
 <p><img src="/2018/11/15/vulhub漏洞复现/3.jpg" alt="vulhub漏洞复现"></p>
+<h1 id="ElasticSearch-目录穿越漏洞（CVE-2015-3337"><a href="#ElasticSearch-目录穿越漏洞（CVE-2015-3337" class="headerlink" title="ElasticSearch 目录穿越漏洞（CVE-2015-3337)"></a>ElasticSearch 目录穿越漏洞（CVE-2015-3337)</h1><p><a href="https://sunu11.com/2018/07/14/20/" target="_blank" rel="noopener">文章</a></p>
+<h2 id="利用方式"><a href="#利用方式" class="headerlink" title="利用方式"></a>利用方式</h2><p>读服务器上文件：burpsuite的repeater中访问url：</p>
+<p><code>http://your-ip:9200/_plugin/head/../../../../../../../../../etc/passwd</code></p>
+<p><img src="/2018/11/15/vulhub漏洞复现/4.jpg" alt="vulhub漏洞复现"></p>
+<h2 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h2><p>在安装了具有“site”功能的插件以后，插件目录使用../即可向上跳转，导致目录穿越漏洞，可读取任意文件。没有安装任意插件的elasticsearch不受影响。</p>
 
     </article>
     <!-- license  -->
@@ -545,7 +550,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTPoxy漏洞（CVE-2016-5385）"><span class="toc-number">1.</span> <span class="toc-text">HTTPoxy漏洞（CVE-2016-5385）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试流程"><span class="toc-number">1.2.</span> <span class="toc-text">测试流程</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTPoxy漏洞（CVE-2016-5385）"><span class="toc-number">1.</span> <span class="toc-text">HTTPoxy漏洞（CVE-2016-5385）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试流程"><span class="toc-number">1.2.</span> <span class="toc-text">测试流程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ElasticSearch-目录穿越漏洞（CVE-2015-3337"><span class="toc-number">2.</span> <span class="toc-text">ElasticSearch 目录穿越漏洞（CVE-2015-3337)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#利用方式"><span class="toc-number">2.1.</span> <span class="toc-text">利用方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原理-1"><span class="toc-number">2.2.</span> <span class="toc-text">原理</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
