@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,508</span> / Reading time: <span class="post-count">8 min</span></span>
+                        <span>Word count: <span class="post-count">848</span> / Reading time: <span class="post-count">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,7 +396,9 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>–batch 在运行过程中无需做出判断<br>sqlmap使用大全：<a href="http://www.php.cn/php-weizijiaocheng-391039.html" target="_blank" rel="noopener">http://www.php.cn/php-weizijiaocheng-391039.html</a></p>
+        <p><code>--batch</code> 在运行过程中无需做出判断</p>
+<p>sqlmap 判断waf <code>sqlmap -u &quot;http://www.sch01ar.com/&quot; --identify-waf --batch</code> </p>
+<p>sqlmap使用大全：<a href="http://www.php.cn/php-weizijiaocheng-391039.html" target="_blank" rel="noopener">http://www.php.cn/php-weizijiaocheng-391039.html</a></p>
 <p><a href="http://www.vuln.cn/1992" target="_blank" rel="noopener">http://www.vuln.cn/1992</a><br>Sqlmap的命令介绍，<a href="https://blog.csdn.net/u011781521/article/details/53979998" target="_blank" rel="noopener">中英文对照</a></p>
 <p>参考：<a href="http://www.51xkx.cn/?p=228" target="_blank" rel="noopener">http://www.51xkx.cn/?p=228</a></p>
 <p><a href="https://blog.csdn.net/zgyulongfei/article/details/41017493" target="_blank" rel="noopener">https://blog.csdn.net/zgyulongfei/article/details/41017493</a></p>
@@ -415,195 +417,9 @@ height:50vh;
 <p>2.数据库为MSSQL的搭配方式：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tamper=between,charencode,charunicodeencode,equaltolike,greatest,multiplespaces,</span><br><span class="line">nonrecursivereplacement,percentage,randomcase,securesphere,sp_password,space2comment,</span><br><span class="line">space2dash,space2mssqlblank,space2mysqldash,space2plus,space2randomblank,unionalltounion,</span><br><span class="line">unmagicquotes</span><br></pre></td></tr></table></figure></p>
 <p>3.数据库为Mysql的搭配方式:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tamper=between,bluecoat,charencode,charunicodeencode,concat2concatws,equaltolike,</span><br><span class="line">greatest,halfversionedmorekeywords,ifnull2ifisnull,modsecurityversioned,modsecurityzeroversioned,</span><br><span class="line">multiplespaces,nonrecursivereplacement,percentage,randomcase,securesphere,space2comment,space2hash,</span><br><span class="line">space2morehash,space2mysqldash,space2plus,space2randomblank,unionalltounion,unmagicquotes,</span><br><span class="line">versionedkeywords,versionedmorekeywords,xforwardedfor</span><br></pre></td></tr></table></figure></p>
 <p>4.常用脚本用法：</p>
-<p>apostrophemask.py UTF-8编码<br>Example: </p>
-<ul>
-<li>Input: AND ‘1’=’1’ </li>
-<li>Output: AND %EF%BC%871%EF%BC%87=%EF%BC%871%EF%BC%87 </li>
-</ul>
-<p>apostrophenullencode.py unicode编码<br>Example: </p>
-<ul>
-<li>Input: AND ‘1’=’1’ </li>
-<li>Output: AND %00%271%00%27=%00%271%00%27 </li>
-</ul>
-<p>appendnullbyte.py 添加%00<br>Example: </p>
-<ul>
-<li>Input: AND 1=1 </li>
-<li>Output: AND 1=1%00<br>Requirement: </li>
-<li>Microsoft Access </li>
-</ul>
-<p>base64encode.py base64编码<br>Example: </p>
-<ul>
-<li>Input: 1’ AND SLEEP(5)# </li>
-<li>Output: MScgQU5EIFNMRUVQKDUpIw== </li>
-</ul>
-<p>between.py 以”not between”替换”&gt;“<br>Example: </p>
-<ul>
-<li>Input: ‘A &gt; B’ </li>
-<li>Output: ‘A NOT BETWEEN 0 AND B’ </li>
-</ul>
-<p>bluecoat.py 以随机的空白字符替代空格，以”like”替代”=“<br>Example: </p>
-<ul>
-<li>Input: SELECT id FROM users where id = 1 </li>
-<li>Output: SELECT%09id FROM users where id LIKE 1<br>Requirement: </li>
-<li>MySQL 5.1, SGOS </li>
-</ul>
-<p>chardoubleencode.py 双重url编码<br>Example: </p>
-<ul>
-<li>Input: SELECT FIELD FROM%20TABLE </li>
-<li>Output: %2553%2545%254c%2545%2543%2554%2520%2546%2549%2545%254c%2544%2520%2546%2552%254f%254d%2520%2554%2541%2542%254c%2545 </li>
-</ul>
-<p>charencode.py url编码<br>Example: </p>
-<ul>
-<li>Input: SELECT FIELD FROM%20TABLE </li>
-<li>Output: %53%45%4c%45%43%54%20%46%49%45%4c%44%20%46%52%4f%4d%20%54%41%42%4c%45 </li>
-</ul>
-<p>charunicodeencode.py 对未进行url编码的字符进行unicode编码<br>Example: </p>
-<ul>
-<li>Input: SELECT FIELD%20FROM TABLE </li>
-<li>Output: %u0053%u0045%u004c%u0045%u0043%u0054%u0020%u0046%u0049%u0045%u004c%u0044%u0020%u0046%u0052%u004f%u004d%u0020%u0054%u0041%u0042%u004c%u0045’<br>Requirement: </li>
-<li>ASP </li>
-<li>ASP.NET </li>
-</ul>
-<p>equaltolike.py 以”like”替代”=“<br>Example: </p>
-<ul>
-<li>Input: SELECT * FROM users WHERE id=1 </li>
-<li>Output: SELECT * FROM users WHERE id LIKE 1 </li>
-</ul>
-<p>halfversionedmorekeywords.py在每个关键字前添加条件注释<br>Example: </p>
-<ul>
-<li>Input: value’ UNION ALL SELECT CONCAT(CHAR(58,107,112,113,58),IFNULL(CAST(CURRENT_USER() AS CHAR),CHAR(32)),CHAR(58,97,110,121,58)), NULL, NULL# AND ‘QDWa’=’QDWa </li>
-<li>Output: value’/<em>!0UNION/</em>!0ALL/<em>!0SELECT/</em>!0CONCAT(/<em>!0CHAR(58,107,112,113,58),/</em>!0IFNULL(CAST(/<em>!0CURRENT_USER()/</em>!0AS/<em>!0CHAR),/</em>!0CHAR(32)),/<em>!0CHAR(58,97,110,121,58)), NULL, NULL#/</em>!0AND ‘QDWa’=’QDWa<br>Requirement: </li>
-<li>MySQL &lt; 5.1 </li>
-</ul>
-<p>ifnull2ifisnull.py 以”IF(ISNULL(A), B, A)”替换”IFNULL(A, B)”<br>Example: </p>
-<ul>
-<li>Input: IFNULL(1, 2) </li>
-<li>Output: IF(ISNULL(1), 2, 1)<br>Requirement: </li>
-<li>MySQL </li>
-<li>SQLite (possibly) </li>
-<li>SAP MaxDB (possibly) </li>
-</ul>
-<p>modsecurityversioned.py 条件注释<br>Example: </p>
-<ul>
-<li>Input: 1 AND 2&gt;1– </li>
-<li>Output: 1 /<em>!30000AND 2&gt;1</em>/–<br>Requirement: </li>
-<li>MySQL </li>
-</ul>
-<p>modsecurityzeroversioned.py 条件注释，0000<br>Example: </p>
-<ul>
-<li>Input: 1 AND 2&gt;1– </li>
-<li>Output: 1 /<em>!00000AND 2&gt;1</em>/–<br>Requirement: </li>
-<li>MySQL </li>
-</ul>
-<p>multiplespaces.py 添加多个空格<br>Example: </p>
-<ul>
-<li>Input: UNION SELECT </li>
-<li>Output:  UNION   SELECT </li>
-</ul>
-<p>nonrecursivereplacement.py 可以绕过对关键字删除的防注入（这个我也不知道怎么说好，看例子。。。）<br>Example: </p>
-<ul>
-<li>Input: 1 UNION SELECT 2– </li>
-<li>Output: 1 UNUNIONION SELSELECTECT 2– </li>
-</ul>
-<p>percentage.py 在每个字符前添加百分号（%）<br>Example: </p>
-<ul>
-<li>Input: SELECT FIELD FROM TABLE </li>
-<li>Output: %S%E%L%E%C%T %F%I%E%L%D %F%R%O%M %T%A%B%L%E<br>Requirement: </li>
-<li>ASP </li>
-</ul>
-<p>randomcase.py 随即大小写<br>Example: </p>
-<ul>
-<li>Input: INSERT </li>
-<li>Output: InsERt </li>
-</ul>
-<p>randomcomments.py 随机插入区块注释<br>Example:<br>‘INSERT’ becomes ‘IN/<strong>/S/</strong>/ERT’<br>securesphere.py 语句结尾添加”真”字符串<br>Example: </p>
-<ul>
-<li>Input: AND 1=1 </li>
-<li>Output: AND 1=1 and ‘0having’=’0having’ </li>
-</ul>
-<p>sp_password.py 语句结尾添加”sp_password”迷惑数据库日志（很。。。）<br>Example: <a href="http://www.2cto.com" target="_blank" rel="noopener">www.2cto.com</a> </p>
-<ul>
-<li>Input: 1 AND 9227=9227– </li>
-<li>Output: 1 AND 9227=9227–sp_password<br>Requirement: </li>
-<li>MSSQL </li>
-</ul>
-<p>space2comment.py 以区块注释替换空格<br>Example: </p>
-<ul>
-<li>Input: SELECT id FROM users </li>
-<li>Output: SELECT/<strong>/id/</strong>/FROM/**/users </li>
-</ul>
-<p>space2dash.py 以单行注释”–”和随机的新行替换空格<br>Example: </p>
-<ul>
-<li>Input: 1 AND 9227=9227 </li>
-<li>Output: 1–PTTmJopxdWJ%0AAND–cWfcVRPV%0A9227=9227<br>Requirement: </li>
-<li>MSSQL </li>
-<li>SQLite </li>
-</ul>
-<p>space2hash.py 以单行注释”#”和由随机字符组成的新行替换空格<br>Example: </p>
-<ul>
-<li>Input: 1 AND 9227=9227 </li>
-<li>Output: 1%23PTTmJopxdWJ%0AAND%23cWfcVRPV%0A9227=9227<br>Requirement: </li>
-<li>MySQL </li>
-</ul>
-<p>space2morehash.py 没看出来和上面那个有什么区别。。<br>Requirement: </p>
-<ul>
-<li>MySQL &gt;= 5.1.13 </li>
-</ul>
-<p>space2mssqlblank.py 以随机空白字符替换空格<br>Example: </p>
-<ul>
-<li>Input: SELECT id FROM users </li>
-<li>Output: SELECT%08id%02FROM%0Fusers<br>Requirement: </li>
-<li>Microsoft SQL Server </li>
-</ul>
-<p>space2mssqlhash.py 以单行注释”#”和新行替换空格<br>Example: </p>
-<ul>
-<li>Input: 1 AND 9227=9227 </li>
-<li>Output: 1%23%0A9227=9227<br>Requirement: </li>
-<li>MSSQL </li>
-<li>MySQL </li>
-</ul>
-<p>space2mysqlblank.py 以随机空白字符替换空格<br>Example: </p>
-<ul>
-<li>Input: SELECT id FROM users </li>
-<li>Output: SELECT%0Bid%0BFROM%A0users<br>Requirement: </li>
-<li>MySQL </li>
-</ul>
-<p>space2mysqldash.py 以单行注释和新行替换空格<br>Example: </p>
-<ul>
-<li>Input: 1 AND 9227=9227 </li>
-<li>Output: 1–%0AAND–%0A9227=9227<br>Requirement: </li>
-<li>MySQL </li>
-<li>MSSQL </li>
-</ul>
-<p>space2plus.py 以”+”替换空格<br>Example: </p>
-<ul>
-<li>Input: SELECT id FROM users </li>
-<li>Output: SELECT+id+FROM+users </li>
-</ul>
-<p>space2randomblank.py 随机空白字符替换空格<br>Example: </p>
-<ul>
-<li>Input: SELECT id FROM users </li>
-<li>Output: SELECT\rid\tFROM\nusers </li>
-</ul>
-<p>unionalltounion.py 以”union all”替换”union”<br>Example: </p>
-<ul>
-<li>Input: -1 UNION ALL SELECT </li>
-<li>Output: -1 UNION SELECT </li>
-</ul>
-<p>unmagicquotes.py 以”%bf%27”替换单引号，并在结尾添加注释”–”<br>Example: </p>
-<ul>
-<li>Input: 1’ AND 1=1 </li>
-<li>Output: 1%bf%27 AND 1=1–%20<br>versionedkeywords.py 对不是函数的关键字条件注释<br>Example: </li>
-<li>Input: 1 UNION ALL SELECT NULL, NULL, CONCAT(CHAR(58,104,116,116,58),IFNULL(CAST(CURRENT_USER() AS CHAR),CHAR(32)),CHAR(58,100,114,117,58))# </li>
-<li>Output:  1/<em>!UNION</em>//<em>!ALL</em>//<em>!SELECT</em>//<em>!NULL</em>/,/<em>!NULL</em>/,CONCAT(CHAR(58,104,116,116,58),IFNULL(CAST(CURRENT_USER()/<em>!AS</em>//<em>!CHAR</em>/),CHAR(32)),CHAR(58,100,114,117,58))#<br>Requirement: </li>
-<li>MySQL </li>
-</ul>
-<p>versionedmorekeywords.py 对关键字条件注释<br>Example: </p>
-<ul>
-<li>Input: 1 UNION ALL SELECT NULL, NULL, CONCAT(CHAR(58,122,114,115,58),IFNULL(CAST(CURRENT_USER() AS CHAR),CHAR(32)),CHAR(58,115,114,121,58))# </li>
-<li>Output: 1/<em>!UNION</em>//<em>!ALL</em>//<em>!SELECT</em>//<em>!NULL</em>/,/<em>!NULL</em>/,/<em>!CONCAT</em>/(/<em>!CHAR</em>/(58,122,114,115,58),/<em>!IFNULL</em>/(CAST(/<em>!CURRENT_USER</em>/()/<em>!AS</em>//<em>!CHAR</em>/),/<em>!CHAR</em>/(32)),/<em>!CHAR</em>/(58,115,114,121,58))#<br>Requirement: </li>
-<li>MySQL &gt;= 5.1.13</li>
-</ul>
+<blockquote>
+<p>apostrophemask.py UTF-8编码<br>apostrophenullencode.py unicode编码<br>appendnullbyte.py 添加%00<br>base64encode.py base64编码<br>between.py 以”not between”替换”&gt;“<br>bluecoat.py 以随机的空白字符替代空格，以”like”替代”=“<br>chardoubleencode.py 双重url编码<br>charencode.py url编码<br>charunicodeencode.py 对未进行url编码的字符进行unicode编码<br>equaltolike.py 以”like”替代”=“<br>halfversionedmorekeywords.py在每个关键字前添加条件注释<br>ifnull2ifisnull.py 以”IF(ISNULL(A), B, A)”替换”IFNULL(A, B)”<br>modsecurityversioned.py 条件注释<br>modsecurityzeroversioned.py 条件注释，0000<br>multiplespaces.py 添加多个空格<br>nonrecursivereplacement.py 可以绕过对关键字删除的防注入（这个我也不知道怎么说好，看例子。。。）<br>percentage.py 在每个字符前添加百分号（%）<br>randomcase.py 随即大小写<br>randomcomments.py 随机插入区块注释<br>sp_password.py 语句结尾添加”sp_password”迷惑数据库日志（很。。。）<br>space2comment.py 以区块注释替换空格<br>space2dash.py 以单行注释”–”和随机的新行替换空格<br>space2hash.py 以单行注释”#”和由随机字符组成的新行替换空格<br>space2morehash.py 没看出来和上面那个有什么区别。。<br>space2mssqlblank.py 以随机空白字符替换空格<br>space2mssqlhash.py 以单行注释”#”和新行替换空格<br>space2mysqlblank.py 以随机空白字符替换空格<br>space2mysqldash.py 以单行注释和新行替换空格<br>space2plus.py 以”+”替换空格<br>space2randomblank.py 随机空白字符替换空格<br>unionalltounion.py 以”union all”替换”union”<br>unmagicquotes.py 以”%bf%27”替换单引号，并在结尾添加注释”–”<br>versionedkeywords.py 对不是函数的关键字条件注释<br>versionedmorekeywords.py 对关键字条件注释 </p>
+</blockquote>
 
     </article>
     <!-- license  -->
@@ -1538,9 +1354,18 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 50
+        Total : 51
         </div>
         <!-- search  -->
         
@@ -1553,6 +1378,11 @@ top:50vh;
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/03</span><a class="archive-post-title" href= "/2018/12/03/Git-learn/" >Git learn</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1811,19 +1641,19 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
-        <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
-    
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
+    
+        <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="Record,Problem"><span class="iconfont-archer">&#xe606;</span>Record,Problem</span>
     
-        <span class="sidebar-tag-name" data-tags="problem"><span class="iconfont-archer">&#xe606;</span>problem</span>
+        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
     
         <span class="sidebar-tag-name" data-tags="漏洞、CTF"><span class="iconfont-archer">&#xe606;</span>漏洞、CTF</span>
     
-        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
+        <span class="sidebar-tag-name" data-tags="problem"><span class="iconfont-archer">&#xe606;</span>problem</span>
     
         <span class="sidebar-tag-name" data-tags="Crypto"><span class="iconfont-archer">&#xe606;</span>Crypto</span>
     
