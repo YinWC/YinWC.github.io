@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Ywc&#39;s blog</title>
+    <title>渗透测试之信息收集 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -70,6 +70,8 @@
 
     <link rel="preload" href= /css/style.css?v=201807017_1502 as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <link rel="stylesheet" href= /css/mobile.css?v=20180709 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -194,12 +196,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Ywc&#39;s blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">渗透测试之信息收集</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>Ywc's blog</a>
 </header>
@@ -213,24 +226,74 @@
 
 
 
+height:50vh;
+
 >
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/blog.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            渗透测试之信息收集
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "learn">learn</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count">1,119</span> / Reading time: <span class="post-count">4 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/01/28</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -331,68 +394,101 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/10/17/渗透测试流程/" >
-            
-                <span>渗透测试流程总结</span>
-        </a>
-        <div class="abstract-content">
-            渗透测试基本流程整理
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/17</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "渗透测试">渗透测试</a>
-    
-</div>
-            
-        </div>
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="收集域名信息"><a href="#收集域名信息" class="headerlink" title="收集域名信息"></a>收集域名信息</h2><font color="blue">Whois查询</font>
+
+<p>Whois是一个标准的互联网协议，可用于收集网络注册信息，注册的域名、IP地址等信息。（Whois就是一个用于查询域名是否已被注册以及注册域名的详细信息的数据库）</p>
+<ul>
+<li>Kali中自带,可以直接使用 eg:whois qq.com</li>
+<li>在线网址：<a href="https://whois.aizhan.com" target="_blank" rel="noopener">爱站工具网</a>、<a href="https://whois.china.com" target="_blank" rel="noopener">站长之家</a>、<a href="https://www.virustotal.com" target="_blank" rel="noopener">Virus Total</a></li>
+</ul>
+<font color="blue">备案信息查询</font>
+
+<p>常用网址:</p>
+<ul>
+<li>ICP备案查询网：<a href="http://www.beianbeian.com" target="_blank" rel="noopener">http://www.beianbeian.com</a></li>
+<li>天眼查：<a href="http://www.tianyancha.com" target="_blank" rel="noopener">http://www.tianyancha.com</a></li>
+</ul>
+<h2 id="收集敏感信息"><a href="#收集敏感信息" class="headerlink" title="收集敏感信息"></a>收集敏感信息</h2><font color="blue">Google查询</font>
+
+<p>常用语法：<br>| 关键字 | 说明 |<br>| :——| ——: |<br>| site | 指定域名 |<br>| inurl | URL中存在关键字的网页 |<br>| intext | 网页正文中的关键字 |<br>| filetype | 指定文件类型 |<br>| intitle | 网页标题中的关键字 |<br>| link | link:baidu.com即表示返回所有和baidu.com做了链接的URL |<br>| info | 查找指定站点的一些基本信息 |<br>| cache | 搜索Google里关于某些内容的缓存 |</p>
+<font color="blue">Github上寻找相关敏感信息</font>
+
+<p>在Github上查询相关敏感信息，如数据库连接信息、邮箱密码、uc-key、阿里的osskey，有时还可以找到泄露的源代码等</p>
+<font color="blue">乌云漏洞表</font>
+
+<p><a href="https://shuimugan.com" target="_blank" rel="noopener">https://shuimugan.com</a> 查询历史漏洞信息</p>
+<h2 id="收集子域名信息"><a href="#收集子域名信息" class="headerlink" title="收集子域名信息"></a>收集子域名信息</h2><font color="blue">子域名检测工具</font>
+
+<p>子域名检测工具有：<u>Layer子域名挖掘机、Sublist3r、subDomainsBrute</u>、K8、wydomain、dnsmaper、Maltego CE</p>
+<ul>
+<li>Layer子域名挖掘机 下载地址：pan.baidu.com/s/1o8qAKYm</li>
+<li>sublist3r 项目地址：<a href="https://github.com/aboul3la/Sublist3r" target="_blank" rel="noopener">https://github.com/aboul3la/Sublist3r</a></li>
+<li>subDomainBrute 项目地址：<a href="https://github.com/lijiejie/subDomainsBrute" target="_blank" rel="noopener">https://github.com/lijiejie/subDomainsBrute</a></li>
+</ul>
+<font color="blue">搜索引擎枚举</font>
+
+<p>使用google语法搜索子域名.eg:site:baidu.com</p>
+<font color="blue">第三方聚合应用枚举</font><br>很多第三方服务汇聚了大量DNS数据集，可以通过他们检索某个给定域名的子域名。<br><br>DNSdumpster网站：<a href="https://dnsdumper.com" target="_blank" rel="noopener">https://dnsdumper.com</a> 在线DNS查询和搜索的工具挖掘出指定域潜藏的大量子域。<br><br>## 收集常用端口信息<br>常用的扫描工具：nmap、masscan、zmap、御剑等<br><br>常见端口以及其说明：<a href="https://zhuanlan.zhihu.com/p/24926870" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/24926870</a><br><br>## 指纹识别<br>指纹是指网站CMS指纹识别、计算机操作系统以及web容器的指纹识别等。<br><br>应用程序一般在html、js、css等文件中包含一些特征码，这些特征码就是所谓的指纹。当碰到其他网站也存在次特征时，就可以快速识别出该程序，所以叫做指纹识别。<br><br>常见的CMS有Dedecms（织梦）、Discuz、PHPWEB、PHPWind、phpcms、ecshop、dvbbs、siteweaver、aspcms、帝国、Z-Blog、WordPress等<br><br>识别一些主流CMS工具有：御剑web指纹识别、whatweb、webrobo、椰树、轻量web指纹识别等<br><br>在线网址:<br>- Bugscaner:  <a href="http://whatweb.bugscaner.com/look/" target="_blank" rel="noopener">http://whatweb.bugscaner.com/look/</a><br>- 云悉指纹:  <a href="http://www.yunsee.cn/figer.html" target="_blank" rel="noopener">http://www.yunsee.cn/figer.html</a><br>- whatweb:  <a href="http://whatweb.net/" target="_blank" rel="noopener">http://whatweb.net/</a><br><br>## 查询真实IP<br><strong>目标服务器存在CDN</strong><br><br>CDN即内容分布网络，主要解决因传输距离和不同运营商节点造成的网络速度性能低下的问题。简单来说就是一组在不同运营商之间的对接点上的高速缓存服务器，把用户经常访问的静态数据资源直接缓存到节点服务器上，当用户再次请求时，会直接分发到离用户近的节点服务器上响应给用户，当用户有实际数据交互时才会从远程Web服务器上响应，这样可以打打提高网站的响应速度及用户体验。<br><br>如果渗透目标购买了CDN服务，可以直接ping目标的域名，但得到的并非真正的目标Web服务器，只是离我们最近的一台目标节点的CND服务器，这就导致我们没法直接得到目标的真实IP段范围。<br><br><font color="blue">绕过CDN寻找真实IP</font>
+
+<p>复习文章：<code>https://blog.csdn.net/qq_29277155/article/details/52463908/</code></p>
+<p><strong>1.查询二级域名</strong></p>
+<p>方法：</p>
+<ul>
+<li>在线查询<code>http://i.links.cn/subdomain/</code></li>
+<li>使用AWVS中的子域名查询工具</li>
+</ul>
+<p><strong>2.nslookup</strong></p>
+<p>cmd中nslookup</p>
+<p><strong>3.直接ping一下</strong></p>
+<p><strong>4.看历史纪录</strong></p>
+<p>在线网址：<a href="http://toolbar.netcraft.com/site_report?url=www.xxx.com" target="_blank" rel="noopener">http://toolbar.netcraft.com/site_report?url=www.xxx.com</a></p>
+<p><strong>5.phpinfo</strong></p>
+<p><strong>6.看订阅邮件</strong></p>
+<p><strong>7.rss订阅</strong></p>
+<h2 id="收集敏感目录文件"><a href="#收集敏感目录文件" class="headerlink" title="收集敏感目录文件"></a>收集敏感目录文件</h2><p>针对网站目录主要有DirBuster、御剑后台扫描珍藏版、wwwscan、Spinder.py（轻量级快速单文件目录后台扫描）、Sensitivefilescan（轻量级快速单文件目录后台扫描）、Weakfilescan(轻量级快速单文件目录后台扫描工具)</p>
+<h2 id="社会工程学"><a href="#社会工程学" class="headerlink" title="社会工程学"></a>社会工程学</h2><p>可以通过社工库在线网站查询。</p>
+
     </article>
+    <!-- license  -->
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/09/29/msf/" >
-            
-                <span>Metasploit 渗透练习</span>
-        </a>
-        <div class="abstract-content">
-            使用永恒之蓝(MS17-010)漏洞入侵windows7
+        <div class="license-wrapper">
+            <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2019/01/28/渗透测试之信息收集/">https://yinwc.github.io/2019/01/28/渗透测试之信息收集/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2019/01/28/渗透测试之信息收集/">January 28th 2019, 10:00:59 am</a>
+            <p>版权声明: </p>
         </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/29</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "渗透测试">渗透测试</a>
-    
-</div>
-            
-        </div>
-    </article>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/01/16/重装系统/" title= 使用U盘重装系统 >
+                    <div class="prevTitle">使用U盘重装系统</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!--PC和WAP自适应版-->
+
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -469,6 +565,24 @@
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#收集域名信息"><span class="toc-number">1.</span> <span class="toc-text">收集域名信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集敏感信息"><span class="toc-number">2.</span> <span class="toc-text">收集敏感信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集子域名信息"><span class="toc-number">3.</span> <span class="toc-text">收集子域名信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集敏感目录文件"><span class="toc-number">4.</span> <span class="toc-text">收集敏感目录文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#社会工程学"><span class="toc-number">5.</span> <span class="toc-text">社会工程学</span></a></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1813,6 +1927,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
