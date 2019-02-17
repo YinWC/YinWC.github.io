@@ -430,7 +430,26 @@ height:50vh;
 <font color="blue">搜索引擎枚举</font>
 
 <p>使用google语法搜索子域名.eg:site:baidu.com</p>
-<font color="blue">第三方聚合应用枚举</font><br>很多第三方服务汇聚了大量DNS数据集，可以通过他们检索某个给定域名的子域名。<br><br>DNSdumpster网站：<a href="https://dnsdumper.com" target="_blank" rel="noopener">https://dnsdumper.com</a> 在线DNS查询和搜索的工具挖掘出指定域潜藏的大量子域。<br><br>## 收集常用端口信息<br>常用的扫描工具：nmap、masscan、zmap、御剑等<br><br>常见端口以及其说明：<a href="https://zhuanlan.zhihu.com/p/24926870" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/24926870</a><br><br>## 指纹识别<br>指纹是指网站CMS指纹识别、计算机操作系统以及web容器的指纹识别等。<br><br>应用程序一般在html、js、css等文件中包含一些特征码，这些特征码就是所谓的指纹。当碰到其他网站也存在次特征时，就可以快速识别出该程序，所以叫做指纹识别。<br><br>常见的CMS有Dedecms（织梦）、Discuz、PHPWEB、PHPWind、phpcms、ecshop、dvbbs、siteweaver、aspcms、帝国、Z-Blog、WordPress等<br><br>识别一些主流CMS工具有：御剑web指纹识别、whatweb、webrobo、椰树、轻量web指纹识别等<br><br>在线网址:<br>- Bugscaner:  <a href="http://whatweb.bugscaner.com/look/" target="_blank" rel="noopener">http://whatweb.bugscaner.com/look/</a><br>- 云悉指纹:  <a href="http://www.yunsee.cn/figer.html" target="_blank" rel="noopener">http://www.yunsee.cn/figer.html</a><br>- whatweb:  <a href="http://whatweb.net/" target="_blank" rel="noopener">http://whatweb.net/</a><br><br>## 查询真实IP<br><strong>目标服务器存在CDN</strong><br><br>CDN即内容分布网络，主要解决因传输距离和不同运营商节点造成的网络速度性能低下的问题。简单来说就是一组在不同运营商之间的对接点上的高速缓存服务器，把用户经常访问的静态数据资源直接缓存到节点服务器上，当用户再次请求时，会直接分发到离用户近的节点服务器上响应给用户，当用户有实际数据交互时才会从远程Web服务器上响应，这样可以打打提高网站的响应速度及用户体验。<br><br>如果渗透目标购买了CDN服务，可以直接ping目标的域名，但得到的并非真正的目标Web服务器，只是离我们最近的一台目标节点的CND服务器，这就导致我们没法直接得到目标的真实IP段范围。<br><br><font color="blue">绕过CDN寻找真实IP</font>
+<font color="blue">第三方聚合应用枚举</font>
+
+<p>很多第三方服务汇聚了大量DNS数据集，可以通过他们检索某个给定域名的子域名。</p>
+<p>DNSdumpster网站：<a href="https://dnsdumper.com" target="_blank" rel="noopener">https://dnsdumper.com</a> 在线DNS查询和搜索的工具挖掘出指定域潜藏的大量子域。</p>
+<h2 id="收集常用端口信息"><a href="#收集常用端口信息" class="headerlink" title="收集常用端口信息"></a>收集常用端口信息</h2><p>常用的扫描工具：nmap、masscan、zmap、御剑等</p>
+<p>常见端口以及其说明：<a href="https://zhuanlan.zhihu.com/p/24926870" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/24926870</a></p>
+<h2 id="指纹识别"><a href="#指纹识别" class="headerlink" title="指纹识别"></a>指纹识别</h2><p>指纹是指网站CMS指纹识别、计算机操作系统以及web容器的指纹识别等。</p>
+<p>应用程序一般在html、js、css等文件中包含一些特征码，这些特征码就是所谓的指纹。当碰到其他网站也存在次特征时，就可以快速识别出该程序，所以叫做指纹识别。</p>
+<p>常见的CMS有Dedecms（织梦）、Discuz、PHPWEB、PHPWind、phpcms、ecshop、dvbbs、siteweaver、aspcms、帝国、Z-Blog、WordPress等</p>
+<p>识别一些主流CMS工具有：御剑web指纹识别、whatweb、webrobo、椰树、轻量web指纹识别等。</p>
+<p>在线网址:</p>
+<ul>
+<li>Bugscaner:  <a href="http://whatweb.bugscaner.com/look/" target="_blank" rel="noopener">http://whatweb.bugscaner.com/look/</a></li>
+<li>云悉指纹:  <a href="http://www.yunsee.cn/figer.html" target="_blank" rel="noopener">http://www.yunsee.cn/figer.html</a></li>
+<li>whatweb:  <a href="http://whatweb.net/" target="_blank" rel="noopener">http://whatweb.net/</a></li>
+</ul>
+<h2 id="查询真实IP"><a href="#查询真实IP" class="headerlink" title="查询真实IP"></a>查询真实IP</h2><p><strong>目标服务器存在CDN</strong></p>
+<p>CDN即内容分布网络，主要解决因传输距离和不同运营商节点造成的网络速度性能低下的问题。简单来说就是一组在不同运营商之间的对接点上的高速缓存服务器，把用户经常访问的静态数据资源直接缓存到节点服务器上，当用户再次请求时，会直接分发到离用户近的节点服务器上响应给用户，当用户有实际数据交互时才会从远程Web服务器上响应，这样可以打打提高网站的响应速度及用户体验。</p>
+<p>如果渗透目标购买了CDN服务，可以直接ping目标的域名，但得到的并非真正的目标Web服务器，只是离我们最近的一台目标节点的CND服务器，这就导致我们没法直接得到目标的真实IP段范围。</p>
+<font color="blue">绕过CDN寻找真实IP</font>
 
 <p>复习文章：<code>https://blog.csdn.net/qq_29277155/article/details/52463908/</code></p>
 <p><strong>1.查询二级域名</strong></p>
@@ -463,6 +482,11 @@ height:50vh;
     <!-- paginator  -->
     <ul class="post-paginator">
         <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2019/02/02/安全从业人员的职业规划/" title= 安全从业人员的职业规划 >
+                    <div class="nextTitle">安全从业人员的职业规划</div>
+                </a>
             
         </li>
         <li class="previous">
@@ -581,7 +605,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#收集域名信息"><span class="toc-number">1.</span> <span class="toc-text">收集域名信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集敏感信息"><span class="toc-number">2.</span> <span class="toc-text">收集敏感信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集子域名信息"><span class="toc-number">3.</span> <span class="toc-text">收集子域名信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集敏感目录文件"><span class="toc-number">4.</span> <span class="toc-text">收集敏感目录文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#社会工程学"><span class="toc-number">5.</span> <span class="toc-text">社会工程学</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#收集域名信息"><span class="toc-number">1.</span> <span class="toc-text">收集域名信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集敏感信息"><span class="toc-number">2.</span> <span class="toc-text">收集敏感信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集子域名信息"><span class="toc-number">3.</span> <span class="toc-text">收集子域名信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集常用端口信息"><span class="toc-number">4.</span> <span class="toc-text">收集常用端口信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指纹识别"><span class="toc-number">5.</span> <span class="toc-text">指纹识别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查询真实IP"><span class="toc-number">6.</span> <span class="toc-text">查询真实IP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集敏感目录文件"><span class="toc-number">7.</span> <span class="toc-text">收集敏感目录文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#社会工程学"><span class="toc-number">8.</span> <span class="toc-text">社会工程学</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1472,54 +1496,9 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 57
+        Total : 58
         </div>
         <!-- search  -->
         
@@ -1532,6 +1511,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/02</span><a class="archive-post-title" href= "/2019/02/02/安全从业人员的职业规划/" >安全从业人员的职业规划</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1749,12 +1733,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
         </li>
     
     
@@ -1832,9 +1816,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     
         <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
