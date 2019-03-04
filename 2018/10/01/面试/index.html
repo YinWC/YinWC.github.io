@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">2,028</span> / Reading time: <span class="post-count">8 min</span></span>
+                        <span>Word count: <span class="post-count">2,603</span> / Reading time: <span class="post-count">10 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,9 +396,64 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="PHP的字符串中单引号与双引号的区别"><a href="#PHP的字符串中单引号与双引号的区别" class="headerlink" title="PHP的字符串中单引号与双引号的区别"></a>PHP的字符串中单引号与双引号的区别</h2><p>“ “双引号里面的字段会经过编译器解释，然后再当作HTML代码输出。<br>‘ ‘单引号里面的不进行解释，直接输出。<br>双引号中的变量($var)和特殊字符(\r\n之类)会被转义，单引号中的内容不会被转义（所以效率更高）<br>单引号解析的时间比双引号快 。</p>
+        <h2 id="JAVA基础"><a href="#JAVA基础" class="headerlink" title="JAVA基础"></a>JAVA基础</h2><p><a href="https://www.cnblogs.com/javastu/p/5519569.html" target="_blank" rel="noopener">复习文章</a></p>
+<h2 id="CROS跨域资源共享"><a href="#CROS跨域资源共享" class="headerlink" title="CROS跨域资源共享"></a>CROS跨域资源共享</h2><p>复习文章： <a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享CORS详解</a></p>
+<p>它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。</p>
+<h2 id="JSONP漏洞"><a href="#JSONP漏洞" class="headerlink" title="JSONP漏洞"></a>JSONP漏洞</h2><p>复习文章：<a href="http://blog.knownsec.com/2015/03/jsonp_security_technic/" target="_blank" rel="noopener">JSONP 安全攻防技术</a></p>
+<p>JSONP 全称是 JSON with Padding ，是基于 JSON 格式的为解决跨域请求资源而产生的解决方案。他实现的基本原理是利用了 HTML 里 <code>&lt;script&gt;&lt;/script&gt;</code> 元素标签，远程调用 JSON 文件来实现数据传递</p>
+<h2 id="JSON和JSONP的区别"><a href="#JSON和JSONP的区别" class="headerlink" title="JSON和JSONP的区别"></a>JSON和JSONP的区别</h2><p><a href="https://www.cnblogs.com/jiekexuan/p/5355151.html" target="_blank" rel="noopener">复习文章</a></p>
+<p>JSON是一种数据交换格式，而JSONP是一种非官方跨域数据交互协议。JSON是“暗号”，而JSONP则是接头方式。</p>
+<p>JSON是描述信息的格式，JSONP是信息传递双方约定的方法。</p>
+<h2 id="Ddos分布式拒绝服务攻击"><a href="#Ddos分布式拒绝服务攻击" class="headerlink" title="Ddos分布式拒绝服务攻击"></a>Ddos分布式拒绝服务攻击</h2><p>俗称洪水攻击,攻击者控制多台主机同时向同一主机或网络发起DOS攻击（dos攻击是拒绝服务攻击）</p>
+<p>攻击原理：利用合理的请求从而造成资源过载，导致服务不可用。攻击者通过向路由器发起海量的消息请求或者畸形报文，导致CPU无法实时处理消息，引发正常的业务交互流程、内部处理流程阻塞，达到拒绝服务的目的</p>
+<p>udp洪水是一种拒绝服务攻击，它利用含有udp数据报的ip数据包对目标主机上的随机端口进行饱和攻击。</p>
+<p>DDOS攻击主要分为三类：流量型攻击；连接型攻击；特殊协议缺陷</p>
+<h2 id="PHP的字符串中单引号与双引号的区别"><a href="#PHP的字符串中单引号与双引号的区别" class="headerlink" title="PHP的字符串中单引号与双引号的区别"></a>PHP的字符串中单引号与双引号的区别</h2><p>“ “双引号里面的字段会经过编译器解释，然后再当作HTML代码输出。<br>‘ ‘单引号里面的不进行解释，直接输出。<br>双引号中的变量($var)和特殊字符(\r\n之类)会被转义，单引号中的内容不会被转义（所以效率更高）<br>单引号解析的时间比双引号快 。</p>
 <h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><p>同源策略是浏览器的一个安全功能，不同源的客户端脚本在没有明确授权的情况下，不能读写对方资源，同源是指，域名，协议，端口相同。</p>
+<h2 id="sql注入的原理-如何去进行防御sql注入"><a href="#sql注入的原理-如何去进行防御sql注入" class="headerlink" title="sql注入的原理,如何去进行防御sql注入"></a>sql注入的原理,如何去进行防御sql注入</h2><p>原理：当攻击者发送的sql语句被sql解释器执行，通过执行这些恶意语句欺骗数据库执行，导致数据库信息泄露。</p>
+<p>防御：</p>
+<ul>
+<li>使用预编译语句,绑定变量（PreparedStatement）</li>
+<li>使用存储过程</li>
+<li>检查数据类型</li>
+<li>使用安全函数</li>
+</ul>
+<h2 id="sql注入绕过技巧"><a href="#sql注入绕过技巧" class="headerlink" title="sql注入绕过技巧"></a>sql注入绕过技巧</h2><p><a href="https://www.cnblogs.com/Vinson404/p/7253255.html" target="_blank" rel="noopener">复习文章</a></p>
+<h2 id="sql注入有哪几类"><a href="#sql注入有哪几类" class="headerlink" title="sql注入有哪几类"></a>sql注入有哪几类</h2><p>1.按照参数类型：数字型、字符型</p>
+<p>2.按照数据库返回结果：回显注入、报错注入、盲注</p>
+<p>3.按照注入位置及方式不同：post注入，get注入，cookie注入，盲注，延时注入，搜索注入，base64注入等</p>
+<h2 id="SQL注入报错注入指令"><a href="#SQL注入报错注入指令" class="headerlink" title="SQL注入报错注入指令"></a>SQL注入报错注入指令</h2><p><code>http://wyb0.com/posts/injection-of-error-based/</code></p>
+<p>报错注入只要套用公式即可，如下(第一个公式count(*)、floor()、rand()、group by不可或缺，后两个公式有32位的限制):</p>
+<p><code>?id=2’ and (select 1 from (select count(*),concat( floor(rand(0)*2),(select (select (查询语句)) from information_schema.tables limit 0,1))x from information_schema.tables group by x )a )--+</code></p>
+<p><code>?id=2’ and updatexml(1,concat(0x7e,(SELECT @@version),0x7e),1)--+</code></p>
+<p><code>?id=1’ and extractvalue(1, concat(0x7e, (select @@version),0x7e))--+</code></p>
 <h2 id="常见端口"><a href="#常见端口" class="headerlink" title="常见端口"></a>常见端口</h2><p>复习文章：<code>https://zhuanlan.zhihu.com/p/24926870</code></p>
+<h3 id="web类"><a href="#web类" class="headerlink" title="web类"></a>web类</h3><ul>
+<li>80 web</li>
+<li>80-89 web</li>
+<li>8000-9090 web<h3 id="数据库类-扫描弱口令"><a href="#数据库类-扫描弱口令" class="headerlink" title="数据库类(扫描弱口令)"></a>数据库类(扫描弱口令)</h3><ul>
+<li>1433 MSSQL</li>
+<li>1521 Oracle</li>
+<li>3306 Mysql</li>
+<li>5432 PostgreSQL<h3 id="常用端口类-扫描弱口令-端口爆破"><a href="#常用端口类-扫描弱口令-端口爆破" class="headerlink" title="常用端口类(扫描弱口令/端口爆破)"></a>常用端口类(扫描弱口令/端口爆破)</h3></li>
+<li>21 ftp</li>
+<li>22 SSH</li>
+<li>23 Telnet</li>
+<li>2601,2604 zebra路由，默认密码zebra</li>
+<li>3389 远程桌面<h3 id="特殊服务类-未授权-命令执行类-漏洞"><a href="#特殊服务类-未授权-命令执行类-漏洞" class="headerlink" title="特殊服务类(未授权/命令执行类/漏洞)"></a>特殊服务类(未授权/命令执行类/漏洞)</h3></li>
+<li>443 SSL心脏滴血</li>
+<li>873 Rsync未授权</li>
+<li>5984 CouchDB <a href="http://xxx:5984/_utils/" target="_blank" rel="noopener">http://xxx:5984/_utils/</a> </li>
+<li>6379 redis未授权</li>
+<li>7001,7002 WebLogic默认弱口令，反序列</li>
+<li>9200,9300 elasticsearch 参考WooYun: 多玩某服务器ElasticSearch命令执行漏洞 </li>
+<li>11211 memcache未授权访问 </li>
+<li>27017,27018 Mongodb未授权访问 </li>
+<li>50000 SAP命令执行</li>
+<li>ftp</li>
+</ul>
+</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -585,22 +640,6 @@ height:50vh;
 </tr>
 </tbody>
 </table>
-<h2 id="sql注入的原理-如何去进行防御sql注入"><a href="#sql注入的原理-如何去进行防御sql注入" class="headerlink" title="sql注入的原理,如何去进行防御sql注入"></a>sql注入的原理,如何去进行防御sql注入</h2><p>原理：当攻击者发送的sql语句被sql解释器执行，通过执行这些恶意语句欺骗数据库执行，导致数据库信息泄露。</p>
-<p>防御：</p>
-<ul>
-<li>使用预编译语句,绑定变量（PreparedStatement）</li>
-<li>使用存储过程</li>
-<li>检查数据类型</li>
-<li>使用安全函数</li>
-</ul>
-<h2 id="sql注入有哪几类"><a href="#sql注入有哪几类" class="headerlink" title="sql注入有哪几类"></a>sql注入有哪几类</h2><p>1.按照参数类型：数字型、字符型</p>
-<p>2.按照数据库返回结果：回显注入、报错注入、盲注</p>
-<p>3.按照注入位置及方式不同：post注入，get注入，cookie注入，盲注，延时注入，搜索注入，base64注入等</p>
-<h2 id="SQL注入报错注入指令"><a href="#SQL注入报错注入指令" class="headerlink" title="SQL注入报错注入指令"></a>SQL注入报错注入指令</h2><p><code>http://wyb0.com/posts/injection-of-error-based/</code></p>
-<p>报错注入只要套用公式即可，如下(第一个公式count(*)、floor()、rand()、group by不可或缺，后两个公式有32位的限制):</p>
-<p><code>?id=2’ and (select 1 from (select count(*),concat( floor(rand(0)*2),(select (select (查询语句)) from information_schema.tables limit 0,1))x from information_schema.tables group by x )a )--+</code></p>
-<p><code>?id=2’ and updatexml(1,concat(0x7e,(SELECT @@version),0x7e),1)--+</code></p>
-<p><code>?id=1’ and extractvalue(1, concat(0x7e, (select @@version),0x7e))--+</code></p>
 <h2 id="XSS有哪几类"><a href="#XSS有哪几类" class="headerlink" title="XSS有哪几类"></a>XSS有哪几类</h2><p>1.反射型</p>
 <p>2.存储型</p>
 <p>3.DOMXSS</p>
@@ -846,7 +885,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP的字符串中单引号与双引号的区别"><span class="toc-number">1.</span> <span class="toc-text">PHP的字符串中单引号与双引号的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同源策略"><span class="toc-number">2.</span> <span class="toc-text">同源策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见端口"><span class="toc-number">3.</span> <span class="toc-text">常见端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql注入的原理-如何去进行防御sql注入"><span class="toc-number">4.</span> <span class="toc-text">sql注入的原理,如何去进行防御sql注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql注入有哪几类"><span class="toc-number">5.</span> <span class="toc-text">sql注入有哪几类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL注入报错注入指令"><span class="toc-number">6.</span> <span class="toc-text">SQL注入报错注入指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS有哪几类"><span class="toc-number">7.</span> <span class="toc-text">XSS有哪几类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS防御"><span class="toc-number">8.</span> <span class="toc-text">XSS防御</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dom-xss-和反射型xss的区别"><span class="toc-number">9.</span> <span class="toc-text">dom xss 和反射型xss的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WAF绕过"><span class="toc-number">10.</span> <span class="toc-text">WAF绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSRF协议利用"><span class="toc-number">11.</span> <span class="toc-text">SSRF协议利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XXE防御、绕过"><span class="toc-number">12.</span> <span class="toc-text">XXE防御、绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IIS-5-x-6-0解析漏洞"><span class="toc-number">13.</span> <span class="toc-text">IIS 5.x/6.0解析漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache-解析漏洞"><span class="toc-number">14.</span> <span class="toc-text">Apache 解析漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS遇到后台登录限制或者HTTPONLY时"><span class="toc-number">15.</span> <span class="toc-text">XSS遇到后台登录限制或者HTTPONLY时</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过cdn获取网站的真实ip"><span class="toc-number">16.</span> <span class="toc-text">绕过cdn获取网站的真实ip</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件上传的绕过"><span class="toc-number">17.</span> <span class="toc-text">文件上传的绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件读取除了可以读取敏感文件还有什么利用方式"><span class="toc-number">18.</span> <span class="toc-text">文件读取除了可以读取敏感文件还有什么利用方式</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JAVA基础"><span class="toc-number">1.</span> <span class="toc-text">JAVA基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CROS跨域资源共享"><span class="toc-number">2.</span> <span class="toc-text">CROS跨域资源共享</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JSONP漏洞"><span class="toc-number">3.</span> <span class="toc-text">JSONP漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JSON和JSONP的区别"><span class="toc-number">4.</span> <span class="toc-text">JSON和JSONP的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ddos分布式拒绝服务攻击"><span class="toc-number">5.</span> <span class="toc-text">Ddos分布式拒绝服务攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP的字符串中单引号与双引号的区别"><span class="toc-number">6.</span> <span class="toc-text">PHP的字符串中单引号与双引号的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同源策略"><span class="toc-number">7.</span> <span class="toc-text">同源策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql注入的原理-如何去进行防御sql注入"><span class="toc-number">8.</span> <span class="toc-text">sql注入的原理,如何去进行防御sql注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql注入绕过技巧"><span class="toc-number">9.</span> <span class="toc-text">sql注入绕过技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql注入有哪几类"><span class="toc-number">10.</span> <span class="toc-text">sql注入有哪几类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL注入报错注入指令"><span class="toc-number">11.</span> <span class="toc-text">SQL注入报错注入指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见端口"><span class="toc-number">12.</span> <span class="toc-text">常见端口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#web类"><span class="toc-number">12.1.</span> <span class="toc-text">web类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库类-扫描弱口令"><span class="toc-number">12.2.</span> <span class="toc-text">数据库类(扫描弱口令)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用端口类-扫描弱口令-端口爆破"><span class="toc-number">12.3.</span> <span class="toc-text">常用端口类(扫描弱口令/端口爆破)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊服务类-未授权-命令执行类-漏洞"><span class="toc-number">12.4.</span> <span class="toc-text">特殊服务类(未授权/命令执行类/漏洞)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS有哪几类"><span class="toc-number">13.</span> <span class="toc-text">XSS有哪几类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS防御"><span class="toc-number">14.</span> <span class="toc-text">XSS防御</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dom-xss-和反射型xss的区别"><span class="toc-number">15.</span> <span class="toc-text">dom xss 和反射型xss的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WAF绕过"><span class="toc-number">16.</span> <span class="toc-text">WAF绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSRF协议利用"><span class="toc-number">17.</span> <span class="toc-text">SSRF协议利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XXE防御、绕过"><span class="toc-number">18.</span> <span class="toc-text">XXE防御、绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IIS-5-x-6-0解析漏洞"><span class="toc-number">19.</span> <span class="toc-text">IIS 5.x/6.0解析漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache-解析漏洞"><span class="toc-number">20.</span> <span class="toc-text">Apache 解析漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS遇到后台登录限制或者HTTPONLY时"><span class="toc-number">21.</span> <span class="toc-text">XSS遇到后台登录限制或者HTTPONLY时</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过cdn获取网站的真实ip"><span class="toc-number">22.</span> <span class="toc-text">绕过cdn获取网站的真实ip</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件上传的绕过"><span class="toc-number">23.</span> <span class="toc-text">文件上传的绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件读取除了可以读取敏感文件还有什么利用方式"><span class="toc-number">24.</span> <span class="toc-text">文件读取除了可以读取敏感文件还有什么利用方式</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1737,9 +1776,40 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 58
+        Total : 59
         </div>
         <!-- search  -->
         
@@ -1752,6 +1822,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/27</span><a class="archive-post-title" href= "/2019/02/27/Ddos分布式拒绝服务攻击/" >Ddos分布式拒绝服务攻击</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2059,9 +2134,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
-        <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
-    
         <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
+    
+        <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     

