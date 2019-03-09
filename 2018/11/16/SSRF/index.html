@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">289</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">839</span> / Reading time: <span class="post-count">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,7 +396,37 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="SSRF原理以及利用方式"><a href="#SSRF原理以及利用方式" class="headerlink" title="SSRF原理以及利用方式"></a>SSRF原理以及利用方式</h2><h2 id="一些题目"><a href="#一些题目" class="headerlink" title="一些题目"></a>一些题目</h2><h3 id="LCTF-签到题"><a href="#LCTF-签到题" class="headerlink" title="LCTF 签到题"></a>LCTF 签到题</h3><p>github地址：<code>https://github.com/LCTF/LCTF2017</code></p>
+        <p><img src="/2018/11/16/SSRF/1.png" alt="SSRF"></p>
+<h2 id="SSRF服务端请求伪造"><a href="#SSRF服务端请求伪造" class="headerlink" title="SSRF服务端请求伪造"></a>SSRF服务端请求伪造</h2><p><a href="https://blog.csdn.net/qq_32434307/article/details/79481760" target="_blank" rel="noopener">参考文章</a></p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>终极简析: SSRF漏洞就是通过篡改获取资源的请求发送给服务器，但是服务器并没有发现在这个请求是合法的，然后服务器以他的身份来访问其他服务器的资源。</p>
+<p>很多web应用都提供了从其他的服务器上获取数据的功能。使用用户指定的URL，web应用可以获取图片，下载文件，读取文件内容等。这个功能如果被恶意使用，可以利用存在缺陷的web应用作为代理攻击远程和本地的服务器。这种形式的攻击称为服务端请求伪造攻击（Server-side Request Forgery）。</p>
+<h3 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h3><p>1、可以对外网、服务器所在内网、本地进行端口扫描，获取一些服务的 banner 信息</p>
+<p>2.攻击运行在内网或本地的应用程序（比如溢出）</p>
+<p>3.对内网 WEB 应用进行指纹识别，通过访问默认文件实现</p>
+<p>4.攻击内外网的 web 应用，主要是使用 GET 参数就可以实现的攻击（比如 Struts2，sqli 等）</p>
+<p>5.利用 file 协议读取本地文件等</p>
+<h3 id="危险函数-php中"><a href="#危险函数-php中" class="headerlink" title="危险函数(php中)"></a>危险函数(php中)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">file_get_contents()</span><br><span class="line">fsockopen()</span><br><span class="line">curl_exec()</span><br></pre></td></tr></table></figure>
+<h3 id="利用方式"><a href="#利用方式" class="headerlink" title="利用方式"></a>利用方式</h3><p>除了http/https，还有一些可利用的协议如下:</p>
+<p>1.Dict 协议</p>
+<pre><code>dict://fuzz.wuyun.org:8080/helo:dict
+</code></pre><p>2.Gopher 协议</p>
+<pre><code>gopher://fuzz.wuyun.org:8080/gopher
+</code></pre><p>3.File协议</p>
+<p>   file:///etc/passwd</p>
+<p>4.FTP(S)/SMB(S)</p>
+<p>匿名访问及爆破</p>
+<p>5.Tftp</p>
+<p>UDP协议  发送UDP数据包</p>
+<p>6.Telnet</p>
+<p>SSH/Telnet匿名访问及爆破</p>
+<h3 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h3><p>1、过滤返回信息，验证远程服务器对请求的响应是比较容易的方法；</p>
+<p>2、统一错误信息，避免用户可以根据错误信息来判断远端服务器的端口状态；</p>
+<p>3、限制请求的端口为http常用的端口，比如，80,443,8080,8090；</p>
+<p>4、黑名单内网ip。避免应用被用来获取获取内网数据，攻击内网；</p>
+<p>5、禁用不需要的协议。仅允许http和https请求；</p>
+<p>6、使用正则对参数进行效验，防止畸形请求绕过黑名单。</p>
+<p><a href="https://www.cnblogs.com/zhaijiahui/p/7828585.html#autoid-5-0-0" target="_blank" rel="noopener">参考文章1</a></p>
+<h2 id="一些题目"><a href="#一些题目" class="headerlink" title="一些题目"></a>一些题目</h2><h3 id="LCTF-签到题"><a href="#LCTF-签到题" class="headerlink" title="LCTF 签到题"></a>LCTF 签到题</h3><p>github地址：<code>https://github.com/LCTF/LCTF2017</code></p>
 <p>题目不难, 一共就只有几个点</p>
 <ul>
 <li>用file协议读取本地文件</li>
@@ -545,7 +575,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSRF原理以及利用方式"><span class="toc-number">1.</span> <span class="toc-text">SSRF原理以及利用方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些题目"><span class="toc-number">2.</span> <span class="toc-text">一些题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LCTF-签到题"><span class="toc-number">2.1.</span> <span class="toc-text">LCTF 签到题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XMAN个人排位赛-SIMPLE-SSRF"><span class="toc-number">2.2.</span> <span class="toc-text">XMAN个人排位赛 SIMPLE_SSRF</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSRF服务端请求伪造"><span class="toc-number">1.</span> <span class="toc-text">SSRF服务端请求伪造</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#危害"><span class="toc-number">1.2.</span> <span class="toc-text">危害</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#危险函数-php中"><span class="toc-number">1.3.</span> <span class="toc-text">危险函数(php中)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用方式"><span class="toc-number">1.4.</span> <span class="toc-text">利用方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防御"><span class="toc-number">1.5.</span> <span class="toc-text">防御</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些题目"><span class="toc-number">2.</span> <span class="toc-text">一些题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LCTF-签到题"><span class="toc-number">2.1.</span> <span class="toc-text">LCTF 签到题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XMAN个人排位赛-SIMPLE-SSRF"><span class="toc-number">2.2.</span> <span class="toc-text">XMAN个人排位赛 SIMPLE_SSRF</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1450,26 +1480,9 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 59
+        Total : 60
         </div>
         <!-- search  -->
         
@@ -1482,6 +1495,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/03/07/反弹shell/" >Linux下反弹shell的方法</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1794,17 +1812,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
-        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
-    
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="Record,Problem"><span class="iconfont-archer">&#xe606;</span>Record,Problem</span>
     
-        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
-    
         <span class="sidebar-tag-name" data-tags="漏洞、CTF"><span class="iconfont-archer">&#xe606;</span>漏洞、CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
     
         <span class="sidebar-tag-name" data-tags="problem"><span class="iconfont-archer">&#xe606;</span>problem</span>
     
