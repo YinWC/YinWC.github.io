@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">92</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">154</span> / Reading time: <span class="post-count">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,13 +396,13 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id=""><a href="#" class="headerlink" title="????"></a>????</h2><p>???? k ? 0 ? n ????????k ??? 0~9 ?????<br>??<br>?? 1?</p>
+        <h2 id="统计数字"><a href="#统计数字" class="headerlink" title="统计数字"></a>统计数字</h2><p>计算数字 k 在 0 到 n 中的出现的次数，k 可能是 0~9 的一个值<br>样例<br>样例 1:</p>
 <ul>
-<li>???k = 1, n = 1<br>???1<br>???? [0, 1] ?????? 1 ??? 1 ? (1)?</li>
+<li>输入：k = 1, n = 1<br>输出：1<br>解释：在 [0, 1] 中，我们发现 1 出现了 1 次 (1)。</li>
 </ul>
-<p>?? 2?</p>
+<p>样例 2：</p>
 <ul>
-<li>???k = 1, n = 12<br>???5<br>???? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] ?????? 1 ??? 5 ? (1, 10, 11, 12)?</li>
+<li>输入：k = 1, n = 12<br>输出：5<br>解释：在 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] 中，我们发现 1 出现了 5 次 (1, 10, 11, 12)。</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">digitCounts</span><span class="params">(self, k, n)</span>:</span></span><br><span class="line">    <span class="keyword">assert</span>(n&gt;=<span class="number">0</span> <span class="keyword">and</span> <span class="number">0</span> &lt;= k &lt;= <span class="number">9</span>)</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n+<span class="number">1</span>):</span><br><span class="line">        j=i</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span></span><br><span class="line">        <span class="keyword">if</span> j%<span class="number">10</span>==k:</span><br><span class="line">            count+=<span class="number">1</span></span><br><span class="line">        j/=<span class="number">10</span></span><br><span class="line">        <span class="keyword">if</span> j==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> count</span><br></pre></td></tr></table></figure>
 <p>## </p>
@@ -543,7 +543,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text">????</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#统计数字"><span class="toc-number">1.</span> <span class="toc-text">统计数字</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
