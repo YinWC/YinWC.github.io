@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">339</span> / Reading time: <span class="post-count">2 min</span></span>
+                        <span>Word count: <span class="post-count">520</span> / Reading time: <span class="post-count">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -420,9 +420,11 @@ suctf/2018-misc-pass
 <pre><code>sudo docker run -d -p 80:80 suctf/2018-web-getshell
 </code></pre><p><img src="/2018/05/30/docker/2.jpg" alt="docker"></p>
 <p>在VPS中输入0.0.0.0:80即可看到题目，也可以ifconfig查看虚拟机ip,在虚拟机或者主机中 ip加上端口即可看到题目。<br><img src="/2018/05/30/docker/3.jpg" alt="docker"><br><img src="/2018/05/30/docker/4.jpg" alt="docker"></p>
-<h2 id="一些指令："><a href="#一些指令：" class="headerlink" title="一些指令："></a>一些指令：</h2><pre><code>docker ps :查看正在运行的容器
-docker image ls/docker images :列出本地镜像
-</code></pre><h2 id="删除本地镜像"><a href="#删除本地镜像" class="headerlink" title="删除本地镜像"></a>删除本地镜像</h2><p>参考链接：<a href="https://blog.csdn.net/winy_lm/article/details/77980529" target="_blank" rel="noopener">文章</a></p>
+<h2 id="一些指令："><a href="#一些指令：" class="headerlink" title="一些指令："></a>一些指令：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker ps   查看正在运行的容器</span><br><span class="line">docker image ls/docker images   列出本地镜像</span><br><span class="line">docker -it </span><br><span class="line">    docker -i   以交互模式运行容器，通常与 -t 同时使用</span><br><span class="line">    docker -t   为容器重新分配一个伪输入终端，通常与 -i 同时使用</span><br><span class="line">docker -d   后台运行容器，并返回容器ID；</span><br><span class="line">docker -p    端口映射，格式为：主机(宿主)端口:容器端口</span><br></pre></td></tr></table></figure>
+<h2 id="使用docker运行服务"><a href="#使用docker运行服务" class="headerlink" title="使用docker运行服务"></a>使用docker运行服务</h2><p>前提是在一个有dockerfile的文件夹中<br>首先需要创建一个docker镜像：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t php .      //php可以随便取一个名字，最后面要记得加空格和一个.号</span><br></pre></td></tr></table></figure></p>
+<p>然后运行这个镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d -p 2019:80 php</span><br></pre></td></tr></table></figure></p>
+<p>这是时候即可在本地：<code>127.0.0.1:2019</code> 访问这个服务</p>
+<h2 id="删除本地镜像"><a href="#删除本地镜像" class="headerlink" title="删除本地镜像"></a>删除本地镜像</h2><p>参考链接：<a href="https://blog.csdn.net/winy_lm/article/details/77980529" target="_blank" rel="noopener">文章</a></p>
 <p>1.查询镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure></p>
 <p><img src="/2018/05/30/docker/5.png" alt="docker"></p>
 <p>2.查询容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure></p>
@@ -578,7 +580,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#实战："><span class="toc-number">1.</span> <span class="toc-text">实战：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些指令："><span class="toc-number">2.</span> <span class="toc-text">一些指令：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除本地镜像"><span class="toc-number">3.</span> <span class="toc-text">删除本地镜像</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#实战："><span class="toc-number">1.</span> <span class="toc-text">实战：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些指令："><span class="toc-number">2.</span> <span class="toc-text">一些指令：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用docker运行服务"><span class="toc-number">3.</span> <span class="toc-text">使用docker运行服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除本地镜像"><span class="toc-number">4.</span> <span class="toc-text">删除本地镜像</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
