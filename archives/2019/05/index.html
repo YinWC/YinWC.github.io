@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>docker的学习 · Ywc&#39;s blog</title>
+    <title>Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -70,8 +70,6 @@
 
     <link rel="preload" href= /css/style.css?v=201807017_1502 as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <link rel="stylesheet" href= /css/mobile.css?v=20180709 media="(max-width: 980px)">
-    
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -196,23 +194,12 @@
 </head>
 
     
-        <body class="post-body">
-    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/" >Ywc&#39;s blog</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">docker的学习</a>
-            </div>
-    </div>
     
     <a class="home-link" href=/>Ywc's blog</a>
 </header>
@@ -226,74 +213,24 @@
 
 
 
-height:50vh;
-
 >
     
     <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/blog.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
-            
-            docker的学习
-            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
-            
-            <!-- 404 -->
-            
         </p>
         <!-- 文章页meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                    <div class= post-intro-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "learn">learn</a>
-    
-</div>
-                
-                
-                    <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">520</span> / Reading time: <span class="post-count">2 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/05/30</span>
-                    
-                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                        <span class="iconfont-archer">&#xe602;</span>
-                        <span id="busuanzi_value_page_pv"></span>
-                    </span>
-                    
-                    <span class="shareWrapper">
-                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                        <span class="shareText">Share</span>
-                        <ul class="shareList">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
         
     </div>
 </div>
@@ -394,100 +331,39 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <p>  SUCTF题目docker镜像都放出来了,结果..docker指令还不熟悉，于是恶补了一波。。</p>
-<h2 id="实战："><a href="#实战：" class="headerlink" title="实战："></a>实战：</h2><p>SUCTF题目的docker镜像：</p>
-<pre><code>suctf/2018-web-multi_sql suctf/2018-web-homework
-suctf/2018-web-hateit 
-suctf/2018-web-getshell
-suctf/2018-web-annonymous suctf/2018-pwn-note 
-suctf/2018-pwn-noend 
-suctf/2018-pwn-lock2 
-suctf/2018-pwn-heapprint suctf/2018-pwn-heap 
-suctf/2018-misc-padding
-suctf/2018-misc-game 
-suctf/2018-misc-rsagood
-suctf/2018-misc-rsa 
-suctf/2018-misc-enjoy 
-suctf/2018-misc-pass 
-</code></pre><p>启动doker</p>
-<pre><code>sudo service docker start
-</code></pre><p>查看SUCTF，发现只有一个开放。。</p>
-<pre><code>sudo docker search suctf
-</code></pre><p><img src="/2018/05/30/docker/1.jpg" alt="docker"></p>
-<p>题目是在80端口开放，运行即可。</p>
-<pre><code>sudo docker run -d -p 80:80 suctf/2018-web-getshell
-</code></pre><p><img src="/2018/05/30/docker/2.jpg" alt="docker"></p>
-<p>在VPS中输入0.0.0.0:80即可看到题目，也可以ifconfig查看虚拟机ip,在虚拟机或者主机中 ip加上端口即可看到题目。<br><img src="/2018/05/30/docker/3.jpg" alt="docker"><br><img src="/2018/05/30/docker/4.jpg" alt="docker"></p>
-<h2 id="一些指令："><a href="#一些指令：" class="headerlink" title="一些指令："></a>一些指令：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker ps   查看正在运行的容器</span><br><span class="line">docker image ls/docker images   列出本地镜像</span><br><span class="line">docker -it </span><br><span class="line">    docker -i   以交互模式运行容器，通常与 -t 同时使用</span><br><span class="line">    docker -t   为容器重新分配一个伪输入终端，通常与 -i 同时使用</span><br><span class="line">docker -d   后台运行容器，并返回容器ID；</span><br><span class="line">docker -p    端口映射，格式为：主机(宿主)端口:容器端口</span><br></pre></td></tr></table></figure>
-<h2 id="使用docker运行服务"><a href="#使用docker运行服务" class="headerlink" title="使用docker运行服务"></a>使用docker运行服务</h2><p>前提是在一个有dockerfile的文件夹中<br>首先需要创建一个docker镜像：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t php .      //php可以随便取一个名字，最后面要记得加空格和一个.号</span><br></pre></td></tr></table></figure></p>
-<p>然后运行这个镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d -p 2019:80 php</span><br></pre></td></tr></table></figure></p>
-<p>这是时候即可在本地：<code>127.0.0.1:2019</code> 访问这个服务</p>
-<h2 id="删除本地镜像"><a href="#删除本地镜像" class="headerlink" title="删除本地镜像"></a>删除本地镜像</h2><p>参考链接：<a href="https://blog.csdn.net/winy_lm/article/details/77980529" target="_blank" rel="noopener">文章</a></p>
-<p>1.查询镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/05/30/docker/5.png" alt="docker"></p>
-<p>2.查询容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/05/30/docker/6.png" alt="docker"></p>
-<p>3.先删除容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm +ID</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/05/30/docker/7.png" alt="docker"></p>
-<p>4.再删除镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi +ID</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/05/30/docker/8.png" alt="docker"></p>
-<p>注意点：</p>
-<ol>
-<li><p>删除前需要保证容器是停止的  stop</p>
-</li>
-<li><p>需要注意删除镜像和容器的命令不一样。 docker rmi ID  ,其中 容器(rm)  和 镜像(rmi)</p>
-</li>
-<li><p>顺序:需要先删除容器,在删除镜像</p>
-</li>
-</ol>
-<p>参考链接：<a href="http://www.runoob.com/docker/docker-command-manual.html" target="_blank" rel="noopener">http://www.runoob.com/docker/docker-command-manual.html</a></p>
-
-    </article>
-    <!-- license  -->
+            <main class="main index-page">
     
-        <div class="license-wrapper">
-            <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/05/30/docker/">https://yinwc.github.io/2018/05/30/docker/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/05/30/docker/">May 30th 2018, 8:45:00 pm</a>
-            <p>版权声明: </p>
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/05/06/docker/" >
+            
+                <span>docker的学习</span>
+        </a>
+        <div class="abstract-content">
+            docker的学习并记录国赛出题中踩过的坑.
         </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/06</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "learn">learn</a>
+    
+</div>
+            
+        </div>
+    </article>
     
     <!-- paginator  -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/06/01/git/" title= git learn >
-                    <div class="nextTitle">git learn</div>
-                </a>
-            
-        </li>
-        <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/05/30/markdown语法总结/" title= Markdown语法总结 >
-                    <div class="prevTitle">Markdown语法总结</div>
-                </a>
-            
-        </li>
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
-
-<!-- City版安装代码已完成 -->
     
-    
-    <!--PC和WAP自适应版-->
-
-    <!--PC版-->
-
-
-    
-    
-
-    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -565,24 +441,6 @@ suctf/2018-misc-pass
     </div>
     <!-- toc -->
     
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#实战："><span class="toc-number">1.</span> <span class="toc-text">实战：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些指令："><span class="toc-number">2.</span> <span class="toc-text">一些指令：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用docker运行服务"><span class="toc-number">3.</span> <span class="toc-text">使用docker运行服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除本地镜像"><span class="toc-number">4.</span> <span class="toc-text">删除本地镜像</span></a></li></ol>
-    </div>
-    
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
     <ul class="sidebar-tabs sidebar-tabs-active-0">
@@ -593,6 +451,30 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1585,6 +1467,11 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span><a class="archive-post-title" href= "/2019/05/06/docker/" >docker的学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/异或/" >深入理解异或操作</a>
         </li>
     
@@ -1844,12 +1731,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
         </li>
     
     
@@ -1880,11 +1767,6 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/git/" >git learn</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/docker/" >docker的学习</a>
         </li>
     
     
@@ -2022,8 +1904,6 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
