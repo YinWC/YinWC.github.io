@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Ywc&#39;s blog</title>
+    <title>SDL安全开发流程 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -70,6 +70,8 @@
 
     <link rel="preload" href= /css/style.css?v=201807017_1502 as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <link rel="stylesheet" href= /css/mobile.css?v=20180709 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -194,12 +196,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Ywc&#39;s blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">SDL安全开发流程</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>Ywc's blog</a>
 </header>
@@ -213,24 +226,74 @@
 
 
 
+height:50vh;
+
 >
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/blog.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            SDL安全开发流程
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "安全开发">安全开发</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count">2,203</span> / Reading time: <span class="post-count">8 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/06/15</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -331,39 +394,76 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/03/24/2018-QWB/" >
-            
-                <span>2018 QWB 题目整理</span>
-        </a>
-        <div class="abstract-content">
-            第二届“强网杯”全国网络安全挑战赛 题目记录
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/03/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CTF">CTF</a>
-    
-</div>
-            
-        </div>
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="SDL简介"><a href="#SDL简介" class="headerlink" title="SDL简介"></a>SDL简介</h2><h3 id="SDL是什么"><a href="#SDL是什么" class="headerlink" title="SDL是什么"></a>SDL是什么</h3><p><u>安全开发生命周期（SDL）即Security Development Lifecycle，是一个帮助开发人员构建更安全的软件和解决安全合规要求的同时降低开发成本的软件开发过程。</u> 自2004年起，微软将SDL作为全公司的计划和强制政策，SDL的核心理念就是将安全考虑集成在软件开发的每一个阶段:需求分析、设计、编码、测试和维护。从需求、设计到发布产品的每一个阶段每都增加了相应的安全活动，以减少软件中漏洞的数量并将安全缺陷降低到最小程度。安全开发生命周期 (SDL)是侧重于软件开发的安全保证过程，旨在开发出安全的软件应用。</p>
+<h3 id="SDL能解决什么问题"><a href="#SDL能解决什么问题" class="headerlink" title="SDL能解决什么问题"></a>SDL能解决什么问题</h3><p>SDL将设计、代码和文档等与安全相关漏洞减到最少，在软件开发的生命周期中尽可能的早地发现解决相关漏洞建立的流程框架;为了实现保证最终的用户安全，在软件开发各阶段中引入针对项目安全和用户隐私问题的解决方案。</p>
+<h2 id="项目生命周期中存在的问题"><a href="#项目生命周期中存在的问题" class="headerlink" title="项目生命周期中存在的问题"></a>项目生命周期中存在的问题</h2><p>项目研发生命周期：需求分析-&gt;设计-&gt;研发-&gt;测试-&gt;部署<br>项目研发生命周期中安全危险暴露模型：<br><img src="/2019/06/15/SDL安全开发流程/1.png" alt="SDL安全开发流程"></p>
+<p>SDL中的方法，试图从安全漏洞产生的根源上解决问题，通过对软件工程的控制，保证产品的安全性。<br>美国国家标准与技术研究所（NIST）估计，如果是在项目发布后在执行漏洞修复计划，其修复成本相当于在设计阶段执行修复的30倍</p>
+<h2 id="SDL的步骤"><a href="#SDL的步骤" class="headerlink" title="SDL的步骤"></a>SDL的步骤</h2><h3 id="安全培训"><a href="#安全培训" class="headerlink" title="安全培训"></a>安全培训</h3><p>开发团队的所有成员都必须接受适当的安全培训，了解相关的安全知识，培训对象包括开发人员、测试人员、项目经理、产品经理等。</p>
+<h3 id="安全要求"><a href="#安全要求" class="headerlink" title="安全要求"></a>安全要求</h3><p>在项目确立之前，需要提前与项目经理或者产品owner进行沟通，确定安全的要求和需要做的事情。确认项目计划和里程碑，尽量避免因为安全问题而导致项目延期发布。</p>
+<h3 id="质量门-bug栏"><a href="#质量门-bug栏" class="headerlink" title="质量门/bug栏"></a>质量门/bug栏</h3><p>质量门和bug栏用于确定安全和隐私质量的最低可接受级别。<br>Bug栏是应用于整个开发项目的质量门，用于定义安全漏洞的严重性阈值。例如，应用程序在发布时不得包含具有“关键”或“重要”评级的已知漏洞。Bug栏一经设定，便绝不能放松。</p>
+<h3 id="安全和隐私风险评估"><a href="#安全和隐私风险评估" class="headerlink" title="安全和隐私风险评估"></a>安全和隐私风险评估</h3><p>安全风险评估（SRA）和隐私风险评估(PRA)是一个必需的过程，必须包括以下信息：<br>1、（安全）项目的哪些部分在发布前需要威胁模型？<br>2、（安全）项目的哪些部分在发布前需要进行安全设计评析？<br>3、（安全）项目的哪些部分需要并不食欲项目团队且双方认可的小组进行渗透测试？<br>4、（安全）是否存在安全顾问认为有必要增加的测试或分析要求已缓解安全风险？<br>5、（安全）模糊测试要求的具体范围是什么？<br>6、（安全）隐私影响评级如何？</p>
+<h3 id="设计要求"><a href="#设计要求" class="headerlink" title="设计要求"></a>设计要求</h3><p>在设计阶段应仔细考虑安全和隐私问题，在项目初期确定好安全需求，尽可能避免安全引起的需求变更。</p>
+<h3 id="减小攻击面"><a href="#减小攻击面" class="headerlink" title="减小攻击面"></a>减小攻击面</h3><p>减小攻击面与威胁建模紧密相关，不过它解决安全问题的角度稍有不同。减小攻击面通过减小攻击者利用潜在弱点或漏洞的机会来降低风险，减小攻击面包括：关闭或限制对系统服务的访问，应用“最小权限原则”，以及尽可<br>能进行分层防御。</p>
+<h3 id="威胁建模"><a href="#威胁建模" class="headerlink" title="威胁建模"></a>威胁建模</h3><p>为项目或产品面临的威胁建立模型，明确可能来自的攻击有哪些方面。</p>
+<h3 id="使用指定的工具"><a href="#使用指定的工具" class="headerlink" title="使用指定的工具"></a>使用指定的工具</h3><p>开发团队使用的编辑器、链接器等相关工具，可能会涉及一些安全相关的环节，因此在使用工具的版本上，需要提前与安全团队进行沟通。</p>
+<h3 id="弃用不安全函数"><a href="#弃用不安全函数" class="headerlink" title="弃用不安全函数"></a>弃用不安全函数</h3><p>许多常用函数可能存在安全隐患，应当禁用不安全的函数和API，使用安全团队推荐的函数。</p>
+<h3 id="静态分析"><a href="#静态分析" class="headerlink" title="静态分析"></a>静态分析</h3><p>代码静态分析可以由相关工具辅助完成，其结果与人工分析相结合。</p>
+<h3 id="动态程序分析"><a href="#动态程序分析" class="headerlink" title="动态程序分析"></a>动态程序分析</h3><p>动态分析是静态分析的补充，用于测试环节验证程序的安全性。</p>
+<h3 id="模糊测试（Fuzzing-Test）"><a href="#模糊测试（Fuzzing-Test）" class="headerlink" title="模糊测试（Fuzzing Test）"></a>模糊测试（Fuzzing Test）</h3><p>模糊测试是一种专门形式的动态分析，它通过故意向应用程序引入不良格式或随机数据诱发程序故障。模糊测试策略的制定，以应用程序的预期用途，以及应用程序的功能和设计规范为基础。安全顾问可能要求进行额外的模糊测试，或者扩大模糊测试的范围和增加持续时间。</p>
+<h3 id="威胁模型和攻击面评析"><a href="#威胁模型和攻击面评析" class="headerlink" title="威胁模型和攻击面评析"></a>威胁模型和攻击面评析</h3><p>项目经常会因为需求等因素导致最终的产出偏离原本设定的目标，因此在项目后期对威胁模型和攻击面进行评析是有必要的，能够及时发现问题并修正。</p>
+<h3 id="事件响应计划"><a href="#事件响应计划" class="headerlink" title="事件响应计划"></a>事件响应计划</h3><p>受SDL要求约束的每个软件在发布时都必须包含事件响应计划。即使在发布时不包含任何已知漏洞的产品，也可能在日后面临新出现的威胁。需要注意的是，如果产品中包含第三方的代码，也需要留下第三方的联系方式并加入事件响应计划，以便在发生问题时能够找到对应的人。</p>
+<h3 id="最终安全评析"><a href="#最终安全评析" class="headerlink" title="最终安全评析"></a>最终安全评析</h3><p>最终安全评析（FSR）是在发布之前仔细检查对软件执行的所有安全活动。通过FSR将得出以下三种不同不同结果。<br>1、通过FSR。在FSR过程中确定所有安全和隐私问题都已得到修复或缓解。<br>2、通过FSR但有异常。在FSR过程中确定所有安全和隐私问题都已得到修复或缓解，并且/或者所有异常都已得到圆满解决。无法解决的问题将记录下来，在下次发布时更正。<br>3、需上报问题的FSR。如果团队未满足所有SDL要求，并且安全顾问和产品团队无法达成可接受的折中，则安全顾问不能批准项目，项目不能发布。团队必须在发布之前解决所有可解决的问题，或者上报高级管理层进行抉择。</p>
+<h3 id="发布-存档"><a href="#发布-存档" class="headerlink" title="发布/存档"></a>发布/存档</h3><p>在通过FSR或者虽有问题但达成一致后，可以完成产品的发布。但发布的同时仍需对各种问题和文档进行存档，为紧急响应和产品升级提供帮助。<br>从以上的过程可以看出，微软的SDL的过程实施非常细致。微软这些年来也一直帮助公司的所有产品团队，以及合作伙伴实施SDL，效果相当显著。</p>
+<p>相对于微软的SDL，OWASP推出了SAMM（Software Assurance Maturity Model），帮助开发者在软件工程的过程中实施安全。<br>SAMM与SDL的主要区别在于，SDL适用于软件开发商，他们以贩售软件为主要业务；而SAMM更适用于自主开发软件的使用者，如银行或在线服务提供商。软件开发商的软件工程往往较为成熟，有着严格的质量控制；而自主开发软件的企业组织，则更强调高效，因此在软件工程的做法上也存在差异。</p>
+<h2 id="SDL实战经验准则"><a href="#SDL实战经验准则" class="headerlink" title="SDL实战经验准则"></a>SDL实战经验准则</h2><p>准则一：与项目经理进行充分沟通，排除足够的时间</p>
+<p>准则二：规范公司的立项流程，确保所有项目都能通知到安全团队，避免遗漏</p>
+<p>准则三：树立安全部门的权威，项目必须由安全部门审核完成后才能发布</p>
+<p>准则四：将技术方案写入开发、测试的工作手册中</p>
+<p>准则五：给工程师培训安全方案</p>
+<p>准则六：记录所有的安全bug，激励程序员编写安全的代码</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="https://pek3a.qingstor.com/community/resource/QCon2016-Beijing/SDL%E7%9A%84%E6%B7%B1%E5%85%A5%E6%8E%A2%E7%A9%B6%E5%8F%8A%E5%AE%9E%E8%B7%B5.pdf" target="_blank" rel="noopener">SDL的深入探究及实践</a></p>
+
     </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2019/06/15/SDL安全开发流程/">https://yinwc.github.io/2019/06/15/SDL安全开发流程/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2019/06/15/SDL安全开发流程/">June 15th 2019, 6:21:18 pm</a>
+            <p>版权声明: </p>
+        </div>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/06/02/2019国赛华东北赛区线下/" title= 2019国赛华东北赛区线下 >
+                    <div class="prevTitle">2019国赛华东北赛区线下</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!--PC和WAP自适应版-->
+
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -440,6 +540,24 @@
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SDL简介"><span class="toc-number">1.</span> <span class="toc-text">SDL简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SDL是什么"><span class="toc-number">1.1.</span> <span class="toc-text">SDL是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SDL能解决什么问题"><span class="toc-number">1.2.</span> <span class="toc-text">SDL能解决什么问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目生命周期中存在的问题"><span class="toc-number">2.</span> <span class="toc-text">项目生命周期中存在的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDL的步骤"><span class="toc-number">3.</span> <span class="toc-text">SDL的步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安全培训"><span class="toc-number">3.1.</span> <span class="toc-text">安全培训</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安全要求"><span class="toc-number">3.2.</span> <span class="toc-text">安全要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#质量门-bug栏"><span class="toc-number">3.3.</span> <span class="toc-text">质量门/bug栏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安全和隐私风险评估"><span class="toc-number">3.4.</span> <span class="toc-text">安全和隐私风险评估</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设计要求"><span class="toc-number">3.5.</span> <span class="toc-text">设计要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#减小攻击面"><span class="toc-number">3.6.</span> <span class="toc-text">减小攻击面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#威胁建模"><span class="toc-number">3.7.</span> <span class="toc-text">威胁建模</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用指定的工具"><span class="toc-number">3.8.</span> <span class="toc-text">使用指定的工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#弃用不安全函数"><span class="toc-number">3.9.</span> <span class="toc-text">弃用不安全函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#静态分析"><span class="toc-number">3.10.</span> <span class="toc-text">静态分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态程序分析"><span class="toc-number">3.11.</span> <span class="toc-text">动态程序分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模糊测试（Fuzzing-Test）"><span class="toc-number">3.12.</span> <span class="toc-text">模糊测试（Fuzzing Test）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#威胁模型和攻击面评析"><span class="toc-number">3.13.</span> <span class="toc-text">威胁模型和攻击面评析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件响应计划"><span class="toc-number">3.14.</span> <span class="toc-text">事件响应计划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最终安全评析"><span class="toc-number">3.15.</span> <span class="toc-text">最终安全评析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发布-存档"><span class="toc-number">3.16.</span> <span class="toc-text">发布/存档</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDL实战经验准则"><span class="toc-number">4.</span> <span class="toc-text">SDL实战经验准则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章"><span class="toc-number">5.</span> <span class="toc-text">参考文章</span></a></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1956,6 +2074,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>

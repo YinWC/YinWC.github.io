@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">7,219</span> / Reading time: <span class="post-count">26 min</span></span>
+                        <span>Word count: <span class="post-count">8,166</span> / Reading time: <span class="post-count">30 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -499,13 +499,34 @@ height:50vh;
 <p><code>?id=2’ and (select 1 from (select count(*),concat( floor(rand(0)*2),(select (select (查询语句)) from information_schema.tables limit 0,1))x from information_schema.tables group by x )a )--+</code></p>
 <p><code>?id=2’ and updatexml(1,concat(0x7e,(SELECT @@version),0x7e),1)--+</code></p>
 <p><code>?id=1’ and extractvalue(1, concat(0x7e, (select @@version),0x7e))--+</code></p>
-<h2 id="XSS跨站脚本攻击-1"><a href="#XSS跨站脚本攻击-1" class="headerlink" title="XSS跨站脚本攻击"></a><font color="blue">XSS跨站脚本攻击</font></h2><h3 id="XSS有哪几类"><a href="#XSS有哪几类" class="headerlink" title="XSS有哪几类"></a>XSS有哪几类</h3><p>反射型、存储型、DOMXSS</p>
-<h3 id="XSS的触发机制"><a href="#XSS的触发机制" class="headerlink" title="XSS的触发机制"></a>XSS的触发机制</h3><h4 id="直接触发"><a href="#直接触发" class="headerlink" title="直接触发"></a>直接触发</h4><p>在HTML页中插入<code>&lt;script&gt;&lt;/script&gt;</code>脚本标记,JS嵌入到HTML中的两种方式:</p>
-<p>1.直接嵌入<code>&lt;script&gt;</code>标签<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script language=“javascript”&gt;</span><br><span class="line">	document.write(“hello world!”);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="XSS跨站脚本攻击-1"><a href="#XSS跨站脚本攻击-1" class="headerlink" title="XSS跨站脚本攻击"></a><font color="blue">XSS跨站脚本攻击</font></h2><h3 id="XSS有哪几类"><a href="#XSS有哪几类" class="headerlink" title="XSS有哪几类"></a>XSS有哪几类</h3><p>反射型、存储型、DOMXSS<br><strong>存储型 XSS</strong><br>存储型 XSS 的攻击步骤：</p>
+<ul>
+<li>攻击者将恶意代码提交到目标网站的数据库中。</li>
+<li>用户打开目标网站时，网站服务端将恶意代码从数据库取出，拼接在 HTML 中返回给浏览器。</li>
+<li>用户浏览器接收到响应后解析执行，混在其中的恶意代码也被执行。</li>
+<li>恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。</li>
+</ul>
+<p>存储型 XSS(又被称为持久性XSS)攻击常见于带有用户保存数据的网站功能，如论坛发帖、商品评论、用户私信等。<br>它是最危险的一种跨站脚本，相比反射型XSS和DOM型XSS具有更高的隐蔽性，所以危害更大，因为它不需要用户手动触发。任何允许用户存储数据的web程序都可能存在存储型XSS漏洞，当攻击者提交一段XSS代码后，被服务器端接收并存储，当所有浏览者访问某个页面时都会被XSS。</p>
+<p><strong>反射型 XSS</strong><br>反射型 XSS 的攻击步骤：</p>
+<ul>
+<li>攻击者构造出特殊的 URL，其中包含恶意代码。</li>
+<li>用户打开带有恶意代码的 URL 时，网站服务端将恶意代码从 URL 中取出，拼接在 HTML 中返回给浏览器。</li>
+<li>用户浏览器接收到响应后解析执行，混在其中的恶意代码也被执行。</li>
+<li>恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。</li>
+</ul>
+<p>反射型 XSS (也被称为非持久性XSS)漏洞常见于通过 URL 传递参数的功能，如网站搜索、跳转等。<br>由于需要用户主动打开恶意的 URL 才能生效，攻击者往往会结合多种手段诱导用户点击。<br>POST 的内容也可以触发反射型 XSS，只不过其触发条件比较苛刻（需要构造表单提交页面，并引导用户点击），所以非常少见。<br>反射型 XSS 跟存储型 XSS 的区别是：存储型 XSS 的恶意代码存在数据库里，反射型 XSS 的恶意代码存在 URL 里。</p>
+<p><strong>DOM 型 XSS</strong><br>DOM 型 XSS 的攻击步骤：</p>
+<ul>
+<li>攻击者构造出特殊的 URL，其中包含恶意代码。</li>
+<li>用户打开带有恶意代码的 URL。</li>
+<li>用户浏览器接收到响应后解析执行，前端 JavaScript 取出 URL 中的恶意代码并执行。</li>
+<li>恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。</li>
+</ul>
+<p>DOM 型 XSS 跟前两种 XSS 的区别：DOM 型 XSS 攻击中，取出和执行恶意代码由浏览器端完成，属于前端 JavaScript 自身的安全漏洞，而其他两种 XSS 都属于服务端的安全漏洞。</p>
+<p>DOM通常代表在html、xhtml和xml中的对象，使用DOM可以允许程序和脚本动态的访问和更新文档的内容、结构和样式。它不需要服务器解析响应的直接参与，触发XSS靠的是浏览器端的DOM解析，所以防范DOM型XSS完全就是前端的责任,必须注意!!!。<br><img src="/2018/10/01/面试/1.png" alt="msf"></p>
+<h3 id="XSS的触发机制"><a href="#XSS的触发机制" class="headerlink" title="XSS的触发机制"></a>XSS的触发机制</h3><h4 id="直接触发"><a href="#直接触发" class="headerlink" title="直接触发"></a>直接触发</h4><p>在HTML页中插入<code>&lt;script&gt;&lt;/script&gt;</code>脚本标记,JS嵌入到HTML中的两种方式:<br>1.直接嵌入<code>&lt;script&gt;</code>标签<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script language=“javascript”&gt;</span><br><span class="line">	document.write(“hello world!”);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
 <p>2.在外部以js文件的形式嵌入<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script language=“javascript” src=“test.js”&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<p>2.利用HTML标签属性触发</p>
-<p>3.利用HTM事件触发</p>
-<p>4.利用CSS触发</p>
+<p>2.利用HTML标签属性触发<br>3.利用HTM事件触发<br>4.利用CSS触发</p>
 <h3 id="XSS防御"><a href="#XSS防御" class="headerlink" title="XSS防御"></a>XSS防御</h3><ul>
 <li>可在cookie中设置httponly（浏览器禁止页面的js访问带有httponly属性的cookie）</li>
 <li>xss filter（检查输入，设置白名单方式）</li>
@@ -515,9 +536,8 @@ height:50vh;
 <li>header中使用content-Sencurity-Policy字段，规定请求js的域名白名单（CSP策略）</li>
 </ul>
 <h3 id="dom-xss-和反射型xss的区别"><a href="#dom-xss-和反射型xss的区别" class="headerlink" title="dom xss 和反射型xss的区别"></a>dom xss 和反射型xss的区别</h3><p>dom xss 不需要服务器解析响应的直接参与，触发XSS靠的是浏览器端的DOM解析。dom型js代码存储在数据库中。</p>
-<h3 id="XSS遇到后台登录限制或者HTTPONLY时"><a href="#XSS遇到后台登录限制或者HTTPONLY时" class="headerlink" title="XSS遇到后台登录限制或者HTTPONLY时"></a>XSS遇到后台登录限制或者HTTPONLY时</h3><p>复习文章：<code>https://blog.csdn.net/xysoul/article/details/45366695</code></p>
-<p><strong>1.可以利用XSS获取当前页面的所有URL</strong></p>
-<p><strong>2.获取当前页面的代码</strong></p>
+<h3 id="XSS遇到后台登录限制或者HTTPONLY时"><a href="#XSS遇到后台登录限制或者HTTPONLY时" class="headerlink" title="XSS遇到后台登录限制或者HTTPONLY时"></a>XSS遇到后台登录限制或者HTTPONLY时</h3><p>复习文章：<code>https://blog.csdn.net/xysoul/article/details/45366695</code><br><strong>1.可以利用XSS获取当前页面的所有URL</strong><br><strong>2.获取当前页面的代码</strong></p>
+<h3 id="CSRF和XSS的区别"><a href="#CSRF和XSS的区别" class="headerlink" title="CSRF和XSS的区别"></a>CSRF和XSS的区别</h3><p>1.CSRF：需要用户先登录网站A，获取 cookie。<br>  XSS：不需要登录<br>2.CSRF：是利用网站A本身的漏洞，去请求网站A的api。<br>XSS：是向网站 A 注入 JS代码，然后执行 JS 里的代码，篡改网站A的内容。</p>
 <h2 id="CSRF跨站请求伪造"><a href="#CSRF跨站请求伪造" class="headerlink" title="CSRF跨站请求伪造"></a><font color="blue">CSRF跨站请求伪造</font></h2><h3 id="原理-6"><a href="#原理-6" class="headerlink" title="原理"></a>原理</h3><p>跨站请求伪造，利用了网站允许攻击者预测特定操作所有细节这一特点。由于浏览器自动发送会话cookie等认证凭证，导致攻击者可以创建恶意的web页面来产生伪造请求。这些伪造的请求很难和合法的请求区分开</p>
 <h3 id="危害-1"><a href="#危害-1" class="headerlink" title="危害"></a>危害</h3><p>攻击者可以让受害者用户修改任何允许修改的数据，执行任何用户允许的操作，例如修改密码，登录注销等</p>
 <h3 id="如何检测"><a href="#如何检测" class="headerlink" title="如何检测"></a>如何检测</h3><p>1.GET类型的CSRF的检测</p>
@@ -1024,7 +1044,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#OWASP-Top-10"><span class="toc-number">1.</span> <span class="toc-text">OWASP Top 10</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#注入"><span class="toc-number">1.1.</span> <span class="toc-text">注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#失效的身份认证和会话管理"><span class="toc-number">1.2.</span> <span class="toc-text">失效的身份认证和会话管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介"><span class="toc-number">1.2.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">1.2.2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#危害"><span class="toc-number">1.2.3.</span> <span class="toc-text">危害</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检测失效的身份认证和会话管理"><span class="toc-number">1.2.4.</span> <span class="toc-text">检测失效的身份认证和会话管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防范"><span class="toc-number">1.2.5.</span> <span class="toc-text">防范</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#敏感数据泄露"><span class="toc-number">1.3.</span> <span class="toc-text">敏感数据泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-1"><span class="toc-number">1.3.2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防御"><span class="toc-number">1.3.3.</span> <span class="toc-text">防御</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XXE外部实体注入"><span class="toc-number">1.4.</span> <span class="toc-text">XXE外部实体注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#失效的访问控制"><span class="toc-number">1.5.</span> <span class="toc-text">失效的访问控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介-2"><span class="toc-number">1.5.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-2"><span class="toc-number">1.5.2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防御-1"><span class="toc-number">1.5.3.</span> <span class="toc-text">防御</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安全配置错误"><span class="toc-number">1.6.</span> <span class="toc-text">安全配置错误</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介-3"><span class="toc-number">1.6.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-3"><span class="toc-number">1.6.2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防御-2"><span class="toc-number">1.6.3.</span> <span class="toc-text">防御</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS跨站脚本攻击"><span class="toc-number">1.7.</span> <span class="toc-text">XSS跨站脚本攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-4"><span class="toc-number">1.7.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#出现的原因"><span class="toc-number">1.7.2.</span> <span class="toc-text">出现的原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防御措施"><span class="toc-number">1.7.3.</span> <span class="toc-text">防御措施</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不安全的反序列化"><span class="toc-number">1.8.</span> <span class="toc-text">不安全的反序列化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用含有已知漏洞的组件"><span class="toc-number">1.9.</span> <span class="toc-text">使用含有已知漏洞的组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介-4"><span class="toc-number">1.9.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-5"><span class="toc-number">1.9.2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防御-3"><span class="toc-number">1.9.3.</span> <span class="toc-text">防御</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不足的日志记录和监控"><span class="toc-number">1.10.</span> <span class="toc-text">不足的日志记录和监控</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常见漏洞"><span class="toc-number">2.</span> <span class="toc-text">常见漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL注入"><span class="toc-number">2.1.</span> <span class="toc-text">SQL注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sql注入的原理、防御"><span class="toc-number">2.1.1.</span> <span class="toc-text">sql注入的原理、防御</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何判断sql注入"><span class="toc-number">2.1.2.</span> <span class="toc-text">如何判断sql注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sql注入的利用方式"><span class="toc-number">2.1.3.</span> <span class="toc-text">sql注入的利用方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么有的时候没有错误回显，用php举例"><span class="toc-number">2.1.4.</span> <span class="toc-text">为什么有的时候没有错误回显，用php举例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#宽字符注入的原理？如何利用宽字符注入漏洞，payload如何构造？"><span class="toc-number">2.1.5.</span> <span class="toc-text">宽字符注入的原理？如何利用宽字符注入漏洞，payload如何构造？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sql注入绕过技巧"><span class="toc-number">2.1.6.</span> <span class="toc-text">sql注入绕过技巧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sql注入有哪几类"><span class="toc-number">2.1.7.</span> <span class="toc-text">sql注入有哪几类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL注入报错注入指令"><span class="toc-number">2.1.8.</span> <span class="toc-text">SQL注入报错注入指令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS跨站脚本攻击-1"><span class="toc-number">2.2.</span> <span class="toc-text">XSS跨站脚本攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#XSS有哪几类"><span class="toc-number">2.2.1.</span> <span class="toc-text">XSS有哪几类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XSS的触发机制"><span class="toc-number">2.2.2.</span> <span class="toc-text">XSS的触发机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#直接触发"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">直接触发</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XSS防御"><span class="toc-number">2.2.3.</span> <span class="toc-text">XSS防御</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dom-xss-和反射型xss的区别"><span class="toc-number">2.2.4.</span> <span class="toc-text">dom xss 和反射型xss的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XSS遇到后台登录限制或者HTTPONLY时"><span class="toc-number">2.2.5.</span> <span class="toc-text">XSS遇到后台登录限制或者HTTPONLY时</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSRF跨站请求伪造"><span class="toc-number">2.3.</span> <span class="toc-text">CSRF跨站请求伪造</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-6"><span class="toc-number">2.3.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#危害-1"><span class="toc-number">2.3.2.</span> <span class="toc-text">危害</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何检测"><span class="toc-number">2.3.3.</span> <span class="toc-text">如何检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防御-4"><span class="toc-number">2.3.4.</span> <span class="toc-text">防御</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSRF服务端请求伪造"><span class="toc-number">2.4.</span> <span class="toc-text">SSRF服务端请求伪造</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XXE防御、绕过"><span class="toc-number">2.5.</span> <span class="toc-text">XXE防御、绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JSONP漏洞"><span class="toc-number">2.6.</span> <span class="toc-text">JSONP漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JSON和JSONP的区别"><span class="toc-number">2.6.1.</span> <span class="toc-text">JSON和JSONP的区别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#http1-0与http1-1的区别"><span class="toc-number">3.</span> <span class="toc-text">http1.0与http1.1的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JAVA基础"><span class="toc-number">4.</span> <span class="toc-text">JAVA基础</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#绕过cdn获取网站的真实ip"><span class="toc-number">5.</span> <span class="toc-text">绕过cdn获取网站的真实ip</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CROS跨域资源共享"><span class="toc-number">6.</span> <span class="toc-text">CROS跨域资源共享</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#时间盲注除了sleep还有哪些利用函数"><span class="toc-number">7.</span> <span class="toc-text">时间盲注除了sleep还有哪些利用函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常见响应码"><span class="toc-number">8.</span> <span class="toc-text">常见响应码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Ddos分布式拒绝服务攻击"><span class="toc-number">9.</span> <span class="toc-text">Ddos分布式拒绝服务攻击</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux下反弹shell的方法"><span class="toc-number">10.</span> <span class="toc-text">Linux下反弹shell的方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redis的利用方式-getshell的方法"><span class="toc-number">11.</span> <span class="toc-text">redis的利用方式,getshell的方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP"><span class="toc-number">12.</span> <span class="toc-text">PHP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP的字符串中单引号与双引号的区别"><span class="toc-number">12.1.</span> <span class="toc-text">PHP的字符串中单引号与双引号的区别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#同源策略"><span class="toc-number">13.</span> <span class="toc-text">同源策略</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#WAF绕过"><span class="toc-number">14.</span> <span class="toc-text">WAF绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL写shell的方法"><span class="toc-number">15.</span> <span class="toc-text">MySQL写shell的方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常见端口"><span class="toc-number">16.</span> <span class="toc-text">常见端口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#web类"><span class="toc-number">16.0.1.</span> <span class="toc-text">web类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库类-扫描弱口令"><span class="toc-number">16.0.2.</span> <span class="toc-text">数据库类(扫描弱口令)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用端口类-扫描弱口令-端口爆破"><span class="toc-number">16.0.3.</span> <span class="toc-text">常用端口类(扫描弱口令/端口爆破)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊服务类-未授权-命令执行类-漏洞"><span class="toc-number">16.0.4.</span> <span class="toc-text">特殊服务类(未授权/命令执行类/漏洞)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解析漏洞"><span class="toc-number">17.</span> <span class="toc-text">解析漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#IIS-5-x-6-0解析漏洞"><span class="toc-number">17.1.</span> <span class="toc-text">IIS 5.x/6.0解析漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache-解析漏洞"><span class="toc-number">17.2.</span> <span class="toc-text">Apache 解析漏洞</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文件上传的绕过"><span class="toc-number">18.</span> <span class="toc-text">文件上传的绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文件读取除了可以读取敏感文件还有什么利用方式"><span class="toc-number">19.</span> <span class="toc-text">文件读取除了可以读取敏感文件还有什么利用方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#经常使用的工具"><span class="toc-number">20.</span> <span class="toc-text">经常使用的工具</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#OWASP-Top-10"><span class="toc-number">1.</span> <span class="toc-text">OWASP Top 10</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#注入"><span class="toc-number">1.1.</span> <span class="toc-text">注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#失效的身份认证和会话管理"><span class="toc-number">1.2.</span> <span class="toc-text">失效的身份认证和会话管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介"><span class="toc-number">1.2.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">1.2.2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#危害"><span class="toc-number">1.2.3.</span> <span class="toc-text">危害</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检测失效的身份认证和会话管理"><span class="toc-number">1.2.4.</span> <span class="toc-text">检测失效的身份认证和会话管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防范"><span class="toc-number">1.2.5.</span> <span class="toc-text">防范</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#敏感数据泄露"><span class="toc-number">1.3.</span> <span class="toc-text">敏感数据泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-1"><span class="toc-number">1.3.2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防御"><span class="toc-number">1.3.3.</span> <span class="toc-text">防御</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XXE外部实体注入"><span class="toc-number">1.4.</span> <span class="toc-text">XXE外部实体注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#失效的访问控制"><span class="toc-number">1.5.</span> <span class="toc-text">失效的访问控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介-2"><span class="toc-number">1.5.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-2"><span class="toc-number">1.5.2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防御-1"><span class="toc-number">1.5.3.</span> <span class="toc-text">防御</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安全配置错误"><span class="toc-number">1.6.</span> <span class="toc-text">安全配置错误</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介-3"><span class="toc-number">1.6.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-3"><span class="toc-number">1.6.2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防御-2"><span class="toc-number">1.6.3.</span> <span class="toc-text">防御</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS跨站脚本攻击"><span class="toc-number">1.7.</span> <span class="toc-text">XSS跨站脚本攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-4"><span class="toc-number">1.7.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#出现的原因"><span class="toc-number">1.7.2.</span> <span class="toc-text">出现的原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防御措施"><span class="toc-number">1.7.3.</span> <span class="toc-text">防御措施</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不安全的反序列化"><span class="toc-number">1.8.</span> <span class="toc-text">不安全的反序列化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用含有已知漏洞的组件"><span class="toc-number">1.9.</span> <span class="toc-text">使用含有已知漏洞的组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介-4"><span class="toc-number">1.9.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-5"><span class="toc-number">1.9.2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防御-3"><span class="toc-number">1.9.3.</span> <span class="toc-text">防御</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不足的日志记录和监控"><span class="toc-number">1.10.</span> <span class="toc-text">不足的日志记录和监控</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常见漏洞"><span class="toc-number">2.</span> <span class="toc-text">常见漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL注入"><span class="toc-number">2.1.</span> <span class="toc-text">SQL注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sql注入的原理、防御"><span class="toc-number">2.1.1.</span> <span class="toc-text">sql注入的原理、防御</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何判断sql注入"><span class="toc-number">2.1.2.</span> <span class="toc-text">如何判断sql注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sql注入的利用方式"><span class="toc-number">2.1.3.</span> <span class="toc-text">sql注入的利用方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么有的时候没有错误回显，用php举例"><span class="toc-number">2.1.4.</span> <span class="toc-text">为什么有的时候没有错误回显，用php举例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#宽字符注入的原理？如何利用宽字符注入漏洞，payload如何构造？"><span class="toc-number">2.1.5.</span> <span class="toc-text">宽字符注入的原理？如何利用宽字符注入漏洞，payload如何构造？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sql注入绕过技巧"><span class="toc-number">2.1.6.</span> <span class="toc-text">sql注入绕过技巧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sql注入有哪几类"><span class="toc-number">2.1.7.</span> <span class="toc-text">sql注入有哪几类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL注入报错注入指令"><span class="toc-number">2.1.8.</span> <span class="toc-text">SQL注入报错注入指令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS跨站脚本攻击-1"><span class="toc-number">2.2.</span> <span class="toc-text">XSS跨站脚本攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#XSS有哪几类"><span class="toc-number">2.2.1.</span> <span class="toc-text">XSS有哪几类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XSS的触发机制"><span class="toc-number">2.2.2.</span> <span class="toc-text">XSS的触发机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#直接触发"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">直接触发</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XSS防御"><span class="toc-number">2.2.3.</span> <span class="toc-text">XSS防御</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dom-xss-和反射型xss的区别"><span class="toc-number">2.2.4.</span> <span class="toc-text">dom xss 和反射型xss的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XSS遇到后台登录限制或者HTTPONLY时"><span class="toc-number">2.2.5.</span> <span class="toc-text">XSS遇到后台登录限制或者HTTPONLY时</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSRF和XSS的区别"><span class="toc-number">2.2.6.</span> <span class="toc-text">CSRF和XSS的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSRF跨站请求伪造"><span class="toc-number">2.3.</span> <span class="toc-text">CSRF跨站请求伪造</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-6"><span class="toc-number">2.3.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#危害-1"><span class="toc-number">2.3.2.</span> <span class="toc-text">危害</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何检测"><span class="toc-number">2.3.3.</span> <span class="toc-text">如何检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防御-4"><span class="toc-number">2.3.4.</span> <span class="toc-text">防御</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSRF服务端请求伪造"><span class="toc-number">2.4.</span> <span class="toc-text">SSRF服务端请求伪造</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XXE防御、绕过"><span class="toc-number">2.5.</span> <span class="toc-text">XXE防御、绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JSONP漏洞"><span class="toc-number">2.6.</span> <span class="toc-text">JSONP漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JSON和JSONP的区别"><span class="toc-number">2.6.1.</span> <span class="toc-text">JSON和JSONP的区别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#http1-0与http1-1的区别"><span class="toc-number">3.</span> <span class="toc-text">http1.0与http1.1的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JAVA基础"><span class="toc-number">4.</span> <span class="toc-text">JAVA基础</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#绕过cdn获取网站的真实ip"><span class="toc-number">5.</span> <span class="toc-text">绕过cdn获取网站的真实ip</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CROS跨域资源共享"><span class="toc-number">6.</span> <span class="toc-text">CROS跨域资源共享</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#时间盲注除了sleep还有哪些利用函数"><span class="toc-number">7.</span> <span class="toc-text">时间盲注除了sleep还有哪些利用函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常见响应码"><span class="toc-number">8.</span> <span class="toc-text">常见响应码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Ddos分布式拒绝服务攻击"><span class="toc-number">9.</span> <span class="toc-text">Ddos分布式拒绝服务攻击</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux下反弹shell的方法"><span class="toc-number">10.</span> <span class="toc-text">Linux下反弹shell的方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redis的利用方式-getshell的方法"><span class="toc-number">11.</span> <span class="toc-text">redis的利用方式,getshell的方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP"><span class="toc-number">12.</span> <span class="toc-text">PHP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP的字符串中单引号与双引号的区别"><span class="toc-number">12.1.</span> <span class="toc-text">PHP的字符串中单引号与双引号的区别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#同源策略"><span class="toc-number">13.</span> <span class="toc-text">同源策略</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#WAF绕过"><span class="toc-number">14.</span> <span class="toc-text">WAF绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL写shell的方法"><span class="toc-number">15.</span> <span class="toc-text">MySQL写shell的方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常见端口"><span class="toc-number">16.</span> <span class="toc-text">常见端口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#web类"><span class="toc-number">16.0.1.</span> <span class="toc-text">web类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库类-扫描弱口令"><span class="toc-number">16.0.2.</span> <span class="toc-text">数据库类(扫描弱口令)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用端口类-扫描弱口令-端口爆破"><span class="toc-number">16.0.3.</span> <span class="toc-text">常用端口类(扫描弱口令/端口爆破)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊服务类-未授权-命令执行类-漏洞"><span class="toc-number">16.0.4.</span> <span class="toc-text">特殊服务类(未授权/命令执行类/漏洞)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解析漏洞"><span class="toc-number">17.</span> <span class="toc-text">解析漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#IIS-5-x-6-0解析漏洞"><span class="toc-number">17.1.</span> <span class="toc-text">IIS 5.x/6.0解析漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache-解析漏洞"><span class="toc-number">17.2.</span> <span class="toc-text">Apache 解析漏洞</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文件上传的绕过"><span class="toc-number">18.</span> <span class="toc-text">文件上传的绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文件读取除了可以读取敏感文件还有什么利用方式"><span class="toc-number">19.</span> <span class="toc-text">文件读取除了可以读取敏感文件还有什么利用方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#经常使用的工具"><span class="toc-number">20.</span> <span class="toc-text">经常使用的工具</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -2070,78 +2090,9 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 68
+        Total : 69
         </div>
         <!-- search  -->
         
@@ -2154,6 +2105,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/2019/06/15/SDL安全开发流程/" >SDL安全开发流程</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2431,12 +2387,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
         </li>
     
     
@@ -2517,15 +2473,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="Record,Problem"><span class="iconfont-archer">&#xe606;</span>Record,Problem</span>
+        <span class="sidebar-tag-name" data-tags="安全开发"><span class="iconfont-archer">&#xe606;</span>安全开发</span>
     
-        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
+        <span class="sidebar-tag-name" data-tags="Record,Problem"><span class="iconfont-archer">&#xe606;</span>Record,Problem</span>
     
         <span class="sidebar-tag-name" data-tags="漏洞、CTF"><span class="iconfont-archer">&#xe606;</span>漏洞、CTF</span>
     
-        <span class="sidebar-tag-name" data-tags="渗透"><span class="iconfont-archer">&#xe606;</span>渗透</span>
+        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
     
         <span class="sidebar-tag-name" data-tags="Crypto"><span class="iconfont-archer">&#xe606;</span>Crypto</span>
+    
+        <span class="sidebar-tag-name" data-tags="渗透"><span class="iconfont-archer">&#xe606;</span>渗透</span>
     
         <span class="sidebar-tag-name" data-tags="problem"><span class="iconfont-archer">&#xe606;</span>problem</span>
     
