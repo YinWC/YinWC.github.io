@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>docker的学习 · Ywc&#39;s blog</title>
+    <title>App渗透测试 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">docker的学习</a>
+                <a href="#" class="post-name">App渗透测试</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            docker的学习
+            App渗透测试
             <!-- 404 -->
             
         </h1>
@@ -261,18 +261,18 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "learn">learn</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "渗透测试">渗透测试</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">647</span> / Reading time: <span class="post-count">3 min</span></span>
+                        <span>Word count: <span class="post-count">37</span> / Reading time: <span class="post-count">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/05/06</span>
+                    <span class="post-intro-time">2019/06/18</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -396,38 +396,16 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="前言-踩过的坑"><a href="#前言-踩过的坑" class="headerlink" title="前言(踩过的坑)"></a>前言(踩过的坑)</h2><p>这几天国赛赛区出题，start.sh一直没启动成功，卡壳了两天，后来才知道在windows下编写的脚本文件，放到Linux中无法识别格式，用vi打开脚本文件，在命令模式下输入<code>set ff=unix</code>或者<code>set fileformat=unix</code>保存退出即可。<br>docker安装<code>apache2</code>服务启动起来后，php文件没有渲染，要安装一个apache扩展apt-get install -y <code>libapache2-mod-php</code></p>
-<h2 id="docker一些常用指令："><a href="#docker一些常用指令：" class="headerlink" title="docker一些常用指令："></a>docker一些常用指令：</h2><ul>
-<li><code>docker ps</code>   查看正在运行的容器</li>
-<li><code>docker image ls/docker images</code>   列出本地镜像</li>
-<li><code>docker -it</code><br><code>docker -i</code>   以交互模式运行容器，通常与 -t 同时使用<br><code>docker -t</code>  为容器重新分配一个伪输入终端，通常与 -i 同时使用</li>
-<li><code>docker -d</code>  后台运行容器，并返回容器ID；</li>
-<li><code>docker -p</code>   端口映射，格式为：主机(宿主)端口:容器端口</li>
-<li><code>docker exec -it 9df70f9a0714 /bin/bash</code> 进入ID为9df70f9a0714的容器中去,可以执行bash指令。</li>
-</ul>
-<h2 id="使用docker运行服务"><a href="#使用docker运行服务" class="headerlink" title="使用docker运行服务"></a>使用docker运行服务</h2><p>前提是在一个写好dockerfile的文件夹中<br>首先需要创建一个docker镜像：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t php .      //php可以随便取一个名字，最后面要记得加空格和一个.号</span><br></pre></td></tr></table></figure></p>
-<p>然后运行这个镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d -p 2019:80 php</span><br></pre></td></tr></table></figure></p>
-<p>这是时候即可在本地：<code>127.0.0.1:2019</code> 访问这个服务</p>
-<h2 id="删除本地镜像"><a href="#删除本地镜像" class="headerlink" title="删除本地镜像"></a>删除本地镜像</h2><p>参考链接：<a href="https://blog.csdn.net/winy_lm/article/details/77980529" target="_blank" rel="noopener">文章</a></p>
-<p>1.查询镜像:<code>docker images</code><br><img src="/2019/05/06/docker/5.png" alt="docker"><br>2.查询容器:<code>docker ps -a</code><br><img src="/2019/05/06/docker/6.png" alt="docker"><br>3.先删除容器:<code>docker rm +ID</code><br><img src="/2019/05/06/docker/7.png" alt="docker"><br>4.再删除镜像:<code>docker rmi +ID</code><br><img src="/2019/05/06/docker/8.png" alt="docker"><br>注意点：</p>
-<ol>
-<li>删除前需要保证容器是停止的  stop</li>
-<li>需要注意删除镜像和容器的命令不一样。 docker rmi ID  ,其中 容器(rm)  和 镜像(rmi)</li>
-<li>顺序:需要先删除容器,在删除镜像<br>参考链接：<a href="http://www.runoob.com/docker/docker-command-manual.html" target="_blank" rel="noopener">http://www.runoob.com/docker/docker-command-manual.html</a></li>
-</ol>
-<h2 id="实战："><a href="#实战：" class="headerlink" title="实战："></a>实战：</h2><p>SUCTF题目的docker环境搭建<br>SUCTF题目的docker镜像：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">suctf/2018-web-multi_sql suctf/2018-web-homework</span><br><span class="line">suctf/2018-web-hateit </span><br><span class="line">suctf/2018-web-getshell</span><br><span class="line">suctf/2018-web-annonymous suctf/2018-pwn-note </span><br><span class="line">suctf/2018-pwn-noend </span><br><span class="line">suctf/2018-pwn-lock2 </span><br><span class="line">suctf/2018-pwn-heapprint suctf/2018-pwn-heap </span><br><span class="line">suctf/2018-misc-padding</span><br><span class="line">suctf/2018-misc-game </span><br><span class="line">suctf/2018-misc-rsagood</span><br><span class="line">suctf/2018-misc-rsa </span><br><span class="line">suctf/2018-misc-enjoy </span><br><span class="line">suctf/2018-misc-pass</span><br></pre></td></tr></table></figure></p>
-<p>启动doker<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker start</span><br></pre></td></tr></table></figure></p>
-<p>查看SUCTF，发现只有一个开放。。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker search suctf</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2019/05/06/docker/1.jpg" alt="docker"><br>题目是在80端口开放，运行即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d -p 80:80 suctf/2018-web-getshell</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2019/05/06/docker/2.jpg" alt="docker"><br>在VPS中输入0.0.0.0:80即可看到题目，也可以ifconfig查看虚拟机ip,在虚拟机或者主机中 ip加上端口即可看到题目。<br><img src="/2019/05/06/docker/3.jpg" alt="docker"><br><img src="/2019/05/06/docker/4.jpg" alt="docker"></p>
+        <p>仍在学习中…<br>整理一些学习资料~。~</p>
+<p><a href="https://github.com/Brucetg/App_Security" target="_blank" rel="noopener">https://github.com/Brucetg/App_Security</a><br><a href="https://wizardforcel.gitbooks.io/lpad/content/" target="_blank" rel="noopener">Android渗透测试学习手册</a><br><a href="https://www.mrwu.red/wp-content/uploads/2019/01/2d64e44287506e29af96.pdf" target="_blank" rel="noopener">Android+APP渗透测试方法大全</a></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2019/05/06/docker/">https://yinwc.github.io/2019/05/06/docker/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2019/05/06/docker/">May 6th 2019, 8:45:00 pm</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2019/06/18/App渗透测试/">https://yinwc.github.io/2019/06/18/App渗透测试/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2019/06/18/App渗透测试/">June 18th 2019, 10:33:27 am</a>
             <p>版权声明: </p>
         </div>
     
@@ -435,17 +413,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2019/05/21/AWS搭建SS/" title= AWS搭建SS >
-                    <div class="nextTitle">AWS搭建SS</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2019/04/22/异或/" title= 深入理解异或操作 >
-                    <div class="prevTitle">深入理解异或操作</div>
+                <a href= "/2019/06/15/SDL安全开发流程/" title= SDL安全开发流程 >
+                    <div class="prevTitle">SDL安全开发流程</div>
                 </a>
             
         </li>
@@ -557,7 +530,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言-踩过的坑"><span class="toc-number">1.</span> <span class="toc-text">前言(踩过的坑)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker一些常用指令："><span class="toc-number">2.</span> <span class="toc-text">docker一些常用指令：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用docker运行服务"><span class="toc-number">3.</span> <span class="toc-text">使用docker运行服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除本地镜像"><span class="toc-number">4.</span> <span class="toc-text">删除本地镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实战："><span class="toc-number">5.</span> <span class="toc-text">实战：</span></a></li></ol>
+        
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
