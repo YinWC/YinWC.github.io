@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">857</span> / Reading time: <span class="post-count">4 min</span></span>
+                        <span>Word count: <span class="post-count">868</span> / Reading time: <span class="post-count">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -415,6 +415,7 @@ height:50vh;
 <h2 id="Misc-game"><a href="#Misc-game" class="headerlink" title="Misc:game"></a>Misc:game</h2><p>打开题目是魔方<br><img src="/2019/08/17/SUCTF2019/8.png" alt="SUCTF2019"><br>四处找敏感信息orz<br>index.html里有一句话：can u find my secret?<br>在两个js文件里搜，找到一个图片文件名：iZwz9i9xnerwj6o7h40eauZ.png<br><img src="/2019/08/17/SUCTF2019/9.png" alt="SUCTF2019"><br>下下来，用Stegsolver看一下LSB，发现有一串字符：<code>U2FsdGVkX1+zHjSBeYPtWQVSwXzcVFZLu6Qm0To/KeuHg8vKAxFrVQ==</code><br>根据U2FsdGVkX1猜测是密文，试了一下，3DES，密钥是index.html中的字符串<code>ON2WG5DGPNUECSDBNBQV6RTBNMZV6RRRMFTX2===</code>的b32decode，解开可得flag<br><img src="/2019/08/17/SUCTF2019/10.png" alt="SUCTF2019"></p>
 <p>贴一下wp，方便学习orz:</p>
 <ul>
+<li>官方WP：<code>https://www.xctf.org.cn/library/details/17e9b70557d94b168c3e5d1e7d4ce78f475de26d/</code></li>
 <li>De1ta师傅们的wp:<code>https://xz.aliyun.com/t/6042#toc-3</code></li>
 </ul>
 
