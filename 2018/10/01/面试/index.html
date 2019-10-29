@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">9,550</span> / Reading time: <span class="post-count">35 min</span></span>
+                        <span>Word count: <span class="post-count">9,543</span> / Reading time: <span class="post-count">35 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -536,7 +536,7 @@ height:50vh;
 </ul>
 <h3 id="如何判断sql注入"><a href="#如何判断sql注入" class="headerlink" title="如何判断sql注入"></a>如何判断sql注入</h3><p>1.单引号判断法<br>2.and大法 and 1=1 and 1=2  同真为真，其余为假<br>3.ord大法 or 1=1 or 1=2  同假为假，其余为真</p>
 <h3 id="sql注入的利用方式"><a href="#sql注入的利用方式" class="headerlink" title="sql注入的利用方式"></a>sql注入的利用方式</h3><p>1.非法查询其他数据库资源，如管理员帐号<br>2.执行系统命令<br>3.获取服务器root权限</p>
-<h3 id="时间盲注除了sleep还有哪些利用函数"><a href="#时间盲注除了sleep还有哪些利用函数" class="headerlink" title="时间盲注除了sleep还有哪些利用函数"></a>时间盲注除了sleep还有哪些利用函数</h3><p><a href="https://www.cdxy.me/?p=789" target="_blank" rel="noopener">参考文章</a><br>benchmark、笛卡尔积、GET_LOCK、RLIKE</p>
+<h3 id="时间盲注除了sleep还有哪些利用函数"><a href="#时间盲注除了sleep还有哪些利用函数" class="headerlink" title="时间盲注除了sleep还有哪些利用函数"></a>时间盲注除了sleep还有哪些利用函数</h3><p><a href="https://www.cdxy.me/?p=789" target="_blank" rel="noopener">参考文章</a></p>
 <h3 id="为什么有的时候没有错误回显，用php举例"><a href="#为什么有的时候没有错误回显，用php举例" class="headerlink" title="为什么有的时候没有错误回显，用php举例"></a>为什么有的时候没有错误回显，用php举例</h3><p>php的配置文件php.ini进行了修改，display_errors = On 修改为 display_errors = off时候就没有报错提示.<br>在php脚本开头添加error_reporting(0); 也可以达到关闭报错的作用.</p>
 <h3 id="宽字符注入的原理？如何利用宽字符注入漏洞，payload如何构造？"><a href="#宽字符注入的原理？如何利用宽字符注入漏洞，payload如何构造？" class="headerlink" title="宽字符注入的原理？如何利用宽字符注入漏洞，payload如何构造？"></a>宽字符注入的原理？如何利用宽字符注入漏洞，payload如何构造？</h3><p><strong>原理：</strong><br>mysql数据库在使用宽字节（GBK）编码时，会认为两个字符是一个汉字（前一个ascii码要大于128（比如%df），才到汉字的范围），而且当我们输入单引号时，mysql会调用转义函数，将单引号变为\’，其中\的十六进制是%5c,mysql的GBK编码，会认为%df%5c是一个宽字节，也就是’運’，从而使单引号闭合（逃逸），进行注入攻击<br><code>%df&#39;</code> 会被PHP当中的<code>addslashes</code>函数转义为<code>%df\&#39;</code> ，“\”既URL里的“%5C”，那么也就是说，<code>%df&#39;</code>会被转成<code>%df%5C%27</code>倘若网站的字符集是GBK，MYSQL使用的编码也是GBK的话，就会认为<code>%df%5C%27</code>是一个宽字符。也就是“縗’”</p>
 <h3 id="sql注入绕过技巧"><a href="#sql注入绕过技巧" class="headerlink" title="sql注入绕过技巧"></a>sql注入绕过技巧</h3><p><a href="https://www.cnblogs.com/Vinson404/p/7253255.html" target="_blank" rel="noopener">复习文章</a></p>
