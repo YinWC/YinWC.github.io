@@ -523,9 +523,12 @@ height:50vh;
 <li><a href="#%e9%98%b2%e5%be%a1-4">防御</a></li>
 </ul>
 </li>
-<li><a href="#font-colorblue%e4%b8%8d%e8%b6%b3%e7%9a%84%e6%97%a5%e5%bf%97%e8%ae%b0%e5%bd%95%e5%92%8c%e7%9b%91%e6%8e%a7font"><font color="blue">不足的日志记录和监控</font></a><h1 id="常见漏洞"><a href="#常见漏洞" class="headerlink" title="常见漏洞"></a><font color="red">常见漏洞</font></h1><h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a><font color="blue">SQL注入</font></h2><h3 id="sql注入的原理、防御"><a href="#sql注入的原理、防御" class="headerlink" title="sql注入的原理、防御"></a>sql注入的原理、防御</h3>原理：当攻击者发送的sql语句被sql解释器执行，通过执行这些恶意语句欺骗数据库执行，导致数据库信息泄露。<br>防御：</li>
+<li><a href="#font-colorblue%e4%b8%8d%e8%b6%b3%e7%9a%84%e6%97%a5%e5%bf%97%e8%ae%b0%e5%bd%95%e5%92%8c%e7%9b%91%e6%8e%a7font"><font color="blue">不足的日志记录和监控</font></a></li>
 </ul>
 </li>
+</ul>
+<h1 id="常见漏洞"><a href="#常见漏洞" class="headerlink" title="常见漏洞"></a><font color="red">常见漏洞</font></h1><h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a><font color="blue">SQL注入</font></h2><h3 id="sql注入的原理、防御"><a href="#sql注入的原理、防御" class="headerlink" title="sql注入的原理、防御"></a>sql注入的原理、防御</h3><p>原理：当攻击者发送的sql语句被sql解释器执行，通过执行这些恶意语句欺骗数据库执行，导致数据库信息泄露。<br>防御：</p>
+<ul>
 <li>使用预编译语句,绑定变量（PreparedStatement） <a href="https://blog.csdn.net/cjx529377/article/details/77413577" target="_blank" rel="noopener">复习文章</a></li>
 <li>使用存储过程</li>
 <li>检查数据类型</li>
