@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">494</span> / Reading time: <span class="post-count">2 min</span></span>
+                        <span>Word count: <span class="post-count">501</span> / Reading time: <span class="post-count">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -399,9 +399,8 @@ height:50vh;
         <h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>定义：<br>冒泡排序(Bubble Sort)是一种简单的排序算法。它重复地遍历要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。遍历数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。这个算法的名字由来是因为越小的元素会经由交换慢慢“浮”到数列的顶端。<br>冒泡排序算法的运作如下：<br>1、比较相邻的元素。如果第一个比第二个大(升序)，就交换他们两个。<br>2、对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。这步做完后，最后的元素会是最大的数。<br>3、针对所有的元素重复以上的步骤，除了最后一个。<br>4、持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。</p>
 <p><img src="/2019/10/08/面试算法/bubbleSort.gif" alt="面试算法"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(alist)</span>:</span></span><br><span class="line">    n = len(alist) <span class="comment"># 结算列表的长度</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(n - <span class="number">1</span>): <span class="comment"># 外层循环控制从头走到尾的次数</span></span><br><span class="line">        count = <span class="number">0</span> <span class="comment"># 用一个count记录一共交换的次数，可以排除已经是排好的序列</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, n - <span class="number">1</span> - j): <span class="comment"># 内层循环控制走一次的过程</span></span><br><span class="line">            <span class="keyword">if</span> alist[i] &gt; alist[i + <span class="number">1</span>]: <span class="comment"># 如果前一个元素大于后一个元素，则交换两个元素（升序）</span></span><br><span class="line">                alist[i], alist[i + <span class="number">1</span>] = alist[i + <span class="number">1</span>], alist[i] <span class="comment"># 交换元素</span></span><br><span class="line">                count += <span class="number">1</span> <span class="comment"># 记录交换的次数</span></span><br><span class="line">        <span class="keyword">if</span> <span class="number">0</span> == count:  <span class="comment"># count == 0 代表没有交换，序列已经有序</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    alist = [<span class="number">54</span>, <span class="number">26</span>, <span class="number">93</span>, <span class="number">77</span>, <span class="number">44</span>, <span class="number">31</span>, <span class="number">44</span>, <span class="number">55</span>, <span class="number">20</span>]</span><br><span class="line">    print(<span class="string">"原列表为：%s"</span> % alist)</span><br><span class="line">    bubble_sort(alist)</span><br><span class="line">    print(<span class="string">"新列表为：%s"</span> % alist)</span><br></pre></td></tr></table></figure>
-<p>文章：<a href="https://www.jianshu.com/p/e8ae3a0bc2e4" target="_blank" rel="noopener">文章1</a> <a href="https://blog.csdn.net/u014745194/article/details/72782962" target="_blank" rel="noopener">文章2</a><br><a href="https://blog.csdn.net/wangzhiping321/article/details/82381704" target="_blank" rel="noopener">冒泡算法及其优化</a></p>
-<p>## </p>
-<p>Python实现十大经典排序算法:<br><a href="https://www.jianshu.com/p/bbbab7fa77a2" target="_blank" rel="noopener">https://www.jianshu.com/p/bbbab7fa77a2</a></p>
+<p>文章：<a href="https://blog.csdn.net/wangzhiping321/article/details/82381704" target="_blank" rel="noopener">冒泡算法及其优化</a>、<a href="https://www.jianshu.com/p/e8ae3a0bc2e4" target="_blank" rel="noopener">文章1</a>、<a href="https://blog.csdn.net/u014745194/article/details/72782962" target="_blank" rel="noopener">文章2</a></p>
+<p>Python实现十大经典排序算法:<br><a href="https://www.jianshu.com/p/bbbab7fa77a2" target="_blank" rel="noopener">https://www.jianshu.com/p/bbbab7fa77a2</a><br><a href="https://sec.thief.one/article_content?a_id=568be7958a5e2207a50bf2167830827d" target="_blank" rel="noopener">https://sec.thief.one/article_content?a_id=568be7958a5e2207a50bf2167830827d</a></p>
 
     </article>
     <!-- license  -->
@@ -416,6 +415,11 @@ height:50vh;
     <!-- paginator  -->
     <ul class="post-paginator">
         <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2019/10/24/甲方安全/" title= 甲方安全 >
+                    <div class="nextTitle">甲方安全</div>
+                </a>
             
         </li>
         <li class="previous">
@@ -1817,9 +1821,70 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 80
+        Total : 81
         </div>
         <!-- search  -->
         
@@ -1832,6 +1897,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2019/10/24/甲方安全/" >甲方安全</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2266,6 +2336,8 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="Crypto"><span class="iconfont-archer">&#xe606;</span>Crypto</span>
     
         <span class="sidebar-tag-name" data-tags="渗透"><span class="iconfont-archer">&#xe606;</span>渗透</span>
+    
+        <span class="sidebar-tag-name" data-tags="代码审计"><span class="iconfont-archer">&#xe606;</span>代码审计</span>
     
         <span class="sidebar-tag-name" data-tags="problem"><span class="iconfont-archer">&#xe606;</span>problem</span>
     
