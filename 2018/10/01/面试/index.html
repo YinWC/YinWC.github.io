@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">9,543</span> / Reading time: <span class="post-count">35 min</span></span>
+                        <span>Word count: <span class="post-count">9,547</span> / Reading time: <span class="post-count">35 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -527,13 +527,7 @@ height:50vh;
 </ul>
 </li>
 </ul>
-<h1 id="常见漏洞"><a href="#常见漏洞" class="headerlink" title="常见漏洞"></a><font color="red">常见漏洞</font></h1><h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a><font color="blue">SQL注入</font></h2><h3 id="sql注入的原理、防御"><a href="#sql注入的原理、防御" class="headerlink" title="sql注入的原理、防御"></a>sql注入的原理、防御</h3><p>原理：当攻击者发送的sql语句被sql解释器执行，通过执行这些恶意语句欺骗数据库执行，导致数据库信息泄露。<br>防御：</p>
-<ul>
-<li>使用预编译语句,绑定变量（PreparedStatement） <a href="https://blog.csdn.net/cjx529377/article/details/77413577" target="_blank" rel="noopener">复习文章</a></li>
-<li>使用存储过程</li>
-<li>检查数据类型</li>
-<li>使用安全函数  <code>mysql_real_escape_string()</code></li>
-</ul>
+<h1 id="常见漏洞"><a href="#常见漏洞" class="headerlink" title="常见漏洞"></a><font color="red">常见漏洞</font></h1><h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a><font color="blue">SQL注入</font></h2><h3 id="sql注入的原理、防御"><a href="#sql注入的原理、防御" class="headerlink" title="sql注入的原理、防御"></a>sql注入的原理、防御</h3><p>原理：当攻击者发送的sql语句被sql解释器执行，通过执行这些恶意语句欺骗数据库执行，导致数据库信息泄露。<br>防御：<br>1.使用预编译语句,绑定变量（PreparedStatement） <a href="https://blog.csdn.net/cjx529377/article/details/77413577" target="_blank" rel="noopener">复习文章</a><br>2.使用存储过程<br>3.检查数据类型<br>4.使用安全函数<code>mysql_real_escape_string()</code></p>
 <h3 id="如何判断sql注入"><a href="#如何判断sql注入" class="headerlink" title="如何判断sql注入"></a>如何判断sql注入</h3><p>1.单引号判断法<br>2.and大法 and 1=1 and 1=2  同真为真，其余为假<br>3.ord大法 or 1=1 or 1=2  同假为假，其余为真</p>
 <h3 id="sql注入的利用方式"><a href="#sql注入的利用方式" class="headerlink" title="sql注入的利用方式"></a>sql注入的利用方式</h3><p>1.非法查询其他数据库资源，如管理员帐号<br>2.执行系统命令<br>3.获取服务器root权限</p>
 <h3 id="时间盲注除了sleep还有哪些利用函数"><a href="#时间盲注除了sleep还有哪些利用函数" class="headerlink" title="时间盲注除了sleep还有哪些利用函数"></a>时间盲注除了sleep还有哪些利用函数</h3><p><a href="https://www.cdxy.me/?p=789" target="_blank" rel="noopener">参考文章</a></p>
