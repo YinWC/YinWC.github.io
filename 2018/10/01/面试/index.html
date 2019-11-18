@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">9,547</span> / Reading time: <span class="post-count">35 min</span></span>
+                        <span>Word count: <span class="post-count">9,601</span> / Reading time: <span class="post-count">35 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -564,7 +564,8 @@ height:50vh;
 <p><code>?id=2’ and (select 1 from (select count(*),concat( floor(rand(0)*2),(select (select (查询语句)) from information_schema.tables limit 0,1))x from information_schema.tables group by x )a )--+</code></p>
 <p><code>?id=2’ and updatexml(1,concat(0x7e,(SELECT @@version),0x7e),1)--+</code></p>
 <p><code>?id=1’ and extractvalue(1, concat(0x7e, (select @@version),0x7e))--+</code></p>
-<h2 id="XSS跨站脚本攻击"><a href="#XSS跨站脚本攻击" class="headerlink" title="XSS跨站脚本攻击"></a><font color="blue">XSS跨站脚本攻击</font></h2><h3 id="XSS有哪几类"><a href="#XSS有哪几类" class="headerlink" title="XSS有哪几类"></a>XSS有哪几类</h3><p>反射型、存储型、DOMXSS<br><strong>存储型 XSS</strong><br>存储型 XSS 的攻击步骤：</p>
+<h2 id="XSS跨站脚本攻击"><a href="#XSS跨站脚本攻击" class="headerlink" title="XSS跨站脚本攻击"></a><font color="blue">XSS跨站脚本攻击</font></h2><p>xss就是攻击者在web页面插入恶意的Script代码，当用户浏览该页之时，嵌入其中web里面的Script代码会被执行，从而达到恶意攻击用户的特殊目的。</p>
+<h3 id="XSS有哪几类"><a href="#XSS有哪几类" class="headerlink" title="XSS有哪几类"></a>XSS有哪几类</h3><p>反射型、存储型、DOMXSS<br><strong>存储型 XSS</strong><br>存储型 XSS 的攻击步骤：</p>
 <ul>
 <li>攻击者将恶意代码提交到目标网站的数据库中。</li>
 <li>用户打开目标网站时，网站服务端将恶意代码从数据库取出，拼接在 HTML 中返回给浏览器。</li>
