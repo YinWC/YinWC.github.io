@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">3,305</span> / Reading time: <span class="post-count">14 min</span></span>
+                        <span>Word count: <span class="post-count">3,545</span> / Reading time: <span class="post-count">16 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,24 +396,50 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="删除字符串中的空格"><a href="#删除字符串中的空格" class="headerlink" title="删除字符串中的空格"></a>删除字符串中的空格</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;.join(a.split())</span><br></pre></td></tr></table></figure>
+        <h2 id="字符串基础"><a href="#字符串基础" class="headerlink" title="字符串基础"></a>字符串基础</h2><ul>
+<li><p>+：连接</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s1=<span class="string">'www.baidu'</span></span><br><span class="line">s2=<span class="string">'.com'</span></span><br><span class="line">s3=s1+s2</span><br><span class="line"><span class="keyword">print</span> s3</span><br><span class="line">​</span><br></pre></td></tr></table></figure>
+<p>s3输出为<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a><br>​<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s4=s2+s1</span><br><span class="line">​</span><br></pre></td></tr></table></figure></p>
+<p>s3输出为.com<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a><br>​<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure></p>
+</li>
+<li><p>*：重复</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;li1=[<span class="number">1</span>,<span class="string">'3'</span>,<span class="string">'23.333'</span>]</span><br><span class="line">&gt;&gt;&gt;li1</span><br><span class="line">[<span class="number">1</span>, <span class="string">'3'</span>, <span class="string">'23.333'</span>]</span><br><span class="line">&gt;&gt;&gt;li1=[<span class="number">1</span>,<span class="string">'3'</span>,<span class="string">'23.333'</span>]*<span class="number">5</span></span><br><span class="line">&gt;&gt;&gt;li1</span><br><span class="line">[<span class="number">1</span>, <span class="string">'3'</span>, <span class="string">'23.333'</span>, <span class="number">1</span>, <span class="string">'3'</span>, <span class="string">'23.333'</span>, <span class="number">1</span>, <span class="string">'3'</span>, <span class="string">'23.333'</span>]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>s[i] 索引 index </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;s1=<span class="string">'abcdefg'</span></span><br><span class="line">&gt;&gt;&gt;ch=s1[<span class="number">3</span>]</span><br><span class="line">&gt;&gt;&gt;ch</span><br><span class="line"><span class="string">'d'</span></span><br><span class="line">&gt;&gt;&gt;print(ch)</span><br><span class="line">d</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>s[i:j:step] 切片 slice  </p>
+<p>注意方向，由大到小时，step为负，由小到大时，step为正（为1时可以不写）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;s1=<span class="string">'abcdefg'</span></span><br><span class="line">&gt;&gt;&gt;sub=s1[<span class="number">2</span>:<span class="number">5</span>]</span><br><span class="line">&gt;&gt;&gt;print(sub)</span><br><span class="line">cde</span><br><span class="line">&gt;&gt;&gt;sub=s1[<span class="number">2</span>:]</span><br><span class="line">&gt;&gt;&gt;print(sub)</span><br><span class="line">cdefg</span><br><span class="line">&gt;&gt;&gt;sub=s1[:]</span><br><span class="line">&gt;&gt;&gt;print(sub)</span><br><span class="line">abcdefg</span><br><span class="line">&gt;&gt;&gt;s1[<span class="number">5</span>]</span><br><span class="line"><span class="string">'f'</span></span><br><span class="line">&gt;&gt;&gt;s1[<span class="number">-2</span>]</span><br><span class="line"><span class="string">'f'</span></span><br><span class="line">&gt;&gt;&gt;sub=s1[<span class="number">-4</span>:<span class="number">-1</span>]</span><br><span class="line">&gt;&gt;&gt;sub</span><br><span class="line"><span class="string">'def'</span></span><br><span class="line">&gt;&gt;sub=s1[<span class="number">-4</span>:<span class="number">-1</span>]</span><br><span class="line">&gt;&gt;&gt;sub</span><br><span class="line"><span class="string">'def'</span></span><br><span class="line">&gt;&gt;&gt;sub=s1[<span class="number">-1</span>:<span class="number">-4</span>]</span><br><span class="line">&gt;&gt;&gt;sub</span><br><span class="line"><span class="string">''</span></span><br><span class="line">&gt;&gt;&gt;sub=s1[<span class="number">-1</span>:<span class="number">-4</span>:<span class="number">-1</span>]</span><br><span class="line">&gt;&gt;&gt;sub</span><br><span class="line"><span class="string">'gfe'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>for 循环遍历</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="string">'www.baidu.com'</span></span><br><span class="line"><span class="keyword">for</span> ch <span class="keyword">in</span> s:</span><br><span class="line">    print(ch)</span><br><span class="line">​</span><br></pre></td></tr></table></figure>
+<p>w<br>w<br>w<br>.<br>b<br>a<br>i<br>d<br>u<br>.<br>c<br>o<br>m<br>​<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure></p>
+</li>
+</ul>
+<h2 id="删除字符串中的空格"><a href="#删除字符串中的空格" class="headerlink" title="删除字符串中的空格"></a>删除字符串中的空格</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;.join(a.split())</span><br></pre></td></tr></table></figure>
 <p><code>&gt;&gt;&gt;</code> a = “ a b c “<br><code>&gt;&gt;&gt;</code> b = a.split()  # 字符串按空格分割成列表<br><code>&gt;&gt;&gt;</code> b [‘a’, ‘b’, ‘c’]<br><code>&gt;&gt;&gt;</code> c = “”.join(b) # 使用一个空字符串合成列表内容生成新的字符串<br><code>&gt;&gt;&gt;</code> c ‘abc’</p>
 <h2 id="python-中类似print-‘-’-end-’’-中end问题"><a href="#python-中类似print-‘-’-end-’’-中end问题" class="headerlink" title="python 中类似print(‘*’,end=’’)中end问题"></a>python 中类似print(‘*’,end=’’)中end问题</h2><p>end是print（）函数的一个参数。end 是输出语句结束以后附加的字符串，它的默认值是换行（’\n’）。 </p>
 <p>例如:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'*'</span>,end = <span class="string">' '</span>)<span class="comment">#end值为空格</span></span><br><span class="line">print(<span class="string">'*'</span>,end = <span class="string">''</span>)<span class="comment">#end值为空字符串</span></span><br><span class="line">print(<span class="string">'*'</span>,end = <span class="string">''</span>)<span class="comment">#end值为空字符串</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">''</span>)<span class="comment">#end值为默认值（换行\n）</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">'*'</span>,end = <span class="string">'1'</span>)<span class="comment">#end值为字符串‘1’</span></span><br><span class="line">print(<span class="string">'*'</span>,end = <span class="string">'12'</span>)<span class="comment">#end值为字符串‘12’</span></span><br></pre></td></tr></table></figure></p>
 <p>输出结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* **</span><br><span class="line">*1*12</span><br></pre></td></tr></table></figure></p>
-<h2 id="python-字符串前加u、r的含义"><a href="#python-字符串前加u、r的含义" class="headerlink" title="python 字符串前加u、r的含义"></a>python 字符串前加u、r的含义</h2><h3 id="字符串前加-u"><a href="#字符串前加-u" class="headerlink" title="字符串前加 u"></a>字符串前加 u</h3><p>例：u”我是含有中文字符组成的字符串。”</p>
+<h2 id="python-字符串前加u、r的含义"><a href="#python-字符串前加u、r的含义" class="headerlink" title="python 字符串前加u、r的含义"></a>python 字符串前加u、r的含义</h2><p><strong>字符串前加 u</strong><br>例：u”我是含有中文字符组成的字符串。”</p>
 <p>作用：后面字符串以 Unicode 格式 进行编码，一般用在中文字符串前面，防止因为源码储存格式问题，导致再次使用时出现乱码。</p>
 <p>在Python的string前面加上‘r’， 是为了告诉编译器这个string是个raw string，不要转意backslash ‘\’ 。 例如，\n 在raw string中，是两个字符，\和n， 而不会转意为换行符。由于正则表达式和 \ 会有冲突，因此，当一个字符串使用了正则表达式后，最好在前面加上’r’。</p>
-<h3 id="字符前加r"><a href="#字符前加r" class="headerlink" title="字符前加r"></a>字符前加r</h3><p>例：r”\n\n\n\n\n\n”</p>
+<p><strong>字符前加r</strong><br>例：r”\n\n\n\n\n\n”</p>
 <p>作用：声明后面的字符串是普通字符串，相对的，特殊字符串中含有：转义字符 \n \t 什么什么的。</p>
 <h2 id="Pip错误：’module’对象没有属性’Cryptography-HAS-SSL-ST’"><a href="#Pip错误：’module’对象没有属性’Cryptography-HAS-SSL-ST’" class="headerlink" title="Pip错误：’module’对象没有属性’Cryptography_HAS_SSL_ST’"></a>Pip错误：’module’对象没有属性’Cryptography_HAS_SSL_ST’</h2><p>解决方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get --auto-remove --yes remove python-openssl</span><br><span class="line">pip install pyOpenSSL</span><br></pre></td></tr></table></figure></p>
 <h2 id="python-xrange与range的区别"><a href="#python-xrange与range的区别" class="headerlink" title="python xrange与range的区别"></a>python xrange与range的区别</h2><p>参考链接：<a href="http://www.nowamagic.net/academy/detail/1302446" target="_blank" rel="noopener">http://www.nowamagic.net/academy/detail/1302446</a></p>
 <p>range(start,stop,step)</p>
 <p>xrange与range完全相同，所不同的是生成的不是一个list对象,而是一个生成器。要生成很大的数字序列的时候，用xrange会比range性能优很多，因为不需要一上来就开辟一块很大的内存空间。</p>
 <p>所以xrange做循环的性能比range好，尤其是返回很大的时候。尽量用xrange吧，除非你是要返回一个列表。</p>
-<h2 id="python中使用md5和sha1"><a href="#python中使用md5和sha1" class="headerlink" title="python中使用md5和sha1"></a>python中使用md5和sha1</h2><p>参考链接：<a href="https://www.cnblogs.com/shanys/p/5890265.html" target="_blank" rel="noopener">https://www.cnblogs.com/shanys/p/5890265.html</a></p>
-<h3 id="md5使用例子"><a href="#md5使用例子" class="headerlink" title="md5使用例子"></a>md5使用例子</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line">data_str=<span class="string">"hello world"</span></span><br><span class="line">hash_md5=md5(data_str).hexdigest()</span><br><span class="line"><span class="keyword">print</span> hash_md5</span><br></pre></td></tr></table></figure>
-<h3 id="sha1使用例子"><a href="#sha1使用例子" class="headerlink" title="sha1使用例子"></a>sha1使用例子</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha1</span><br><span class="line">data_str = <span class="string">"hello world"</span></span><br><span class="line">hash_sha1=sha1(data_str).hexdigest()</span><br><span class="line"><span class="keyword">print</span> hash_sha1</span><br></pre></td></tr></table></figure>
+<h2 id="python中使用md5和sha1"><a href="#python中使用md5和sha1" class="headerlink" title="python中使用md5和sha1"></a>python中使用md5和sha1</h2><p>参考链接：<a href="https://www.cnblogs.com/shanys/p/5890265.html" target="_blank" rel="noopener">https://www.cnblogs.com/shanys/p/5890265.html</a><br><strong>md5使用例子</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line">data_str=<span class="string">"hello world"</span></span><br><span class="line">hash_md5=md5(data_str).hexdigest()</span><br><span class="line"><span class="keyword">print</span> hash_md5</span><br></pre></td></tr></table></figure></p>
+<p><strong>sha1使用例子</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha1</span><br><span class="line">data_str = <span class="string">"hello world"</span></span><br><span class="line">hash_sha1=sha1(data_str).hexdigest()</span><br><span class="line"><span class="keyword">print</span> hash_sha1</span><br></pre></td></tr></table></figure></p>
 <h3 id="md5-os-urandom-n-产生随机字符串"><a href="#md5-os-urandom-n-产生随机字符串" class="headerlink" title="md5+os.urandom(n)产生随机字符串"></a>md5+os.urandom(n)产生随机字符串</h3><p>有点时候我们会需要产生一个全局唯一的id，这个时候，md5 + os.urandom 就派上用场了。</p>
 <p>os.urandom(n) 是一种随机生成n个字节字符串的方法，而且每次生成的值都不相同。再加上md5的处理，就能够成内容不同长度相同的字符串了。</p>
 <p>例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    <span class="keyword">print</span> md5(os.urandom(<span class="number">24</span>)).hexdigest()</span><br></pre></td></tr></table></figure></p>
@@ -595,7 +621,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#删除字符串中的空格"><span class="toc-number">1.</span> <span class="toc-text">删除字符串中的空格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python-中类似print-‘-’-end-’’-中end问题"><span class="toc-number">2.</span> <span class="toc-text">python 中类似print(‘*’,end=’’)中end问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python-字符串前加u、r的含义"><span class="toc-number">3.</span> <span class="toc-text">python 字符串前加u、r的含义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串前加-u"><span class="toc-number">3.1.</span> <span class="toc-text">字符串前加 u</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符前加r"><span class="toc-number">3.2.</span> <span class="toc-text">字符前加r</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pip错误：’module’对象没有属性’Cryptography-HAS-SSL-ST’"><span class="toc-number">4.</span> <span class="toc-text">Pip错误：’module’对象没有属性’Cryptography_HAS_SSL_ST’</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python-xrange与range的区别"><span class="toc-number">5.</span> <span class="toc-text">python xrange与range的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python中使用md5和sha1"><span class="toc-number">6.</span> <span class="toc-text">python中使用md5和sha1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#md5使用例子"><span class="toc-number">6.1.</span> <span class="toc-text">md5使用例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sha1使用例子"><span class="toc-number">6.2.</span> <span class="toc-text">sha1使用例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#md5-os-urandom-n-产生随机字符串"><span class="toc-number">6.3.</span> <span class="toc-text">md5+os.urandom(n)产生随机字符串</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#urllib-unquote"><span class="toc-number">7.</span> <span class="toc-text">urllib.unquote()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#seek（）函数"><span class="toc-number">8.</span> <span class="toc-text">seek（）函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#import-sys-与from-sys-import-argv"><span class="toc-number">9.</span> <span class="toc-text">import sys 与from sys import argv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python中hex-oct-chr-ord函数"><span class="toc-number">10.</span> <span class="toc-text">python中hex,oct,chr,ord函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hex"><span class="toc-number">10.1.</span> <span class="toc-text">hex()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#oct"><span class="toc-number">10.2.</span> <span class="toc-text">oct()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#chr"><span class="toc-number">10.3.</span> <span class="toc-text">chr()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ord"><span class="toc-number">10.4.</span> <span class="toc-text">ord()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#int-from-bytes和int-to-bytes函数"><span class="toc-number">11.</span> <span class="toc-text">int.from_bytes和int.to_bytes函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#int-from-bytes函数"><span class="toc-number">11.1.</span> <span class="toc-text">int.from_bytes函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#int-to-bytes函数"><span class="toc-number">11.2.</span> <span class="toc-text">int.to_bytes函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#abs函数返回数字的绝对值"><span class="toc-number">12.</span> <span class="toc-text">abs函数返回数字的绝对值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python安装gmpy2模块"><span class="toc-number">13.</span> <span class="toc-text">python安装gmpy2模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装m4："><span class="toc-number">13.1.</span> <span class="toc-text">安装m4：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装GMP"><span class="toc-number">13.2.</span> <span class="toc-text">安装GMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装MPFR"><span class="toc-number">13.3.</span> <span class="toc-text">安装MPFR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装MPC"><span class="toc-number">13.4.</span> <span class="toc-text">安装MPC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装gmpy2"><span class="toc-number">13.5.</span> <span class="toc-text">安装gmpy2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python-格式化字符串"><span class="toc-number">14.</span> <span class="toc-text">python 格式化字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python-之-s-d-f"><span class="toc-number">15.</span> <span class="toc-text">python 之%s%d%f</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#s字符串"><span class="toc-number">15.1.</span> <span class="toc-text">%s字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#d-整型"><span class="toc-number">15.2.</span> <span class="toc-text">%d 整型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#f-浮点型"><span class="toc-number">15.3.</span> <span class="toc-text">%f 浮点型</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串基础"><span class="toc-number">1.</span> <span class="toc-text">字符串基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除字符串中的空格"><span class="toc-number">2.</span> <span class="toc-text">删除字符串中的空格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python-中类似print-‘-’-end-’’-中end问题"><span class="toc-number">3.</span> <span class="toc-text">python 中类似print(‘*’,end=’’)中end问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python-字符串前加u、r的含义"><span class="toc-number">4.</span> <span class="toc-text">python 字符串前加u、r的含义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pip错误：’module’对象没有属性’Cryptography-HAS-SSL-ST’"><span class="toc-number">5.</span> <span class="toc-text">Pip错误：’module’对象没有属性’Cryptography_HAS_SSL_ST’</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python-xrange与range的区别"><span class="toc-number">6.</span> <span class="toc-text">python xrange与range的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python中使用md5和sha1"><span class="toc-number">7.</span> <span class="toc-text">python中使用md5和sha1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#md5-os-urandom-n-产生随机字符串"><span class="toc-number">7.1.</span> <span class="toc-text">md5+os.urandom(n)产生随机字符串</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#urllib-unquote"><span class="toc-number">8.</span> <span class="toc-text">urllib.unquote()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#seek（）函数"><span class="toc-number">9.</span> <span class="toc-text">seek（）函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#import-sys-与from-sys-import-argv"><span class="toc-number">10.</span> <span class="toc-text">import sys 与from sys import argv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python中hex-oct-chr-ord函数"><span class="toc-number">11.</span> <span class="toc-text">python中hex,oct,chr,ord函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hex"><span class="toc-number">11.1.</span> <span class="toc-text">hex()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#oct"><span class="toc-number">11.2.</span> <span class="toc-text">oct()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#chr"><span class="toc-number">11.3.</span> <span class="toc-text">chr()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ord"><span class="toc-number">11.4.</span> <span class="toc-text">ord()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#int-from-bytes和int-to-bytes函数"><span class="toc-number">12.</span> <span class="toc-text">int.from_bytes和int.to_bytes函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#int-from-bytes函数"><span class="toc-number">12.1.</span> <span class="toc-text">int.from_bytes函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#int-to-bytes函数"><span class="toc-number">12.2.</span> <span class="toc-text">int.to_bytes函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#abs函数返回数字的绝对值"><span class="toc-number">13.</span> <span class="toc-text">abs函数返回数字的绝对值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python安装gmpy2模块"><span class="toc-number">14.</span> <span class="toc-text">python安装gmpy2模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装m4："><span class="toc-number">14.1.</span> <span class="toc-text">安装m4：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装GMP"><span class="toc-number">14.2.</span> <span class="toc-text">安装GMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装MPFR"><span class="toc-number">14.3.</span> <span class="toc-text">安装MPFR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装MPC"><span class="toc-number">14.4.</span> <span class="toc-text">安装MPC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装gmpy2"><span class="toc-number">14.5.</span> <span class="toc-text">安装gmpy2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python-格式化字符串"><span class="toc-number">15.</span> <span class="toc-text">python 格式化字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python-之-s-d-f"><span class="toc-number">16.</span> <span class="toc-text">python 之%s%d%f</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#s字符串"><span class="toc-number">16.1.</span> <span class="toc-text">%s字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#d-整型"><span class="toc-number">16.2.</span> <span class="toc-text">%d 整型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#f-浮点型"><span class="toc-number">16.3.</span> <span class="toc-text">%f 浮点型</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1965,52 +1991,9 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 82
+        Total : 83
         </div>
         <!-- search  -->
         
@@ -2051,7 +2034,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2019/09/19/IAST安全测试技术/" >IAST安全测试技术</a>
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2019/09/19/IAST安全测试技术/" >应用安全测试技术</a>
         </li>
     
     
@@ -2072,6 +2055,11 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">08/03</span><a class="archive-post-title" href= "/2019/08/03/De1CTF/" >De1CTF_WriteUp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/06</span><a class="archive-post-title" href= "/2019/07/06/Django学习笔记/" >Django学习笔记</a>
         </li>
     
     
@@ -2370,12 +2358,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
         </li>
     
     
@@ -2456,17 +2444,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="安全开发"><span class="iconfont-archer">&#xe606;</span>安全开发</span>
-    
         <span class="sidebar-tag-name" data-tags="Record,Problem"><span class="iconfont-archer">&#xe606;</span>Record,Problem</span>
-    
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
         <span class="sidebar-tag-name" data-tags="Crypto"><span class="iconfont-archer">&#xe606;</span>Crypto</span>
     
         <span class="sidebar-tag-name" data-tags="渗透"><span class="iconfont-archer">&#xe606;</span>渗透</span>
+    
+        <span class="sidebar-tag-name" data-tags="安全开发"><span class="iconfont-archer">&#xe606;</span>安全开发</span>
     
         <span class="sidebar-tag-name" data-tags="代码审计"><span class="iconfont-archer">&#xe606;</span>代码审计</span>
     
