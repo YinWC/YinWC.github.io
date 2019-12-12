@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,564</span> / Reading time: <span class="post-count">7 min</span></span>
+                        <span>Word count: <span class="post-count">1,672</span> / Reading time: <span class="post-count">8 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -410,7 +410,7 @@ height:50vh;
 <p><strong>详细了解Response对象</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">r = requests.get(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">Response(self)</span></span><br><span class="line"><span class="string">The :class:Response &lt;Response&gt; object, which contains a server's response to an HTTP request.</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># HTTP请求的返回状态，比如，200表示成功，404表示失败</span></span><br><span class="line"><span class="keyword">print</span> (r.status_code)</span><br><span class="line"><span class="comment"># HTTP请求中的headers</span></span><br><span class="line"><span class="keyword">print</span> (r.headers)</span><br><span class="line"><span class="comment"># 从header中猜测的响应的内容编码方式 </span></span><br><span class="line"><span class="keyword">print</span> (r.encoding)</span><br><span class="line"><span class="comment"># 从内容中分析的编码方式（慢）</span></span><br><span class="line"><span class="keyword">print</span> (r.apparent_encoding)</span><br><span class="line"><span class="comment"># 响应内容的二进制形式</span></span><br><span class="line"><span class="keyword">print</span> (r.content)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">status_code:200 </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">headers:</span></span><br><span class="line"><span class="string">&#123;'Server': 'bfe/1.0.8.18', 'Date': 'Tue, 02 May 2017 12:01:47 GMT', 'Content-Type': 'text/html', 'Last-Modified': 'Mon, 23 Jan 2017 13:28:27 GMT', 'Transfer-Encoding': 'chunked', 'Connection': 'Keep-Alive', 'Cache-Control': 'private, no-cache, no-store, proxy-revalidate, no-transform', 'Pragma': 'no-cache', 'Set-Cookie': 'BDORZ=27315; max-age=86400; domain=.baidu.com; path=/', 'Content-Encoding':'gzip'&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">encoding: ISO-8859-1</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">apparent_encoding:utf-8</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
 <p><strong>requests抓取网页的通用框架:</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getHtmlText</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url, timeout=<span class="number">30</span>)</span><br><span class="line">        <span class="comment"># 如果状态码不是200 则应发HTTOError异常</span></span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        <span class="comment"># 设置正确的编码方式</span></span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Something Wrong!"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getHtmlText</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url, timeout=<span class="number">30</span>)</span><br><span class="line">        <span class="comment"># 如果状态码不是200 则应发HTTOError异常</span></span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        <span class="comment"># 设置正确的编码方式</span></span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Something Wrong!"</span></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    url=<span class="string">"http://www.baidu.com"</span></span><br><span class="line">    print(getHTMLText(url))</span><br></pre></td></tr></table></figure>
 <h2 id="BS4库的安装与使用"><a href="#BS4库的安装与使用" class="headerlink" title="BS4库的安装与使用"></a>BS4库的安装与使用</h2><p><a href="https://zhuanlan.zhihu.com/p/26683864" target="_blank" rel="noopener">BS4库的安装与使用</a></p>
 <p>bs4 全名 BeautifulSoup，是编写 python 爬虫常用库之一，主要用来解析 html 标签,把html源代码重新进行了格式化，从而方便我们对其中的节点、标签、属性等进行操作。</p>
 <p>初始化：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入bs4模块</span></span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="comment"># 开始</span></span><br><span class="line">soup=BeautifulSoup(html,<span class="string">'html.parser'</span>)</span><br><span class="line"><span class="comment"># 输出结果</span></span><br></pre></td></tr></table></figure></p>
@@ -420,9 +420,33 @@ height:50vh;
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">soup.prettify()   # prettify 有括号和没括号都可以</span><br></pre></td></tr></table></figure>
 <p><a href="https://www.jianshu.com/p/2b783f7914c6" target="_blank" rel="noopener">BeautifulSoup模块使用指南</a></p>
 <h2 id="常用的爬虫基本框架"><a href="#常用的爬虫基本框架" class="headerlink" title="常用的爬虫基本框架"></a>常用的爬虫基本框架</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests </span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="comment"># 首先我们写好抓取网页的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_html</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url,timeout=<span class="number">30</span>)</span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        <span class="comment">#这里我们知道百度贴吧的编码是utf-8，所以手动设置的。爬去其他的页面时建议使用：</span></span><br><span class="line">        <span class="comment"># r.endcodding = r.apparent_endconding </span></span><br><span class="line">        r.encoding=<span class="string">'utf-8'</span></span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">" ERROR "</span></span><br></pre></td></tr></table></figure>
+<h2 id="简单爬虫的运行流程"><a href="#简单爬虫的运行流程" class="headerlink" title="简单爬虫的运行流程"></a>简单爬虫的运行流程</h2><p><img src="/2019/02/18/python爬虫/4.png" alt="python爬虫"></p>
 <h2 id="抓取百度贴吧-生活大爆炸吧的基本内容"><a href="#抓取百度贴吧-生活大爆炸吧的基本内容" class="headerlink" title="抓取百度贴吧-生活大爆炸吧的基本内容"></a>抓取百度贴吧-生活大爆炸吧的基本内容</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">抓取百度贴吧---生活大爆炸吧的基本内容</span></span><br><span class="line"><span class="string">爬虫线路： requests - bs4</span></span><br><span class="line"><span class="string">Python版本： 3.6</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 首先我们写好抓取网页的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_html</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url, timeout=<span class="number">30</span>)</span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        <span class="comment"># 这里我们知道百度贴吧的编码是utf-8，所以手动设置的。爬去其他的页面时建议使用：</span></span><br><span class="line">        <span class="comment"># r.endcodding = r.apparent_endconding</span></span><br><span class="line">        r.encoding = <span class="string">'utf-8'</span></span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">" ERROR "</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_content</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    分析贴吧的网页文件，整理信息，保存在列表变量中</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 初始化一个列表来保存所有的帖子信息：</span></span><br><span class="line">    comments = []</span><br><span class="line">    <span class="comment"># 首先，我们把需要爬取信息的网页下载到本地</span></span><br><span class="line">    html = get_html(url)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 我们来做一锅汤</span></span><br><span class="line">    soup = BeautifulSoup(html, <span class="string">'lxml'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 按照之前的分析，我们找到所有具有‘ j_thread_list clearfix’属性的li标签。返回一个列表类型。</span></span><br><span class="line">    liTags = soup.find_all(<span class="string">'li'</span>, attrs=&#123;<span class="string">'class'</span>: <span class="string">' j_thread_list clearfix'</span>&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通过循环找到每个帖子里的我们需要的信息：</span></span><br><span class="line">    <span class="keyword">for</span> li <span class="keyword">in</span> liTags:</span><br><span class="line">        <span class="comment"># 初始化一个字典来存储文章信息</span></span><br><span class="line">        comment = &#123;&#125;</span><br><span class="line">        <span class="comment"># 这里使用一个try except 防止爬虫找不到信息从而停止运行</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># 开始筛选信息，并保存到字典中</span></span><br><span class="line">            comment[<span class="string">'title'</span>] = li.find(</span><br><span class="line">                <span class="string">'a'</span>, attrs=&#123;<span class="string">'class'</span>: <span class="string">'j_th_tit '</span>&#125;).text.strip()</span><br><span class="line">            comment[<span class="string">'link'</span>] = <span class="string">"http://tieba.baidu.com/"</span> + \</span><br><span class="line">                li.find(<span class="string">'a'</span>, attrs=&#123;<span class="string">'class'</span>: <span class="string">'j_th_tit '</span>&#125;)[<span class="string">'href'</span>]</span><br><span class="line">            comment[<span class="string">'name'</span>] = li.find(</span><br><span class="line">                <span class="string">'span'</span>, attrs=&#123;<span class="string">'class'</span>: <span class="string">'tb_icon_author '</span>&#125;).text.strip()</span><br><span class="line">            comment[<span class="string">'time'</span>] = li.find(</span><br><span class="line">                <span class="string">'span'</span>, attrs=&#123;<span class="string">'class'</span>: <span class="string">'pull-right is_show_create_time'</span>&#125;).text.strip()</span><br><span class="line">            comment[<span class="string">'replyNum'</span>] = li.find(</span><br><span class="line">                <span class="string">'span'</span>, attrs=&#123;<span class="string">'class'</span>: <span class="string">'threadlist_rep_num center_text'</span>&#125;).text.strip()</span><br><span class="line">            comments.append(comment)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            print(<span class="string">'出了点小问题'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> comments</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Out2File</span><span class="params">(dict)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    将爬取到的文件写入到本地</span></span><br><span class="line"><span class="string">    保存到当前目录的 TTBT.txt文件中。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'TTBT.txt'</span>, <span class="string">'a+'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">for</span> comment <span class="keyword">in</span> dict:</span><br><span class="line">            f.write(<span class="string">'标题： &#123;&#125; \t 链接：&#123;&#125; \t 发帖人：&#123;&#125; \t 发帖时间：&#123;&#125; \t 回复数量： &#123;&#125; \n'</span>.format(</span><br><span class="line">                comment[<span class="string">'title'</span>], comment[<span class="string">'link'</span>], comment[<span class="string">'name'</span>], comment[<span class="string">'time'</span>], comment[<span class="string">'replyNum'</span>]))</span><br><span class="line"></span><br><span class="line">        print(<span class="string">'当前页面爬取完成'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(base_url, deep)</span>:</span></span><br><span class="line">    url_list = []</span><br><span class="line">    <span class="comment"># 将所有需要爬去的url存入列表</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, deep):</span><br><span class="line">        url_list.append(base_url + <span class="string">'&amp;pn='</span> + str(<span class="number">50</span> * i))</span><br><span class="line">    print(<span class="string">'所有的网页已经下载到本地！ 开始筛选信息。。。。'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#循环写入所有的数据</span></span><br><span class="line">    <span class="keyword">for</span> url <span class="keyword">in</span> url_list:</span><br><span class="line">        content = get_content(url)</span><br><span class="line">        Out2File(content)</span><br><span class="line">    print(<span class="string">'所有的信息都已经保存完毕！'</span>)</span><br><span class="line"></span><br><span class="line">base_url = <span class="string">'http://tieba.baidu.com/f?kw=%E7%94%9F%E6%B4%BB%E5%A4%A7%E7%88%86%E7%82%B8&amp;ie=utf-8'</span></span><br><span class="line"><span class="comment"># 设置需要爬取的页码数量</span></span><br><span class="line">deep = <span class="number">3</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main(base_url, deep)</span><br></pre></td></tr></table></figure>
 <h2 id="爬取豆瓣图书名"><a href="#爬取豆瓣图书名" class="headerlink" title="爬取豆瓣图书名"></a>爬取豆瓣图书名</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">y_url=<span class="string">"https://read.douban.com/provider/all"</span></span><br><span class="line">headers = &#123;<span class="string">'User-Agent'</span>:<span class="string">'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'</span>&#125;</span><br><span class="line">req=urllib.request.Request(url=y_url,headers=headers) <span class="comment"># 这里不能直接使用urlopen 需要加header</span></span><br><span class="line">data=urllib.request.urlopen(req).read().decode(<span class="string">"utf-8"</span>) <span class="comment"># 这面有个报错需要将编码格式换为utf-8</span></span><br><span class="line"><span class="comment"># print(data)</span></span><br><span class="line">pat=<span class="string">'&lt;div class="name"&gt;(.*?)&lt;/div&gt;'</span>  <span class="comment"># 正则匹配，去掉中间.*?的括号的话，会把div标签也读取到，因此要加上括号</span></span><br><span class="line">rst=re.compile(pat).findall(data)</span><br><span class="line">fh=open(<span class="string">"./1.txt"</span>,<span class="string">"w"</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(rst)):</span><br><span class="line">    print(rst[i])</span><br><span class="line">    fh.write(rst[i]+<span class="string">"\n"</span>)   <span class="comment">#写入文件</span></span><br><span class="line">fh.close()</span><br></pre></td></tr></table></figure>
 <p><img src="/2019/02/18/python爬虫/3.png" alt="python爬虫"></p>
+<h2 id="爬取百度百科1000个页面的数据"><a href="#爬取百度百科1000个页面的数据" class="headerlink" title="爬取百度百科1000个页面的数据"></a>爬取百度百科1000个页面的数据</h2><p><strong>分析目标</strong></p>
+<ul>
+<li>目标：百度百科Python词条相关词条网页-标题和简介</li>
+<li>入口页：<a href="http://baike.baidu.com/view/21087.htm" target="_blank" rel="noopener">http://baike.baidu.com/view/21087.htm</a></li>
+<li>URL格式：</li>
+</ul>
+<ul>
+<li>词条页面URL：/view/125370.htm</li>
+</ul>
+<ul>
+<li><p>数据格式：</p>
+<p>—标题：</p>
+<ul>
+<li><code>&lt;dd class=&quot;lemmaWgt-lemmaTitle-title&quot;&gt;&lt;h1&gt;***&lt;/h1&gt;&lt;/add&gt;</code></li>
+</ul>
+<p>—简介：</p>
+<ul>
+<li><code>&lt;div class=&quot;lemma-summary&quot;&gt;***&lt;div&gt;</code></li>
+</ul>
+</li>
+<li><p>页面编码：UTF-8</p>
+</li>
+</ul>
 
     </article>
     <!-- license  -->
@@ -447,8 +471,8 @@ height:50vh;
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2019/02/02/安全从业人员的职业规划/" title= 安全从业人员的职业规划 >
-                    <div class="prevTitle">安全从业人员的职业规划</div>
+                <a href= "/2019/02/15/python爬虫实战/" title= python爬虫实战 >
+                    <div class="prevTitle">python爬虫实战</div>
                 </a>
             
         </li>
@@ -560,7 +584,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#requests库的使用"><span class="toc-number">1.</span> <span class="toc-text">requests库的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BS4库的安装与使用"><span class="toc-number">2.</span> <span class="toc-text">BS4库的安装与使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用的爬虫基本框架"><span class="toc-number">3.</span> <span class="toc-text">常用的爬虫基本框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抓取百度贴吧-生活大爆炸吧的基本内容"><span class="toc-number">4.</span> <span class="toc-text">抓取百度贴吧-生活大爆炸吧的基本内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#爬取豆瓣图书名"><span class="toc-number">5.</span> <span class="toc-text">爬取豆瓣图书名</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#requests库的使用"><span class="toc-number">1.</span> <span class="toc-text">requests库的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BS4库的安装与使用"><span class="toc-number">2.</span> <span class="toc-text">BS4库的安装与使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用的爬虫基本框架"><span class="toc-number">3.</span> <span class="toc-text">常用的爬虫基本框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#简单爬虫的运行流程"><span class="toc-number">4.</span> <span class="toc-text">简单爬虫的运行流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抓取百度贴吧-生活大爆炸吧的基本内容"><span class="toc-number">5.</span> <span class="toc-text">抓取百度贴吧-生活大爆炸吧的基本内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#爬取豆瓣图书名"><span class="toc-number">6.</span> <span class="toc-text">爬取豆瓣图书名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#爬取百度百科1000个页面的数据"><span class="toc-number">7.</span> <span class="toc-text">爬取百度百科1000个页面的数据</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1930,9 +1954,68 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 83
+        Total : 84
         </div>
         <!-- search  -->
         
@@ -2064,6 +2147,11 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2019/02/18/python爬虫/" >python爬虫</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href= "/2019/02/15/python爬虫实战/" >python爬虫实战</a>
         </li>
     
     
@@ -2297,12 +2385,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
         </li>
     
     
@@ -2375,13 +2463,13 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
+    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     
         <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
-    
-        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
