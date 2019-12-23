@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">2,961</span> / Reading time: <span class="post-count">13 min</span></span>
+                        <span>Word count: <span class="post-count">3,100</span> / Reading time: <span class="post-count">13 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -431,6 +431,12 @@ height:50vh;
 <h2 id="新装系统的系列问题"><a href="#新装系统的系列问题" class="headerlink" title="新装系统的系列问题"></a>新装系统的系列问题</h2><p><strong>1.安装系统</strong><br>首先制作系统启动盘，如果是PE，进入PE系统界面，找到存放ISO文件的，打开ISO文件夹，点击setup运行安装即可。<br>如果不是PE，设置好启动项之后，即可直接进行安装。</p>
 <p><strong>2.新装office 无法打开</strong><br>选择office.exe或者excel.exe 选择程序兼容性疑难解答–&gt;尝试建议的设置，测试程序，失败更换其他，成功即可。</p>
 <p><strong>3.装好SSR,浏览器无法使用代理</strong><br>关闭电脑防火墙即可，windows defender全部关闭。</p>
+<p><strong>4.装一些插件Chrome浏览器弹出开发者模式弹窗的插件</strong><br><a href="https://pan.baidu.com/s/1xv0fNDvtxtr3dcGleMg56w" target="_blank" rel="noopener">https://pan.baidu.com/s/1xv0fNDvtxtr3dcGleMg56w</a> 下载后放在chrome.exe目录下即可<br>参考文章：<a href="https://www.52pojie.cn/thread-988783-1-1.html" target="_blank" rel="noopener">https://www.52pojie.cn/thread-988783-1-1.html</a></p>
+<p><a href="https://www.cnblogs.com/it-tsz/p/9788490.html" target="_blank" rel="noopener">https://www.cnblogs.com/it-tsz/p/9788490.html</a></p>
+<p>使用chrome商店安装这些插件，不要用外界的安装包。<br><strong>5.新装浏览器无法上网</strong><br>关掉windows所有防护墙即可。</p>
+<p><strong>6.excel双击无法打开，拖进exe才行</strong><br><a href="https://blog.csdn.net/weixin_42138367/article/details/91129492" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42138367/article/details/91129492</a></p>
+<p>注册表后面+”1”</p>
+<p>删除多余的注册表即可</p>
 <h2 id="从远程仓库获取最新代码合并到本地分支"><a href="#从远程仓库获取最新代码合并到本地分支" class="headerlink" title="从远程仓库获取最新代码合并到本地分支"></a>从远程仓库获取最新代码合并到本地分支</h2><p><a href="https://blog.csdn.net/hanchao5272/article/details/79162130" target="_blank" rel="noopener">参考文章</a><br>最佳方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//查询当前远程的版本</span><br><span class="line">$ git remote -v</span><br><span class="line">//获取最新代码到本地(本地当前分支为[branch]，获取的远端的分支为[origin/branch])</span><br><span class="line">$ git fetch origin master  [示例1：获取远端的origin/master分支]</span><br><span class="line">$ git fetch origin dev [示例2：获取远端的origin/dev分支]</span><br><span class="line">//查看版本差异</span><br><span class="line">$ git log -p master..origin/master [示例1：查看本地master与远端origin/master的版本差异]</span><br><span class="line">$ git log -p dev..origin/dev   [示例2：查看本地dev与远端origin/dev的版本差异]</span><br><span class="line">//合并最新代码到本地分支</span><br><span class="line">$ git merge origin/master  [示例1：合并远端分支origin/master到当前分支]</span><br><span class="line">$ git merge origin/dev [示例2：合并远端分支origin/dev到当前分支]</span><br></pre></td></tr></table></figure></p>
 <h2 id="LNMP网站-user-ini操作无权限"><a href="#LNMP网站-user-ini操作无权限" class="headerlink" title="LNMP网站.user.ini操作无权限"></a>LNMP网站.user.ini操作无权限</h2><p>当执行chown或chmod对网站目录属主属组或权限进行操作时，可能会提示“chown: changing ownership of `/home/wwwroot/default/.user.ini’: Operation not permitted”，可以执行以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chattr -i /home/wwwroot/domain.com/.user.ini</span><br></pre></td></tr></table></figure></p>
 <p>然后再执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown www:www -R /home/wwwroot/domain.com</span><br></pre></td></tr></table></figure></p>
