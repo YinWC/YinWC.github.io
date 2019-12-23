@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">3,100</span> / Reading time: <span class="post-count">13 min</span></span>
+                        <span>Word count: <span class="post-count">3,225</span> / Reading time: <span class="post-count">14 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -437,6 +437,10 @@ height:50vh;
 <p><strong>6.excel双击无法打开，拖进exe才行</strong><br><a href="https://blog.csdn.net/weixin_42138367/article/details/91129492" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42138367/article/details/91129492</a></p>
 <p>注册表后面+”1”</p>
 <p>删除多余的注册表即可</p>
+<p><strong>7.word打开文档失败，在试图打开文件时遇到错误 请尝试下列方法…</strong><br><a href="https://www.cnblogs.com/dunitian/p/5056032.html" target="_blank" rel="noopener">https://www.cnblogs.com/dunitian/p/5056032.html</a></p>
+<p>word设置不当导致–&gt;选项–&gt;信任中心–&gt;信任中心设置–&gt;受保护的视图 前面的勾全部去掉即可</p>
+<p><strong>8.pycharm安装好后，java环境是64位，无法启动，显示failed to load jvm dll，Please install a 64-bit JDK….</strong></p>
+<p>右击兼容性疑难解答，经过尝试发现以管理员运行，即可正常打开。</p>
 <h2 id="从远程仓库获取最新代码合并到本地分支"><a href="#从远程仓库获取最新代码合并到本地分支" class="headerlink" title="从远程仓库获取最新代码合并到本地分支"></a>从远程仓库获取最新代码合并到本地分支</h2><p><a href="https://blog.csdn.net/hanchao5272/article/details/79162130" target="_blank" rel="noopener">参考文章</a><br>最佳方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//查询当前远程的版本</span><br><span class="line">$ git remote -v</span><br><span class="line">//获取最新代码到本地(本地当前分支为[branch]，获取的远端的分支为[origin/branch])</span><br><span class="line">$ git fetch origin master  [示例1：获取远端的origin/master分支]</span><br><span class="line">$ git fetch origin dev [示例2：获取远端的origin/dev分支]</span><br><span class="line">//查看版本差异</span><br><span class="line">$ git log -p master..origin/master [示例1：查看本地master与远端origin/master的版本差异]</span><br><span class="line">$ git log -p dev..origin/dev   [示例2：查看本地dev与远端origin/dev的版本差异]</span><br><span class="line">//合并最新代码到本地分支</span><br><span class="line">$ git merge origin/master  [示例1：合并远端分支origin/master到当前分支]</span><br><span class="line">$ git merge origin/dev [示例2：合并远端分支origin/dev到当前分支]</span><br></pre></td></tr></table></figure></p>
 <h2 id="LNMP网站-user-ini操作无权限"><a href="#LNMP网站-user-ini操作无权限" class="headerlink" title="LNMP网站.user.ini操作无权限"></a>LNMP网站.user.ini操作无权限</h2><p>当执行chown或chmod对网站目录属主属组或权限进行操作时，可能会提示“chown: changing ownership of `/home/wwwroot/default/.user.ini’: Operation not permitted”，可以执行以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chattr -i /home/wwwroot/domain.com/.user.ini</span><br></pre></td></tr></table></figure></p>
 <p>然后再执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown www:www -R /home/wwwroot/domain.com</span><br></pre></td></tr></table></figure></p>
