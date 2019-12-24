@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">283</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">821</span> / Reading time: <span class="post-count">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -397,10 +397,10 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <p><a href="https://www.w3cschool.cn/django/" target="_blank" rel="noopener">https://www.w3cschool.cn/django/</a></p>
-<h1 id="Django简介"><a href="#Django简介" class="headerlink" title="Django简介"></a>Django简介</h1><blockquote>
+<h2 id="Django简介"><a href="#Django简介" class="headerlink" title="Django简介"></a>Django简介</h2><blockquote>
 <p>Django是一个高级Python Web框架, 鼓励快速,简洁, 以程序设计的思想进行开发. 通过使用这个框架, 可以减少很多开发麻烦, 使你更专注于编写自己的app, 而不需要重复造轮子. Django免费并且开源.</p>
 </blockquote>
-<h2 id="Django特点"><a href="#Django特点" class="headerlink" title="Django特点"></a>Django特点</h2><ul>
+<h3 id="Django特点"><a href="#Django特点" class="headerlink" title="Django特点"></a>Django特点</h3><ul>
 <li><p>完全免费并开源源代码</p>
 </li>
 <li><p>快速高效开发</p>
@@ -412,8 +412,21 @@ height:50vh;
 </ul>
 <p><img src="/2019/07/06/Django学习笔记/1.png" alt="Django学习笔记"></p>
 <p>用户在浏览器中输入URL后的回车, 浏览器会对URL进行检查, 首先判断协议,如果是http就按照 Web 来处理, 然互调用DNS查询, 将域名转换为IP地址, 然后经过网络传输到达对应Web服务器, 服务器对url进行解析后, 调用View中的逻辑(MTV中的V), 其中又涉及到Model(MTV中的M), 与数据库的进行交互, 将数据发到Template(MTV中的T)进行渲染, 然后发送到浏览器中, 浏览器以合适的方式呈现给用户。</p>
-<h2 id="MVC设计模式"><a href="#MVC设计模式" class="headerlink" title="MVC设计模式"></a>MVC设计模式</h2><p>4个Python的文件:</p>
-
+<h3 id="MVC设计模式"><a href="#MVC设计模式" class="headerlink" title="MVC设计模式"></a>MVC设计模式</h3><p>模型-视图-控制器(MVC)：MVC 是一种软件开发的方法，它把代码的定义和数据访问的方法（模型）与请求逻辑 （控制器）还有用户接口（视图）分开来。</p>
+<p>这种设计模式关键的优势在于各种组件都是 松散结合 的。这样，每个由 Django驱动 的Web应用都有着明确的目的，并且可独立更改而不影响到其它的部分。 比如，开发者 更改一个应用程序中的 URL 而不用影响到这个程序底层的实现。 设计师可以改变 HTML 页面 的样式而不用接触 Python 代码。 数据库管理员可以重新命名数据表并且只需更改一个地方，无需从一大堆文件中进行查找和替换。</p>
+<p>实例；4个Python的文件:</p>
+<ul>
+<li><p><code>models.py</code> 文件主要用一个 Python 类来描述数据表。 称为 模型(model) 。 运用这个类，你可以通过简单的 Python 的代码来创建、检索、更新、删除 数据库中的记录而无需写一条又一条的SQL语句。</p>
+</li>
+<li><p><code>views.py</code>文件包含了页面的业务逻辑。 latest_books()函数叫做视图。</p>
+</li>
+<li><p><code>urls.py</code> 指出了什么样的 URL 调用什么的视图。在这个例子中 /latest/ URL 将会调用 latest_books()这个函数。 换句话说，如果你的域名是example.com，任何人浏览网址<a href="http://example.com/latest/将会调用latest_books()这个函数。" target="_blank" rel="noopener">http://example.com/latest/将会调用latest_books()这个函数。</a></p>
+</li>
+<li><p><code>latest_books.html</code> 是 html 模板，它描述了这个页面的设计是如何的。 使用带基本逻辑声明的模板语言。</p>
+</li>
+</ul>
+<p>代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"># models.py (the database tables)</span><br><span class="line"></span><br><span class="line">from django.db import models</span><br><span class="line"></span><br><span class="line">class Book(models.Model):</span><br><span class="line">    name = models.CharField(max_length=50)</span><br><span class="line">    pub_date = models.DateField()</span><br><span class="line"></span><br><span class="line"># views.py (the business logic)</span><br><span class="line"></span><br><span class="line">from django.shortcuts import render_to_response</span><br><span class="line">from models import Book</span><br><span class="line"></span><br><span class="line">def latest_books(request):</span><br><span class="line">    book_list = Book.objects.order_by(&apos;-pub_date&apos;)[:10]</span><br><span class="line">    return render_to_response(&apos;latest_books.html&apos;, &#123;&apos;book_list&apos;: book_list&#125;)</span><br><span class="line"></span><br><span class="line"># urls.py (the URL configuration)</span><br><span class="line"></span><br><span class="line">from django.conf.urls.defaults import *</span><br><span class="line">import views</span><br><span class="line"></span><br><span class="line">urlpatterns = patterns(&apos;&apos;,</span><br><span class="line">    (r&apos;^latest/$&apos;, views.latest_books),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"># latest_books.html (the template)</span><br><span class="line"></span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;Books&lt;/title&gt;&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;Books&lt;/h1&gt;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">&#123;% for book in book_list %&#125;</span><br><span class="line">&lt;li&gt;&#123;&#123; book.name &#125;&#125;&lt;/li&gt;</span><br><span class="line">&#123;% endfor %&#125;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">&lt;/body&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure>
     </article>
     <!-- license  -->
     
@@ -550,7 +563,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Django简介"><span class="toc-number">1.</span> <span class="toc-text">Django简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Django特点"><span class="toc-number">1.1.</span> <span class="toc-text">Django特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MVC设计模式"><span class="toc-number">1.2.</span> <span class="toc-text">MVC设计模式</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Django简介"><span class="toc-number">1.</span> <span class="toc-text">Django简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django特点"><span class="toc-number">1.1.</span> <span class="toc-text">Django特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MVC设计模式"><span class="toc-number">1.2.</span> <span class="toc-text">MVC设计模式</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1807,49 +1820,9 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 84
+        Total : 82
         </div>
         <!-- search  -->
         
@@ -1981,16 +1954,6 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">02/27</span><a class="archive-post-title" href= "/2019/02/27/Ddos分布式拒绝服务攻击/" >Ddos分布式拒绝服务攻击</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2019/02/18/python爬虫/" >python爬虫</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href= "/2019/02/15/python爬虫实战/" >python爬虫实战</a>
         </li>
     
     
