@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">821</span> / Reading time: <span class="post-count">3 min</span></span>
+                        <span>Word count: <span class="post-count">943</span> / Reading time: <span class="post-count">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -426,7 +426,37 @@ height:50vh;
 </li>
 </ul>
 <p>代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"># models.py (the database tables)</span><br><span class="line"></span><br><span class="line">from django.db import models</span><br><span class="line"></span><br><span class="line">class Book(models.Model):</span><br><span class="line">    name = models.CharField(max_length=50)</span><br><span class="line">    pub_date = models.DateField()</span><br><span class="line"></span><br><span class="line"># views.py (the business logic)</span><br><span class="line"></span><br><span class="line">from django.shortcuts import render_to_response</span><br><span class="line">from models import Book</span><br><span class="line"></span><br><span class="line">def latest_books(request):</span><br><span class="line">    book_list = Book.objects.order_by(&apos;-pub_date&apos;)[:10]</span><br><span class="line">    return render_to_response(&apos;latest_books.html&apos;, &#123;&apos;book_list&apos;: book_list&#125;)</span><br><span class="line"></span><br><span class="line"># urls.py (the URL configuration)</span><br><span class="line"></span><br><span class="line">from django.conf.urls.defaults import *</span><br><span class="line">import views</span><br><span class="line"></span><br><span class="line">urlpatterns = patterns(&apos;&apos;,</span><br><span class="line">    (r&apos;^latest/$&apos;, views.latest_books),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"># latest_books.html (the template)</span><br><span class="line"></span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;Books&lt;/title&gt;&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;Books&lt;/h1&gt;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">&#123;% for book in book_list %&#125;</span><br><span class="line">&lt;li&gt;&#123;&#123; book.name &#125;&#125;&lt;/li&gt;</span><br><span class="line">&#123;% endfor %&#125;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">&lt;/body&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># models.py (the database tables)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    name = models.CharField(max_length=<span class="number">50</span>)</span><br><span class="line">    pub_date = models.DateField()</span><br><span class="line"></span><br><span class="line"><span class="comment"># views.py (the business logic)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render_to_response</span><br><span class="line"><span class="keyword">from</span> models <span class="keyword">import</span> Book</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">latest_books</span><span class="params">(request)</span>:</span></span><br><span class="line">    book_list = Book.objects.order_by(<span class="string">'-pub_date'</span>)[:<span class="number">10</span>]</span><br><span class="line">    <span class="keyword">return</span> render_to_response(<span class="string">'latest_books.html'</span>, &#123;<span class="string">'book_list'</span>: book_list&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># urls.py (the URL configuration)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.conf.urls.defaults <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = patterns(<span class="string">''</span>,</span><br><span class="line">    (<span class="string">r'^latest/$'</span>, views.latest_books),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># latest_books.html (the template)</span></span><br><span class="line"></span><br><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;Books&lt;/title&gt;&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;Books&lt;/h1&gt;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">&#123;% <span class="keyword">for</span> book <span class="keyword">in</span> book_list %&#125;</span><br><span class="line">&lt;li&gt;&#123;&#123; book.name &#125;&#125;&lt;/li&gt;</span><br><span class="line">&#123;% endfor %&#125;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">&lt;/body&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="学习笔记"><a href="#学习笔记" class="headerlink" title="学习笔记"></a>学习笔记</h2><h3 id="Django系统"><a href="#Django系统" class="headerlink" title="Django系统"></a>Django系统</h3><ul>
+<li><p>环境</p>
+<ul>
+<li>python3.6·</li>
+<li>django1.8</li>
+</ul>
+</li>
+<li><p>参考资料：</p>
+<ul>
+<li><a href="https://yiyibooks.cn/" target="_blank" rel="noopener">django中文教程</a></li>
+<li>django架站的16课堂</li>
+</ul>
+</li>
+</ul>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><ul>
+<li>anaconda+pycharm    （anaconda安装的环境是虚拟的环境，和自己电脑上的环境是独立的）</li>
+<li>anaconda使用<ul>
+<li>conda list:显示当前环境安装的包</li>
+<li>conda env list:显示安装的虚拟环境列表</li>
+<li>conda create -n env_name python=3.6</li>
+<li>激活conda的虚拟环境<ul>
+<li>(linux)source activate env_name</li>
+<li>(win)activate env_name</li>
+</ul>
+</li>
+<li>pip install django=1.8</li>
+</ul>
+</li>
+</ul>
+<h3 id="后台需要的流程"><a href="#后台需要的流程" class="headerlink" title="后台需要的流程"></a>后台需要的流程</h3>
     </article>
     <!-- license  -->
     
@@ -563,7 +593,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Django简介"><span class="toc-number">1.</span> <span class="toc-text">Django简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django特点"><span class="toc-number">1.1.</span> <span class="toc-text">Django特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MVC设计模式"><span class="toc-number">1.2.</span> <span class="toc-text">MVC设计模式</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Django简介"><span class="toc-number">1.</span> <span class="toc-text">Django简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django特点"><span class="toc-number">1.1.</span> <span class="toc-text">Django特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MVC设计模式"><span class="toc-number">1.2.</span> <span class="toc-text">MVC设计模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学习笔记"><span class="toc-number">2.</span> <span class="toc-text">学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django系统"><span class="toc-number">2.1.</span> <span class="toc-text">Django系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#环境搭建"><span class="toc-number">2.2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后台需要的流程"><span class="toc-number">2.3.</span> <span class="toc-text">后台需要的流程</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -576,10 +606,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
     
     
     
@@ -1876,11 +1902,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/20</span><a class="archive-post-title" href= "/2019/12/20/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2019/11/06/Apache-Solr-Velocity模板注入RCE漏洞复现/" >Apache Solr Velocity模板注入RCE漏洞复现</a>
         </li>
     
@@ -2211,6 +2232,11 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2018/07/25/dianfengjike/" >巅峰极客第一场web复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href= "/2018/07/24/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
         </li>
     
     
