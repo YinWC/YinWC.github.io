@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">943</span> / Reading time: <span class="post-count">4 min</span></span>
+                        <span>Word count: <span class="post-count">1,181</span> / Reading time: <span class="post-count">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -446,8 +446,8 @@ height:50vh;
 <li>anaconda使用<ul>
 <li>conda list:显示当前环境安装的包</li>
 <li>conda env list:显示安装的虚拟环境列表</li>
-<li>conda create -n env_name python=3.6</li>
-<li>激活conda的虚拟环境<ul>
+<li>conda create -n env_name(自己定义一个名字) python=3.6</li>
+<li>激活(进入)conda的虚拟环境<ul>
 <li>(linux)source activate env_name</li>
 <li>(win)activate env_name</li>
 </ul>
@@ -456,7 +456,44 @@ height:50vh;
 </ul>
 </li>
 </ul>
-<h3 id="后台需要的流程"><a href="#后台需要的流程" class="headerlink" title="后台需要的流程"></a>后台需要的流程</h3>
+<p>pip下载模块太慢，可以指定源（<a href="https://www.cnblogs.com/microman/p/6107879.html" target="_blank" rel="noopener">文章</a>）</p>
+<p>pip install -i <a href="https://pypi.tuna.tsinghua.edu.cn/simple" target="_blank" rel="noopener">https://pypi.tuna.tsinghua.edu.cn/simple</a> 模块</p>
+<p>例如：pip install -i <a href="https://pypi.tuna.tsinghua.edu.cn/simple" target="_blank" rel="noopener">https://pypi.tuna.tsinghua.edu.cn/simple</a> django=1.8</p>
+<h3 id="创建第一个Django程序"><a href="#创建第一个Django程序" class="headerlink" title="创建第一个Django程序"></a>创建第一个Django程序</h3><ul>
+<li><p>命令行启动</p>
+<pre><code>django-admin startproject djangolearn
+cd djangolearn
+python manage.py runserver
+</code></pre></li>
+<li><p>pycharm启动</p>
+<ul>
+<li>需要配置（环境）</li>
+</ul>
+</li>
+</ul>
+<h3 id="路由系统-urls"><a href="#路由系统-urls" class="headerlink" title="路由系统-urls"></a>路由系统-urls</h3><ul>
+<li><p>创建app</p>
+<ul>
+<li>app:负责一个具体业务或者一类具体业务的模块</li>
+<li>python manage.py startapp teacher    （teacher就是app的名字）</li>
+</ul>
+</li>
+<li><p>路由</p>
+<ul>
+<li>按照安装具体的请求url，导入到相应的业务处理模块的一个功能模块</li>
+<li>django的信息控制中枢</li>
+<li>本质上是接受的URL和相应的处理模块的一个映射</li>
+<li>在接受URL请求的匹配上使用了RE</li>
+<li>URL的具体格式如urls.py中所示</li>
+</ul>
+</li>
+<li>需要关注两点:<ol>
+<li>接受的URL是什么,即如何用RE对传入URL进行匹配</li>
+<li>已知URL匹配到哪个处理模块</li>
+</ol>
+</li>
+</ul>
+
     </article>
     <!-- license  -->
     
@@ -472,8 +509,8 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2019/08/03/De1CTF/" title= De1CTF_WriteUp >
-                    <div class="nextTitle">De1CTF_WriteUp</div>
+                <a href= "/2019/07/25/Anaconda学习笔记/" title= Anaconda学习笔记 >
+                    <div class="nextTitle">Anaconda学习笔记</div>
                 </a>
             
         </li>
@@ -593,7 +630,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Django简介"><span class="toc-number">1.</span> <span class="toc-text">Django简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django特点"><span class="toc-number">1.1.</span> <span class="toc-text">Django特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MVC设计模式"><span class="toc-number">1.2.</span> <span class="toc-text">MVC设计模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学习笔记"><span class="toc-number">2.</span> <span class="toc-text">学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django系统"><span class="toc-number">2.1.</span> <span class="toc-text">Django系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#环境搭建"><span class="toc-number">2.2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后台需要的流程"><span class="toc-number">2.3.</span> <span class="toc-text">后台需要的流程</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Django简介"><span class="toc-number">1.</span> <span class="toc-text">Django简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django特点"><span class="toc-number">1.1.</span> <span class="toc-text">Django特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MVC设计模式"><span class="toc-number">1.2.</span> <span class="toc-text">MVC设计模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学习笔记"><span class="toc-number">2.</span> <span class="toc-text">学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django系统"><span class="toc-number">2.1.</span> <span class="toc-text">Django系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#环境搭建"><span class="toc-number">2.2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建第一个Django程序"><span class="toc-number">2.3.</span> <span class="toc-text">创建第一个Django程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路由系统-urls"><span class="toc-number">2.4.</span> <span class="toc-text">路由系统-urls</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1884,9 +1921,24 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 84
+        Total : 85
         </div>
         <!-- search  -->
         
@@ -1948,6 +2000,11 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">08/03</span><a class="archive-post-title" href= "/2019/08/03/De1CTF/" >De1CTF_WriteUp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2019/07/25/Anaconda学习笔记/" >Anaconda学习笔记</a>
         </li>
     
     
@@ -2357,8 +2414,6 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="应急响应"><span class="iconfont-archer">&#xe606;</span>应急响应</span>
     
         <span class="sidebar-tag-name" data-tags="Crypto"><span class="iconfont-archer">&#xe606;</span>Crypto</span>
-    
-        <span class="sidebar-tag-name" data-tags="渗透"><span class="iconfont-archer">&#xe606;</span>渗透</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
