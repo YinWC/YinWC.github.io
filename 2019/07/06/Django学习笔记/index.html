@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,181</span> / Reading time: <span class="post-count">5 min</span></span>
+                        <span>Word count: <span class="post-count">1,428</span> / Reading time: <span class="post-count">6 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -416,11 +416,11 @@ height:50vh;
 <p>这种设计模式关键的优势在于各种组件都是 松散结合 的。这样，每个由 Django驱动 的Web应用都有着明确的目的，并且可独立更改而不影响到其它的部分。 比如，开发者 更改一个应用程序中的 URL 而不用影响到这个程序底层的实现。 设计师可以改变 HTML 页面 的样式而不用接触 Python 代码。 数据库管理员可以重新命名数据表并且只需更改一个地方，无需从一大堆文件中进行查找和替换。</p>
 <p>实例；4个Python的文件:</p>
 <ul>
-<li><p><code>models.py</code> 文件主要用一个 Python 类来描述数据表。 称为 模型(model) 。 运用这个类，你可以通过简单的 Python 的代码来创建、检索、更新、删除 数据库中的记录而无需写一条又一条的SQL语句。</p>
+<li><p><code>models.py</code> 文件主要用一个 Python 类来描述数据表。 称为模型(model) 。 运用这个类，你可以通过简单的 Python 的代码来创建、检索、更新、删除 数据库中的记录而无需写一条又一条的SQL语句。</p>
 </li>
-<li><p><code>views.py</code>文件包含了页面的业务逻辑。 latest_books()函数叫做视图。</p>
+<li><p><code>views.py</code>文件包含了页面的业务逻辑。 下例latest_books()函数叫做视图。</p>
 </li>
-<li><p><code>urls.py</code> 指出了什么样的 URL 调用什么的视图。在这个例子中 /latest/ URL 将会调用 latest_books()这个函数。 换句话说，如果你的域名是example.com，任何人浏览网址<a href="http://example.com/latest/将会调用latest_books()这个函数。" target="_blank" rel="noopener">http://example.com/latest/将会调用latest_books()这个函数。</a></p>
+<li><p><code>urls.py</code> 指出了什么样的 URL 调用什么的视图。<br>在这个例子中 /latest/ URL 将会调用 latest_books()这个函数。 换句话说，如果你的域名是example.com，任何人浏览网址<a href="http://example.com/latest/将会调用latest_books()这个函数。" target="_blank" rel="noopener">http://example.com/latest/将会调用latest_books()这个函数。</a></p>
 </li>
 <li><p><code>latest_books.html</code> 是 html 模板，它描述了这个页面的设计是如何的。 使用带基本逻辑声明的模板语言。</p>
 </li>
@@ -430,7 +430,7 @@ height:50vh;
 <h2 id="学习笔记"><a href="#学习笔记" class="headerlink" title="学习笔记"></a>学习笔记</h2><h3 id="Django系统"><a href="#Django系统" class="headerlink" title="Django系统"></a>Django系统</h3><ul>
 <li><p>环境</p>
 <ul>
-<li>python3.6·</li>
+<li>python3.6</li>
 <li>django1.8</li>
 </ul>
 </li>
@@ -467,15 +467,21 @@ python manage.py runserver
 </code></pre></li>
 <li><p>pycharm启动</p>
 <ul>
-<li>需要配置（环境）</li>
+<li>需要配置（环境）<ul>
+<li>File–&gt;Settings–&gt;Project:workspace–&gt;Project Interpreter–&gt;add–&gt; Existing environment 选择已经安装好的环境</li>
+<li>django要配置runserver</li>
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+<p><img src="/2019/07/06/Django学习笔记/2.png" alt="Django学习笔记"></p>
+<p><img src="/2019/07/06/Django学习笔记/3.png" alt="Django学习笔记"></p>
 <h3 id="路由系统-urls"><a href="#路由系统-urls" class="headerlink" title="路由系统-urls"></a>路由系统-urls</h3><ul>
 <li><p>创建app</p>
 <ul>
 <li>app:负责一个具体业务或者一类具体业务的模块</li>
-<li>python manage.py startapp teacher    （teacher就是app的名字）</li>
+<li>python manage.py startapp teacher   （teacher就是app的名字）</li>
 </ul>
 </li>
 <li><p>路由</p>
@@ -487,13 +493,40 @@ python manage.py runserver
 <li>URL的具体格式如urls.py中所示</li>
 </ul>
 </li>
-<li>需要关注两点:<ol>
+<li><p>需要关注两点:</p>
+<ol>
 <li>接受的URL是什么,即如何用RE对传入URL进行匹配</li>
 <li>已知URL匹配到哪个处理模块</li>
 </ol>
 </li>
+<li><p>url匹配规则</p>
+<ul>
+<li>从上往下一个一个比对</li>
+<li>url格式是分级格式，则按照级别一级一级往下比对,主要对应url包含子url的情况</li>
+<li>子url一旦被调用，则不会返回到主url<ul>
+<li><code>/one/two/three/</code></li>
 </ul>
-
+</li>
+<li>正则以r开头,表示不需要转义，注意尖号(^)和美元符号($) （^代表从头开始 $代表从尾开始)<ul>
+<li><code>/one/two/three</code> 配对 r’^one/</li>
+<li><code>/oo/one/two/three</code> 不配对 r’^one/“</li>
+<li><code>/one/two/three/</code> 配对 r’three/$’</li>
+<li><code>/oo/one/two/three/oo/</code> 不配对 r’three/$”</li>
+<li>开头不需要有反斜杠</li>
+</ul>
+</li>
+<li>如果从上向下都没有找到合适的匹配内容，则报错</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-正常映射"><a href="#2-正常映射" class="headerlink" title="2. 正常映射"></a>2. 正常映射</h3><ul>
+<li>把某一个符合RE的URL映射到事物处理函数中去<ul>
+<li>举例如下:  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from showeast import views as sv</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(r&apos;^admin/&apos;, admin.site.urls),</span><br><span class="line">    url(r&apos;^normalmap/&apos;, sv.normalmap),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-URL中带参数映射"><a href="#3-URL中带参数映射" class="headerlink" title="3. URL中带参数映射"></a>3. URL中带参数映射</h3>
     </article>
     <!-- license  -->
     
@@ -630,7 +663,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Django简介"><span class="toc-number">1.</span> <span class="toc-text">Django简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django特点"><span class="toc-number">1.1.</span> <span class="toc-text">Django特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MVC设计模式"><span class="toc-number">1.2.</span> <span class="toc-text">MVC设计模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学习笔记"><span class="toc-number">2.</span> <span class="toc-text">学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django系统"><span class="toc-number">2.1.</span> <span class="toc-text">Django系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#环境搭建"><span class="toc-number">2.2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建第一个Django程序"><span class="toc-number">2.3.</span> <span class="toc-text">创建第一个Django程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路由系统-urls"><span class="toc-number">2.4.</span> <span class="toc-text">路由系统-urls</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Django简介"><span class="toc-number">1.</span> <span class="toc-text">Django简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django特点"><span class="toc-number">1.1.</span> <span class="toc-text">Django特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MVC设计模式"><span class="toc-number">1.2.</span> <span class="toc-text">MVC设计模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学习笔记"><span class="toc-number">2.</span> <span class="toc-text">学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django系统"><span class="toc-number">2.1.</span> <span class="toc-text">Django系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#环境搭建"><span class="toc-number">2.2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建第一个Django程序"><span class="toc-number">2.3.</span> <span class="toc-text">创建第一个Django程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路由系统-urls"><span class="toc-number">2.4.</span> <span class="toc-text">路由系统-urls</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-正常映射"><span class="toc-number">2.5.</span> <span class="toc-text">2. 正常映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-URL中带参数映射"><span class="toc-number">2.6.</span> <span class="toc-text">3. URL中带参数映射</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>

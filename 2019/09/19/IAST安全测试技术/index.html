@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">668</span> / Reading time: <span class="post-count">2 min</span></span>
+                        <span>Word count: <span class="post-count">3,259</span> / Reading time: <span class="post-count">11 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -398,11 +398,12 @@ height:50vh;
     <article class="article-entry">
         <p>目录：</p>
 <ul>
-<li><a href="#%e4%bb%80%e4%b9%88%e6%98%afweb%e5%ba%94%e7%94%a8%e5%ae%89%e5%85%a8%e6%b5%8b%e8%af%95%e6%8a%80%e6%9c%af">什么是Web应用安全测试技术？</a></li>
+<li><a href="#%e4%bb%80%e4%b9%88%e6%98%afweb%e5%ba%94%e7%94%a8%e5%ae%89%e5%85%a8%e6%b5%8b%e8%af%95%e6%8a%80%e6%9c%af">什么是Web应用安全测试技术</a></li>
 <li><a href="#dast%e5%8a%a8%e6%80%81%e5%ba%94%e7%94%a8%e7%a8%8b%e5%ba%8f%e5%ae%89%e5%85%a8%e6%b5%8b%e8%af%95">DAST：动态应用程序安全测试</a></li>
 <li><a href="#sast%e9%9d%99%e6%80%81%e5%ba%94%e7%94%a8%e7%a8%8b%e5%ba%8f%e5%ae%89%e5%85%a8%e6%b5%8b%e8%af%95">SAST：静态应用程序安全测试</a></li>
-<li><a href="#iast%e4%ba%a4%e4%ba%92%e5%bc%8f%e5%ba%94%e7%94%a8%e7%a8%8b%e5%ba%8f%e5%ae%89%e5%85%a8%e6%b5%8b%e8%af%95">IAST：交互式应用程序安全测试</a><h2 id="什么是Web应用安全测试技术？"><a href="#什么是Web应用安全测试技术？" class="headerlink" title="什么是Web应用安全测试技术？"></a>什么是Web应用安全测试技术？</h2>为了发现软件的漏洞和缺陷，确保Web应用程序在交付之前和交付之后都是安全的，就需要利用Web应用安全测试技术识别Web应用程序中架构的薄弱点和漏洞，并且必须赶在网络黑客找到和利用它们之前。</li>
+<li><a href="#iast%e4%ba%a4%e4%ba%92%e5%bc%8f%e5%ba%94%e7%94%a8%e7%a8%8b%e5%ba%8f%e5%ae%89%e5%85%a8%e6%b5%8b%e8%af%95">IAST：交互式应用程序安全测试</a></li>
 </ul>
+<h2 id="什么是Web应用安全测试技术"><a href="#什么是Web应用安全测试技术" class="headerlink" title="什么是Web应用安全测试技术"></a>什么是Web应用安全测试技术</h2><p>为了发现软件的漏洞和缺陷，确保Web应用程序在交付之前和交付之后都是安全的，就需要利用Web应用安全测试技术识别Web应用程序中架构的薄弱点和漏洞，并且必须赶在网络黑客找到和利用它们之前。</p>
 <p>Web应用安全测试技术经过多年的发展，目前业界常用的技术主要分为3大类别。</p>
 <p><code>DAST</code>：<code>动态应用程序安全测试</code>（Dynamic Application Security Testing）技术在测试或运行阶段分析应用程序的动态运行状态。它模拟黑客行为对应用程序进行动态攻击，分析应用程序的反应，从而确定该Web应用是否易受攻击。</p>
 <p><code>SAST</code>：<code>静态应用程序安全测试</code>（Static Application Security Testing）技术通常在编码阶段分析应用程序的源代码或二进制文件的语法、结构、过程、接口等来发现程序代码存在的安全漏洞。</p>
@@ -414,7 +415,67 @@ height:50vh;
 <p>(2)根据爬虫的分析结果，对发现的页面和参数发送修改的 HTTP Request 进行攻击尝试（扫描规则库）；</p>
 <p>(3)通过对于 Response 的分析验证是否存在安全漏洞。</p>
 <p><strong>2.DAST优劣势分析</strong></p>
-<h2 id="SAST：静态应用程序安全测试"><a href="#SAST：静态应用程序安全测试" class="headerlink" title="SAST：静态应用程序安全测试"></a>SAST：静态应用程序安全测试</h2><h2 id="IAST：交互式应用程序安全测试"><a href="#IAST：交互式应用程序安全测试" class="headerlink" title="IAST：交互式应用程序安全测试"></a>IAST：交互式应用程序安全测试</h2>
+<p>DAST这种测试方法主要测试Web应用程序的功能点，测试人员无需具备编程能力，无需了解应用程序的内部逻辑结构，不区分测试对象的实现语言，采用攻击特征库来做漏洞发现与验证，能发现大部分的高风险问题，因此是业界Web安全测试使用非常普遍的一种安全测试方案。DAST除了可以扫描应用程序本身之外，还可以扫描发现第三方开源组件、第三方框架的漏洞。</p>
+<p>从工作原理也可以分析出，DAST一方面需要爬虫尽可能的把应用程序的结构爬取完整，另一方面需要对被测应用程序发送漏洞攻击包。现在很多的应用程序含有AJAX页面、CSRF Token页面、验证码页面、API孤链、POST表单请求或者是设置了防重放攻击策略，这些页面无法被网络爬虫发现，因此DAST技术无法对这些页面进行安全测试。DAST技术对业务分支覆盖不全，即使爬到一个表单，要提交内容，服务端对内容做判断，是手机号码则进入业务1，不是手机号码进入业务2，爬虫不可能知道这里要填手机号码，所以业务分支1永远不会检测到。</p>
+<p>另外DAST必须发送漏洞攻击包来进行安全测试，这就需要有安全专家不断更新漏洞扫描插件，而且这种测试方式会对业务测试造成一定的影响，安全测试的脏数据会污染业务测试的数据。</p>
+<p>DAST的测试对象为HTTP/HTTPS的Web应用程序，对于IOS/Android上的APP也无能为力。</p>
+<p>DAST发现漏洞后会定位漏洞的URL，无法定位漏洞的具体代码行数和产生漏洞的原因，需要比较长的时间来进行漏洞定位和原因分析，这使得DAST不太适合在DevOps的开发环境中使用。</p>
+<p><img src="/2019/09/19/IAST安全测试技术/2.png" alt="IAST安全测试技术"></p>
+<h2 id="SAST：静态应用程序安全测试"><a href="#SAST：静态应用程序安全测试" class="headerlink" title="SAST：静态应用程序安全测试"></a>SAST：静态应用程序安全测试</h2><p>超过50%的安全漏洞是由错误的编码产生的，开发人员一般安全开发意识和安全开发技能不足，更加关注业务功能的实现。想从源头上治理漏洞就需要制定代码检测机制，SAST是一种在开发阶段对源代码进行安全测试发现安全漏洞的测试方案。</p>
+<p><strong>1.实现原理</strong></p>
+<p><img src="/2019/09/19/IAST安全测试技术/3.png" alt="IAST安全测试技术"></p>
+<p>1） 首先通过调用语言的编译器或者解释器把前端的语言代码（如JAVA，C/C++源代码）转换成一种中间代码，将其源代码之间的调用关系、执行环境、上下文等分析清楚。</p>
+<p>2）语义分析：分析程序中不安全的函数，方法的使用的安全问题。</p>
+<p>3）数据流分析：跟踪，记录并分析程序中的数据传递过程所产生的安全问题。</p>
+<p>4）控制流分析：分析程序特定时间，状态下执行操作指令的安全问题。</p>
+<p>5）配置分析：分析项目配置文件中的敏感信息和配置缺失的安全问题。</p>
+<p>6）结构分析：分析程序上下文环境，结构中的安全问题。</p>
+<p>7）结合2）-6）的结果，匹配所有规则库中的漏洞特征，一旦发现漏洞就抓取出来。</p>
+<p>8）最后形成包含详细漏洞信息的漏洞检测报告，包括漏洞的具体代码行数以及漏洞修复的建议。</p>
+<p><strong>2.SAST优劣势分析</strong></p>
+<p>SAST需要从语义上理解程序的代码、依赖关系、配置文件。优势是代码具有高度可视性，能够检测更丰富的问题，包括漏洞及代码规范等问题。测试对象比DAST丰富，除Web应用程序之外还能够检测APP的漏洞，不需要用户界面，可通过IDE插件形式与集成开发环境（如Eclipse、IntelliJ IDEA）结合，实时检测代码漏洞问题，漏洞发现更及时，修复成本更低。</p>
+<p>另一方面SAST不仅需要区分不同的开发语言（PHP、C＃、ASP、.NET、Java、Python等），还需要支持使用的Web程序框架，如果SAST工具不支持某个应用程序的开发语言和框架，那么测试时就会遇到障碍。DAST支持测试任何语言和框架开发的HTTP/HTTPS应用程序。</p>
+<p>传统的SAST扫描时间很慢，如果是用SAST去扫描代码仓库，需要数小时甚至数天才能完成，这在日益自动化的持续集成和持续交付（CI/CD）环境中效果不佳。</p>
+<p>还有一点是SAST的误报，业界商业级的SAST工具误报率普遍在30%以上，误报会降低工具的实用性，可能需要花费更多的时间来清除误报而不是修复漏洞。</p>
+<p>SAST只对源代码进行检测，而不会分析整个应用程序，这迫使企业需要购买单独的软件组合分析工具（SCA），即使是SCA也只是识别公开的漏洞；开源、第三方API或框架中的未知漏洞超出了SAST和SCA的范围。</p>
+<p><img src="/2019/09/19/IAST安全测试技术/4.png" alt="IAST安全测试技术"></p>
+<h2 id="IAST：交互式应用程序安全测试"><a href="#IAST：交互式应用程序安全测试" class="headerlink" title="IAST：交互式应用程序安全测试"></a>IAST：交互式应用程序安全测试</h2><p>IAST交互式应用安全测试技术是最近几年比较火热的应用安全测试新技术，曾被Gartner咨询公司列为网络安全领域的Top 10技术之一。IAST融合了DAST和SAST的优势，漏洞检出率极高、误报率极低，同时可以定位到API接口和代码片段。</p>
+<p><strong>1.实现原理</strong></p>
+<p>IAST的实现模式较多，常见的有代理模式、VPN、流量镜像、插桩模式，本文介绍最具代表性的2种模式，代理模式和插桩模式。</p>
+<p>代理模式，在PC端浏览器或者移动端APP设置代理，通过代理拿到功能测试的流量，利用功能测试流量模拟多种漏洞检测方式对被测服务器进行安全测试。</p>
+<p>插桩模式，插桩模式是在保证目标程序原有逻辑完整的情况下，在特定的位置插入探针，在应用程序运行时，通过探针获取请求、代码数据流、代码控制流等，基于请求、代码、数据流、控制流综合分析判断漏洞。插桩模式具体实现有2种模式，Active 插桩和Passive 插桩。</p>
+<p>1) 代理模式实现原理</p>
+<p><img src="/2019/09/19/IAST安全测试技术/5.png" alt="IAST安全测试技术"></p>
+<p>a. 功能测试人员在浏览器或者APP中设置代理，将IAST设备地址填入；</p>
+<p>b. 功能测试人员开始功能测试，测试流量经过IAST设备，IAST设备将流量复制一份，并且改造成安全测试的流量；</p>
+<p>c. IAST设备利用改造后的流量对被测业务发起安全测试，根据返回的数据包判断漏洞信息。</p>
+<p>插桩需要在服务器中部署Agent，不同的语言不同的容器要不同的Agent，这对有些用户来说是不可接受的。而代理模式不需要服务器中部署Agent，只是测试人员要配置代理，安全测试会产生一定的脏数据，漏洞的详情无法定位到代码片段，适合想用IAST技术又不接受在服务器中部署Agent的用户使用。</p>
+<p>2) Active插桩实现原理</p>
+<p><img src="/2019/09/19/IAST安全测试技术/6.png" alt="IAST安全测试技术"></p>
+<p>a. 被测试服务器中安装IAST插桩 Agent；</p>
+<p>b. DAST Scanner发起扫描测试；</p>
+<p>c. IAST插桩 Agent追踪被测试应用程序在扫描期间的反应附加测试，覆盖率和上下文，将有关信息发送给Management Server，Management Server展示安全测试结果。</p>
+<p>Active 插桩模式需要在被测试应用程序中部署插桩 Agent，使用时需要外部扫描器去触发这个Agent。一个组件产生恶意攻击流量，另一个组件在被测应用程序中监测应用程序的反应，由此来进行漏洞定位和降低误报。</p>
+<p>Active 插桩模式更像是一种改进版的DAST技术，目前最新的AWVS、AppScan已经采用了Active 插桩模式。AWVS集成了“AcuSensor”模块，通过在源代码中部署传感器来增强定期动态扫描。AcuSensor能够在AWVS扫描期间检查Web应用程序执行时的源代码，在后端抓取应用程序，提供100％爬行覆盖率，查找并测试在黑盒扫描期间未发现的隐藏输入。AppScan则是集成了“Glass Box”服务模块，这使得AppScan支持 Web 2.0、JavaScript 和 AJAX 框架。</p>
+<p>Active 插桩模式解决了传统DAST漏报和无法精确定位漏洞位置的问题，需要先做扫描，扫描触发漏洞需要一定的时间，而且扫描会对业务测试产生影响。在双向HTTPS加密、CSRF Token页面、防攻击重放等场景下Active 插桩模式依然无法进行安全测试。</p>
+<p>3) Passive 插桩实现原理</p>
+<p><img src="/2019/09/19/IAST安全测试技术/7.png" alt="IAST安全测试技术"></p>
+<p>a. 被测试服务器中安装插桩 Agent；</p>
+<p>b. 插桩 Agent在应用程序运行时获取请求和代码数据流、代码控制流；</p>
+<p>c. 插桩Agent将获取的信息发送给Management Sever，Management Sever展示安全测试结果。</p>
+<p>Passive 插桩在程序运行时监视应用并分析代码，它不会主动对Web应用程序执行攻击，而是纯粹被动地分析检测代码。这实际上是一个巨大的优势，因为它不会影响同时运行的其他测试活动，并且只需要业务测试（手动或自动）来触发安全测试，有测试流量过来就可以实时的进行漏洞检测。</p>
+<p>插桩模式的关键是Agent，Agent需要根据不同语言进行开发，但是功能基本相同：</p>
+<ul>
+<li>获取请求数据和返回数据；</li>
+<li>代码执行中的参数传递；</li>
+<li>数据库查询（如ODBC）；</li>
+<li>目录查询（如LDAP），文件系统权限；</li>
+<li>监听内存中特定的值，识别受污染的输入；</li>
+<li>第三方库的使用;</li>
+<li>对外部应用程序和服务的调用；</li>
+<li>特定代码的执行等。</li>
+</ul>
+
     </article>
     <!-- license  -->
     
@@ -551,7 +612,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是Web应用安全测试技术？"><span class="toc-number">1.</span> <span class="toc-text">什么是Web应用安全测试技术？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DAST：动态应用程序安全测试"><span class="toc-number">2.</span> <span class="toc-text">DAST：动态应用程序安全测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SAST：静态应用程序安全测试"><span class="toc-number">3.</span> <span class="toc-text">SAST：静态应用程序安全测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IAST：交互式应用程序安全测试"><span class="toc-number">4.</span> <span class="toc-text">IAST：交互式应用程序安全测试</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是Web应用安全测试技术"><span class="toc-number">1.</span> <span class="toc-text">什么是Web应用安全测试技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DAST：动态应用程序安全测试"><span class="toc-number">2.</span> <span class="toc-text">DAST：动态应用程序安全测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SAST：静态应用程序安全测试"><span class="toc-number">3.</span> <span class="toc-text">SAST：静态应用程序安全测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IAST：交互式应用程序安全测试"><span class="toc-number">4.</span> <span class="toc-text">IAST：交互式应用程序安全测试</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
