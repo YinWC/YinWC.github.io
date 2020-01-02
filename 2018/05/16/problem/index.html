@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">3,412</span> / Reading time: <span class="post-count">15 min</span></span>
+                        <span>Word count: <span class="post-count">3,421</span> / Reading time: <span class="post-count">15 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -451,6 +451,7 @@ height:50vh;
 <p>参考：<a href="https://zhuanlan.zhihu.com/p/92985359" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/92985359</a></p>
 <p>pycharm2019.3:   <a href="https://pan.baidu.com/s/1VJMkuTfuazJBXeEem3EoFg" target="_blank" rel="noopener">https://pan.baidu.com/s/1VJMkuTfuazJBXeEem3EoFg</a></p>
 <p>破解文件下载：  <a href="https://pan.baidu.com/s/12vgHOG-vsvIJAQeVURXNqg" target="_blank" rel="noopener">https://pan.baidu.com/s/12vgHOG-vsvIJAQeVURXNqg</a></p>
+<p>激活码：<a href="https://pan.baidu.com/s/16PgdjHcx7p1Qg46IGCwr0w" target="_blank" rel="noopener">https://pan.baidu.com/s/16PgdjHcx7p1Qg46IGCwr0w</a></p>
 <p>注意中间一定要断网</p>
 <h2 id="从远程仓库获取最新代码合并到本地分支"><a href="#从远程仓库获取最新代码合并到本地分支" class="headerlink" title="从远程仓库获取最新代码合并到本地分支"></a>从远程仓库获取最新代码合并到本地分支</h2><p><a href="https://blog.csdn.net/hanchao5272/article/details/79162130" target="_blank" rel="noopener">参考文章</a><br>最佳方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//查询当前远程的版本</span><br><span class="line">$ git remote -v</span><br><span class="line">//获取最新代码到本地(本地当前分支为[branch]，获取的远端的分支为[origin/branch])</span><br><span class="line">$ git fetch origin master  [示例1：获取远端的origin/master分支]</span><br><span class="line">$ git fetch origin dev [示例2：获取远端的origin/dev分支]</span><br><span class="line">//查看版本差异</span><br><span class="line">$ git log -p master..origin/master [示例1：查看本地master与远端origin/master的版本差异]</span><br><span class="line">$ git log -p dev..origin/dev   [示例2：查看本地dev与远端origin/dev的版本差异]</span><br><span class="line">//合并最新代码到本地分支</span><br><span class="line">$ git merge origin/master  [示例1：合并远端分支origin/master到当前分支]</span><br><span class="line">$ git merge origin/dev [示例2：合并远端分支origin/dev到当前分支]</span><br></pre></td></tr></table></figure></p>
 <h2 id="LNMP网站-user-ini操作无权限"><a href="#LNMP网站-user-ini操作无权限" class="headerlink" title="LNMP网站.user.ini操作无权限"></a>LNMP网站.user.ini操作无权限</h2><p>当执行chown或chmod对网站目录属主属组或权限进行操作时，可能会提示“chown: changing ownership of `/home/wwwroot/default/.user.ini’: Operation not permitted”，可以执行以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chattr -i /home/wwwroot/domain.com/.user.ini</span><br></pre></td></tr></table></figure></p>
@@ -1959,9 +1960,53 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 85
+        Total : 87
         </div>
         <!-- search  -->
         
@@ -1974,6 +2019,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/16</span><a class="archive-post-title" href= "/2019/12/16/D-3CTF/" >D^3CT线下小结</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2053,6 +2103,11 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">05/21</span><a class="archive-post-title" href= "/2019/05/21/AWS搭建SS/" >AWS搭建SS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/2019/05/15/nps的学习/" >内网渗透--nps的学习</a>
         </li>
     
     
@@ -2418,15 +2473,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
         <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
     
         <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+        <span class="sidebar-tag-name" data-tags="安全开发"><span class="iconfont-archer">&#xe606;</span>安全开发</span>
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
-    
-        <span class="sidebar-tag-name" data-tags="安全开发"><span class="iconfont-archer">&#xe606;</span>安全开发</span>
     
         <span class="sidebar-tag-name" data-tags="代码审计"><span class="iconfont-archer">&#xe606;</span>代码审计</span>
     

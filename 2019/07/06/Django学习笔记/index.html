@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,428</span> / Reading time: <span class="post-count">6 min</span></span>
+                        <span>Word count: <span class="post-count">1,678</span> / Reading time: <span class="post-count">7 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,10 +396,7 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p><a href="https://www.w3cschool.cn/django/" target="_blank" rel="noopener">https://www.w3cschool.cn/django/</a></p>
-<h2 id="Django简介"><a href="#Django简介" class="headerlink" title="Django简介"></a>Django简介</h2><blockquote>
-<p>Django是一个高级Python Web框架, 鼓励快速,简洁, 以程序设计的思想进行开发. 通过使用这个框架, 可以减少很多开发麻烦, 使你更专注于编写自己的app, 而不需要重复造轮子. Django免费并且开源.</p>
-</blockquote>
+        <h2 id="Django简介"><a href="#Django简介" class="headerlink" title="Django简介"></a>Django简介</h2><p>Django是一个高级Python Web框架, 鼓励快速,简洁, 以程序设计的思想进行开发. 通过使用这个框架, 可以减少很多开发麻烦, 使你更专注于编写自己的app, 而不需要重复造轮子. Django免费并且开源.</p>
 <h3 id="Django特点"><a href="#Django特点" class="headerlink" title="Django特点"></a>Django特点</h3><ul>
 <li><p>完全免费并开源源代码</p>
 </li>
@@ -508,10 +505,10 @@ python manage.py runserver
 </ul>
 </li>
 <li>正则以r开头,表示不需要转义，注意尖号(^)和美元符号($) （^代表从头开始 $代表从尾开始)<ul>
-<li><code>/one/two/three</code> 配对 r’^one/</li>
-<li><code>/oo/one/two/three</code> 不配对 r’^one/“</li>
-<li><code>/one/two/three/</code> 配对 r’three/$’</li>
-<li><code>/oo/one/two/three/oo/</code> 不配对 r’three/$”</li>
+<li><code>/one/two/three</code>  r’^one/  配对</li>
+<li><code>/oo/one/two/three</code>  r’^one/“  不配对</li>
+<li><code>/one/two/three/</code>  r’three/$’  配对</li>
+<li><code>/oo/one/two/three/oo/</code>  r’three/$” 不配对</li>
 <li>开头不需要有反斜杠</li>
 </ul>
 </li>
@@ -520,13 +517,47 @@ python manage.py runserver
 </li>
 </ul>
 <h3 id="2-正常映射"><a href="#2-正常映射" class="headerlink" title="2. 正常映射"></a>2. 正常映射</h3><ul>
-<li>把某一个符合RE的URL映射到事物处理函数中去<ul>
-<li>举例如下:  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from showeast import views as sv</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(r&apos;^admin/&apos;, admin.site.urls),</span><br><span class="line">    url(r&apos;^normalmap/&apos;, sv.normalmap),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<li><p>把某一个符合RE的URL映射到事物处理函数中去</p>
+<ul>
+<li><p>举例如下:</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from showeast import views as sv</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(r&apos;^admin/&apos;, admin.site.urls),</span><br><span class="line">    url(r&apos;^normalmap/&apos;, sv.normalmap),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
 </ul>
-<h3 id="3-URL中带参数映射"><a href="#3-URL中带参数映射" class="headerlink" title="3. URL中带参数映射"></a>3. URL中带参数映射</h3>
+<h3 id="3-URL中带参数映射"><a href="#3-URL中带参数映射" class="headerlink" title="3. URL中带参数映射"></a>3. URL中带参数映射</h3><ul>
+<li>在事件处理代码中需要由URL传入参数,形如 /myurl/param中的param</li>
+<li>参数都是字符串形式,如果需要整数等形式需要自行转换</li>
+<li><p>通常的形式如下:</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/search/page/432 中的 432需要经常性变换，所以设置成参数比较合适</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="4-URL在app中处理"><a href="#4-URL在app中处理" class="headerlink" title="4.URL在app中处理"></a>4.URL在app中处理</h3><ul>
+<li>如果所有应用URL都集中tulingxueyuan/urls.py中,可能导致文件的臃肿</li>
+<li>可以把urls具体功能逐渐分散到每个app中<ul>
+<li>从django.conf.urls 导入 include</li>
+<li>注意此时RE部分的写法</li>
+<li>添加include导入</li>
+</ul>
+</li>
+<li>使用方法<ul>
+<li>确保include被导入</li>
+<li>写主路由的开头url</li>
+<li>写子路由</li>
+<li>编写views函数</li>
+</ul>
+</li>
+<li>同样可以使用参数</li>
+</ul>
+<h3 id="5-URL中的嵌套参数"><a href="#5-URL中的嵌套参数" class="headerlink" title="5.URL中的嵌套参数"></a>5.URL中的嵌套参数</h3><ul>
+<li>捕获某个参数的一部分</li>
+<li><p>例如URL <code>/index/page-3</code>, 需要捕获数字3作为参数</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">url(r&apos;index_1/(page-(\d+)/)?$&apos;, sv.myindex_1), #不太好</span><br><span class="line">url(r&apos;index_2/(?:page-(?P&lt;page_number&gt;\d+)/)?$&apos;, sv.myindex_2), #好</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上述例子会得到两个参数,但 <code>?:</code> 表明忽略此参数</p>
+</li>
+</ul>
+
     </article>
     <!-- license  -->
     
@@ -663,7 +694,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Django简介"><span class="toc-number">1.</span> <span class="toc-text">Django简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django特点"><span class="toc-number">1.1.</span> <span class="toc-text">Django特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MVC设计模式"><span class="toc-number">1.2.</span> <span class="toc-text">MVC设计模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学习笔记"><span class="toc-number">2.</span> <span class="toc-text">学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django系统"><span class="toc-number">2.1.</span> <span class="toc-text">Django系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#环境搭建"><span class="toc-number">2.2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建第一个Django程序"><span class="toc-number">2.3.</span> <span class="toc-text">创建第一个Django程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路由系统-urls"><span class="toc-number">2.4.</span> <span class="toc-text">路由系统-urls</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-正常映射"><span class="toc-number">2.5.</span> <span class="toc-text">2. 正常映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-URL中带参数映射"><span class="toc-number">2.6.</span> <span class="toc-text">3. URL中带参数映射</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Django简介"><span class="toc-number">1.</span> <span class="toc-text">Django简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django特点"><span class="toc-number">1.1.</span> <span class="toc-text">Django特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MVC设计模式"><span class="toc-number">1.2.</span> <span class="toc-text">MVC设计模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学习笔记"><span class="toc-number">2.</span> <span class="toc-text">学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Django系统"><span class="toc-number">2.1.</span> <span class="toc-text">Django系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#环境搭建"><span class="toc-number">2.2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建第一个Django程序"><span class="toc-number">2.3.</span> <span class="toc-text">创建第一个Django程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路由系统-urls"><span class="toc-number">2.4.</span> <span class="toc-text">路由系统-urls</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-正常映射"><span class="toc-number">2.5.</span> <span class="toc-text">2. 正常映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-URL中带参数映射"><span class="toc-number">2.6.</span> <span class="toc-text">3. URL中带参数映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-URL在app中处理"><span class="toc-number">2.7.</span> <span class="toc-text">4.URL在app中处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-URL中的嵌套参数"><span class="toc-number">2.8.</span> <span class="toc-text">5.URL中的嵌套参数</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1969,9 +2000,53 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 85
+        Total : 87
         </div>
         <!-- search  -->
         
@@ -1984,6 +2059,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/16</span><a class="archive-post-title" href= "/2019/12/16/D-3CTF/" >D^3CT线下小结</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2063,6 +2143,11 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">05/21</span><a class="archive-post-title" href= "/2019/05/21/AWS搭建SS/" >AWS搭建SS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/2019/05/15/nps的学习/" >内网渗透--nps的学习</a>
         </li>
     
     
@@ -2428,15 +2513,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
         <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
     
         <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+        <span class="sidebar-tag-name" data-tags="安全开发"><span class="iconfont-archer">&#xe606;</span>安全开发</span>
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
-    
-        <span class="sidebar-tag-name" data-tags="安全开发"><span class="iconfont-archer">&#xe606;</span>安全开发</span>
     
         <span class="sidebar-tag-name" data-tags="代码审计"><span class="iconfont-archer">&#xe606;</span>代码审计</span>
     
