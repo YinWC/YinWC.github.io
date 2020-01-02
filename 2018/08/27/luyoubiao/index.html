@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">421</span> / Reading time: <span class="post-count">2 min</span></span>
+                        <span>Word count: <span class="post-count">577</span> / Reading time: <span class="post-count">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,25 +396,31 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="最新总结"><a href="#最新总结" class="headerlink" title="最新总结:"></a>最新总结:</h2><pre><code>route print -4 打印所有的ipv4地址
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">route delete 0.0.0.0     //删除所有路由</span><br><span class="line">route add 172.16.0.0 mask 255.255.0.0 172.16.8.1   //将 内网所有地址 全部都走 内网默认网关</span><br><span class="line">route add 0.0.0.0 mask 0.0.0.0 192.168.20.254     // 将所有的路由 全部走 外网默认网关</span><br></pre></td></tr></table></figure>
+        <h2 id="最新总结"><a href="#最新总结" class="headerlink" title="最新总结"></a>最新总结</h2><p>情况一:内外网在同一网段下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">route delete 0.0.0.0          //删除所有路由</span><br><span class="line">route add 0.0.0.0 mask 0.0.0.0 192.168.43.1 -p          //所有路由都走外网 -p的意思是永久路由</span><br><span class="line">route add 192.168.18.0 mask 255.255.255.0 192.168.18.1 -p         //添加一条内网路由</span><br></pre></td></tr></table></figure>
+<p>情况二：内外网在不同网段下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">route delete 0.0.0.0     //删除所有路由</span><br><span class="line">route add 172.16.0.0 mask 255.255.0.0 172.16.8.1   //将 内网所有地址 全部都走 内网默认网关</span><br><span class="line">route add 0.0.0.0 mask 0.0.0.0 192.168.20.254     // 将所有的路由 全部走 外网默认网关</span><br></pre></td></tr></table></figure>
+<p><code>route print -4</code> 打印所有的ipv4地址</p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于比赛的需要，学一波配置路由表，使电脑在内网和外网都连的情况下，可以随时切换。</p>
-<p>参考链接：<a href="https://www.cnblogs.com/fetty/p/4524029.html" target="_blank" rel="noopener">https://www.cnblogs.com/fetty/p/4524029.html</a></p>
-<p><a href="http://blog.51cto.com/skypegnu1/1562582" target="_blank" rel="noopener">http://blog.51cto.com/skypegnu1/1562582</a></p>
-<p><a href="https://www.cnblogs.com/Real_Dream/articles/1577889.html" target="_blank" rel="noopener">https://www.cnblogs.com/Real_Dream/articles/1577889.html</a></p>
-<p><a href="http://blog.sina.com.cn/s/blog_493cafbb0101hml2.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_493cafbb0101hml2.html</a></p>
-<h2 id="实战："><a href="#实战：" class="headerlink" title="实战："></a>实战：</h2><h3 id="ipconfig"><a href="#ipconfig" class="headerlink" title="ipconfig"></a>ipconfig</h3><p>查看内外网ip信息。</p>
+<h3 id="windows路由命令"><a href="#windows路由命令" class="headerlink" title="windows路由命令"></a>windows路由命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">route print: 打印当前的路由表</span><br><span class="line">route delete：删除一条路由</span><br><span class="line">route add: 增加一条路由, 如果最后加上 –p 选项，表示永久增加静态路由，重启后不会失效</span><br><span class="line">route change: 更改一条路由</span><br></pre></td></tr></table></figure>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><h3 id="ipconfig"><a href="#ipconfig" class="headerlink" title="ipconfig"></a>ipconfig</h3><p>查看内外网ip信息。</p>
 <p><img src="/2018/08/27/luyoubiao/1.png" alt="luyoubiao"></p>
 <h3 id="route-print"><a href="#route-print" class="headerlink" title="route print"></a>route print</h3><p>打印路由destination</p>
 <p>可以看到内外网的上网地址，观察最后面的metric,数字越小优先级越高。</p>
 <p>eg:若内网metric 20 &lt; 外网metric ,则内网可以连通，外网上不了。</p>
-<h3 id="route-delete-0-0-0-0"><a href="#route-delete-0-0-0-0" class="headerlink" title="route delete 0.0.0.0"></a>route delete 0.0.0.0</h3><p><font color="blue">需要以管理员身份运行cmd</font><br>删除所有0.0.0.0的路由</p>
+<h3 id="route-delete-0-0-0-0"><a href="#route-delete-0-0-0-0" class="headerlink" title="route delete 0.0.0.0"></a>route delete 0.0.0.0</h3><font color="blue">需要以管理员身份运行cmd</font> 
+
+<p>删除所有0.0.0.0的路由</p>
 <h3 id="route-add-172-16-4-0-mask-255-255-255-0-172-16-8-1"><a href="#route-add-172-16-4-0-mask-255-255-255-0-172-16-8-1" class="headerlink" title="route add 172.16.4.0 mask 255.255.255.0 172.16.8.1"></a>route add 172.16.4.0 mask 255.255.255.0 172.16.8.1</h3><p>将比赛所用地址路由(以网址172.16.4.x为例） 都走默认网关172.16.8.1，子网掩码为255.255.2555.0 </p>
 <p>这里默认网关没显示，可以适当的猜测一下，一般为.1 或.254</p>
 <p><img src="/2018/08/27/luyoubiao/2.png" alt="luyoubiao"></p>
 <h3 id="route-add-0-0-0-0-mask-0-0-0-0-192-168-43-1"><a href="#route-add-0-0-0-0-mask-0-0-0-0-192-168-43-1" class="headerlink" title="route add 0.0.0.0 mask 0.0.0.0 192.168.43.1"></a>route add 0.0.0.0 mask 0.0.0.0 192.168.43.1</h3><p>将所有的路由都走外网默认网关。</p>
-<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>就三条指令，具体还要视具体情况而定。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">route delete 0.0.0.0</span><br><span class="line">route add 172.16.4.0 mask 255.255.255.0 172.16.8.1</span><br><span class="line">route add 0.0.0.0 mask 0.0.0.0 192.168.43.1</span><br></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>就三条指令，具体还要视具体情况而定。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">route delete 0.0.0.0</span><br><span class="line">route add 172.16.4.0 mask 255.255.255.0 172.16.8.1</span><br><span class="line">route add 0.0.0.0 mask 0.0.0.0 192.168.43.1</span><br></pre></td></tr></table></figure>
 <p><img src="/2018/08/27/luyoubiao/3.png" alt="luyoubiao"></p>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><p><a href="http://blog.51cto.com/skypegnu1/1562582" target="_blank" rel="noopener">http://blog.51cto.com/skypegnu1/1562582</a></p>
+<p><a href="https://www.cnblogs.com/Real_Dream/articles/1577889.html" target="_blank" rel="noopener">https://www.cnblogs.com/Real_Dream/articles/1577889.html</a></p>
+<p><a href="http://blog.sina.com.cn/s/blog_493cafbb0101hml2.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_493cafbb0101hml2.html</a></p>
 
     </article>
     <!-- license  -->
@@ -552,7 +558,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#最新总结"><span class="toc-number">1.</span> <span class="toc-text">最新总结:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">2.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实战："><span class="toc-number">3.</span> <span class="toc-text">实战：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ipconfig"><span class="toc-number">3.1.</span> <span class="toc-text">ipconfig</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#route-print"><span class="toc-number">3.2.</span> <span class="toc-text">route print</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#route-delete-0-0-0-0"><span class="toc-number">3.3.</span> <span class="toc-text">route delete 0.0.0.0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#route-add-172-16-4-0-mask-255-255-255-0-172-16-8-1"><span class="toc-number">3.4.</span> <span class="toc-text">route add 172.16.4.0 mask 255.255.255.0 172.16.8.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#route-add-0-0-0-0-mask-0-0-0-0-192-168-43-1"><span class="toc-number">3.5.</span> <span class="toc-text">route add 0.0.0.0 mask 0.0.0.0 192.168.43.1</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结："><span class="toc-number">4.</span> <span class="toc-text">总结：</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#最新总结"><span class="toc-number">1.</span> <span class="toc-text">最新总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">2.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#windows路由命令"><span class="toc-number">2.1.</span> <span class="toc-text">windows路由命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实战"><span class="toc-number">3.</span> <span class="toc-text">实战</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ipconfig"><span class="toc-number">3.1.</span> <span class="toc-text">ipconfig</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#route-print"><span class="toc-number">3.2.</span> <span class="toc-text">route print</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#route-delete-0-0-0-0"><span class="toc-number">3.3.</span> <span class="toc-text">route delete 0.0.0.0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#route-add-172-16-4-0-mask-255-255-255-0-172-16-8-1"><span class="toc-number">3.4.</span> <span class="toc-text">route add 172.16.4.0 mask 255.255.255.0 172.16.8.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#route-add-0-0-0-0-mask-0-0-0-0-192-168-43-1"><span class="toc-number">3.5.</span> <span class="toc-text">route add 0.0.0.0 mask 0.0.0.0 192.168.43.1</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接："><span class="toc-number">5.</span> <span class="toc-text">参考链接：</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
