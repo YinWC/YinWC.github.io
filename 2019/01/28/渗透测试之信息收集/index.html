@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,108</span> / Reading time: <span class="post-count">4 min</span></span>
+                        <span>Word count: <span class="post-count">1,230</span> / Reading time: <span class="post-count">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,7 +396,20 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="收集域名信息"><a href="#收集域名信息" class="headerlink" title="收集域名信息"></a>收集域名信息</h2><font color="blue">Whois查询</font>
+        <!-- TOC -->
+<ul>
+<li><a href="#收集域名信息">收集域名信息</a></li>
+<li><a href="#收集敏感信息">收集敏感信息</a></li>
+<li><a href="#收集子域名信息">收集子域名信息</a></li>
+<li><a href="#收集常用端口信息">收集常用端口信息</a></li>
+<li><a href="#指纹识别">指纹识别</a></li>
+<li><a href="#查询真实ip">查询真实IP</a></li>
+<li><a href="#收集敏感目录文件">收集敏感目录文件</a></li>
+<li><a href="#社会工程学">社会工程学</a></li>
+<li><a href="#dns历史解析">DNS历史解析</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="收集域名信息"><a href="#收集域名信息" class="headerlink" title="收集域名信息"></a>收集域名信息</h2><font color="blue">Whois查询</font>
 
 <p>Whois是一个标准的互联网协议，可用于收集网络注册信息，注册的域名、IP地址等信息。（Whois就是一个用于查询域名是否已被注册以及注册域名的详细信息的数据库）</p>
 <ul>
@@ -509,8 +522,21 @@ height:50vh;
 <p><strong>6.看订阅邮件</strong></p>
 <p><strong>7.rss订阅</strong></p>
 <h2 id="收集敏感目录文件"><a href="#收集敏感目录文件" class="headerlink" title="收集敏感目录文件"></a>收集敏感目录文件</h2><p>针对网站目录主要有DirBuster、御剑后台扫描珍藏版、wwwscan、Spinder.py（轻量级快速单文件目录后台扫描）、Sensitivefilescan（轻量级快速单文件目录后台扫描）、Weakfilescan(轻量级快速单文件目录后台扫描工具)</p>
-<h2 id="社会工程学"><a href="#社会工程学" class="headerlink" title="社会工程学"></a>社会工程学</h2><p>可以通过社工库在线网站查询。</p>
-
+<h2 id="社会工程学"><a href="#社会工程学" class="headerlink" title="社会工程学"></a>社会工程学</h2><p>可以通过社工库在线网站查询</p>
+<h2 id="DNS历史解析"><a href="#DNS历史解析" class="headerlink" title="DNS历史解析"></a>DNS历史解析</h2><p><strong>DNS历史解析相关网站</strong></p>
+<p><a href="https://dnshistory.org/" target="_blank" rel="noopener">https://dnshistory.org/</a><br><a href="http://whoisrequest.com/history/" target="_blank" rel="noopener">http://whoisrequest.com/history/</a><br><a href="https://completedns.com/dns-history/" target="_blank" rel="noopener">https://completedns.com/dns-history/</a></p>
+<p><strong>DNS区域传送测试方法</strong></p>
+<ul>
+<li>Linux测试</li>
+</ul>
+<p><code>dig @ns1.baidu.com axfr baidu.com</code></p>
+<p><img src="/2019/01/28/渗透测试之信息收集/1.png" alt="渗透测试之信息收集"></p>
+<ul>
+<li>Windows测试</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nslookup</span><br><span class="line">server ns1.baidu.com</span><br><span class="line">set type=any</span><br><span class="line">ls -d baidu.com</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/01/28/渗透测试之信息收集/2.png" alt="渗透测试之信息收集"></p>
+<h2 id="主机发现"><a href="#主机发现" class="headerlink" title="主机发现"></a>主机发现</h2>
     </article>
     <!-- license  -->
     
@@ -647,7 +673,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#收集域名信息"><span class="toc-number">1.</span> <span class="toc-text">收集域名信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集敏感信息"><span class="toc-number">2.</span> <span class="toc-text">收集敏感信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集子域名信息"><span class="toc-number">3.</span> <span class="toc-text">收集子域名信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集常用端口信息"><span class="toc-number">4.</span> <span class="toc-text">收集常用端口信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指纹识别"><span class="toc-number">5.</span> <span class="toc-text">指纹识别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查询真实IP"><span class="toc-number">6.</span> <span class="toc-text">查询真实IP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集敏感目录文件"><span class="toc-number">7.</span> <span class="toc-text">收集敏感目录文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#社会工程学"><span class="toc-number">8.</span> <span class="toc-text">社会工程学</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#收集域名信息"><span class="toc-number">1.</span> <span class="toc-text">收集域名信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集敏感信息"><span class="toc-number">2.</span> <span class="toc-text">收集敏感信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集子域名信息"><span class="toc-number">3.</span> <span class="toc-text">收集子域名信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集常用端口信息"><span class="toc-number">4.</span> <span class="toc-text">收集常用端口信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指纹识别"><span class="toc-number">5.</span> <span class="toc-text">指纹识别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查询真实IP"><span class="toc-number">6.</span> <span class="toc-text">查询真实IP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集敏感目录文件"><span class="toc-number">7.</span> <span class="toc-text">收集敏感目录文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#社会工程学"><span class="toc-number">8.</span> <span class="toc-text">社会工程学</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS历史解析"><span class="toc-number">9.</span> <span class="toc-text">DNS历史解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#主机发现"><span class="toc-number">10.</span> <span class="toc-text">主机发现</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1980,9 +2006,32 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 86
+        Total : 87
         </div>
         <!-- search  -->
         
@@ -1992,6 +2041,20 @@ top:50vh;
     
     
     
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2020/01/03/Java代码审计/" >Java代码审计</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
@@ -2446,15 +2509,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
-        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
-    
         <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="安全开发"><span class="iconfont-archer">&#xe606;</span>安全开发</span>
+        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
         <span class="sidebar-tag-name" data-tags="代码审计"><span class="iconfont-archer">&#xe606;</span>代码审计</span>
+    
+        <span class="sidebar-tag-name" data-tags="安全开发"><span class="iconfont-archer">&#xe606;</span>安全开发</span>
     
         <span class="sidebar-tag-name" data-tags="Record,Problem"><span class="iconfont-archer">&#xe606;</span>Record,Problem</span>
     
