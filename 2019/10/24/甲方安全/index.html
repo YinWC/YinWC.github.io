@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">38</span> / Reading time: <span class="post-count">1 min</span></span>
+                        <span>Word count: <span class="post-count">467</span> / Reading time: <span class="post-count">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -398,9 +398,75 @@ height:50vh;
     <article class="article-entry">
         <p>目录</p>
 <ul>
+<li><a href="#%e7%94%b2%e6%96%b9%e5%ae%89%e5%85%a8%e5%bb%ba%e8%ae%be%e6%ad%a5%e9%aa%a4">甲方安全建设步骤</a></li>
+<li><a href="#%e7%ba%a2%e9%98%9f%e5%bb%ba%e8%ae%be">红队建设</a></li>
 <li><a href="#%e6%83%85%e6%8a%a5">情报</a></li>
 <li><a href="#%e6%bc%8f%e6%b4%9e%e9%a2%84%e8%ad%a6">漏洞预警</a></li>
 <li><a href="#%e5%bc%80%e6%ba%90%e9%a1%b9%e7%9b%ae">开源项目</a></li>
+</ul>
+<h2 id="甲方安全建设步骤"><a href="#甲方安全建设步骤" class="headerlink" title="甲方安全建设步骤"></a>甲方安全建设步骤</h2><p><strong>1. 资产梳理</strong></p>
+<ul>
+<li>IP列表、业务分组(负责人、联系方向)、业务属性</li>
+<li>业务端口</li>
+<li>业务应用架构、技术堆栈</li>
+</ul>
+<p><strong>2.边界安全，防火墙策略控制（需要梳理业务端口）</strong></p>
+<ul>
+<li>如果是硬件，使用防火墙统一控制</li>
+<li>如果是操作系统，Iptalbes＋IPSEC</li>
+<li>及时监控业务端口的变化（外部nmap扫描搜集结果比对，或者编写脚步放到运维平台收集系统监听端口和防火墙策略)</li>
+<li>跳板机安全控制</li>
+</ul>
+<p><strong>3.账户安全管理</strong></p>
+<ul>
+<li>弱密码</li>
+<li>root、sudoer权限</li>
+<li>账户、授权、访问、审计等等</li>
+</ul>
+<p><strong>4.服务器安全</strong></p>
+<ul>
+<li>安全基线检测</li>
+<li>操作审计</li>
+<li>异常登录审计(日志收集分析)</li>
+<li>漏洞清点/扫描，补丁修复测试和推进</li>
+</ul>
+<p><strong>5.WEB安全</strong></p>
+<ul>
+<li>应用渗透测试</li>
+<li>接口安全(加密、通信)</li>
+<li>webshell实时监测</li>
+<li>Nginx日志分析/Nginx流量旁路分析</li>
+</ul>
+<p><strong>6.业务风控安全</strong></p>
+<ul>
+<li>用户安全机制（密码、验证码、登录）</li>
+<li>交易安全</li>
+</ul>
+<p><strong>7.安全培训</strong></p>
+<ul>
+<li>安全意识培训</li>
+<li>运维安全培训</li>
+<li>WEB安全开发</li>
+</ul>
+<p><strong>8.安全规范和流程</strong></p>
+<ul>
+<li>人员入职账户开通</li>
+<li>人员离职账户注销</li>
+<li>服务器上下架安全管理</li>
+<li>安全应急响应机制</li>
+</ul>
+<p><strong>9.内网安全</strong></p>
+<ul>
+<li>内网服务器安全</li>
+<li>账户统一验证和管理机制(域ldap协议统一验证OA、RTX、邮件、内网业务系统)</li>
+<li>弱口令监测(NTLM/LM)</li>
+<li>账户异常登录</li>
+<li>网络隔离（物理／虚拟化）</li>
+<li>网络准入</li>
+<li>PC安全(病毒统一管理、通知处理)</li>
+</ul>
+<h2 id="红队建设"><a href="#红队建设" class="headerlink" title="红队建设"></a>红队建设</h2><ul>
+<li><a href="https://github.com/aleenzz/Cobalt_Strike_wiki" target="_blank" rel="noopener">Cobalt_Strike_wiki</a></li>
 </ul>
 <h2 id="情报"><a href="#情报" class="headerlink" title="情报"></a>情报</h2><ul>
 <li><a href="http://wechat.doonsec.com/" target="_blank" rel="noopener">http://wechat.doonsec.com/</a></li>
@@ -546,7 +612,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#情报"><span class="toc-number">1.</span> <span class="toc-text">情报</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#漏洞预警"><span class="toc-number">2.</span> <span class="toc-text">漏洞预警</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开源项目"><span class="toc-number">3.</span> <span class="toc-text">开源项目</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#甲方安全建设步骤"><span class="toc-number">1.</span> <span class="toc-text">甲方安全建设步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#红队建设"><span class="toc-number">2.</span> <span class="toc-text">红队建设</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#情报"><span class="toc-number">3.</span> <span class="toc-text">情报</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#漏洞预警"><span class="toc-number">4.</span> <span class="toc-text">漏洞预警</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开源项目"><span class="toc-number">5.</span> <span class="toc-text">开源项目</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
