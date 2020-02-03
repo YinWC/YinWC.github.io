@@ -1,0 +1,2757 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Ywc">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Ywc">
+    <meta name="keywords" content="Hexo | Ywc">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>WEB应用漏洞及修复 · Ywc&#39;s blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=201807017_1502" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180709" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/ywc.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin="">
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin="">
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Ywc&#39;s blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">WEB应用漏洞及修复</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Ywc's blog</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/blog.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            WEB应用漏洞及修复
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "漏洞">漏洞</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count">4,970</span> / Reading time: <span class="post-count">17 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/12/31</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>WEB应用漏洞及修复汇总，2020加油写代码。</p>
+<h2 id="1-SQL注入"><a href="#1-SQL注入" class="headerlink" title="1.SQL注入"></a>1.SQL注入</h2><p><strong>风险等级：高危</strong><br><strong>漏洞描述：</strong><br>  SQL注入漏洞产生的原因是网站应用程序在编写时未对用户提交至服务器的数据进行合法性校验，即没有进行有效地特殊字符过滤，导致网站服务器存在安全风险，这就是SQL Injection，即SQL注入漏洞。<br><strong>漏洞危害：</strong></p>
+<ul>
+<li>机密数据被窃取；</li>
+<li>核心业务数据被篡改；</li>
+<li>网页被篡改；</li>
+<li>数据库所在服务器被攻击从而变为傀儡主机，导致局域网(内网)被入侵。<br><strong>修复建议：</strong><br>1.在网页代码中对用户输入的数据进行严格过滤；（代码层）<br>2.部署Web应用防火墙；（设备层）<br>3.对数据库操作进行监控。（数据库层）<br><strong>代码层最佳防御sql漏洞方案：</strong><br>采用sql语句预编译和绑定变量，是防御sql注入的最佳方法。</li>
+<li>原因：<br>采用了PreparedStatement，就会将sql语句：”select id, no from user where id=?” 预先编译好，也就是SQL引擎会预先进行语法分析，产生语法树，生成执行计划，也就是说，后面你输入的参数，无论你输入的是什么，都不会影响该sql语句的 语法结构了，因为语法分析已经完成了，而语法分析主要是分析sql命令，比如 select ,from ,where ,and, or ,order by 等等。所以即使你后面输入了这些sql命令，也不会被当成sql命令来执行了，因为这些sql命令的执行， 必须先的通过语法分析，生成执行计划，既然语法分析已经完成，已经预编译过了，那么后面输入的参数，是绝对不可能作为sql命令来执行的，只会被当做字符串字面值参数，所以sql语句预编译可以防御sql注入。</li>
+</ul>
+<p><strong>其他防御方式：</strong><br>正则过滤</p>
+<h2 id="2-目录遍历"><a href="#2-目录遍历" class="headerlink" title="2.目录遍历"></a>2.目录遍历</h2><p>风险等级：中危<br><strong>漏洞描述：</strong><br>  通过该漏洞可以获取系统文件及服务器的配置文件。利用服务器API、文件标准权限进行攻击。<br><strong>漏洞危害：</strong><br>  黑客可获得服务器上的文件目录结构，从而下载敏感文件。<br><strong>修复建议：</strong><br>1.通过修改配置文件，去除中间件（如IIS、apache、tomcat）的文件目录索引功能<br>2.设置目录权限<br>3.在每个目录下创建一个空的index.html页面。</p>
+<h2 id="3-跨站脚本"><a href="#3-跨站脚本" class="headerlink" title="3.跨站脚本"></a>3.跨站脚本</h2><p>即XSS漏洞，利用跨站脚本漏洞可以在网站中插入任意代码，它能够获取网站管<br>理员或普通用户的cookie，隐蔽运行网页木马，甚至格式化浏览者的硬盘。</p>
+<p><strong>漏洞危害：</strong></p>
+<ul>
+<li>网络钓鱼，盗取管理员或用户帐号和隐私信息等；</li>
+<li>劫持合法用户会话，利用管理员身份进行恶意操作，篡改页面内容、进一步渗透网站；</li>
+<li>网页挂马、传播跨站脚本蠕虫等；</li>
+<li>控制受害者机器向其他系统发起攻击。</li>
+</ul>
+<p><strong>修复建议：</strong></p>
+<ol>
+<li>设置httponly<br>httponly无法完全的防御xss漏洞，它只是规定了不能使用js去获取cookie的内容，因此它只能防御利用xss进行cookie劫持的问题。Httponly是在set-cookie时标记的，可对单独某个参数标记也可对全部参数标记。由于设置httponly的方法比较简单，使用也很灵活，并且对防御cookie劫持非常有用，因此已经渐渐成为一种默认的标准。</li>
+<li>xss filter<br>Xss filter往往是一个文本文件，里面包含了允许被用户输入提交的字符（也有些是包含不允许用户提交的字符）。它检测的点在于用户输入的时候，xss filter分为白名单与黑名单，推荐使用白名单，但即使使用白名单还是无法完全杜绝xss问题，并且使用不当可能会带来很高的误报率。</li>
+<li>编码转义<br>编码方式有很多，比如html编码、url编码、16进制编码、javascript编码等。<br>在处理用户输入时，除了用xss filter的方式过滤一些敏感字符外，还需要配合编码，将一些敏感字符通过编码的方式改变原来的样子，从而不能被浏览器当成js代码执行。</li>
+<li>处理富文本<br>有些网页编辑器允许用户提交一些自定义的html代码，称之为”富文本”。想要在富文本处防御xss漏洞，最简单有效的方式就是控制用户能使用的标签，限制为只能使用a、div等安全的标签。</li>
+<li>处理所有输出类型的xss漏洞<br>xss漏洞本质上是一种html注入，也就是将html代码注入到网页中。那么其防御的根本就是在将用户提交的代码显示到页面上时做好一系列的过滤与转义。</li>
+</ol>
+<p><strong>其他修复方案</strong></p>
+<p>1.开发者应该严格按照openid和openkey的校验规则判断openid和openkey是否合法，且判断其它参数的合法性，不合法不返回任何内容。<br>2.严格限制URL参数输入值的格式，不能包含不必要的特殊字符（ %0d、%0a、%0D 、%0A 等）。</p>
+<h2 id="4-未过滤的HTML代码漏洞"><a href="#4-未过滤的HTML代码漏洞" class="headerlink" title="4.未过滤的HTML代码漏洞"></a>4.未过滤的HTML代码漏洞</h2><p>由于页面未过滤HTML代码，攻击者可通过精心构造XSS代码（或绕过防火墙防护策略），实现跨站脚本攻击等。</p>
+<p><strong>可带来如下危害：</strong></p>
+<ul>
+<li>恶意用户可以使用JavaScript、VBScript、ActiveX、HTML语言甚至Flash利用应用的漏洞，从而获取其他用户信息；</li>
+<li>攻击者能盗取会话cookie、获取账户、模拟其他用户身份，甚至可以修改网页呈现给其他用户的内容。</li>
+</ul>
+<p><strong>修复建议：</strong></p>
+<ol>
+<li>严格过滤用户输入的数据。</li>
+<li>参考跨站脚本漏洞修复方案。</li>
+</ol>
+<h2 id="5-数据库运行出错"><a href="#5-数据库运行出错" class="headerlink" title="5.数据库运行出错"></a>5.数据库运行出错</h2><p>网站存在数据库运行出错，由于网页数据交换出错，攻击者可获取报错中的敏感信息。</p>
+<p><strong>可带来如下危害：</strong></p>
+<ul>
+<li>机密数据被窃取；</li>
+<li>攻击者通过构造特殊URL地址，触发系统web应用程序报错，在回显内容中，获取网站敏感信息；</li>
+<li>攻击者利用泄漏的敏感信息，获取网站服务器web路径，为进一步攻击提供帮助。</li>
+</ul>
+<p><strong>修复建议：</strong></p>
+<ol>
+<li>检查数据库缓存是否溢出，是否具有失效的配置管理、禁用一切不必要的功能；</li>
+<li>对网站错误信息进行统一返回，模糊化处理。</li>
+</ol>
+<h2 id="6-Flash安全配置缺陷漏洞"><a href="#6-Flash安全配置缺陷漏洞" class="headerlink" title="6.Flash安全配置缺陷漏洞"></a>6.Flash安全配置缺陷漏洞</h2><p>网站存在Flash 安全配置缺陷，该漏洞可导致跨域访问，让用户访问非法Flash文件。<br>allowScriptAccess：是否允许flash访问浏览器脚本。如果不对不信任的flash限制，默认会允许调用浏览器脚本，产生XSS漏洞。<br>always（默认值），总是允许；sameDomain，同域允许；never，不允许<br>allowNetworking：是否允许flash访问ActionScript中的网络API。如果不对不信任的flash限制，会带来flash弹窗、CSRF等问题。<br>all，允许所有功能，会带来flash弹窗危害；internal，可以向外发送请求/加载网页；none，无法进行任何网络相关动作（业务正常功能可能无法使用）</p>
+<p><strong>可带来如下危害：</strong></p>
+<ul>
+<li>网站的Flash配置文件crossdomain.xml配置不当，存在Flash跨域攻击安全隐患。</li>
+</ul>
+<p><strong>修复建议：</strong></p>
+<ol>
+<li>修改flash安全策略，做严格限制，比如限制到网站当前域；</li>
+<li>找到相应目录下的crossdomain.xml文件，找到代码：cross-domain-policy allow-access-fromdomain=* cross-domain-policy改成：cross-domain-policy allow-access-from domain=改成你的网站地址 cross-domain-policy。</li>
+</ol>
+<h2 id="7-FCK编辑器泄漏漏洞"><a href="#7-FCK编辑器泄漏漏洞" class="headerlink" title="7.FCK编辑器泄漏漏洞"></a>7.FCK编辑器泄漏漏洞</h2><p><strong>漏洞描述：</strong><br>利用此漏洞攻击者可访问编辑器页面，上传图片。</p>
+<p><strong>漏洞危害：</strong><br>由于网站编辑器没有对管理员登录进行校验，导致任意用户访问编辑器；<br>利用编辑器漏洞查看网站全硬盘目录。</p>
+<p><strong>修复建议：</strong><br>对编辑器页面进行访问控制，禁止未授权访问，并升级fck编辑器版本。</p>
+<h2 id="8-FCKeditor任意文件上传漏洞"><a href="#8-FCKeditor任意文件上传漏洞" class="headerlink" title="8.FCKeditor任意文件上传漏洞"></a>8.FCKeditor任意文件上传漏洞</h2><p>FCKeditor版本低于或等于2.4.3时网站存在任意文件上传漏洞，可以利用该漏洞上传任意文件。</p>
+<p><strong>可带来如下危害：</strong></p>
+<ul>
+<li>由于目标网站未做上传格式的限制，导致网站、数据库和服务器有被入侵的风险；</li>
+<li>可能导致网站被攻击者控制，网站数据被窃取、网页被篡改等。</li>
+</ul>
+<p><strong>修复建议：</strong><br>设置FCKeditor编辑器相关页面在未授权的前提下无法正常访问，和限制FCK上传文件的格式；<br>下载并更新至FCKeditor的最新版本。</p>
+<h2 id="9-URL-Redirect漏洞"><a href="#9-URL-Redirect漏洞" class="headerlink" title="9.URL Redirect漏洞"></a>9.URL Redirect漏洞</h2><p>即URL重定向漏洞，通过将 URL 修改为指向恶意站点，攻击者可以成功发起网络钓鱼诈骗并窃取用户凭证。</p>
+<p><strong>可带来如下危害：</strong></p>
+<ul>
+<li>Web 应用程序执行指向外部站点的重定向；</li>
+<li>攻击者可能会使用 Web 服务器攻击其他站点，这将增加匿名性。</li>
+</ul>
+<p><strong>修复建议：</strong></p>
+<ol>
+<li>在网页代码中需要对用户输入的数据进行严格过滤；（代码层）</li>
+<li>部署Web应用防火墙。（设备层）</li>
+</ol>
+<h2 id="10-文件上传漏洞"><a href="#10-文件上传漏洞" class="headerlink" title="10.文件上传漏洞"></a>10.文件上传漏洞</h2><p>网站存在任意文件上传漏洞，文件上传功能没有进行格式限制，容易被黑客利用上传恶意脚本文件。</p>
+<p><strong>可带来如下危害：</strong></p>
+<ul>
+<li>攻击者可通过此漏洞上传恶意脚本文件，对服务器的正常运行造成安全威胁；</li>
+<li>攻击者可上传可执行的WebShell（如php、jsp、asp类型的木马病毒），或者利用目录跳转上传gif、html、config文件，覆盖原有的系统文件，到达获取系统权限的目的。</li>
+</ul>
+<p><strong>修复建议：</strong></p>
+<ol>
+<li>对上传文件格式进行严格校验及安全扫描，防止上传恶意脚本文件；</li>
+<li>设置权限限制，禁止上传目录的执行权限；</li>
+<li>严格限制可上传的文件类型；</li>
+<li>严格限制上传的文件路径。</li>
+<li>文件扩展名服务端白名单校验。</li>
+<li>文件内容服务端校验。</li>
+<li>上传文件重命名。</li>
+<li>隐藏上传文件路径。</li>
+</ol>
+<h2 id="11-后台弱口令漏洞"><a href="#11-后台弱口令漏洞" class="headerlink" title="11.后台弱口令漏洞"></a>11.后台弱口令漏洞</h2><p>网站管理后台用户名密码较为简单或为默认，易被黑客利用。</p>
+<p><strong>可带来如下危害：</strong></p>
+<ul>
+<li>攻击者利用弱口令登录网站管理后台，可任意增删文章等造成负面影响；</li>
+<li>攻击者可进一步查看网站信息，获取服务器权限，导致局域网(内网)被入侵。</li>
+</ul>
+<p><strong>修复建议：</strong></p>
+<ol>
+<li>对管理后台进行访问控制，修改后台弱口令，加强口令强度并定期修改。</li>
+<li>增加验证机制，防爆破机制，限制ip＋cookie访问次数。</li>
+</ol>
+<h2 id="12-敏感信息泄露"><a href="#12-敏感信息泄露" class="headerlink" title="12.敏感信息泄露"></a>12.敏感信息泄露</h2><p>由于网站运维人员疏忽，存放敏感信息的文件被泄露或由于网站运行出错导致敏感信息泄露。</p>
+<p><strong>可带来如下危害：</strong></p>
+<ul>
+<li>攻击者可直接下载用户的相关信息，包括网站的绝对路径、用户的登录名、密码、真实姓名、身份证号、电话号码、邮箱、QQ号等；</li>
+<li>攻击者通过构造特殊URL地址，触发系统web应用程序报错，在回显内容中，获取网站敏感信息；</li>
+<li>攻击者利用泄漏的敏感信息，获取网站服务器web路径，为进一步攻击提供帮助。</li>
+</ul>
+<p><strong>修复建议：</strong></p>
+<ol>
+<li>对网站错误信息进行统一返回，模糊化处理；</li>
+<li>对存放敏感信息的文件进行加密并妥善储存，避免泄漏敏感信息。</li>
+</ol>
+<h2 id="13-未加密登录请求漏洞"><a href="#13-未加密登录请求漏洞" class="headerlink" title="13.未加密登录请求漏洞"></a>13.未加密登录请求漏洞</h2><p>网站对用户登录认证信息未进行加密，敏感信息以明文形式进行传送，易在传输过程中被获取。</p>
+<p><strong>可带来如下危害：</strong></p>
+<ul>
+<li>易造成用户敏感信息泄露与篡改。</li>
+</ul>
+<p><strong>修复建议：</strong><br>建议通过加密连接（如SSL）方式进行敏感信息的传送。</p>
+<h2 id="14-后台口令暴力破解"><a href="#14-后台口令暴力破解" class="headerlink" title="14.后台口令暴力破解"></a>14.后台口令暴力破解</h2><p>由于网站管理后台系统登录无验证码校验，可导致后台用户名密码被暴力破解。</p>
+<p><strong>可带来如下危害：</strong></p>
+<ul>
+<li>攻击者可利用该漏洞无限次提交用户名密码，从而可以暴力破解后台用户名及密码；</li>
+<li>暴力破解后登录其中一个帐号可进管理后台，攻击者登录网站后台任意增删文章等造成负面影响；</li>
+<li>攻击者可进一步登陆后台查看网站信息、上传恶意脚本文件，获取服务器权限，导致局域网(内网)被入侵。</li>
+</ul>
+<p><strong>修复建议：</strong></p>
+<ol>
+<li>对该页面进行访问控制，禁止外网IP或非法IP访问后台页面，并增加验证码校验，加强帐号锁定机制。</li>
+<li>增加ip＋cookie配置方式限制访问频率。</li>
+</ol>
+<h2 id="15-跨站请求伪造"><a href="#15-跨站请求伪造" class="headerlink" title="15.跨站请求伪造"></a>15.跨站请求伪造</h2><p>跨站请求伪造，即CSRF，攻击者通过伪造来自受信任用户的请求，达到增加、删除、篡改网站内容的目的。</p>
+<p><strong>可带来的危害：</strong><br>攻击者冒充用户/管理员，伪造请求，进行篡改、转帐、改密码、发邮件等非法操作。</p>
+<p><strong>修复建议：</strong></p>
+<ol>
+<li>过滤用户输入，不允许发布含有站内操作URL的链接；</li>
+<li>改良站内 API 的设计，关键操作使用验证码,只接受 POST 请求，GET请求应该只浏览而不改变服务器端资源；</li>
+<li>对于web站点，将持久化的授权方法（例如cookie或者HTTP授权）切换为瞬时的授权方法（在每个form中提供隐藏field）；</li>
+<li>在浏览其它站点前登出站点或者在浏览器会话结束后清理浏览器的cookie。</li>
+</ol>
+<h2 id="16-Unicode-编码转换漏洞"><a href="#16-Unicode-编码转换漏洞" class="headerlink" title="16.Unicode 编码转换漏洞"></a>16.Unicode 编码转换漏洞</h2><p>漏洞等级：中危<br>该漏洞由于Unicode在编码转换过程中会忽略某些字符，导致攻击者可插入该字符绕过安全设备的检测。</p>
+<p><strong>可带来如下危害：</strong><br>黑客可通过插入特殊字符，可拆分攻击的关键词，绕过安全设备的检测。</p>
+<p><strong>修复建议：</strong></p>
+<ol>
+<li>修改中间件，过滤特殊字符。</li>
+<li>部署Web应用防火墙</li>
+</ol>
+<h2 id="17-发生内部错误"><a href="#17-发生内部错误" class="headerlink" title="17.发生内部错误"></a>17.发生内部错误</h2><p>漏洞描述：<br>500 Internal Server Error。</p>
+<p><strong>漏洞危害：</strong><br>攻击者向服务器提交精心构造的恶意数据后，有可能导致服务器出现内部错误、服务器宕机或数据库错乱。</p>
+<p><strong>修复建议：</strong></p>
+<ol>
+<li>严格过滤用户输入的数据。</li>
+<li>服务器错误统一模糊处理，或者跳转到首页／404页面。</li>
+</ol>
+<h2 id="18-SVN源代码泄漏"><a href="#18-SVN源代码泄漏" class="headerlink" title="18.SVN源代码泄漏"></a>18.SVN源代码泄漏</h2><p>由于目标网站没有及时清除SVN服务器连接时的残留信息，导致存在此漏洞。</p>
+<p><strong>可带来如下危害：</strong></p>
+<ul>
+<li>攻击者可利用该漏洞下载网站的源代码，获得数据库的连接密码等敏感信息；</li>
+<li>攻击者可通过源代码分析出新的系统漏洞，从而进一步入侵系统。</li>
+</ul>
+<p><strong>修复建议：</strong><br>删除指定SVN生成的各种文件，如“/.svn/entries”等。</p>
+<h2 id="19-旁站攻击漏洞"><a href="#19-旁站攻击漏洞" class="headerlink" title="19.旁站攻击漏洞"></a>19.旁站攻击漏洞</h2><p>多家网站在同一台服务器上，因一个网站存在致命高危漏洞，导致整台服务器被入侵。</p>
+<p><strong>可带来如下危害：</strong><br>服务器上的所有网站均可被获得控制权限，攻击者可利用该漏洞登录网站后台任意增删文章等造成负面影响；<br>攻击者可通过旁站服务器漏洞进入网站内网对其他服务器进行进一步攻击。</p>
+<p><strong>修复建议：</strong></p>
+<ol>
+<li>修补同一台服务器上的其他网站漏洞；</li>
+<li>建议每个网站单独服务器运行。</li>
+</ol>
+<h2 id="20-后台登录页面绕过"><a href="#20-后台登录页面绕过" class="headerlink" title="20.后台登录页面绕过"></a>20.后台登录页面绕过</h2><p>越权操作，可直接通过访问后台地址进行访问，绕过登陆限制。</p>
+<p><strong>可带来如下危害：</strong><br>一旦入侵者发现后台url，便可进入后台页面，进行非法操作。</p>
+<p><strong>修复建议：</strong></p>
+<ol>
+<li>对后台所有url做好权限设置。</li>
+<li>禁止外网访问后台地址。</li>
+</ol>
+<h2 id="21-CVS-信息泄漏"><a href="#21-CVS-信息泄漏" class="headerlink" title="21.CVS 信息泄漏"></a>21.CVS 信息泄漏</h2><p><strong>漏洞描述：</strong><br>由于目标网站没有及时清除CVS服务器连接时的残留信息，导致存在此漏洞。</p>
+<p><strong>漏洞测试：</strong></p>
+<ul>
+<li>访问／cvs/等页面，若出现下图内容，则表示存在此漏洞。</li>
+<li>@前面是用户名 后面是服务器地址</li>
+</ul>
+<p><strong>漏洞危害：</strong></p>
+<ol>
+<li>攻击者可利用该漏洞下载网站的源代码，获得数据库的连接密码等敏感信息；</li>
+<li>攻击者可通过源代码分析出新的系统漏洞，从而进一步入侵系统。</li>
+</ol>
+<p><strong>修复建议：</strong><br>删除指定CVS生成的各种文件，如“/CVS/Root”等。</p>
+<h2 id="22-短文件名泄漏漏洞"><a href="#22-短文件名泄漏漏洞" class="headerlink" title="22.短文件名泄漏漏洞"></a>22.短文件名泄漏漏洞</h2><p>漏洞等级：中危</p>
+<p><strong>漏洞描述：</strong><br>该漏洞由于Windows处理较长文件名时为方便使用较短的文件名代替，攻击者可利用该漏洞尝试获取网站服务器下的文件名。</p>
+<p><strong>漏洞危害：</strong><br>黑客可通过该漏洞尝试获取网站服务器下存放文件的文件名，达到获取更多信息来入侵服务器的目的。</p>
+<p><strong>修复建议：</strong><br>修改Windows配置，关闭短文件名功能。<br>部署Web应用防火墙，防止攻击者批量尝试。</p>
+<h2 id="23-命令执行漏洞"><a href="#23-命令执行漏洞" class="headerlink" title="23.命令执行漏洞"></a>23.命令执行漏洞</h2><p>风险等级：高危</p>
+<p><strong>漏洞描述：</strong><br>命令执行漏洞是指代码未对用户可控参数做过滤，导致直接带入执行命令的代码中，对恶意构造的语句，可被用来执行任意命令。</p>
+<p><strong>漏洞危害：</strong><br>黑客可在服务器上执行任意命令，写入后门，从而入侵服务器，获取服务器的管理员权限，危害巨大。</p>
+<p><strong>修复建议：</strong><br>严格过滤用户输入的数据，禁止执行系统命令</p>
+<h2 id="24-文件包含漏洞"><a href="#24-文件包含漏洞" class="headerlink" title="24.文件包含漏洞"></a>24.文件包含漏洞</h2><p><strong>漏洞描述：</strong><br>文件包含漏洞多数情况出现在PHP中，当然jsp中也存在，文件包含分为本地包含与远程包含。</p>
+<p><strong>漏洞危害：</strong><br>1.绕过WAF上传木马文件<br>2.加载有害的远程内容，影响程序运行。</p>
+<p><strong>漏洞修复：</strong></p>
+<ol>
+<li>关闭allow_url_fopen</li>
+<li>避免使用include参数</li>
+<li>使用web检测文件内容</li>
+</ol>
+<h2 id="25-验证机制缺陷漏洞"><a href="#25-验证机制缺陷漏洞" class="headerlink" title="25.验证机制缺陷漏洞"></a>25.验证机制缺陷漏洞</h2><p>风险等级：中危</p>
+<p><strong>漏洞描述：</strong><br>由于网站管理后台系统登录无验证码校验，可导致后台用户名密码被暴力破解。</p>
+<p><strong>漏洞危害：</strong></p>
+<ol>
+<li>攻击者可利用该漏洞无限次提交用户名密码，从而可以暴力破解后台用户名及密码；</li>
+<li>暴力破解后登录其中一个帐号可进管理后台，攻击者登录网站后台任意增删文章等造成负面影响；</li>
+<li>攻击者可进一步登陆后台查看网站信息、上传恶意脚本文件，获取服务器权限，导致局域网(内网)被入侵。</li>
+</ol>
+<p><strong>修复建议：</strong><br>对该页面进行访问控制，禁止外网IP或非法IP访问后台页面，并增加验证码校验，加强帐号锁定机制。</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2019/12/31/WEB应用漏洞及修复汇总/">https://yinwc.github.io/2019/12/31/WEB应用漏洞及修复汇总/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2019/12/31/WEB应用漏洞及修复汇总/">December 31st 2019, 8:37:47 pm</a>
+            <p>版权声明: </p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2020/01/03/Java代码审计/" title= Java代码审计 >
+                    <div class="nextTitle">Java代码审计</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/12/15/Python3爬虫知识梳理/" title= Python3爬虫知识梳理 >
+                    <div class="prevTitle">Python3爬虫知识梳理</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC和WAP自适应版-->
+
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:V1ZkRA@126.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/YinWC" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-SQL注入"><span class="toc-number">1.</span> <span class="toc-text">1.SQL注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-目录遍历"><span class="toc-number">2.</span> <span class="toc-text">2.目录遍历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-跨站脚本"><span class="toc-number">3.</span> <span class="toc-text">3.跨站脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-未过滤的HTML代码漏洞"><span class="toc-number">4.</span> <span class="toc-text">4.未过滤的HTML代码漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-数据库运行出错"><span class="toc-number">5.</span> <span class="toc-text">5.数据库运行出错</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Flash安全配置缺陷漏洞"><span class="toc-number">6.</span> <span class="toc-text">6.Flash安全配置缺陷漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-FCK编辑器泄漏漏洞"><span class="toc-number">7.</span> <span class="toc-text">7.FCK编辑器泄漏漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-FCKeditor任意文件上传漏洞"><span class="toc-number">8.</span> <span class="toc-text">8.FCKeditor任意文件上传漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-URL-Redirect漏洞"><span class="toc-number">9.</span> <span class="toc-text">9.URL Redirect漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-文件上传漏洞"><span class="toc-number">10.</span> <span class="toc-text">10.文件上传漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-后台弱口令漏洞"><span class="toc-number">11.</span> <span class="toc-text">11.后台弱口令漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-敏感信息泄露"><span class="toc-number">12.</span> <span class="toc-text">12.敏感信息泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-未加密登录请求漏洞"><span class="toc-number">13.</span> <span class="toc-text">13.未加密登录请求漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-后台口令暴力破解"><span class="toc-number">14.</span> <span class="toc-text">14.后台口令暴力破解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15-跨站请求伪造"><span class="toc-number">15.</span> <span class="toc-text">15.跨站请求伪造</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16-Unicode-编码转换漏洞"><span class="toc-number">16.</span> <span class="toc-text">16.Unicode 编码转换漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#17-发生内部错误"><span class="toc-number">17.</span> <span class="toc-text">17.发生内部错误</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#18-SVN源代码泄漏"><span class="toc-number">18.</span> <span class="toc-text">18.SVN源代码泄漏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#19-旁站攻击漏洞"><span class="toc-number">19.</span> <span class="toc-text">19.旁站攻击漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#20-后台登录页面绕过"><span class="toc-number">20.</span> <span class="toc-text">20.后台登录页面绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#21-CVS-信息泄漏"><span class="toc-number">21.</span> <span class="toc-text">21.CVS 信息泄漏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#22-短文件名泄漏漏洞"><span class="toc-number">22.</span> <span class="toc-text">22.短文件名泄漏漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#23-命令执行漏洞"><span class="toc-number">23.</span> <span class="toc-text">23.命令执行漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#24-文件包含漏洞"><span class="toc-number">24.</span> <span class="toc-text">24.文件包含漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#25-验证机制缺陷漏洞"><span class="toc-number">25.</span> <span class="toc-text">25.验证机制缺陷漏洞</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 91
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2020/01/21/应急响应笔记之Linux篇/" >应急响应笔记之Linux篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/2020/01/17/lvyecms后台getshell/" >lvyecms后台getshell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2020/01/03/Java代码审计/" >Java代码审计</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2019/12/31/WEB应用漏洞及修复汇总/" >WEB应用漏洞及修复</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2019/12/15/Python3爬虫知识梳理/" >Python3爬虫知识梳理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2019/11/06/Apache-Solr-Velocity模板注入RCE漏洞复现/" >Apache Solr Velocity模板注入RCE漏洞复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2019/10/24/甲方安全/" >甲方安全建设</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/08</span><a class="archive-post-title" href= "/2019/10/08/面试算法/" >常见算法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/2019/09/29/zabbix漏洞总结/" >Zabbix漏洞总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/26</span><a class="archive-post-title" href= "/2019/09/26/ByteCTF/" >ByteCTF2019</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2019/09/19/IAST安全测试技术/" >应用安全测试技术</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/2019/09/02/WebminRCE复现/" >WebminRCE复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2019/08/17/SUCTF2019/" >SUCTF2019</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2019/08/14/内网渗透与后渗透/" >内网渗透</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/03</span><a class="archive-post-title" href= "/2019/08/03/De1CTF/" >De1CTF_WriteUp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2019/07/25/Anaconda学习笔记/" >Anaconda学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/06</span><a class="archive-post-title" href= "/2019/07/06/Django学习笔记/" >Django学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/2019/06/18/App渗透测试/" >App渗透测试</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/2019/06/15/SDL安全开发流程/" >SDL安全开发流程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/02</span><a class="archive-post-title" href= "/2019/06/02/2019国赛华东北赛区线下/" >2019国赛华东北赛区线下</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href= "/2019/05/21/AWS搭建SS/" >AWS搭建SS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/2019/05/15/nps的学习/" >内网渗透--nps的学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span><a class="archive-post-title" href= "/2019/05/06/docker/" >docker的学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/异或/" >深入理解异或操作</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span><a class="archive-post-title" href= "/2019/04/16/MySQL提权/" >MySQL提权</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2019/04/15/DDCTF2019/" >DDCTF2019</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/20</span><a class="archive-post-title" href= "/2019/03/20/ACM练习/" >LintCode代码练习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2019/03/18/msf常用操作/" >MSF常用操作</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/03/07/反弹shell/" >Linux下反弹shell的方法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/27</span><a class="archive-post-title" href= "/2019/02/27/Ddos分布式拒绝服务攻击/" >Ddos分布式拒绝服务攻击</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2019/02/18/python爬虫/" >python爬虫</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href= "/2019/02/15/python爬虫实战/" >python爬虫实战</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/02</span><a class="archive-post-title" href= "/2019/02/02/安全从业人员的职业规划/" >安全从业人员的职业规划</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/28</span><a class="archive-post-title" href= "/2019/01/28/渗透测试之信息收集/" >渗透测试之信息收集</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/26</span><a class="archive-post-title" href= "/2019/01/26/反向代理/" >反向代理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/16</span><a class="archive-post-title" href= "/2019/01/16/重装系统/" >使用U盘重装系统</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2018/12/31/Ubuntu16-04本地提权漏洞-CVE-2017-16995/" >Ubuntu16.04本地提权漏洞(CVE-2017-16995)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2018/12/25/安恒杯12月月赛/" >安恒杯12月月赛</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/10</span><a class="archive-post-title" href= "/2018/12/10/CVE-2017-12617远程代码执行漏洞/" >CVE-2017-12617远程代码执行漏洞</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href= "/2018/12/06/CTF常用脚本整理/" >CTF常用脚本整理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/03</span><a class="archive-post-title" href= "/2018/12/03/Git-learn/" >Git learn</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/24</span><a class="archive-post-title" href= "/2018/11/24/安恒11月月赛/" >安恒11月月赛Write-up</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2018/11/19/XXE漏洞学习/" >XXE漏洞总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/16</span><a class="archive-post-title" href= "/2018/11/16/SSRF/" >SSRF总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/vulhub漏洞复现/" >vulhub漏洞复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/MISC总结/" >MISC总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href= "/2018/11/14/CRC32碰撞/" >CRC32碰撞</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/2018/11/10/N1CTF2018题目复现/" >N1CTF2018题目复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/不包含数字和字母的webshell/" >不包含数字和字母的webshell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/python沙盒逃逸/" >python沙箱逃逸</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2018/11/03/公钥与私钥加密/" >理解公钥与私钥</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/29</span><a class="archive-post-title" href= "/2018/10/29/WEB安全攻防渗透测试实战指南脑图/" >WEB安全攻防渗透测试实战指南脑图</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/17</span><a class="archive-post-title" href= "/2018/10/17/渗透测试流程/" >渗透测试流程总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2018/10/14/windows-应急流程及实战演练/" >windows 应急流程及实战演练</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2018/10/01/面试/" >Web安全知识整理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/2018/09/29/msf/" >Metasploit 渗透练习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/28</span><a class="archive-post-title" href= "/2018/09/28/Dmsj/" >代码审计练习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2018/09/16/yilinbo/" >易霖博杯 赛后总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/09</span><a class="archive-post-title" href= "/2018/09/09/jiaoben/" >一些脚本整理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/09</span><a class="archive-post-title" href= "/2018/09/09/burpsuite/" >渗透测试神器BurpSuite pro v2.0beta 使用教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/31</span><a class="archive-post-title" href= "/2018/08/31/wangdingbei/" >网鼎杯题目整理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/27</span><a class="archive-post-title" href= "/2018/08/27/luyoubiao/" >配置路由表</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2018/08/08/SJU-game/" >SJU集训结业&淘汰赛 Write Up</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2018/08/06/网络安全学习/" >网络安全学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/RCTF-2018/" >RCTF-2018 cpushop</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/31</span><a class="archive-post-title" href= "/2018/07/31/Gopher/" >从一道CTF题看gopher协议的攻击面</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/30</span><a class="archive-post-title" href= "/2018/07/30/dedecms/" >dedecms后台getshell漏洞还原分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/30</span><a class="archive-post-title" href= "/2018/07/30/Padding-Oracle-Attack/" >Padding Oracle Attack</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/27</span><a class="archive-post-title" href= "/2018/07/27/ubuntumysql/" >Ubuntu 18.04 mysql的使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/26</span><a class="archive-post-title" href= "/2018/07/26/daimashenji/" >PHP代码审计练习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/26</span><a class="archive-post-title" href= "/2018/07/26/hydra/" >Hydra 爆破神器的使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2018/07/25/dianfengjike/" >巅峰极客第一场web复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2018/07/25/onethinkcms/" >OneThink/Thinkphp 的缓存getshell漏洞</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2018/07/12/渗透基础/" >渗透基础</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/11</span><a class="archive-post-title" href= "/2018/07/11/gameofctf/" >Game-of-Thrones-CTF-1.0靶机实战演练</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span><a class="archive-post-title" href= "/2018/07/05/sqlmap/" >Sqlmap 使用总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/mozhe/" >墨者学院平台修炼</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/2018/07/02/iis文件解析漏洞/" >iis文件解析漏洞</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2018/06/14/mimikatz/" >mimikatz内网渗透</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/06</span><a class="archive-post-title" href= "/2018/06/06/wireshark/" >Wireshark-流量分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/03</span><a class="archive-post-title" href= "/2018/06/03/phpmagic/" >反序列化漏洞</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/git/" >git learn</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/markdown语法总结/" >Markdown语法总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/2018/05/29/yuanmaxielou/" >Web源码泄露总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/28</span><a class="archive-post-title" href= "/2018/05/28/python/" >学习python中遇到的问题及总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/rsa/" >Crypto_RSA算法总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/16</span><a class="archive-post-title" href= "/2018/05/16/problem/" >日常学习中问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href= "/2018/03/24/2018-QWB/" >2018 QWB 题目整理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span><a class="archive-post-title" href= "/2018/02/14/blog/" >搭博客的经历</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
+    
+        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="代码审计"><span class="iconfont-archer">&#xe606;</span>代码审计</span>
+    
+        <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
+    
+        <span class="sidebar-tag-name" data-tags="安全开发"><span class="iconfont-archer">&#xe606;</span>安全开发</span>
+    
+        <span class="sidebar-tag-name" data-tags="Record,Problem"><span class="iconfont-archer">&#xe606;</span>Record,Problem</span>
+    
+        <span class="sidebar-tag-name" data-tags="problem"><span class="iconfont-archer">&#xe606;</span>problem</span>
+    
+        <span class="sidebar-tag-name" data-tags="应急响应"><span class="iconfont-archer">&#xe606;</span>应急响应</span>
+    
+        <span class="sidebar-tag-name" data-tags="Crypto"><span class="iconfont-archer">&#xe606;</span>Crypto</span>
+    
+        <span class="sidebar-tag-name" data-tags="安全建设"><span class="iconfont-archer">&#xe606;</span>安全建设</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="blog"><span class="iconfont-archer">&#xe60a;</span>blog</span>
+    
+        <span class="sidebar-category-name" data-categories="漏洞总结"><span class="iconfont-archer">&#xe60a;</span>漏洞总结</span>
+    
+        <span class="sidebar-category-name" data-categories="learn"><span class="iconfont-archer">&#xe60a;</span>learn</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Ywc"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
