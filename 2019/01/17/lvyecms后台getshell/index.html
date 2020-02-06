@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>lvyecms后台getshell · Ywc&#39;s blog</title>
+    <title>某cms后台getshell · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -210,7 +210,7 @@
                 <a href="/" >Ywc&#39;s blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">lvyecms后台getshell</a>
+                <a href="#" class="post-name">某cms后台getshell</a>
             </div>
     </div>
     
@@ -242,7 +242,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            lvyecms后台getshell
+            某cms后台getshell
             <!-- 404 -->
             
         </h1>
@@ -267,12 +267,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,091</span> / Reading time: <span class="post-count">5 min</span></span>
+                        <span>Word count: <span class="post-count">1,076</span> / Reading time: <span class="post-count">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2020/01/17</span>
+                    <span class="post-intro-time">2019/01/17</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -396,24 +396,23 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p><strong>本文首发于先知社区：<a href="https://xz.aliyun.com/t/7101" target="_blank" rel="noopener">https://xz.aliyun.com/t/7101</a></strong></p>
-<h2 id="准备审计"><a href="#准备审计" class="headerlink" title="准备审计"></a>准备审计</h2><p>码云上下载最新的lvyecms</p>
+        <h2 id="准备审计"><a href="#准备审计" class="headerlink" title="准备审计"></a>准备审计</h2><p>码云上下载最新的lvyecms</p>
 <p>地址:<a href="https://gitee.com/lvyecms/lvyecms?_from=gitee_searchs" target="_blank" rel="noopener">https://gitee.com/lvyecms/lvyecms?_from=gitee_searchs</a></p>
 <h2 id="审计开始"><a href="#审计开始" class="headerlink" title="审计开始"></a>审计开始</h2><p>首先看网站目录结构</p>
-<p><img src="/2020/01/17/lvyecms后台getshell/2.png" alt="lvyecms后台getshell"></p>
+<p><img src="/2019/01/17/lvyecms后台getshell/2.png" alt="lvyecms后台getshell"></p>
 <p>找到入口文件 index.php</p>
-<p><img src="/2020/01/17/lvyecms后台getshell/1.png" alt="lvyecms后台getshell"></p>
+<p><img src="/2019/01/17/lvyecms后台getshell/1.png" alt="lvyecms后台getshell"></p>
 <p><code>thinkphp3.2</code>风格,具体介绍见官方文档:<a href="http://document.thinkphp.cn/manual_3_2.html" target="_blank" rel="noopener">http://document.thinkphp.cn/manual_3_2.html</a></p>
 <p>进入<code>lvyecms/Application</code>目录，查看存在哪些模块</p>
-<p><img src="/2020/01/17/lvyecms后台getshell/3.png" alt="lvyecms后台getshell"></p>
+<p><img src="/2019/01/17/lvyecms后台getshell/3.png" alt="lvyecms后台getshell"></p>
 <p>一般进行代码审计时，先看前台代码，再看后台代码，但lvyecms都是需要后台权限的模块，所以不用管先后顺序，直接看<code>Template</code>模块</p>
-<p><img src="/2020/01/17/lvyecms后台getshell/4.png" alt="lvyecms后台getshell"></p>
+<p><img src="/2019/01/17/lvyecms后台getshell/4.png" alt="lvyecms后台getshell"></p>
 <p>审计<code>Template</code>模块代码，可以发现自定义页面</p>
-<p><img src="/2020/01/17/lvyecms后台getshell/5.png" alt="lvyecms后台getshell"></p>
+<p><img src="/2019/01/17/lvyecms后台getshell/5.png" alt="lvyecms后台getshell"></p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//增加自定义页面 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (IS_POST) &#123;</span><br><span class="line">            $model = D(<span class="string">'Template/Customtemp'</span>);</span><br><span class="line">            <span class="keyword">if</span> ($model-&gt;create($_POST)) &#123;</span><br><span class="line">                $tempid = $model-&gt;add();</span><br><span class="line">                <span class="keyword">if</span> ($tempid) &#123;</span><br><span class="line">                    <span class="keyword">$this</span>-&gt;Html-&gt;createHtml((int) $tempid);</span><br><span class="line">                    <span class="keyword">$this</span>-&gt;success(<span class="string">"添加自定义页面成功！"</span>, U(<span class="string">'Custompage/index'</span>));</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">$this</span>-&gt;error(<span class="string">"添加自定义页面失败！"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">$this</span>-&gt;error($model-&gt;getError());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;display();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>先将数据写进数据库里，然后调用<code>createHtml</code>函数，下面几个自定义页面都是这样的逻辑。</p>
 <p>跟进<code>createHtml</code>函数，在跟进<code>createHtml</code>函数之前，先要知道<code>$this-&gt;Html</code>这个方法是从哪里来的，跟进这个控制器的父类(Common\Controller\AdminBase):</p>
-<p><img src="/2020/01/17/lvyecms后台getshell/6.png" alt="lvyecms后台getshell"></p>
+<p><img src="/2019/01/17/lvyecms后台getshell/6.png" alt="lvyecms后台getshell"></p>
 <p>发现父类中也没有定义该函数，跟进父类的父类查看</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LvyeCMS</span> <span class="keyword">extends</span> \<span class="title">Think</span>\<span class="title">Controller</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//缓存</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> $Cache = <span class="keyword">array</span>();</span><br><span class="line">    <span class="comment">//当前对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> $_app;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span><span class="params">($name)</span> </span>&#123;</span><br><span class="line">        $parent = <span class="keyword">parent</span>::__get($name);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">empty</span>($parent)) &#123;</span><br><span class="line">            <span class="keyword">return</span> Components::getInstance()-&gt;$name;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> $parent;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">parent</span>::__construct();</span><br><span class="line">        <span class="keyword">self</span>::$_app = <span class="keyword">$this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里没有定义，但定义了<code>__get()</code>魔术方法，魔术方法中先调用了父类的<code>__get</code>的魔术方法，get方法只是获取模板显示变量的值，继续向下审计，进入下面的代码块<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">($name=<span class="string">''</span>)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;view-&gt;get($name);      </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span><span class="params">($name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;get($name);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
@@ -424,17 +423,17 @@ height:50vh;
 <p>回到控制器类中，查看调用的方法<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (IS_POST) &#123;</span><br><span class="line">            $model = D(<span class="string">'Template/Customtemp'</span>);</span><br><span class="line">            <span class="keyword">if</span> ($model-&gt;create($_POST)) &#123;</span><br><span class="line">                $tempid = $model-&gt;add();</span><br><span class="line">                <span class="keyword">if</span> ($tempid) &#123;</span><br><span class="line">                    <span class="keyword">$this</span>-&gt;Html-&gt;createHtml((int) $tempid);</span><br><span class="line">                    <span class="keyword">$this</span>-&gt;success(<span class="string">"添加自定义页面成功！"</span>, U(<span class="string">'Custompage/index'</span>));</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">$this</span>-&gt;error(<span class="string">"添加自定义页面失败！"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">$this</span>-&gt;error($model-&gt;getError());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;display();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure></p>
 <p>得知调用的是<code>createHtml</code>这个方法<br>到Html.class.php文件中，查看此方法：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">createHtml</span><span class="params">($data = <span class="string">''</span>)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">empty</span>($data)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!<span class="keyword">empty</span>(<span class="keyword">$this</span>-&gt;data)) &#123;</span><br><span class="line">                $data = <span class="keyword">$this</span>-&gt;data;</span><br><span class="line">                <span class="comment">// 重置数据</span></span><br><span class="line">                <span class="keyword">$this</span>-&gt;data = <span class="keyword">array</span>();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">$this</span>-&gt;error = <span class="string">'没有数据'</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (is_integer($data)) &#123;</span><br><span class="line">            $data = M(<span class="string">'Customtemp'</span>)-&gt;where(<span class="keyword">array</span>(<span class="string">'tempid'</span> =&gt; $data))-&gt;find();</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">empty</span>($data)) &#123;</span><br><span class="line">                <span class="keyword">$this</span>-&gt;error = <span class="string">'没有数据'</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//模板内容</span></span><br><span class="line">        $temptext = $data[<span class="string">'temptext'</span>];</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">empty</span>($temptext)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//初始化一些模板分配变量</span></span><br><span class="line">        <span class="keyword">$this</span>-&gt;assignInitialize();</span><br><span class="line">        <span class="comment">//生成文件名，包含后缀</span></span><br><span class="line">        $filename = $data[<span class="string">'tempname'</span>];</span><br><span class="line">        <span class="comment">//生成路径</span></span><br><span class="line">        $htmlpath = SITE_PATH . $data[<span class="string">'temppath'</span>] . $filename;</span><br><span class="line">        <span class="comment">// 页面缓存</span></span><br><span class="line">        ob_start();</span><br><span class="line">        ob_implicit_flush(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">parent</span>::show($temptext);</span><br><span class="line">        <span class="comment">// 获取并清空缓存</span></span><br><span class="line">        $content = ob_get_clean();</span><br><span class="line">        <span class="comment">//检查目录是否存在</span></span><br><span class="line">        <span class="keyword">if</span> (!is_dir(dirname($htmlpath))) &#123;</span><br><span class="line">            <span class="comment">// 如果静态目录不存在 则创建</span></span><br><span class="line">            mkdir(dirname($htmlpath), <span class="number">0777</span>, <span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//写入文件</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">false</span> === file_put_contents($htmlpath, $content)) &#123;</span><br><span class="line">            E(<span class="string">"自定义页面生成失败：&#123;$htmlpath&#125;"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ....</span><br></pre></td></tr></table></figure></p>
 <p>从数据库中读取文件信息，直接生成，没有过滤。</p>
-<h2 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h2><p><img src="/2020/01/17/lvyecms后台getshell/7.png" alt="lvyecms后台getshell"></p>
-<p><img src="/2020/01/17/lvyecms后台getshell/8.png" alt="lvyecms后台getshell"></p>
-<p><img src="/2020/01/17/lvyecms后台getshell/9.png" alt="lvyecms后台getshell"></p>
+<h2 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h2><p><img src="/2019/01/17/lvyecms后台getshell/7.png" alt="lvyecms后台getshell"></p>
+<p><img src="/2019/01/17/lvyecms后台getshell/8.png" alt="lvyecms后台getshell"></p>
+<p><img src="/2019/01/17/lvyecms后台getshell/9.png" alt="lvyecms后台getshell"></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2020/01/17/lvyecms后台getshell/">https://yinwc.github.io/2020/01/17/lvyecms后台getshell/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2020/01/17/lvyecms后台getshell/">January 17th 2020, 10:44:16 am</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2019/01/17/lvyecms后台getshell/">https://yinwc.github.io/2019/01/17/lvyecms后台getshell/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2019/01/17/lvyecms后台getshell/">January 17th 2019, 10:44:16 am</a>
             <p>版权声明: </p>
         </div>
     
@@ -443,16 +442,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2020/01/21/应急响应笔记之Linux篇/" title= 应急响应笔记之Linux篇 >
-                    <div class="nextTitle">应急响应笔记之Linux篇</div>
+                <a href= "/2019/01/26/反向代理/" title= 反向代理 >
+                    <div class="nextTitle">反向代理</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2020/01/03/Java代码审计/" title= Java代码审计 >
-                    <div class="prevTitle">Java代码审计</div>
+                <a href= "/2019/01/16/重装系统/" title= 使用U盘重装系统 >
+                    <div class="prevTitle">使用U盘重装系统</div>
                 </a>
             
         </li>
@@ -1993,6 +1992,8 @@ top:50vh;
     
     
     
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 92
@@ -2012,11 +2013,6 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2020/01/21/应急响应笔记之Linux篇/" >应急响应笔记之Linux篇</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/2020/01/17/lvyecms后台getshell/" >lvyecms后台getshell</a>
         </li>
     
     
@@ -2196,6 +2192,11 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">01/26</span><a class="archive-post-title" href= "/2019/01/26/反向代理/" >反向代理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/2019/01/17/lvyecms后台getshell/" >某cms后台getshell</a>
         </li>
     
     
