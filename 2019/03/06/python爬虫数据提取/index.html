@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Ywc&#39;s blog</title>
+    <title>python爬虫数据提取 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -70,6 +70,8 @@
 
     <link rel="preload" href="/css/style.css?v=201807017_1502" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="/css/mobile.css?v=20180709" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -194,12 +196,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Ywc&#39;s blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">python爬虫数据提取</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>Ywc's blog</a>
 </header>
@@ -213,24 +226,74 @@
 
 
 
+height:50vh;
+
 >
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/blog.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            python爬虫数据提取
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count">1,100</span> / Reading time: <span class="post-count">4 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/03/06</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -331,68 +394,85 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/11/20/提权笔记/" >
-            
-                <span>提权笔记</span>
-        </a>
-        <div class="abstract-content">
-            记录,以防忘记。
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/11/20</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "渗透测试">渗透测试</a>
-    
-</div>
-            
-        </div>
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>内容一般分为两部分，<code>非结构化的数据</code> 和 <code>结构化的数据</code>。<br><code>非结构化数据</code>：先有数据，再有结构，比如文本、电话号码、邮箱地址（利用正则表达式处理）、HTML 文件（利用正则、XPath、CSS选择器）<br><code>结构化数据</code>：先有结构、再有数据，比如JSON（JSON Path）/XML (Xpath/正则等)</p>
+<p>不同类型的数据，需要采用不同的方式来处理。</p>
+<p>爬虫一共就四个主要步骤：</p>
+<ul>
+<li>明确目标 (要知道你准备在哪个范围或者网站去搜索)</li>
+<li>爬 (将所有的网站的内容全部爬下来)</li>
+<li>取 (去掉对我们没用处的数据)</li>
+<li>处理数据（按照我们想要的方式存储和使用）</li>
+</ul>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><blockquote>
+<p>正则表达式，又称规则表达式，通常被用来检索、替换那些符合某个模式(规则)的文本。<br>正则表达式是对字符串操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。</p>
+</blockquote>
+<p>在任何编程语言中都有正则表达式，JS、JAVA、C#等等多有，Python 自1.5版本起增加了re 模块，<code>re</code> 模块使 Python 语言拥有全部的正则表达式功能。</p>
+<p><strong>正则匹配的规则</strong></p>
+<p><img src="/2019/03/06/python爬虫数据提取/1.png" alt="python爬虫数据提取"></p>
+<h2 id="re模块使用步骤"><a href="#re模块使用步骤" class="headerlink" title="re模块使用步骤"></a>re模块使用步骤</h2><p>在 Python 中，可以使用内置的 <code>re</code> 模块来使用正则表达式</p>
+<p>正则表达式使用 对特殊字符进行转义，所以如果我们要使用原始字符串，只需加一个 <code>r</code> 前缀，示例：r’testt.tpython’</p>
+<p>re 模块的一般使用步骤如下：</p>
+<ul>
+<li>1.使用 <code>compile()</code> 函数将正则表达式的字符串形式编译为一个 Pattern 对象</li>
+<li>2.通过 <code>Pattern</code> 对象提供的一系列方法对文本进行匹配查找，获得匹配结果，一个 Match 对象。</li>
+<li>3.最后使用 <code>Match</code> 对象提供的属性和方法获得信息，根据需要进行其他的操作</li>
+</ul>
+<p>例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">str=<span class="string">"abcdefabcdef"</span>   <span class="comment">#待匹配的字符串</span></span><br><span class="line">m=re.compile(<span class="string">"a"</span>)    <span class="comment">#编译正则表达式，第一个参数是表达式字符串，第二个参数是标志位，比如re.I 匹配不对大小写敏感，re.S等等</span></span><br><span class="line">result=m.findall(str)</span><br><span class="line">print(result) <span class="comment">#输出["a","a"]</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">str=<span class="string">"a11b22c3"</span></span><br><span class="line">m=re.compile(<span class="string">"\d+"</span>)</span><br><span class="line">print(m.findall(str)) <span class="comment">#输出['11', '22', '3']</span></span><br></pre></td></tr></table></figure>
+<p><code>\d</code>匹配任何十进制数，它相当于类[0-9]，只返回一位数字<br><code>\d+</code>\d+如果需要匹配一位或者多位数的数字时用，返回多位数字</p>
+<p><code>compile()</code> 函数将正则表达式的字符串形式编译为一个 Pattern 对象,Pattern 对象提供的一系列方法对文本进行匹配查找,来罗列下方法：</p>
+<p><code>m.search</code>函数会在字符串内查找模式匹配,只要找到第一个匹配然后返回，如果字符串没有匹配，则返回None。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">str=<span class="string">"1oo1 tina is a good girl ,she is cool"</span></span><br><span class="line">m=re.compile(<span class="string">"[a-z]oo[a-z]"</span>)</span><br><span class="line">print(m.search(str)) <span class="comment">#&lt;_sre.SRE_Match object; span=(15, 19), match='good'&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>m.findall</code>遍历匹配，可以获取字符串中所有匹配的字符串，返回一个列表。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">str=<span class="string">"1oo1 tina is a good girl ,she is cool"</span></span><br><span class="line">m=re.compile(<span class="string">"[a-z]oo[a-z]"</span>)</span><br><span class="line">print(m.findall(str)) <span class="comment">#输出['good', 'cool']</span></span><br></pre></td></tr></table></figure></p>
+<p><code>m.match</code>决定RE是否在字符串刚开始的位置匹配<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">str=<span class="string">"aooz tina is a good girl ,she is cool"</span></span><br><span class="line">m=re.compile(<span class="string">"[a-z]oo[a-z]"</span>)</span><br><span class="line"><span class="comment">#str为待匹配的字符串，第一个参数是起始位置，第二个是字符串长度，从0开始，长度为6</span></span><br><span class="line">print(m.match(str,<span class="number">0</span>,<span class="number">6</span>)) <span class="comment">#&lt;_sre.SRE_Match object; span=(0, 4), match='aooz'&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>m.split()</code>按照能够匹配的子串将string分割后返回列表<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">str=<span class="string">"aa1bb2cc3dd4"</span></span><br><span class="line">m=re.compile(<span class="string">"\d+"</span>)</span><br><span class="line"><span class="comment"># split(string[, maxsplit])，maxsplit 用于指定最大分割次数，不指定将全部分割</span></span><br><span class="line"><span class="comment"># list=m.split(str) #输出['aa', 'bb', 'cc', 'dd', '']</span></span><br><span class="line">list=m.split(str,<span class="number">2</span>) <span class="comment">#输出['aa', 'bb', 'cc3dd4']</span></span><br><span class="line">print(list)</span><br></pre></td></tr></table></figure></p>
+<p><code>m.sub()</code>使用re替换string中每一个匹配的子串后返回替换后的字符串<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">str=<span class="string">"aa1bb2cc3dd4"</span></span><br><span class="line">m=re.compile(<span class="string">"\d+"</span>)</span><br><span class="line">result=m.sub(<span class="string">'*'</span>,str)</span><br><span class="line">print(result) <span class="comment">#输出aa*bb*cc*dd*</span></span><br></pre></td></tr></table></figure></p>
+
     </article>
+    <!-- license  -->
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/11/06/Apache-Solr-Velocity模板注入RCE漏洞复现/" >
-            
-                <span>Apache Solr Velocity模板注入RCE漏洞复现</span>
-        </a>
-        <div class="abstract-content">
-            Apache Solr Velocity模板注入RCE漏洞复现
+        <div class="license-wrapper">
+            <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
+            <p>原文链接: <a href="https://yinwc.github.io/2019/03/06/python爬虫数据提取/">https://yinwc.github.io/2019/03/06/python爬虫数据提取/</a>
+            <p>发表日期: <a href="https://yinwc.github.io/2019/03/06/python爬虫数据提取/">March 6th 2019, 2:33:21 pm</a>
+            <p>版权声明: </p>
         </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/11/06</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "漏洞">漏洞</a>
-    
-</div>
-            
-        </div>
-    </article>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2019/03/07/反弹shell/" title= Linux下反弹shell的方法 >
+                    <div class="nextTitle">Linux下反弹shell的方法</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/02/27/Ddos分布式拒绝服务攻击/" title= Ddos分布式拒绝服务攻击 >
+                    <div class="prevTitle">Ddos分布式拒绝服务攻击</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!--PC和WAP自适应版-->
+
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -469,6 +549,24 @@
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#正则表达式"><span class="toc-number">1.</span> <span class="toc-text">正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re模块使用步骤"><span class="toc-number">2.</span> <span class="toc-text">re模块使用步骤</span></a></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -2506,6 +2604,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
