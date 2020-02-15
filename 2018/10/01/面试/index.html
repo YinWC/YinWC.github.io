@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">9,709</span> / Reading time: <span class="post-count">35 min</span></span>
+                        <span>Word count: <span class="post-count">9,913</span> / Reading time: <span class="post-count">36 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -527,7 +527,8 @@ height:50vh;
 </ul>
 </li>
 </ul>
-<h1 id="常见漏洞"><a href="#常见漏洞" class="headerlink" title="常见漏洞"></a><font color="red">常见漏洞</font></h1><h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a><font color="blue">SQL注入</font></h2><h3 id="sql注入的原理、防御"><a href="#sql注入的原理、防御" class="headerlink" title="sql注入的原理、防御"></a>sql注入的原理、防御</h3><p>原理：当攻击者发送的sql语句被sql解释器执行，通过执行这些恶意语句欺骗数据库执行，导致数据库信息泄露。<br>防御：<br>1.使用预编译语句,绑定变量（PreparedStatement） <a href="https://blog.csdn.net/cjx529377/article/details/77413577" target="_blank" rel="noopener">复习文章</a><br>2.使用存储过程<br>3.检查数据类型<br>4.使用安全函数<code>mysql_real_escape_string()</code></p>
+<h1 id="常见漏洞"><a href="#常见漏洞" class="headerlink" title="常见漏洞"></a><font color="red">常见漏洞</font></h1><h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a><font color="blue">SQL注入</font></h2><h3 id="sql注入的原理、防御"><a href="#sql注入的原理、防御" class="headerlink" title="sql注入的原理、防御"></a>sql注入的原理、防御</h3><p>原理：当攻击者发送的sql语句被sql解释器执行，通过执行这些恶意语句欺骗数据库执行，导致数据库信息泄露。</p>
+<p>防御：<br>1.使用预编译语句,绑定变量（PreparedStatement） <a href="https://blog.csdn.net/cjx529377/article/details/77413577" target="_blank" rel="noopener">复习文章</a><br>2.使用存储过程<br>3.检查数据类型<br>4.使用安全函数<code>mysql_real_escape_string()</code></p>
 <h3 id="如何判断sql注入"><a href="#如何判断sql注入" class="headerlink" title="如何判断sql注入"></a>如何判断sql注入</h3><p>通过对其传入的可控参数进行简单的构造，通过服务端返回的内容来判断有无注入</p>
 <ul>
 <li>服务端返回错误形式<ul>
@@ -642,8 +643,10 @@ height:50vh;
 <ul>
 <li>CSRF 能够攻击成功的本质原因是重要操作的所有参数都可以被攻击者猜测得到。</li>
 <li>保持原参数不变，新增一个参数 Token，值是随机的，在实际应用中，Token 可以放在用户的 Session 中，或浏览器的 Cookies 中。</li>
-<li>Token 一定要足够随机。此外，Token 的目的不是为了防止重复提交，所以为了使用方便，可以允许在一个用户的有效生命周期内，在 Token 消耗掉之前都使用同一个 Token，但如果用户已经提交了表单，则这个 Token 已经消耗掉，应该重新生成 Token。<br>Token 还应注意其保密性，如果 Token 出现在 URL 中，则可能会通过 Referer 泄露，应尽量把 Token 放在表单中，把敏感操作由 GET 改为 POST，以表单或 AJAX 的形式提交，避免 Token 泄露。<h2 id="SSRF服务端请求伪造"><a href="#SSRF服务端请求伪造" class="headerlink" title="SSRF服务端请求伪造"></a><font color="blue">SSRF服务端请求伪造</font></h2><a href="https://yinwc.github.io/2018/11/16/SSRF/">这篇文章总结</a><h2 id="XXE防御、绕过"><a href="#XXE防御、绕过" class="headerlink" title="XXE防御、绕过"></a><font color="blue">XXE防御、绕过</font></h2><a href="https://yinwc.github.io/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/">XXE漏洞学习</a><br>XXE:XML外部实体注入<br><strong>防御</strong>：<br>1.使用开发语言提供的禁用外部实体的方法，即禁用外部实体。<br>PHP:<br><code>libxml_disable_entity_loader(true);</code></li>
+<li>Token 一定要足够随机。此外，Token 的目的不是为了防止重复提交，所以为了使用方便，可以允许在一个用户的有效生命周期内，在 Token 消耗掉之前都使用同一个 Token，但如果用户已经提交了表单，则这个 Token 已经消耗掉，应该重新生成 Token。<br>Token 还应注意其保密性，如果 Token 出现在 URL 中，则可能会通过 Referer 泄露，应尽量把 Token 放在表单中，把敏感操作由 GET 改为 POST，以表单或 AJAX 的形式提交，避免 Token 泄露。</li>
 </ul>
+<h2 id="SSRF服务端请求伪造"><a href="#SSRF服务端请求伪造" class="headerlink" title="SSRF服务端请求伪造"></a><font color="blue">SSRF服务端请求伪造</font></h2><p><a href="https://yinwc.github.io/2018/11/16/SSRF/">这篇文章总结</a></p>
+<h2 id="XXE防御、绕过"><a href="#XXE防御、绕过" class="headerlink" title="XXE防御、绕过"></a><font color="blue">XXE防御、绕过</font></h2><p><a href="https://yinwc.github.io/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/">XXE漏洞学习</a><br>XXE:XML外部实体注入<br><strong>防御</strong>：<br>1.使用开发语言提供的禁用外部实体的方法，即禁用外部实体。<br>PHP:<br><code>libxml_disable_entity_loader(true);</code></p>
 <p>JAVA:<br><code>DocumentBuilderFactory dbf =DocumentBuilderFactory.newInstance();</code><br><code>dbf.setExpandEntityReferences(false);</code></p>
 <p>Python：<br><code>from lxml import etree</code><br><code>xmlData = etree.parse(xmlSource,etree.XMLParser(resolve_entities=False))</code></p>
 <p>2.过滤用户提交的XML数据<br>关键词：&lt;!DOCTYPE和&lt;!ENTITY，或者，SYSTEM和PUBLIC。</p>
@@ -671,11 +674,19 @@ height:50vh;
 <li>生僻函数</li>
 <li>注入参数到cookie</li>
 </ul>
-<h1 id="漏洞相关"><a href="#漏洞相关" class="headerlink" title="漏洞相关"></a><font color="red">漏洞相关</font></h1><h1 id="项目相关"><a href="#项目相关" class="headerlink" title="项目相关"></a><font color="red">项目相关</font></h1><h1 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a><font color="red">HTTP协议</font></h1><h2 id="http1-0与http1-1的区别"><a href="#http1-0与http1-1的区别" class="headerlink" title="http1.0与http1.1的区别"></a>http1.0与http1.1的区别</h2><p><a href="https://juejin.im/entry/5981c5df518825359a2b9476" target="_blank" rel="noopener">参考文章1</a>、<a href="http://www.ruanyifeng.com/blog/2016/08/http.html" target="_blank" rel="noopener">阮一峰的网络日志</a></p>
+<h1 id="漏洞相关"><a href="#漏洞相关" class="headerlink" title="漏洞相关"></a><font color="red">漏洞相关</font></h1><h1 id="项目相关"><a href="#项目相关" class="headerlink" title="项目相关"></a><font color="red">项目相关</font></h1><p><strong>静态二维码问题</strong></p>
+<p>静态条码容易被“调包”、利用收款码伪造交通罚单等、嵌入木马，扫码被盗刷或窃取信息</p>
+<p><a href="https://www.bbaqw.com/wz/93625.htm" target="_blank" rel="noopener">https://www.bbaqw.com/wz/93625.htm</a></p>
+<p>二维码本身是一串文本，不会含有病毒，木马和恶意扣费软件。目前主要的安全问题是二维码到一个手机应用的下载链接，这个手机应用包含病毒，木马、广告和恶意扣费内容。推荐从权威的网站和可靠的印刷品上扫描。对扫描的内容的可信度请保持谨慎态度。 如果扫描内容显示正在下载应用，请谨慎安装。 做到以上两点，就放心大胆地扫描吧。</p>
+<hr>
+<h1 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a><font color="red">HTTP协议</font></h1><h2 id="http1-0与http1-1的区别"><a href="#http1-0与http1-1的区别" class="headerlink" title="http1.0与http1.1的区别"></a>http1.0与http1.1的区别</h2><p><a href="https://juejin.im/entry/5981c5df518825359a2b9476" target="_blank" rel="noopener">参考文章1</a><br><a href="http://www.ruanyifeng.com/blog/2016/08/http.html" target="_blank" rel="noopener">阮一峰的网络日志</a></p>
 <p>1.长连接:HTTP 1.1支持长连接（PersistentConnection）和请求的流水线（Pipelining）处理，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟，在HTTP1.1中默认开启Connection： keep-alive，一定程度上弥补了HTTP1.0每次请求都要创建连接的缺点。<u>这是最大的变化，就是引入了持久连接（persistent connection），即TCP连接默认不关闭，可以被多个请求复用，不用声明Connection: keep-alive。</u><br>2.缓存处理：在HTTP1.0中主要使用header里的If-Modified-Since,Expires来做为缓存判断的标准，HTTP1.1则引入了更多的缓存控制策略例如Entity tag，If-Unmodified-Since, If-Match, If-None-Match等更多可供选择的缓存头来控制缓存策略。<br>3.带宽优化及网络连接的使用:HTTP1.0中，存在一些浪费带宽的现象，例如客户端只是需要某个对象的一部分，而服务器却将整个对象送过来了，并且不支持断点续传功能，HTTP1.1则在请求头引入了range头域，它允许只请求资源的某个部分，即返回码是206（Partial Content），这样就方便了开发者自由的选择以便于充分利用带宽和连接。<br>4.错误通知的管理:在HTTP1.1中新增了24个错误状态响应码，如409（Conflict）表示请求的资源与资源的当前状态发生冲突；410（Gone）表示服务器上的某个资源被永久性的删除。<br>5.Host头处理*:在HTTP1.0中认为每台服务器都绑定一个唯一的IP地址，因此，请求消息中的URL并没有传递主机名（hostname）。但随着虚拟主机技术的发展，在一台物理服务器上可以存在多个虚拟主机（Multi-homed Web Servers），并且它们共享一个IP地址。HTTP1.1的请求消息和响应消息都应支持Host头域，且请求消息中如果没有Host头域会报告一个错误（400 Bad Request）。</p>
 <p>http 1.1 新增<code>options、put、delete、trace、connect</code>五种HTTP请求方法,加上get、post、head原1.0中的三种请求共八种协议。</p>
 <h2 id="HTTP除了get、post常见的请求还有哪些？"><a href="#HTTP除了get、post常见的请求还有哪些？" class="headerlink" title="HTTP除了get、post常见的请求还有哪些？"></a>HTTP除了get、post常见的请求还有哪些？</h2><p><strong>OPTIONS</strong>：这个方法可使服务器传回该资源所支持的所有HTTP请求方法。用’*’来代替资源名称，向Web服务器发送OPTIONS请求，可以测试服务器功能是否正常运作。<br><strong>HEAD</strong>：与GET方法一样，都是向服务器发出指定资源的请求。只不过服务器将不传回资源的本文部分。它的好处在于，使用这个方法可以在不必传输全部内容的情况下，就可以获取其中“关于该资源的信息”（元信息或称元数据）。<br><strong>PUT</strong>：向指定资源位置上传其最新内容<br><strong>DELETE</strong>：请求服务器删除Request-URI所标识的资源<br><strong>TRACE</strong>:回显服务器收到的请求，主要用于测试或诊断<br><strong>CONNECT</strong>：HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。通常用于SSL加密服务器的链接（经由非加密的HTTP代理服务器）</p>
-<h2 id="常见的响应码"><a href="#常见的响应码" class="headerlink" title="常见的响应码"></a>常见的响应码</h2><p><strong>2开头 成功</strong><br>· 200 OK，表示从客户端发来的请求在服务器端被正确处理<br>· 204 No content，表示请求成功，但响应报文不含实体的主体部分<br>· 206 Partial Content，进行范围请求<br><strong>3开头 重定向</strong>：表示要完成请求，需要进一步操作。 通常，这些状态代码用来重定向<br>· 301 moved permanently，永久性重定向，表示资源已被分配了新的 URL<br>· 302 found，临时性重定向，表示资源临时被分配了新的 URL<br>· 303 see other，表示资源存在着另一个 URL，应使用 GET 方法丁香获取资源<br>· 304 not modified，表示服务器允许访问资源，但因发生请求未满足条件的情况<br>· 307 temporary redirect，临时重定向，和302含义相同<br><strong>4开头 客户端错误</strong>：请求错误，这些状态代码表示请求可能出错，妨碍了服务器的处理。<br>· 400 bad request，请求报文存在语法错误<br>· 401 unauthorized，表示发送的请求需要有通过 HTTP 认证的认证信息<br>· 403 forbidden，表示对请求资源的访问被服务器拒绝<br>· 404 not found，表示在服务器上没有找到请求的资源<br><strong>5开头 服务器错误</strong>:这些状态代码表示服务器在尝试处理请求时发生内部错误。 这些错误可能是服务器本身的错误，而不是请求出错。<br>· 500 internal sever error，表示服务器端在执行请求时发生了错误<br>· 503 service unavailable，表明服务器暂时处于超负载或正在停机维护，无法处理请求</p>
+<h2 id="常见的响应码"><a href="#常见的响应码" class="headerlink" title="常见的响应码"></a>常见的响应码</h2><p><strong>2开头 成功</strong><br>· 200 OK，表示从客户端发来的请求在服务器端被正确处理<br>· 204 No content，表示请求成功，但响应报文不含实体的主体部分<br>· 206 Partial Content，进行范围请求</p>
+<p><strong>3开头 重定向</strong>：表示要完成请求，需要进一步操作。 通常，这些状态代码用来重定向<br>· 301 moved permanently，永久性重定向，表示资源已被分配了新的 URL<br>· 302 found，临时性重定向，表示资源临时被分配了新的 URL<br>· 303 see other，表示资源存在着另一个 URL，应使用 GET 方法丁香获取资源<br>· 304 not modified，表示服务器允许访问资源，但因发生请求未满足条件的情况<br>· 307 temporary redirect，临时重定向，和302含义相同</p>
+<p><strong>4开头 客户端错误</strong>：请求错误，这些状态代码表示请求可能出错，妨碍了服务器的处理。<br>· 400 bad request，请求报文存在语法错误<br>· 401 unauthorized，表示发送的请求需要有通过 HTTP 认证的认证信息<br>· 403 forbidden，表示对请求资源的访问被服务器拒绝<br>· 404 not found，表示在服务器上没有找到请求的资源</p>
+<p><strong>5开头 服务器错误</strong>:这些状态代码表示服务器在尝试处理请求时发生内部错误。 这些错误可能是服务器本身的错误，而不是请求出错。<br>· 500 internal sever error，表示服务器端在执行请求时发生了错误<br>· 503 service unavailable，表明服务器暂时处于超负载或正在停机维护，无法处理请求</p>
 <h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a><font color="red">MySQL</font></h1><h2 id="MySQL写shell的方法"><a href="#MySQL写shell的方法" class="headerlink" title="MySQL写shell的方法"></a><font color="red">MySQL写shell的方法</font></h2><p>1.select “” into outfile “”<br>2.开启log写shell <a href="https://www.jianshu.com/p/39ad3fa6e3a9" target="_blank" rel="noopener">复习文章</a></p>
 <h2 id="MySQL提权"><a href="#MySQL提权" class="headerlink" title="MySQL提权"></a><font color="blue">MySQL提权</font></h2><p><a href="https://yinwc.github.io/2019/04/16/MySQL%E6%8F%90%E6%9D%83/">MySQL提权复习文章</a></p>
 <h1 id="JAVA基础"><a href="#JAVA基础" class="headerlink" title="JAVA基础"></a><font color="red">JAVA基础</font></h1><p><a href="https://www.cnblogs.com/javastu/p/5519569.html" target="_blank" rel="noopener">复习文章1</a><br><a href="https://zhuanlan.zhihu.com/p/27948809" target="_blank" rel="noopener">复习文章2</a></p>
@@ -683,10 +694,16 @@ height:50vh;
 <p>1.使用linux命令反弹shell <code>bash</code></p>
 <p>2.使用python、java、perl、Ruby反弹shell，可以配和msf利用。</p>
 <p>3.使用nc、Telnet反弹shell</p>
-<h1 id="redis的利用方式-getshell的方法"><a href="#redis的利用方式-getshell的方法" class="headerlink" title="redis的利用方式,getshell的方法"></a><font color="red">redis的利用方式,getshell的方法</font></h1><p><a href="http://foreversong.cn/archives/1180" target="_blank" rel="noopener">参考文章</a></p>
-<p>1、通过向Web目录中写webshell的方式进行getshell</p>
-<p>2、通过写SSH key的方式进行getshell</p>
-<p>3、通过写corntab的方式进行getshell</p>
+<h1 id="redis的利用方式-getshell的方法"><a href="#redis的利用方式-getshell的方法" class="headerlink" title="redis的利用方式,getshell的方法"></a><font color="red">redis的利用方式,getshell的方法</font></h1><p><a href="https://zhuanlan.zhihu.com/p/46467265" target="_blank" rel="noopener">参考文章1</a><br><a href="http://foreversong.cn/archives/1180" target="_blank" rel="noopener">参考文章2</a></p>
+<p>利用方式：</p>
+<ol>
+<li><p>通过向Web目录中写webshell的方式进行getshell</p>
+</li>
+<li><p>通过写SSH key的方式进行getshell</p>
+</li>
+<li><p>通过写corntab的方式进行getshell</p>
+</li>
+</ol>
 <h1 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a><font color="red">PHP</font></h1><h2 id="PHP的字符串中单引号与双引号的区别"><a href="#PHP的字符串中单引号与双引号的区别" class="headerlink" title="PHP的字符串中单引号与双引号的区别"></a>PHP的字符串中单引号与双引号的区别</h2><p>“ “双引号里面的字段会经过编译器解释，然后再当作HTML代码输出。<br>‘ ‘单引号里面的不进行解释，直接输出。<br>双引号中的变量($var)和特殊字符(\r\n之类)会被转义，单引号中的内容不会被转义（所以效率更高）<br>单引号解析的时间比双引号快 。</p>
 <h1 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a><font color="red">同源策略</font></h1><p>同源策略是浏览器的一个安全功能，不同源的客户端脚本在没有明确授权的情况下，不能读写对方资源，同源是指，域名，协议，端口相同。</p>
 <h1 id="常见端口"><a href="#常见端口" class="headerlink" title="常见端口"></a><font color="red">常见端口</font></h1><p>复习文章：<code>https://zhuanlan.zhihu.com/p/24926870</code></p>
@@ -913,25 +930,25 @@ height:50vh;
 <p><code>sp.asp;.jpg</code></p>
 <p>即分号后的不被解析,仍被IIS当做asp程序执行。</p>
 <h2 id="Apache-解析漏洞"><a href="#Apache-解析漏洞" class="headerlink" title="Apache 解析漏洞"></a>Apache 解析漏洞</h2><p>文件后缀，Apache 从右到左开始判断解析,如果为不可识别解析,就再往左判断.</p>
-<h1 id="文件上传的绕过"><a href="#文件上传的绕过" class="headerlink" title="文件上传的绕过"></a>文件上传的绕过</h1><p>绕过上传检查 </p>
+<h1 id="文件上传的绕过"><a href="#文件上传的绕过" class="headerlink" title="文件上传的绕过"></a>文件上传的绕过</h1><p>1.绕过上传检查</p>
 <ul>
 <li>前端检查扩展名</li>
 </ul>
-<p>抓包绕过即可。</p>
+<p>2.抓包绕过即可</p>
 <ul>
 <li>Content-Type 检测文件类型</li>
 </ul>
-<p>抓包修改 Content-Type 类型，使其符合白名单规则。</p>
+<p>3.抓包修改 Content-Type 类型，使其符合白名单规则。</p>
 <ul>
 <li>服务端添加后缀</li>
 </ul>
-<p>尝试 %00 截断</p>
+<p>4.尝试 <code>%00</code> 截断</p>
 <ul>
 <li>服务端扩展名检测</li>
 </ul>
-<p>利用解析漏洞。</p>
+<p>5.利用解析漏洞。</p>
 <ul>
-<li>Apache 解析 IIS 解析 </li>
+<li>Apache 解析 IIS 解析</li>
 </ul>
 <p>其他方式后缀大小写、双写、特殊后缀如 php5 等，修改包内容的大小写过 WAF 等。</p>
 <h1 id="文件读取除了可以读取敏感文件还有什么利用方式"><a href="#文件读取除了可以读取敏感文件还有什么利用方式" class="headerlink" title="文件读取除了可以读取敏感文件还有什么利用方式"></a>文件读取除了可以读取敏感文件还有什么利用方式</h1><p>伪协议 php://input phar php://filter <code>https://thief.one/2017/04/10/2/</code><br>利用php协议进行包含<br>截断包含<br>远程包含shell<br>本地包含配合文件上传<br>本地包含配合apache日志拿shell<br>利用/proc/self/environ进行包含</p>

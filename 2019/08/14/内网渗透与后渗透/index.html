@@ -261,13 +261,13 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "learn">learn</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "渗透测试">渗透测试</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">2,605</span> / Reading time: <span class="post-count">11 min</span></span>
+                        <span>Word count: <span class="post-count">12,354</span> / Reading time: <span class="post-count">49 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,7 +396,584 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="基本信息探测"><a href="#基本信息探测" class="headerlink" title="基本信息探测"></a>基本信息探测</h2><p>尽可能详细的分析出网段信息、各部门ip段、重点找出it运维部、OA、邮箱服务器、人力资源管理<br>思路：</p>
+        <!-- TOC -->
+<ul>
+<li><a href="#一">一：</a><ul>
+<li><a href="#内网安全检查渗透介绍">内网安全检查/渗透介绍</a><ul>
+<li><a href="#攻击思路">攻击思路</a></li>
+<li><a href="#敏感资料数据信息">敏感资料/数据/信息</a></li>
+<li><a href="#攻击过程">攻击过程</a></li>
+</ul>
+</li>
+<li><a href="#信息收集">信息收集</a><ul>
+<li><a href="#主机发现">主机发现</a></li>
+<li><a href="#端口扫描">端口扫描</a></li>
+<li><a href="#漏洞扫描">漏洞扫描</a></li>
+<li><a href="#识别内网环境">识别内网环境</a></li>
+</ul>
+</li>
+<li><a href="#漏洞验证漏洞攻击">漏洞验证/漏洞攻击</a><ul>
+<li><a href="#web">Web</a><ul>
+<li><a href="#自定义-web-应用">自定义 Web 应用</a></li>
+<li><a href="#web中间件">Web中间件</a></li>
+<li><a href="#web框架">Web框架</a></li>
+<li><a href="#web服务器">Web服务器</a></li>
+</ul>
+</li>
+<li><a href="#常见运维系统">常见运维系统</a><ul>
+<li><a href="#gitlab">Gitlab</a></li>
+<li><a href="#jenkins">Jenkins</a></li>
+<li><a href="#puppet">Puppet</a></li>
+<li><a href="#ansible">Ansible</a></li>
+<li><a href="#nagios">Nagios</a></li>
+<li><a href="#zabbix">Zabbix</a></li>
+<li><a href="#cacit">Cacit</a></li>
+<li><a href="#splunk">Splunk</a></li>
+</ul>
+</li>
+<li><a href="#常见-web-应用">常见 Web 应用</a><ul>
+<li><a href="#邮件系统">邮件系统</a></li>
+<li><a href="#cms-应用">CMS 应用</a></li>
+</ul>
+</li>
+<li><a href="#数据库缓存消息服务">数据库/缓存/消息服务</a><ul>
+<li><a href="#mysql数据库">MySQL数据库</a></li>
+<li><a href="#mssql数据库">MSSQL数据库</a></li>
+<li><a href="#oracle数据库">Oracle数据库</a></li>
+<li><a href="#postgresql数据库">PostgreSQL数据库</a></li>
+<li><a href="#mongodb数据库">MongoDB数据库</a></li>
+<li><a href="#redis数据库">Redis数据库</a></li>
+<li><a href="#sysbase数据库">SysBase数据库</a></li>
+<li><a href="#db2-数据库">DB2 数据库</a></li>
+</ul>
+</li>
+<li><a href="#常见服务协议">常见服务/协议</a><ul>
+<li><a href="#ftp-服务">FTP 服务</a></li>
+<li><a href="#nfs-服务">NFS 服务</a></li>
+<li><a href="#samba服务">Samba服务</a></li>
+<li><a href="#ssh-服务">SSH 服务</a></li>
+<li><a href="#telnet-服务">Telnet 服务</a></li>
+<li><a href="#windows-远程连接">Windows 远程连接</a></li>
+<li><a href="#vnc服务">VNC服务</a></li>
+<li><a href="#smtp协议">SMTP协议</a></li>
+<li><a href="#pop3协议">POP3协议</a></li>
+<li><a href="#dns服务">DNS服务</a></li>
+<li><a href="#imap协议">IMAP协议</a></li>
+<li><a href="#snmp协议">SNMP协议</a></li>
+<li><a href="#dhcp服务">DHCP服务</a></li>
+</ul>
+</li>
+<li><a href="#云环境">云环境</a><ul>
+<li><a href="#vmware">VMware</a></li>
+<li><a href="#openstack">OpenStack</a></li>
+</ul>
+</li>
+<li><a href="#docker">Docker</a></li>
+<li><a href="#大数据">大数据</a><ul>
+<li><a href="#elsaticsearch">Elsaticsearch</a></li>
+<li><a href="#hadoop">hadoop</a></li>
+<li><a href="#hive">Hive</a></li>
+<li><a href="#sqoop">Sqoop</a></li>
+<li><a href="#hbase">HBase</a></li>
+<li><a href="#spark">Spark</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#后渗透">后渗透</a><ul>
+<li><a href="#提权">提权</a></li>
+<li><a href="#域攻击">域攻击</a></li>
+<li><a href="#提升权限">提升权限</a></li>
+<li><a href="#建立后门端口转发">建立后门/端口转发</a></li>
+<li><a href="#传输文件">传输文件</a><ul>
+<li><a href="#文件打包">文件打包</a></li>
+<li><a href="#文件传输">文件传输</a></li>
+</ul>
+</li>
+<li><a href="#制作后门木马程序">制作后门/木马程序</a></li>
+</ul>
+</li>
+<li><a href="#日志清理">日志清理</a></li>
+<li><a href="#工具和其他">工具和其他</a></li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+</li>
+<li><a href="#二">二：</a><ul>
+<li><a href="#基本信息探测">基本信息探测</a></li>
+<li><a href="#取得突破口">取得突破口</a></li>
+<li><a href="#提取信息">提取信息</a><ul>
+<li><a href="#windows信息提取">Windows信息提取</a></li>
+<li><a href="#linux信息提取">Linux信息提取</a></li>
+<li><a href="#powershell篇">powershell篇：</a></li>
+</ul>
+</li>
+<li><a href="#获取域管权限">获取域管权限</a><ul>
+<li><a href="#0x01-组策略漏洞gpp">0x01 组策略漏洞（GPP）</a></li>
+<li><a href="#0x02-ms14-068-kerberos漏洞">0X02 MS14-068 KERBEROS漏洞</a></li>
+<li><a href="#0x03-lapslocal-administrator-password-solution">0X03 LAPS(LOCAL ADMINISTRATOR PASSWORD SOLUTION)</a></li>
+<li><a href="#0x04-相同密码登录">0X04 相同密码登录</a></li>
+<li><a href="#利用漏洞配置不当获取更多主机权限获取敏感信息以最终控制整个域">利用漏洞配置、不当获取更多主机权限（获取敏感信息以最终控制整个域）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h1 id="一："><a href="#一：" class="headerlink" title="一："></a>一：</h1><h2 id="内网安全检查-渗透介绍"><a href="#内网安全检查-渗透介绍" class="headerlink" title="内网安全检查/渗透介绍"></a>内网安全检查/渗透介绍</h2><h3 id="攻击思路"><a href="#攻击思路" class="headerlink" title="攻击思路"></a>攻击思路</h3><p>有2种思路：</p>
+<ul>
+<li>攻击外网服务器，获取外网服务器的权限，接着利用入侵成功的外网服务器作为跳板，攻击内网其他服务器，最后获得敏感数据，并将数据传递到攻击者，看情况安装长期后门，实现长期控制和获得敏感数据的方式；</li>
+<li>攻击办公网的系统、办公网电脑、办公网无线等方式，一般是采用社工，实现控制办公电脑，再用获得的办公网数据，可能是内网的各种登录账号和密码，再获取办公网或者生产网的有用数据。</li>
+</ul>
+<p>一般内网安全检查使用第一种思路，实际的攻击2种思路结合实现。</p>
+<h3 id="敏感资料-数据-信息"><a href="#敏感资料-数据-信息" class="headerlink" title="敏感资料/数据/信息"></a>敏感资料/数据/信息</h3><ul>
+<li><p>高管/系统管理员/财务/人事/业务人员的个人电脑</p>
+</li>
+<li><p>文件服务器/共享服务器</p>
+</li>
+<li><p>邮件服务器</p>
+</li>
+<li><p>OA服务器</p>
+</li>
+<li><p>数据库服务器</p>
+</li>
+</ul>
+<h3 id="攻击过程"><a href="#攻击过程" class="headerlink" title="攻击过程"></a>攻击过程</h3><p>按照第一种思路，个人认为可以分为4个阶段：</p>
+<pre><code>1.信息收集
+2.漏洞验证/漏洞攻击
+3.后渗透
+4.日志清理
+</code></pre><p>第二种思路，社工的比重更大一些。</p>
+<h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>该阶段识别内网存活的主机 IP， 运行端口扫描和漏洞扫描获取可以利用的漏洞</p>
+<h3 id="主机发现"><a href="#主机发现" class="headerlink" title="主机发现"></a>主机发现</h3><p>使用端口扫描工具可以实现主机发现的功能，但也有些动作小的主机发现工具（Kali），可以有效的发现存活主机。自己写个 ping 的循环脚本也可以。</p>
+<p>不受限的测试直接端口扫描了。</p>
+<h3 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h3><p>有授权的情况下直接使用 nmap 、masscan 等端口扫描工具直接获取开放的端口信息。<br>作为跳板机可以使用 Metasploit 做端口扫描，也可以在跳板主机上上传端口扫描工具，使用工具扫描。<br>入侵到服务器上也可以根据服务器的环境使用自定义的端口扫描脚本扫描端口。</p>
+<p>python 3 的端口扫描脚本：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># This script runs on Python 3import socket, threadingdef TCP_connect(ip, port_number, delay, output):</span></span><br><span class="line">    TCPsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">    TCPsock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, <span class="number">1</span>)</span><br><span class="line">    TCPsock.settimeout(delay)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        TCPsock.connect((ip, port_number))</span><br><span class="line">        output[port_number] = <span class="string">'Listening'</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        output[port_number] = <span class="string">''</span><span class="function"><span class="keyword">def</span> <span class="title">scan_ports</span><span class="params">(host_ip, delay)</span>:</span></span><br><span class="line"></span><br><span class="line">    threads = []        <span class="comment"># To run TCP_connect concurrently</span></span><br><span class="line">    output = &#123;&#125;         <span class="comment"># For printing purposes</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Spawning threads to scan ports</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10000</span>):</span><br><span class="line">        t = threading.Thread(target=TCP_connect, args=(host_ip, i, delay, output))</span><br><span class="line">        threads.append(t)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Starting threads</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10000</span>):</span><br><span class="line">        threads[i].start()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Locking the script until all threads complete</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10000</span>):</span><br><span class="line">        threads[i].join()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Printing listening ports from small to large</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10000</span>):</span><br><span class="line">        <span class="keyword">if</span> output[i] == <span class="string">'Listening'</span>:</span><br><span class="line">            print(str(i) + <span class="string">': '</span> + output[i])<span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    host_ip = input(<span class="string">"Enter host IP: "</span>)</span><br><span class="line">    delay = int(input(<span class="string">"How many seconds the socket is going to wait until timeout: "</span>))   </span><br><span class="line">    scan_ports(host_ip, delay)<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></p>
+<p>有个使用 Python 端口扫描的介绍<br><code>https://thief.one/2018/05/17/1/?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io</code></p>
+<p>Windows 下基于 Powershell 的端口扫描脚本。<br><code>https://github.com/BornToBeRoot/PowerShell_IPv4PortScanner/tree/master/Scripts</code></p>
+<p>发现端口后使用客户端连接工具或者 nc 连接，获取服务端的 banner 信息。</p>
+<h3 id="漏洞扫描"><a href="#漏洞扫描" class="headerlink" title="漏洞扫描"></a>漏洞扫描</h3><p>有授权的情况下，使用绿盟极光、Nessus、Nexpose 等漏扫工具直接扫描目标，可以直接看到存活主机和主机的漏洞情况。</p>
+<h3 id="识别内网环境"><a href="#识别内网环境" class="headerlink" title="识别内网环境"></a>识别内网环境</h3><p>获取目标的主机存活信息和端口开放信息后，就可以尝试分析目标的网络结构，安全防御策略。按照办公网和生产网分别说一下：</p>
+<p><strong>办公网：</strong></p>
+<p>按照系统区分：</p>
+<ul>
+<li>OA系统</li>
+<li>邮件系统</li>
+<li>财务系统</li>
+<li>文件共享系统</li>
+<li>域控</li>
+<li>企业版杀毒系统</li>
+<li>上网行为管理系统</li>
+<li>内部应用监控系统</li>
+</ul>
+<p>按照网络区分：</p>
+<ul>
+<li>管理网段</li>
+<li>内部系统网段</li>
+<li>按照部门区分的网段</li>
+</ul>
+<p>按照设备区分：</p>
+<ul>
+<li>个人电脑</li>
+<li>内网服务器</li>
+<li>网络设备</li>
+<li>安全设备</li>
+</ul>
+<p>办公网的安全防护水平一般较差（相对），能绕过杀毒软件基本上就畅通无阻了，利用信任关系容易扩大攻击面，获取数据也比生产网简单。</p>
+<p><strong>生产网</strong></p>
+<p>按照系统区分：</p>
+<ul>
+<li>业务系统</li>
+<li>运维监控系统</li>
+<li>安全系统</li>
+</ul>
+<p>安装网络区分：</p>
+<ul>
+<li>各不同的业务网段</li>
+<li>运维监控网段</li>
+<li>安全管理网段</li>
+</ul>
+<p>根据目标开展的不同业务，对应的服务器可能存在不同的网段上，分析服务器上运行的服务和进程可以推断目标使用的运维监控管理系统和安全防护系统，可以大概推断出入侵目标的 IT 运维水平和安全防护水平，在接下来的入侵考虑采用什么样的方法。</p>
+<h2 id="漏洞验证-漏洞攻击"><a href="#漏洞验证-漏洞攻击" class="headerlink" title="漏洞验证/漏洞攻击"></a>漏洞验证/漏洞攻击</h2><p>使用端口扫描、漏洞扫描验证扫描目标开放的端口，在对应端口上开放的服务，运行该服务的软件和版本号。<br>如果只是使用端口扫描，只是发现开放的端口，接着使用 nc 可以获取端口上服务的 banner 信息，获取 banner 信息后需要在漏洞库上查找对应 CVE，后面就是验证漏洞是否存在。如果是使用漏洞扫描工具可以直接获取对应端口上的漏洞，后面也是验证漏洞。<br>安全检查一般是尽可能的发现所有漏洞，对漏洞的风险进行评估和修复。入侵的话只关注高危远程代码执行和敏感信息泄露漏洞等可以直接利用的漏洞。</p>
+<p>漏洞验证可以找对应的 CVE 编号的 POC、EXP，利用代码在 ExploitDB 、seebug上查看或者在 github 上搜索是否有相关的漏洞验证或利用的工具。</p>
+<h3 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h3><h4 id="自定义-Web-应用"><a href="#自定义-Web-应用" class="headerlink" title="自定义 Web 应用"></a>自定义 Web 应用</h4><p>从公网直接攻击目标对外的 Web 应用，或者在授权的情况下在内网进行渗透测试，如果是入侵目的可以直接寻找注入、上传、代码执行、文件包含等高危漏洞，尝试获取系统权限，或者直接能拿到敏感数据。<br>允许扫描的话一般使用 WVS 直接扫描，也可以使用专门扫描特定漏洞的扫描工具如 sqlmap、XSStrike 等工具扫描特定类型的漏洞。不允许直接扫描，使用 Burp 手工慢慢找了。</p>
+<h4 id="Web中间件"><a href="#Web中间件" class="headerlink" title="Web中间件"></a>Web中间件</h4><p><strong>1.Tomcat</strong></p>
+<p>Tomcat是Apache Jakarta软件组织的一个子项目，Tomcat是一个JSP/Servlet容器，它是在SUN公司的JSWDK（Java Server Web Development Kit）基础上发展起来的一个JSP和Servlet规范的标准实现，使用Tomcat可以体验JSP和Servlet的最新规范。</p>
+<ul>
+<li>端口号：8080</li>
+<li><p>攻击方法：<br>  1.默认口令、弱口令，爆破，tomcat5 默认有两个角色：tomcat和role1。其中账号both、tomcat、role1的默认密码都是tomcat。弱口令一般存在5以下的版本中。<br>  2.在管理后台部署 war 后门文件<br>  3.远程代码执行漏洞</p>
+</li>
+<li><p>参考：<br>  <a href="https://paper.seebug.org/399/" target="_blank" rel="noopener">https://paper.seebug.org/399/</a><br>  <a href="http://www.freebuf.com/column/159200.html" target="_blank" rel="noopener">http://www.freebuf.com/column/159200.html</a><br>  <a href="http://liehu.tass.com.cn/archives/836" target="_blank" rel="noopener">http://liehu.tass.com.cn/archives/836</a><br>  <a href="http://www.mottoin.com/87173.html" target="_blank" rel="noopener">http://www.mottoin.com/87173.html</a></p>
+</li>
+</ul>
+<p><strong>2.Jboss</strong></p>
+<p>是一个运行EJB的J2EE应用服务器。它是开放源代码的项目，遵循最新的J2EE规范。从JBoss项目开始至今，它已经从一个EJB容器发展成为一个基于的 J2EE 的一个Web 操作系统（operating system for web），它体现了 J2EE 规范中最新的技术。</p>
+<ul>
+<li>端口：8080</li>
+<li><p>攻击方法：<br>  1.弱口令、爆破<br>  2.管理后台部署war后门<br>  3.反序列化<br>  4.远程代码执行</p>
+</li>
+<li><p>参考：<br>  <a href="http://www.vuln.cn/6300" target="_blank" rel="noopener">http://www.vuln.cn/6300</a><br>  <a href="http://mobile.www.cnblogs.com/Safe3/archive/2010/01/08/1642371.html" target="_blank" rel="noopener">http://mobile.www.cnblogs.com/Safe3/archive/2010/01/08/1642371.html</a><br>  <a href="https://www.zybuluo.com/websec007/note/838374" target="_blank" rel="noopener">https://www.zybuluo.com/websec007/note/838374</a><br>  <a href="https://www.zybuluo.com/websec007/note/838374" target="_blank" rel="noopener">https://www.zybuluo.com/websec007/note/838374</a></p>
+</li>
+</ul>
+<p><strong>3.WebLogic</strong></p>
+<p>WebLogic是美国Oracle公司出品的一个Application Server，确切的说是一个基于JAVAEE架构的中间件，WebLogic是用于开发、集成、部署和管理大型分布式Web应用、网络应用和数据库应用的Java应用服务器。将Java的动态功能和Java Enterprise标准的安全性引入大型网络应用的开发、集成、部署和管理之中。</p>
+<ul>
+<li>端口：7001，7002</li>
+<li><p>攻击方法：<br>  1.弱口令、爆破，弱密码一般为weblogic/Oracle@123 or weblogic<br>  2.管理后台部署 war 后门<br>  3.SSRF<br>  4.反序列化漏洞<br>  5.weblogic_uac</p>
+</li>
+<li><p>参考：<br>  <a href="https://github.com/vulhub/vulhub/tree/master/weblogic/ssrf" target="_blank" rel="noopener">https://github.com/vulhub/vulhub/tree/master/weblogic/ssrf</a><br>  <a href="https://blog.gdssecurity.com/labs/2015/3/30/weblogic-ssrf-and-xss-cve-2014-4241-cve-2014-4210-cve-2014-4.html" target="_blank" rel="noopener">https://blog.gdssecurity.com/labs/2015/3/30/weblogic-ssrf-and-xss-cve-2014-4241-cve-2014-4210-cve-2014-4.html</a><br>  <a href="https://fuping.site/2017/06/05/Weblogic-Vulnerability-Verification/" target="_blank" rel="noopener">https://fuping.site/2017/06/05/Weblogic-Vulnerability-Verification/</a><br>  <a href="https://bbs.pediy.com/thread-224954.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-224954.htm</a></p>
+</li>
+</ul>
+<p><strong>4.WebSphere</strong></p>
+<p>IBM公司一套典型的电子商务应用开发工具及运行环境。</p>
+<ul>
+<li>端口：默认端口：908*；第一个应用就是9080，第二个就是9081；控制台9090</li>
+<li>攻击方法：<ol>
+<li>控制台登录爆破</li>
+<li>很多内网 websphere 的控制台存在弱口令 / 默认口令，可以使用 admin/admin 以及 webshpere/webshpere 这种口令登录。 通过该口令登录控制台后，可以部署 war 包，从而获取到 WEBSHELL 。</li>
+<li>反序列化</li>
+<li>任意文件泄露</li>
+</ol>
+</li>
+<li>参考：<br>  <a href="https://loudong.sjtu.edu.cn/?keyword=WebSphere&amp;serverity=%E9%AB%98%E5%8D%B1" target="_blank" rel="noopener">https://loudong.sjtu.edu.cn/?keyword=WebSphere&amp;serverity=%E9%AB%98%E5%8D%B1</a><br>  <a href="http://www.fr1sh.com/wooyun_1/bug_detail.php?wybug_id=wooyun-2013-036803" target="_blank" rel="noopener">http://www.fr1sh.com/wooyun_1/bug_detail.php?wybug_id=wooyun-2013-036803</a><br>  <a href="https://gist.github.com/metall0id/bb3e9bab2b7caee90cb7" target="_blank" rel="noopener">https://gist.github.com/metall0id/bb3e9bab2b7caee90cb7</a></li>
+</ul>
+<p><strong>5.Glassfish</strong></p>
+<h4 id="Web框架"><a href="#Web框架" class="headerlink" title="Web框架"></a>Web框架</h4><ol>
+<li>Struts2</li>
+</ol>
+<p>Struts2是一个优雅的,可扩展的框架,用于创建企业准备的Java Web应用程序。出现的漏洞也着实的多每爆一个各大漏洞平台上就会被刷屏。</p>
+<ul>
+<li><p>可利用漏洞：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">S2-046 CVE-2017-5638 Struts 2.3.5-2.3.31,Struts 2.5-2.5.10 </span><br><span class="line"></span><br><span class="line">S2-045 CVE-2017-5638 Struts 2.3.5-2.3.31,Struts 2.5-2.5.10 </span><br><span class="line"></span><br><span class="line">S2-037 CVE-2016-4438 Struts 2.3.20-2.3.28.1</span><br><span class="line"></span><br><span class="line">S2-032 CVE-2016-3081 Struts 2.3.18-2.3.28</span><br><span class="line"></span><br><span class="line">S2-020 CVE-2014-0094 Struts 2.0.0-2.3.16</span><br><span class="line"></span><br><span class="line">S2-019 CVE-2013-4316 Struts 2.0.0-2.3.15.1</span><br><span class="line"></span><br><span class="line">S2-016 CVE-2013-2251 Struts 2.0.0-2.3.15</span><br><span class="line"></span><br><span class="line">S2-013 CVE-2013-1966 Struts 2.0.0-2.3.14</span><br><span class="line"></span><br><span class="line">S2-009 CVE-2011-3923 Struts 2.0.0-2.3.1.1</span><br><span class="line"></span><br><span class="line">S2-005 CVE-2010-1870 Struts 2.0.0-2.1.8.1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>参考：</p>
+<p>  <a href="https://github.com/hktalent/myhktools" target="_blank" rel="noopener">https://github.com/hktalent/myhktools</a></p>
+<p>  <a href="https://github.com/Lucifer1993/struts-scan" target="_blank" rel="noopener">https://github.com/Lucifer1993/struts-scan</a></p>
+<p>  <a href="https://github.com/SecureSkyTechnology/study-struts2-s2-054_055-jackson-cve-2017-7525_cve-2017-15095" target="_blank" rel="noopener">https://github.com/SecureSkyTechnology/study-struts2-s2-054_055-jackson-cve-2017-7525_cve-2017-15095</a></p>
+</li>
+</ul>
+<ol start="2">
+<li>Spring 框架</li>
+</ol>
+<p>Spring Framework 是一个开源的Java／Java EE全功能栈（full-stack）的应用程序框架，以Apache License 2.0开源许可协议的形式发布，也有.NET平台上的移植版本。Spring Framework提供了一个简易的开发方式，这种开发方式，将避免那些可能致使底层代码变得繁杂混乱的大量的属性文件和帮助类。</p>
+<ul>
+<li><p>可利用漏洞：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CVE-2010-1622</span><br><span class="line"></span><br><span class="line">CVE-2018-1274</span><br><span class="line"></span><br><span class="line">CVE-2018-1270</span><br><span class="line"></span><br><span class="line">CVE-2018-1273</span><br><span class="line"></span><br><span class="line">反序列化</span><br><span class="line"></span><br><span class="line">目录穿越</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>参考：<br>  <a href="http://www.inbreak.net/archives/377" target="_blank" rel="noopener">http://www.inbreak.net/archives/377</a></p>
+<p>  <a href="https://www.secpulse.com/archives/71762.html" target="_blank" rel="noopener">https://www.secpulse.com/archives/71762.html</a></p>
+<p>  <a href="http://www.open-open.com/news/view/1225d07" target="_blank" rel="noopener">http://www.open-open.com/news/view/1225d07</a></p>
+<p>  <a href="https://xz.aliyun.com/t/2261" target="_blank" rel="noopener">https://xz.aliyun.com/t/2261</a></p>
+<p>  <a href="https://xz.aliyun.com/t/2252" target="_blank" rel="noopener">https://xz.aliyun.com/t/2252</a></p>
+</li>
+</ul>
+<h4 id="Web服务器"><a href="#Web服务器" class="headerlink" title="Web服务器"></a>Web服务器</h4><p><strong>IIS</strong>：Windows 的 WWW 服务器</p>
+<ul>
+<li>端口：80</li>
+<li>攻击方法：<br>1.IIS，开启了 WebDAV，可以直接详服务器 PUT 文件<br>2.短文件名枚举漏洞<br>3.远程代码执行<br>4.提权漏洞<br>5.解析漏洞</li>
+</ul>
+<p>参考：<br><a href="https://masterxsec.github.io/2017/06/07/IIS-write-%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/" target="_blank" rel="noopener">https://masterxsec.github.io/2017/06/07/IIS-write-%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/</a><br><a href="http://www.freebuf.com/articles/4908.html" target="_blank" rel="noopener">http://www.freebuf.com/articles/4908.html</a><br><a href="https://www.anquanke.com/post/id/85811" target="_blank" rel="noopener">https://www.anquanke.com/post/id/85811</a></p>
+<p><strong>Apache</strong></p>
+<ul>
+<li>端口：80</li>
+<li>攻击方法：<br>1.解析漏洞<br>2.目录遍历</li>
+</ul>
+<p><strong>Nginx</strong></p>
+<ul>
+<li>端口：80</li>
+<li>攻击方法：<br>1.解析漏洞<br>2.目录遍历<br>3.CVE-2016-1247：需要获取主机操作权限，攻击者可通过软链接任意文件来替换日志文件，从而实现提权以获取服务器的root权限。</li>
+<li>参考：<br><a href="https://www.seebug.org/vuldb/ssvid-92538" target="_blank" rel="noopener">https://www.seebug.org/vuldb/ssvid-92538</a></li>
+</ul>
+<p><strong>lighttpd</strong></p>
+<ul>
+<li>端口：80</li>
+<li>攻击方法：</li>
+<li>目录遍历</li>
+</ul>
+<h3 id="常见运维系统"><a href="#常见运维系统" class="headerlink" title="常见运维系统"></a>常见运维系统</h3><p>一般分自动化部署和运维监控相关的的工具。漏洞可以通过搜索引擎搜索，github搜索，ExploitDB搜索，官网上的安全通告获取。<br>内网的通用类应用比较常见的问题是弱口令，如果一个管理员可以登录几个系统，那在这几个系统的账号、密码也基本上是一样的。</p>
+<h4 id="Gitlab"><a href="#Gitlab" class="headerlink" title="Gitlab"></a>Gitlab</h4><p>GitLab是一个利用 Ruby on Rails 开发的开源应用程序，实现一个自托管的项目仓库，可通过Web界面进行访问公开的或者私人项目。</p>
+<ul>
+<li><p>可利用漏洞：<br>1.任意文件读取漏洞<br>2.意用户 token 泄露漏洞<br>3.命令执行漏洞</p>
+</li>
+<li><p>参考：<br><a href="http://blog.knownsec.com/2016/11/gitlab-file-read-vulnerability-cve-2016-9086-and-access-all-user-authentication-token/" target="_blank" rel="noopener">http://blog.knownsec.com/2016/11/gitlab-file-read-vulnerability-cve-2016-9086-and-access-all-user-authentication-token/</a><br><a href="http://rinige.com/index.php/archives/577/" target="_blank" rel="noopener">http://rinige.com/index.php/archives/577/</a></p>
+</li>
+</ul>
+<h4 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h4><p>Jenkins是一种跨平台的持续集成和交付的应用软件，它便于不断稳定地交付新的软件版本，并提高你的工作效率。这款开发运维工具还让开发人员更容易把项目的变化整合起来，并使用大量的测试和部署技术。</p>
+<ul>
+<li><p>可利用漏洞：<br>1.远程代码执行漏洞<br>2.反序列化漏洞<br>3.未授权访问漏洞<br>4.登录入口爆破</p>
+</li>
+<li><p>参考<br><a href="https://www.cnblogs.com/backlion/p/6813260.html" target="_blank" rel="noopener">https://www.cnblogs.com/backlion/p/6813260.html</a><br><a href="https://www.anquanke.com/post/id/86018" target="_blank" rel="noopener">https://www.anquanke.com/post/id/86018</a><br><a href="https://paper.seebug.org/199/" target="_blank" rel="noopener">https://paper.seebug.org/199/</a></p>
+</li>
+</ul>
+<h4 id="Puppet"><a href="#Puppet" class="headerlink" title="Puppet"></a>Puppet</h4><p>Puppet Enterprise专门管理基础设施即代码(IAC)，在这种类型的IT基础设施配置过程中，系统用代码而不是脚本流程来自动构建、管理和配置。由于它是代码，整个过程易于重复。Puppet有助于更容易控制版本、自动化测试和持续交付，可以更快速地响应问题或错误。</p>
+<ul>
+<li>可利用漏洞，很少公开的POC<br>1.反序列化<br>2.远程命令执行</li>
+</ul>
+<h4 id="Ansible"><a href="#Ansible" class="headerlink" title="Ansible"></a>Ansible</h4><p>Ansible是一种配置和管理工具，面向客户端的软件部署和配置，支持Unix、Linux和Windows。它使 用JSON和YAML，而不是IAC，根本不需要节点代理就可以安装。它可以通过OpenStack在内部系统上使用，也可以在亚马逊EC2上使用。</p>
+<ul>
+<li>可利用漏洞<br>1.远程代码执行</li>
+</ul>
+<h4 id="Nagios"><a href="#Nagios" class="headerlink" title="Nagios"></a>Nagios</h4><p>Nagios是一款开源的电脑系统和网络监视工具，能有效监控Windows、Linux和Unix的主机状态，交换机路由器等网络设置，打印机等。在系统或服务状态异常时发出邮件或短信报警第一时间通知网站运维人员，在状态恢复后发出正常的邮件或短信通知。</p>
+<ul>
+<li><p>可利用漏洞<br>1.代码执行<br>2.SQLi</p>
+</li>
+<li><p>参考<br><a href="http://www.bugku.com/thread-87-1-1.html" target="_blank" rel="noopener">http://www.bugku.com/thread-87-1-1.html</a><br><a href="http://www.mottoin.com/93936.html" target="_blank" rel="noopener">http://www.mottoin.com/93936.html</a></p>
+</li>
+</ul>
+<h4 id="Zabbix"><a href="#Zabbix" class="headerlink" title="Zabbix"></a>Zabbix</h4><p>Zabbix 是一款强大的开源分布式监控系统, 能够将SNMP、JMX、Zabbix Agent提供的数据通过WEB GUI的方式进行展示.</p>
+<ul>
+<li><p>可利用漏洞（具体参考 ExploitDB）：<br>1.远程代码执行<br>2.SQLi<br>3.shell 命令注入<br>4.认证绕过<br>5.默认账户与密码，默认口令 admin/zabbix，或者是guest/空</p>
+</li>
+<li><p>参考<br><a href="https://blog.csdn.net/ytuo1223/article/details/45937981" target="_blank" rel="noopener">https://blog.csdn.net/ytuo1223/article/details/45937981</a><br><a href="http://vinc.top/2017/04/18/zabbix%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener">http://vinc.top/2017/04/18/zabbix%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/</a><br><a href="http://www.mottoin.com/87570.html" target="_blank" rel="noopener">http://www.mottoin.com/87570.html</a></p>
+</li>
+</ul>
+<h4 id="Cacit"><a href="#Cacit" class="headerlink" title="Cacit"></a>Cacit</h4><p>Cacti是一套基于PHP,MySQL,SNMP及RRDTool开发的网络流量监测图形分析工具。</p>
+<ul>
+<li><p>可利用漏洞<br>1.任意代码执行<br>2.SQLi<br>3.登录爆破<br>4.默认密码admin/admin</p>
+</li>
+<li><p>参考：<br><a href="http://wooyun.jozxing.cc/static/bugs/wooyun-2011-02674.html" target="_blank" rel="noopener">http://wooyun.jozxing.cc/static/bugs/wooyun-2011-02674.html</a></p>
+</li>
+</ul>
+<h4 id="Splunk"><a href="#Splunk" class="headerlink" title="Splunk"></a>Splunk</h4><p>Splunk Enterprise 可以从任何来源监控和分析机器数据，以提供操作智能，从而优化您的 IT、安全和业务绩效。Splunk Enterprise 具有直观的分析功能、机器学习、打包应用程序和开放式 API，是一个灵活的平台，可从重点用例扩展到企业范围的分析主干。</p>
+<ul>
+<li><p>可利用漏洞<br>1.信息泄露<br>2.命令注入<br>3.服务端请求伪造</p>
+</li>
+<li><p>参考<br>ExploitDB 搜索</p>
+</li>
+</ul>
+<h3 id="常见-Web-应用"><a href="#常见-Web-应用" class="headerlink" title="常见 Web 应用"></a>常见 Web 应用</h3><p>还有常见邮件应用、CMS 应用，在搜索引擎上查找对应的漏洞，利用已知漏洞进行攻击。</p>
+<h4 id="邮件系统"><a href="#邮件系统" class="headerlink" title="邮件系统"></a>邮件系统</h4><p>一部分是使用腾讯企业邮箱、阿里企业邮箱的，很难有可利用的漏洞，另外一种是能独立部署的邮件系统，政企常用的邮箱应用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Coremail</span><br><span class="line">亿邮</span><br><span class="line">35互联</span><br><span class="line">TurboMail</span><br><span class="line">Exchange</span><br><span class="line">IBM Lotus</span><br></pre></td></tr></table></figure></p>
+<h4 id="CMS-应用"><a href="#CMS-应用" class="headerlink" title="CMS 应用"></a>CMS 应用</h4><h3 id="数据库-缓存-消息服务"><a href="#数据库-缓存-消息服务" class="headerlink" title="数据库/缓存/消息服务"></a>数据库/缓存/消息服务</h3><h4 id="MySQL数据库"><a href="#MySQL数据库" class="headerlink" title="MySQL数据库"></a>MySQL数据库</h4><p>1.默认端口：3306<br>2.攻击方法：</p>
+<ul>
+<li>爆破：弱口令</li>
+<li>身份认证漏洞：CVE-2012-2122</li>
+<li>拒绝服务攻击</li>
+<li>Phpmyadmin万能密码绕过：用户名：‘localhost’@’@” 密码任意</li>
+<li>提权</li>
+</ul>
+<p>3.参考：<br><a href="https://www.seebug.org/appdir/MySQL" target="_blank" rel="noopener">https://www.seebug.org/appdir/MySQL</a><br><a href="http://www.waitalone.cn/mysql-tiquan-summary.html?replytocom=390" target="_blank" rel="noopener">http://www.waitalone.cn/mysql-tiquan-summary.html?replytocom=390</a><br><a href="https://xz.aliyun.com/t/1491" target="_blank" rel="noopener">https://xz.aliyun.com/t/1491</a></p>
+<h4 id="MSSQL数据库"><a href="#MSSQL数据库" class="headerlink" title="MSSQL数据库"></a>MSSQL数据库</h4><p>1.默认端口：1433（Server 数据库服务）、1434（Monitor 数据库监控）<br>2.攻击方法：</p>
+<ul>
+<li>爆破：弱口令/使用系统用户</li>
+<li>注入</li>
+</ul>
+<p>3.参考：<br><a href="https://www.anquanke.com/post/id/86011" target="_blank" rel="noopener">https://www.anquanke.com/post/id/86011</a></p>
+<h4 id="Oracle数据库"><a href="#Oracle数据库" class="headerlink" title="Oracle数据库"></a>Oracle数据库</h4><p>1.默认端口：1521（数据库端口）、1158（Oracle EMCTL端口）、8080（Oracle XDB数据库）、210（Oracle XDB FTP服务）<br>2.攻击方法：</p>
+<ul>
+<li>爆破：弱口令</li>
+<li>注入攻击；</li>
+<li>漏洞攻击；</li>
+</ul>
+<p>3.参考：<br><a href="https://www.leiphone.com/news/201711/JjzXFp46zEPMvJod.html" target="_blank" rel="noopener">https://www.leiphone.com/news/201711/JjzXFp46zEPMvJod.html</a></p>
+<h4 id="PostgreSQL数据库"><a href="#PostgreSQL数据库" class="headerlink" title="PostgreSQL数据库"></a>PostgreSQL数据库</h4><p>PostgreSQL是一种特性非常齐全的自由软件的对象–关系型数据库管理系统，可以说是目前世界上最先进，功能最强大的自由数据库管理系统。包括kali系统中msf也使用这个数据库；浅谈postgresql数据库攻击技术 大部分关于它的攻击依旧是sql注入，所以注入才是数据库不变的话题。</p>
+<p>1.默认端口：5432<br>2.攻击方法：</p>
+<ul>
+<li>爆破：弱口令：postgres postgres</li>
+<li>缓冲区溢出：CVE-2014-2669</li>
+</ul>
+<p>3.参考：<br><a href="http://drops.xmd5.com/static/drops/tips-6449.html" target="_blank" rel="noopener">http://drops.xmd5.com/static/drops/tips-6449.html</a><br><a href="https://www.secpulse.com/archives/69153.html" target="_blank" rel="noopener">https://www.secpulse.com/archives/69153.html</a></p>
+<h4 id="MongoDB数据库"><a href="#MongoDB数据库" class="headerlink" title="MongoDB数据库"></a>MongoDB数据库</h4><p>MongoDB，NoSQL数据库；攻击方法与其他数据库类似》</p>
+<p>1.默认端口：27017<br>2.攻击方法：</p>
+<ul>
+<li>爆破：弱口令</li>
+<li>未授权访问；github有攻击代码；<a href="https://github.com/yangbh/Hammer/blob/master/plugins/System/mongodb_unauth_access.py" target="_blank" rel="noopener">请点击</a></li>
+</ul>
+<p>3.参考：<br><a href="http://www.cnblogs.com/LittleHann/p/6252421.html" target="_blank" rel="noopener">http://www.cnblogs.com/LittleHann/p/6252421.html</a><br><a href="http://www.tiejiang.org/19157.html" target="_blank" rel="noopener">http://www.tiejiang.org/19157.html</a></p>
+<h4 id="Redis数据库"><a href="#Redis数据库" class="headerlink" title="Redis数据库"></a>Redis数据库</h4><p>Redis是一个开源的使用c语言写的，支持网络、可基于内存亦可持久化的日志型、key-value数据库。关于这个数据库这两年还是很火的，暴露出来的问题也很多。特别是前段时间暴露的未授权访问。</p>
+<p>1.攻击方法：</p>
+<ul>
+<li>爆破：弱口令</li>
+<li>未授权访问+配合ssh key提权；</li>
+</ul>
+<p>2.参考：<br><a href="http://www.alloyteam.com/2017/07/12910/" target="_blank" rel="noopener">http://www.alloyteam.com/2017/07/12910/</a></p>
+<h4 id="SysBase数据库"><a href="#SysBase数据库" class="headerlink" title="SysBase数据库"></a>SysBase数据库</h4><p>1.默认端口：服务端口5000；监听端口4100；备份端口：4200<br>2.攻击方法：</p>
+<ul>
+<li>爆破：弱口令</li>
+<li>命令注入：</li>
+</ul>
+<h4 id="DB2-数据库"><a href="#DB2-数据库" class="headerlink" title="DB2 数据库"></a>DB2 数据库</h4><p>1.默认端口：5000<br>2.攻击方法：</p>
+<ul>
+<li>安全限制绕过：成功后可执行未授权操作（CVE-2015-1922）</li>
+</ul>
+<p>3.参考：<br><a href="http://23.94.222.93/bug_detail.php?wybug_id=wooyun-2015-0113071" target="_blank" rel="noopener">http://23.94.222.93/bug_detail.php?wybug_id=wooyun-2015-0113071</a></p>
+<h3 id="常见服务-协议"><a href="#常见服务-协议" class="headerlink" title="常见服务/协议"></a>常见服务/协议</h3><h4 id="FTP-服务"><a href="#FTP-服务" class="headerlink" title="FTP 服务"></a>FTP 服务</h4><p>FTP服务：ftp服务我分为两种情况，第一种是使用系统软件来配置，比如IIS中的FTP文件共享或Linux中的默认服务软件；第二种是通过第三方软件来配置，比如Serv-U还有一些网上写的简易ftp服务器等；</p>
+<p>1.默认端口：20（数据端口）；21（控制端口）；69（tftp小型文件传输协议）</p>
+<p>2.攻击方式：</p>
+<ul>
+<li>爆破：ftp的爆破工具有很多，这里我推荐owasp的Bruter 以及msf中ftp爆破模块；</li>
+<li>匿名访问：用户名：anonymous 密码：为空或任意邮箱</li>
+<li>嗅探：ftp使用明文传输技术（但是嗅探给予局域网并需要欺骗或监听网关）</li>
+<li>后门 vsftp</li>
+<li>远程溢出</li>
+<li>跳转攻击</li>
+</ul>
+<h4 id="NFS-服务"><a href="#NFS-服务" class="headerlink" title="NFS 服务"></a>NFS 服务</h4><p>NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系统中的一种，它允许网络中的计算机之间通过TCP/IP网络共享资源。在NFS的应用中，本地NFS的客户端应用可以透明地读写位于远端NFS服务器上的文件，就像访问本地文件一样。如今NFS具备了防止被利用导出文件夹的功能，但遗留系统中的NFS服务配置不当，则仍可能遭到恶意攻击者的利用。</p>
+<p>1.攻击方法</p>
+<ul>
+<li>未授权访问</li>
+</ul>
+<p>2.参考<br><a href="http://www.freebuf.com/articles/network/159468.html" target="_blank" rel="noopener">http://www.freebuf.com/articles/network/159468.html</a><br><a href="http://www.vuln.cn/6368" target="_blank" rel="noopener">http://www.vuln.cn/6368</a></p>
+<h4 id="Samba服务"><a href="#Samba服务" class="headerlink" title="Samba服务"></a>Samba服务</h4><p>Samba是linux和unix系统上实现SMB/CIFS协议的一个免费软件，由服务器和客户端程序构成。而SMB是局域网支持共享文件和打印机的一种通信协议，为局域网内不同计算机之间提供文件及打印机等资源的共享服务。</p>
+<p>1.攻击方法</p>
+<ul>
+<li>远程代码执行</li>
+<li>弱口令</li>
+<li>未授权访问（public）</li>
+</ul>
+<p>2.参考<br><a href="http://www.91ri.org/17114.html" target="_blank" rel="noopener">http://www.91ri.org/17114.html</a></p>
+<h4 id="SSH-服务"><a href="#SSH-服务" class="headerlink" title="SSH 服务"></a>SSH 服务</h4><p>SSH 是协议，通常使用 OpenSSH 软件实现协议应用。SSH 为 Secure Shell 的缩写，由 IETF 的网络工作小组（Network Working Group）所制定；SSH 为建立在应用层和传输层基础上的安全协议。SSH 是目前较可靠，专为远程登录会话和其它网络服务提供安全性的协议。利用 SSH 协议可以有效防止远程管理过程中的信息泄露问题。</p>
+<p>1.端口：22<br>2.攻击方法：</p>
+<ul>
+<li>爆破</li>
+<li>后门</li>
+<li>漏洞：28退格漏洞、OpenSSL漏洞</li>
+</ul>
+<p>3.参考<br><a href="https://cloud.tencent.com/developer/article/1078187" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1078187</a></p>
+<h4 id="Telnet-服务"><a href="#Telnet-服务" class="headerlink" title="Telnet 服务"></a>Telnet 服务</h4><p>Telnet协议是TCP/IP协议族中的一员，是Internet远程登陆服务的标准协议和主要方式。它为用户提供了在本地计算机上完成远程主机工作的能力。在終端使用者的电脑上使用telnet程序，用它连接到服务器。終端使用者可以在telnet程序中输入命令，这些命令会在服务器上运行，就像直接在服务器的控制台上输入一样。可以在本地就能控制服务器。</p>
+<p>1.默认端口：21<br>2.攻击方法：</p>
+<ul>
+<li>爆破</li>
+<li>嗅探</li>
+</ul>
+<h4 id="Windows-远程连接"><a href="#Windows-远程连接" class="headerlink" title="Windows 远程连接"></a>Windows 远程连接</h4><p>1.默认端口：3389<br>2.攻击方法</p>
+<ul>
+<li>爆破</li>
+<li>Shift粘滞键后门：5次shift后门</li>
+<li>利用ms12-020攻击3389端口</li>
+</ul>
+<h4 id="VNC服务"><a href="#VNC服务" class="headerlink" title="VNC服务"></a>VNC服务</h4><p>   VNC（Virtual Network Computing），为一种使用RFB协议的显示屏画面分享及远程操作软件。此软件借由网络，可发送键盘与鼠标的动作及即时的显示屏画面。</p>
+<p>1.默认端口：5900+桌面ID（5901；5902）<br>2.攻击方式：</p>
+<ul>
+<li>爆破：弱口令</li>
+<li>认证口令绕过：</li>
+<li>拒绝服务攻击：（CVE-2015-5239）</li>
+<li>权限提升：（CVE-2013-6886）</li>
+</ul>
+<h4 id="SMTP协议"><a href="#SMTP协议" class="headerlink" title="SMTP协议"></a>SMTP协议</h4><p>smtp：邮件协议，在linux中默认开启这个服务，可以向对方发送钓鱼邮件！</p>
+<p>1.默认端口：25（smtp）、465（smtps）<br>2.攻击方式：<br>3.爆破：弱口令<br>4.未授权访问</p>
+<h4 id="POP3协议"><a href="#POP3协议" class="headerlink" title="POP3协议"></a>POP3协议</h4><p>1.默认端口：109（POP2）、110（POP3）、995（POP3S）<br>2.攻击方式：</p>
+<ul>
+<li>爆破；弱口令</li>
+<li>未授权访问；</li>
+</ul>
+<h4 id="DNS服务"><a href="#DNS服务" class="headerlink" title="DNS服务"></a>DNS服务</h4><p>1.默认端口：53<br>2.攻击方式：</p>
+<ul>
+<li>区域传输漏洞</li>
+</ul>
+<h4 id="IMAP协议"><a href="#IMAP协议" class="headerlink" title="IMAP协议"></a>IMAP协议</h4><p>1.默认端口：143（imap）、993（imaps）<br>2.攻击方式：</p>
+<ul>
+<li>爆破：弱口令</li>
+<li>配置不当 </li>
+</ul>
+<h4 id="SNMP协议"><a href="#SNMP协议" class="headerlink" title="SNMP协议"></a>SNMP协议</h4><p>  1.默认端口：161<br>  2.攻击方式:</p>
+<ul>
+<li>爆破：弱口令</li>
+</ul>
+<h4 id="DHCP服务"><a href="#DHCP服务" class="headerlink" title="DHCP服务"></a>DHCP服务</h4><p>1.默认端口：67&amp;68、546（DHCP Failover做双机热备的）<br>2.攻击方式：</p>
+<ul>
+<li>DHCP劫持；</li>
+</ul>
+<h3 id="云环境"><a href="#云环境" class="headerlink" title="云环境"></a>云环境</h3><h4 id="VMware"><a href="#VMware" class="headerlink" title="VMware"></a>VMware</h4><p>  使用 VMware vCloud 可将现有数据中心内的虚拟基础架构资源池化，并将其作为基于目录的服务交付。通过与云计算基础架构的最佳平台 VMware vSphere 配合使用，VMware vCloud Director 可为客户提供构建安全的私有云，从而改变 IT 部门交付和管理基础架构服务以及用户访问和使用这些服务的方式。<br>  一般组织中很多独立安装的 Esxi 形式的私有云，或独立部署的虚拟化系统。</p>
+<p>1.端口（很多）：<br><a href="https://kb.vmware.com/s/article/2115330" target="_blank" rel="noopener">https://kb.vmware.com/s/article/2115330</a><br><a href="https://kb.vmware.com/s/article/2081930" target="_blank" rel="noopener">https://kb.vmware.com/s/article/2081930</a><br>2.漏洞</p>
+<ul>
+<li>主机逃逸</li>
+<li>CVE-2017-5638</li>
+</ul>
+<p>3.参考：<br><a href="https://paper.seebug.org/348/" target="_blank" rel="noopener">https://paper.seebug.org/348/</a><br><a href="http://www.freebuf.com/articles/system/141179.html" target="_blank" rel="noopener">http://www.freebuf.com/articles/system/141179.html</a><br><a href="http://www.mottoin.com/100651.html" target="_blank" rel="noopener">http://www.mottoin.com/100651.html</a><br><a href="http://www.52bug.cn/%E9%BB%91%E5%AE%A2%E6%8A%80%E6%9C%AF/4375.html" target="_blank" rel="noopener">http://www.52bug.cn/%E9%BB%91%E5%AE%A2%E6%8A%80%E6%9C%AF/4375.html</a><br><a href="https://twitter.com/VMwareSRC" target="_blank" rel="noopener">https://twitter.com/VMwareSRC</a><br><a href="https://loudong.sjtu.edu.cn/?keyword=vmware&amp;serverity=%E9%AB%98%E5%8D%B1&amp;page=1" target="_blank" rel="noopener">https://loudong.sjtu.edu.cn/?keyword=vmware&amp;serverity=%E9%AB%98%E5%8D%B1&amp;page=1</a><br><a href="https://www.vmware.com/cn/security/hardening-guides.html" target="_blank" rel="noopener">https://www.vmware.com/cn/security/hardening-guides.html</a></p>
+<h4 id="OpenStack"><a href="#OpenStack" class="headerlink" title="OpenStack"></a>OpenStack</h4><p>OpenStack是基础设施即服务（IaaS）软件，让任何人都可以自行创建和提供云计算服务。此外，OpenStack也用作创建防火墙内的“私有云”（Private Cloud），提供机构或企业内各部门共享资源。</p>
+<p>漏洞，有漏洞但是POC基本没有。检查时候可以参考安全的配置实践。<br>权限绕过漏洞<br>信息泄露<br>代码执行漏洞<br>参考：<br><a href="https://loudong.sjtu.edu.cn/?keyword=openstack&amp;serverity=%E9%AB%98%E5%8D%B1" target="_blank" rel="noopener">https://loudong.sjtu.edu.cn/?keyword=openstack&amp;serverity=%E9%AB%98%E5%8D%B1</a><br><a href="https://docs.openstack.org/liberty/zh_CN/install-guide-obs/environment-security.html" target="_blank" rel="noopener">https://docs.openstack.org/liberty/zh_CN/install-guide-obs/environment-security.html</a><br><a href="http://www.freebuf.com/news/topnews/107203.html" target="_blank" rel="noopener">http://www.freebuf.com/news/topnews/107203.html</a></p>
+<h3 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h3><p>Docker是一个开放源代码软件项目，让应用程序布署在软件容器下的工作可以自动化进行，借此在Linux操作系统上，提供一个额外的软件抽象层，以及操作系统层虚拟化的自动管理机制[1]。Docker利用Linux核心中的资源分脱机制，例如cgroups，以及Linux核心名字空间（name space），来创建独立的软件容器（containers）。这可以在单一Linux实体下运作，避免引导一个虚拟机造成的额外负担。Linux核心对名字空间的支持完全隔离了工作环境中应用程序的视野，包括进程树、网络、用户ID与挂载文件系统，而核心的cgroup提供资源隔离，包括CPU、内存、block I/O与网络。从0.9版本起，Dockers在使用抽象虚拟是经由libvirt的LXC与systemd - nspawn提供界面的基础上，开始包括libcontainer函数库做为以自己的方式开始直接使用由Linux核心提供的虚拟化的设施。</p>
+<p>安全问题（很少有漏洞的POC，安全检查也是基于最佳实践和官方安全建议进行）：</p>
+<p>内核漏洞（Kernel exploits） 容器是基于内核的虚拟化，主机（host）和主机上的所有容器共享一套内核。如果某个容器的操作造成了内核崩溃，那么反过来整台机器上的容器都会受到影响。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CVE-2015-3630 1.6.0 Docker Libcontainer 安全绕过漏洞</span><br><span class="line">CVE-2015-3627 1.6.1 Libcontainer和Docker Engine 权限许可和访问控制漏洞</span><br><span class="line">CVE-2015-3630 1.6.1 Docker Engine 安全绕过漏洞</span><br><span class="line">CVE-2014-9358 1.3.3 Docker 目录遍历漏洞</span><br><span class="line">CVE-2014-9357 1.3.2 Docker 权限许可和访问控制漏洞</span><br><span class="line">CVE-2014-6408 1.3.1 Docker 权限许可和访问控制漏洞</span><br><span class="line">CVE-2014-5277 1.3.0 Docker和docker-py 代码注入漏洞</span><br></pre></td></tr></table></figure></p>
+<p>拒绝服务攻击（Denial-of-service attacks） 所有的容器都共享了内核资源，如果一个容器独占了某一个资源（内存、CPU、各种ID），可能会造成其他容器因为资源匮乏无法工作（形成DoS攻击）。<br>容器突破（Container breakouts） Linux的namespace机制是容器的核心之一，它允许容器内部拥有一个PID=1的进程而在容器外部这个进程号又是不一样的（比如1234）。现在问题在于如果一个PID=1的进程突破了namespace的限制，那么他将会在主机上获得root权限。<br>有毒镜像（Poisoned images） 主要是考虑到镜像本身的安全性，没太多好说的。</p>
+<p>参考：</p>
+<p><a href="https://toutiao.io/posts/2y9xx8/preview" target="_blank" rel="noopener">https://toutiao.io/posts/2y9xx8/preview</a><br><a href="http://www.yunweipai.com/archives/21610.html" target="_blank" rel="noopener">http://www.yunweipai.com/archives/21610.html</a><br><a href="http://www.91ri.org/15837.html" target="_blank" rel="noopener">http://www.91ri.org/15837.html</a><br><a href="https://blog.csdn.net/ruidu_doer/article/details/53401523" target="_blank" rel="noopener">https://blog.csdn.net/ruidu_doer/article/details/53401523</a><br><a href="https://loudong.sjtu.edu.cn/?keyword=docker&amp;serverity=%E9%AB%98%E5%8D%B1" target="_blank" rel="noopener">https://loudong.sjtu.edu.cn/?keyword=docker&amp;serverity=%E9%AB%98%E5%8D%B1</a><br><a href="http://dockone.io/article/150" target="_blank" rel="noopener">http://dockone.io/article/150</a><br><a href="http://www.dockerinfo.net/docker/docker%E5%AE%89%E5%85%A8" target="_blank" rel="noopener">http://www.dockerinfo.net/docker/docker%E5%AE%89%E5%85%A8</a><br><a href="https://blog.waterstrong.me/docker-security/" target="_blank" rel="noopener">https://blog.waterstrong.me/docker-security/</a></p>
+<h3 id="大数据"><a href="#大数据" class="headerlink" title="大数据"></a>大数据</h3><h4 id="Elsaticsearch"><a href="#Elsaticsearch" class="headerlink" title="Elsaticsearch"></a>Elsaticsearch</h4><p>Elasticsearch 是一个分布式的搜索和分析引擎，可以用于全文检索、结构化检索和分析，并能将这三者结合起来。Elasticsearch 基于 Lucene 开发，现在是使用最广的开源搜索引擎之一，Wikipedia、Stack Overflow、GitHub 等都基于 Elasticsearch 来构建他们的搜索引擎。</p>
+<p>1.默认端口：9200（）、9300（）<br>2.攻击方法：</p>
+<ul>
+<li>未授权访问；</li>
+<li>远程命令执行；</li>
+<li>文件遍历；</li>
+<li>低版本webshell植入；</li>
+</ul>
+<p>3.参考<br><a href="http://www.freebuf.com/sectool/38025.html" target="_blank" rel="noopener">http://www.freebuf.com/sectool/38025.html</a><br><a href="https://www.secpulse.com/archives/5401.html" target="_blank" rel="noopener">https://www.secpulse.com/archives/5401.html</a></p>
+<h4 id="hadoop"><a href="#hadoop" class="headerlink" title="hadoop"></a>hadoop</h4><p>Hadoop是一个开源的框架，可编写和运行分布式应用处理大规模数据，是专为离线和大规模数据分析而设计的，并不适合那种对几个记录随机读写的在线事务处理模式。Hadoop=HDFS（文件系统，数据存储技术相关）+ Mapreduce（数据处理），Hadoop的数据来源可以是任何形式，在处理半结构化和非结构化数据上与关系型数据库相比有更好的性能，具有更灵活的处理能力，不管任何数据形式最终会转化为key/value，key/value是基本数据单元。用函数式变成Mapreduce代替SQL，SQL是查询语句，而Mapreduce则是使用脚本和代码，而对于适用于关系型数据库，习惯SQL的Hadoop有开源工具hive代替。 Hadoop就是一个分布式计算的解决方案。</p>
+<p>参考：</p>
+<p><a href="https://tech.meituan.com/hadoop-security-practice.html" target="_blank" rel="noopener">https://tech.meituan.com/hadoop-security-practice.html</a><br><a href="https://zhuanlan.zhihu.com/p/33525241" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/33525241</a><br><a href="https://www.anquanke.com/post/id/85343" target="_blank" rel="noopener">https://www.anquanke.com/post/id/85343</a><br><a href="https://www.cloudera.com/documentation/cdh/5-0-x/CDH5-Security-Guide/cdh5sg_hadoop_security_intro.html" target="_blank" rel="noopener">https://www.cloudera.com/documentation/cdh/5-0-x/CDH5-Security-Guide/cdh5sg_hadoop_security_intro.html</a></p>
+<h4 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h4><p>Hive是Hadoop家族中一款数据仓库产品，Hive最大的特点就是提供了类SQL的语法，封装了底层的MapReduce过程，让有SQL基础的业务人员，也可以直接利用Hadoop进行大数据的操作。</p>
+<p>参考：</p>
+<p><a href="https://cwiki.apache.org/confluence/display/Hive/Security" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/Hive/Security</a><br><a href="https://www.cnblogs.com/yejibigdata/p/6394719.html" target="_blank" rel="noopener">https://www.cnblogs.com/yejibigdata/p/6394719.html</a></p>
+<h4 id="Sqoop"><a href="#Sqoop" class="headerlink" title="Sqoop"></a>Sqoop</h4><p>Apache Sqoop（SQL-to-Hadoop） 项目旨在协助 RDBMS 与 Hadoop 之间进行高效的大数据交流。用户可以在 Sqoop 的帮助下，轻松地把关系型数据库的数据导入到 Hadoop 与其相关的系统 (如HBase和Hive)中；同时也可以把数据从 Hadoop 系统里抽取并导出到关系型数据库里。除了这些主要的功能外，Sqoop 也提供了一些诸如查看数据库表等实用的小工具。</p>
+<p>参考<br><a href="https://sqoop.apache.org/docs/1.99.7/security.html" target="_blank" rel="noopener">https://sqoop.apache.org/docs/1.99.7/security.html</a></p>
+<h4 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h4><p>HBase建立在HDFS之上，提供高可靠性、高性能、列存储、可伸缩、实时读写的数据库系统。它介于NoSQL和RDBMS之间，仅能通过行键(row key)和行键序列来检索数据，仅支持单行事务(可通过Hive支持来实现多表联合等复杂操作)。主要用来存储非结构化和半结构化的松散数据。与Hadoop一样，HBase目标主要依靠横向扩展，通过不断增加廉价的商用服务器，来增加计算和存储能力。</p>
+<p>参考：</p>
+<p><a href="https://www.cloudera.com/documentation/enterprise/5-6-x/topics/admin_hbase_security.html" target="_blank" rel="noopener">https://www.cloudera.com/documentation/enterprise/5-6-x/topics/admin_hbase_security.html</a><br><a href="http://www.cloudera.com/documentation/cdh/5-1-x/CDH5-Security-Guide/cdh5sg_hbase_security.html" target="_blank" rel="noopener">http://www.cloudera.com/documentation/cdh/5-1-x/CDH5-Security-Guide/cdh5sg_hbase_security.html</a></p>
+<h4 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h4><p>Spark是UC Berkeley AMP lab所开源的类Hadoop MapReduce的通用的并行计算框架，Spark基于map reduce算法实现的分布式计算，拥有Hadoop MapReduce所具有的优点；但不同于MapReduce的是Job中间输出和结果可以保存在内存中，从而不再需要读写HDFS。</p>
+<p>参考：<br><a href="http://cwiki.apachecn.org/pages/viewpage.action?pageId=2887905" target="_blank" rel="noopener">http://cwiki.apachecn.org/pages/viewpage.action?pageId=2887905</a></p>
+<h2 id="后渗透"><a href="#后渗透" class="headerlink" title="后渗透"></a>后渗透</h2><h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>SecWiki 总结了：</p>
+<p><a href="https://github.com/SecWiki/windows-kernel-exploits" target="_blank" rel="noopener">https://github.com/SecWiki/windows-kernel-exploits</a><br><a href="https://github.com/SecWiki/linux-kernel-exploits" target="_blank" rel="noopener">https://github.com/SecWiki/linux-kernel-exploits</a></p>
+<h3 id="域攻击"><a href="#域攻击" class="headerlink" title="域攻击"></a>域攻击</h3><p>通常域内渗透的过程：</p>
+<p>确定目标系统和应用程序<br>识别潜在的漏洞<br>利用漏洞获得初始访问</p>
+<h3 id="提升权限"><a href="#提升权限" class="headerlink" title="提升权限"></a>提升权限</h3><p>定位域管理进程或者获取远程系统上的本地身份验证令牌<br>通过本地管理员的密码Hash，破解密码，使用mimikatz工具抓取密码验证运行在远程系统上的域名管理进程<br>迁移域管理进程<br>创建一个域管理员<br>假设到这里已经从外网或内网利用漏洞入侵到到一台服务器，并且通过提权获取了主机管理员权限，接下来要做的工作是获取域管理员权限，并找到敏感数据。</p>
+<p>通常会使用到的工具：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Empire</span><br><span class="line">PowerUp</span><br><span class="line">PowerView</span><br></pre></td></tr></table></figure></p>
+<p>一般熟练使用一种就够用了，以 Empire 为例：<br>Empire 和 Metasploit 的使用原理是一样的，都是先设置一个监听，然后去生成一个木马，然后在目标主机运行该木马，我们的监听就会连接上反弹回来的代理。</p>
+<p>参考：<br><a href="https://www.anquanke.com/post/id/87328" target="_blank" rel="noopener">https://www.anquanke.com/post/id/87328</a><br><a href="http://www.4hou.com/technology/4704.html" target="_blank" rel="noopener">http://www.4hou.com/technology/4704.html</a></p>
+<p>域渗透另外一个工具 mimikatz，用于抓 Windows 密码，使用参考：</p>
+<p><a href="http://www.mottoin.com/98506.html" target="_blank" rel="noopener">http://www.mottoin.com/98506.html</a><br><a href="https://zhuanlan.zhihu.com/p/34991269" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/34991269</a></p>
+<h3 id="建立后门-端口转发"><a href="#建立后门-端口转发" class="headerlink" title="建立后门/端口转发"></a>建立后门/端口转发</h3><p>参考：<br><a href="http://www.zerokeeper.com/experience/network-port-forwarding-and-penetration.html" target="_blank" rel="noopener">http://www.zerokeeper.com/experience/network-port-forwarding-and-penetration.html</a><br><a href="https://1sparrow.com/2018/01/20/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener">https://1sparrow.com/2018/01/20/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E6%80%BB%E7%BB%93/</a><br><a href="http://drops.xmd5.com/static/drops/tools-15000.html" target="_blank" rel="noopener">http://drops.xmd5.com/static/drops/tools-15000.html</a></p>
+<p>端口转发及代理类工具<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">LCX：windows下面的端口转发软件。</span><br><span class="line">sockscap：主要针对windows平台的端口转发和代理转发。</span><br><span class="line">proxifier：跨平台的端口转发和代理工具，适用windows，linux，</span><br><span class="line">Macos平台，代理转发利器</span><br><span class="line">Rsscoks：＊nix平台下的端口转发和代理工具，配合proxychains好用</span><br><span class="line">到不行。</span><br><span class="line">Proxychains：＊nix平台下老牌的socks代理工具，一般的系统都会自</span><br><span class="line">带，谁用谁知道。</span><br><span class="line">ssh proxy：通过ssh做端口代理和转发，一般＊nix系统都自带。</span><br><span class="line">netcat：socat，hping，在很多情况下可以做端口转发和数据代理转</span><br><span class="line">发。</span><br><span class="line">metasploit：metasploit的后渗透模块中有不少代理模块和端口转发</span><br><span class="line">模块。</span><br><span class="line">在中转服务器上下载端口转发工具（加密压缩）：</span><br><span class="line"></span><br><span class="line">能连接互联网下载</span><br><span class="line">通过 mstsc 的磁盘加载</span><br><span class="line">通过入口服务器中转</span><br><span class="line">通过远程控制软件上传</span><br></pre></td></tr></table></figure></p>
+<h3 id="传输文件"><a href="#传输文件" class="headerlink" title="传输文件"></a>传输文件</h3><h4 id="文件打包"><a href="#文件打包" class="headerlink" title="文件打包"></a>文件打包</h4><p>关于打包</p>
+<p>Rar文件打包，压缩d:\data\目录下所有2013-01-01后修改的doc文件，100M/包密码为Pass，-x为排除选项<br><code>rar.exe a–r –v100m new.rar –ta20130101000000 –hpPass –n*.doc –x*.exe d:\data\</code><br>7z加密，压缩d:\data下所有文件，密码为Pass，分卷100M/包<br><code>7z.exe a c:\xx.7z -pPass -mhe d:\data -v100m</code><br>Linux用 tar 打包文件是可以加密码，要跟openssl结合使用。<br><code>tar -zcvf - pma|openssl des3 -salt -k password | dd of=pma.des3</code><br>使用 tar 对加密文件解压：<br><code>dd if=pma.des3 |openssl des3 -d -k password|tar zxf -</code></p>
+<h4 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h4><p>几个思路<br>使用端口转发直接传送数据；<br>搭建 FTP、HTTP 协议；<br>上传到云端再下载；</p>
+<h3 id="制作后门-木马程序"><a href="#制作后门-木马程序" class="headerlink" title="制作后门/木马程序"></a>制作后门/木马程序</h3><p>一般用Matisploit 的 msfvenom，使用参考：</p>
+<p><a href="https://github.com/rapid7/metasploit-framework/wiki/How-to-use-msfvenom" target="_blank" rel="noopener">https://github.com/rapid7/metasploit-framework/wiki/How-to-use-msfvenom</a><br><a href="https://www.offensive-security.com/metasploit-unleashed/msfvenom/" target="_blank" rel="noopener">https://www.offensive-security.com/metasploit-unleashed/msfvenom/</a><br>SET 也可以生成后门程序，另外也可以关注一下最新的 Office、PDF 的漏洞</p>
+<h2 id="日志清理"><a href="#日志清理" class="headerlink" title="日志清理"></a>日志清理</h2><p>这部分对于安全检查、或授权渗透测试工作不是重点，通常也不考虑。</p>
+<p><strong>在做日志清理前需要了解以下的内容</strong></p>
+<p>攻击和入侵很难完全删除痕迹，没有日志记录本身就是一种入侵特征；<br>删除或清理入侵系统的本地日志不代表删除了痕迹，在网络设备、安全设备、集中化日志系统上仍然留存记录；<br>留存的后门本身会有攻击者的信息；<br>使用的代理或跳板可能会被反向入侵;<br>在操作前检查是否有管理员登录；<br>删除上传的工具，使用磁盘覆写的功能删除；</p>
+<ul>
+<li>Windows日志类型</li>
+</ul>
+<p>web日志：IIS、Apache以及其它web日志<br>操作日志：3389登录列表、最近访问文件、IE等浏览<br>器访问日志、文件访问日志<br>登陆日志：系统应用日志-安全日志等<br>攻击前和状态还原，尽量保持一致</p>
+<ul>
+<li>Linux操作日志</li>
+</ul>
+<ol>
+<li><p>Linux历史操作<br><code>unset HISTORY HISTFILE HISTSAVE HISTZONE HISTORY HISTLOG; export HISTFILE=/dev/null;</code></p>
+</li>
+<li><p>SSHD登陆记录<br>删除~/.ssh/known_hosts中记录</p>
+</li>
+<li><p>修改文件时间戳<br>touch –r 原文件要修改文件</p>
+</li>
+<li><p>删除临时使用文件，尤其是tmp目录<br><a href="https://github.com/border/wifihack/tree/master/bin/logtamper" target="_blank" rel="noopener">logtamper</a></p>
+</li>
+</ol>
+<h2 id="工具和其他"><a href="#工具和其他" class="headerlink" title="工具和其他"></a>工具和其他</h2><p>1.内网使用工具渗透的一些原则:</p>
+<ul>
+<li>使用适合自己的工具，工具没必要收集太多，够用就行；</li>
+<li>能根据实际情况编写适用的工具；</li>
+<li>不能确保安全的工具均要在虚拟机中运行（很<br>多捆绑病毒木马）；</li>
+<li>做安全检查的话，尽量使用 GitHub 上开源的工具。</li>
+</ul>
+<p>2.工具介绍<br>个人习惯使用 kali 自带工具，特定 POC 先从 Github 上搜索。<br>推荐一个工具介绍的网站：<a href="https://www.kitploit.com/" target="_blank" rel="noopener">https://www.kitploit.com/</a></p>
+<p>3.渗透注意事项</p>
+<ul>
+<li>检查内网监控防范系统</li>
+<li>谨慎使用ARP软件和大面积扫描软件</li>
+<li>使用目标网络中无空闲机器，作为打包对象</li>
+<li>使用内网大流量机器作为传输对象，如wsus服务器、视频会议系统</li>
+<li>使用临时机器打包、数据传输，不要使用已控机器，可利用wmi脚本或wmic远程操作</li>
+<li>禁止使用psexec.exe</li>
+<li>打包时避开用户工作时间</li>
+<li>控制卷包大小&lt;100M</li>
+<li>选择用户常用压缩软件</li>
+<li>错峰下载数据</li>
+<li>控制传输流量</li>
+<li>清除所有操作日志</li>
+<li>登录主机前先看看管理员是否在</li>
+</ul>
+<p>感谢大佬们的总结</p>
+<p><a href="http://www.91ri.org/15441.html" target="_blank" rel="noopener">http://www.91ri.org/15441.html</a><br><a href="https://paper.seebug.org/126/" target="_blank" rel="noopener">https://paper.seebug.org/126/</a><br><a href="https://paper.seebug.org/409/" target="_blank" rel="noopener">https://paper.seebug.org/409/</a><br>DC010 上海站 演讲ppt《5内网渗透思路（陈小兵）.pdf》</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://xz.aliyun.com/t/2354#toc-3" target="_blank" rel="noopener">https://xz.aliyun.com/t/2354#toc-3</a></p>
+<h1 id="二："><a href="#二：" class="headerlink" title="二："></a>二：</h1><h2 id="基本信息探测"><a href="#基本信息探测" class="headerlink" title="基本信息探测"></a>基本信息探测</h2><p>尽可能详细的分析出网段信息、各部门ip段、重点找出it运维部、OA、邮箱服务器、人力资源管理<br>思路：</p>
 <ul>
 <li>1、一般大公司有内部门户系统，可通过内部门户系统公开链接找出相关部门ip段</li>
 <li>2、通过路由器 交换机等设备 命令执行、snmp、弱口令获取网络拓扑</li>
@@ -685,7 +1262,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本信息探测"><span class="toc-number">1.</span> <span class="toc-text">基本信息探测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#取得突破口"><span class="toc-number">2.</span> <span class="toc-text">取得突破口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提取信息"><span class="toc-number">3.</span> <span class="toc-text">提取信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows信息提取"><span class="toc-number">3.1.</span> <span class="toc-text">Windows信息提取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux信息提取"><span class="toc-number">3.2.</span> <span class="toc-text">Linux信息提取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#powershell篇："><span class="toc-number">3.3.</span> <span class="toc-text">powershell篇：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取域管权限"><span class="toc-number">4.</span> <span class="toc-text">获取域管权限</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-组策略漏洞（GPP）"><span class="toc-number">4.1.</span> <span class="toc-text">0x01 组策略漏洞（GPP）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0X02-MS14-068-KERBEROS漏洞"><span class="toc-number">4.2.</span> <span class="toc-text">0X02 MS14-068 KERBEROS漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0X03-LAPS-LOCAL-ADMINISTRATOR-PASSWORD-SOLUTION"><span class="toc-number">4.3.</span> <span class="toc-text">0X03 LAPS(LOCAL ADMINISTRATOR PASSWORD SOLUTION)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0X04-相同密码登录"><span class="toc-number">4.4.</span> <span class="toc-text">0X04 相同密码登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用漏洞配置、不当获取更多主机权限（获取敏感信息以最终控制整个域）"><span class="toc-number">4.5.</span> <span class="toc-text">利用漏洞配置、不当获取更多主机权限（获取敏感信息以最终控制整个域）</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一："><span class="toc-number">1.</span> <span class="toc-text">一：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#内网安全检查-渗透介绍"><span class="toc-number">1.1.</span> <span class="toc-text">内网安全检查/渗透介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#攻击思路"><span class="toc-number">1.1.1.</span> <span class="toc-text">攻击思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#敏感资料-数据-信息"><span class="toc-number">1.1.2.</span> <span class="toc-text">敏感资料/数据/信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#攻击过程"><span class="toc-number">1.1.3.</span> <span class="toc-text">攻击过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#信息收集"><span class="toc-number">1.2.</span> <span class="toc-text">信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#主机发现"><span class="toc-number">1.2.1.</span> <span class="toc-text">主机发现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#端口扫描"><span class="toc-number">1.2.2.</span> <span class="toc-text">端口扫描</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞扫描"><span class="toc-number">1.2.3.</span> <span class="toc-text">漏洞扫描</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#识别内网环境"><span class="toc-number">1.2.4.</span> <span class="toc-text">识别内网环境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#漏洞验证-漏洞攻击"><span class="toc-number">1.3.</span> <span class="toc-text">漏洞验证/漏洞攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Web"><span class="toc-number">1.3.1.</span> <span class="toc-text">Web</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义-Web-应用"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">自定义 Web 应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Web中间件"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">Web中间件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Web框架"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">Web框架</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Web服务器"><span class="toc-number">1.3.1.4.</span> <span class="toc-text">Web服务器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见运维系统"><span class="toc-number">1.3.2.</span> <span class="toc-text">常见运维系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Gitlab"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">Gitlab</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Jenkins"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">Jenkins</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Puppet"><span class="toc-number">1.3.2.3.</span> <span class="toc-text">Puppet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Ansible"><span class="toc-number">1.3.2.4.</span> <span class="toc-text">Ansible</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Nagios"><span class="toc-number">1.3.2.5.</span> <span class="toc-text">Nagios</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Zabbix"><span class="toc-number">1.3.2.6.</span> <span class="toc-text">Zabbix</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cacit"><span class="toc-number">1.3.2.7.</span> <span class="toc-text">Cacit</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Splunk"><span class="toc-number">1.3.2.8.</span> <span class="toc-text">Splunk</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见-Web-应用"><span class="toc-number">1.3.3.</span> <span class="toc-text">常见 Web 应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#邮件系统"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">邮件系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CMS-应用"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">CMS 应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库-缓存-消息服务"><span class="toc-number">1.3.4.</span> <span class="toc-text">数据库/缓存/消息服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL数据库"><span class="toc-number">1.3.4.1.</span> <span class="toc-text">MySQL数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MSSQL数据库"><span class="toc-number">1.3.4.2.</span> <span class="toc-text">MSSQL数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Oracle数据库"><span class="toc-number">1.3.4.3.</span> <span class="toc-text">Oracle数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PostgreSQL数据库"><span class="toc-number">1.3.4.4.</span> <span class="toc-text">PostgreSQL数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MongoDB数据库"><span class="toc-number">1.3.4.5.</span> <span class="toc-text">MongoDB数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis数据库"><span class="toc-number">1.3.4.6.</span> <span class="toc-text">Redis数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SysBase数据库"><span class="toc-number">1.3.4.7.</span> <span class="toc-text">SysBase数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DB2-数据库"><span class="toc-number">1.3.4.8.</span> <span class="toc-text">DB2 数据库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见服务-协议"><span class="toc-number">1.3.5.</span> <span class="toc-text">常见服务/协议</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FTP-服务"><span class="toc-number">1.3.5.1.</span> <span class="toc-text">FTP 服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NFS-服务"><span class="toc-number">1.3.5.2.</span> <span class="toc-text">NFS 服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Samba服务"><span class="toc-number">1.3.5.3.</span> <span class="toc-text">Samba服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SSH-服务"><span class="toc-number">1.3.5.4.</span> <span class="toc-text">SSH 服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Telnet-服务"><span class="toc-number">1.3.5.5.</span> <span class="toc-text">Telnet 服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows-远程连接"><span class="toc-number">1.3.5.6.</span> <span class="toc-text">Windows 远程连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VNC服务"><span class="toc-number">1.3.5.7.</span> <span class="toc-text">VNC服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SMTP协议"><span class="toc-number">1.3.5.8.</span> <span class="toc-text">SMTP协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#POP3协议"><span class="toc-number">1.3.5.9.</span> <span class="toc-text">POP3协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DNS服务"><span class="toc-number">1.3.5.10.</span> <span class="toc-text">DNS服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IMAP协议"><span class="toc-number">1.3.5.11.</span> <span class="toc-text">IMAP协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SNMP协议"><span class="toc-number">1.3.5.12.</span> <span class="toc-text">SNMP协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DHCP服务"><span class="toc-number">1.3.5.13.</span> <span class="toc-text">DHCP服务</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#云环境"><span class="toc-number">1.3.6.</span> <span class="toc-text">云环境</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#VMware"><span class="toc-number">1.3.6.1.</span> <span class="toc-text">VMware</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#OpenStack"><span class="toc-number">1.3.6.2.</span> <span class="toc-text">OpenStack</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker"><span class="toc-number">1.3.7.</span> <span class="toc-text">Docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#大数据"><span class="toc-number">1.3.8.</span> <span class="toc-text">大数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Elsaticsearch"><span class="toc-number">1.3.8.1.</span> <span class="toc-text">Elsaticsearch</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hadoop"><span class="toc-number">1.3.8.2.</span> <span class="toc-text">hadoop</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hive"><span class="toc-number">1.3.8.3.</span> <span class="toc-text">Hive</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Sqoop"><span class="toc-number">1.3.8.4.</span> <span class="toc-text">Sqoop</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HBase"><span class="toc-number">1.3.8.5.</span> <span class="toc-text">HBase</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spark"><span class="toc-number">1.3.8.6.</span> <span class="toc-text">Spark</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后渗透"><span class="toc-number">1.4.</span> <span class="toc-text">后渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#提权"><span class="toc-number">1.4.1.</span> <span class="toc-text">提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#域攻击"><span class="toc-number">1.4.2.</span> <span class="toc-text">域攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提升权限"><span class="toc-number">1.4.3.</span> <span class="toc-text">提升权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#建立后门-端口转发"><span class="toc-number">1.4.4.</span> <span class="toc-text">建立后门/端口转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#传输文件"><span class="toc-number">1.4.5.</span> <span class="toc-text">传输文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#文件打包"><span class="toc-number">1.4.5.1.</span> <span class="toc-text">文件打包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文件传输"><span class="toc-number">1.4.5.2.</span> <span class="toc-text">文件传输</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#制作后门-木马程序"><span class="toc-number">1.4.6.</span> <span class="toc-text">制作后门/木马程序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志清理"><span class="toc-number">1.5.</span> <span class="toc-text">日志清理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工具和其他"><span class="toc-number">1.6.</span> <span class="toc-text">工具和其他</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">1.7.</span> <span class="toc-text">Reference</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二："><span class="toc-number">2.</span> <span class="toc-text">二：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本信息探测"><span class="toc-number">2.1.</span> <span class="toc-text">基本信息探测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#取得突破口"><span class="toc-number">2.2.</span> <span class="toc-text">取得突破口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提取信息"><span class="toc-number">2.3.</span> <span class="toc-text">提取信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows信息提取"><span class="toc-number">2.3.1.</span> <span class="toc-text">Windows信息提取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux信息提取"><span class="toc-number">2.3.2.</span> <span class="toc-text">Linux信息提取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#powershell篇："><span class="toc-number">2.3.3.</span> <span class="toc-text">powershell篇：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取域管权限"><span class="toc-number">2.4.</span> <span class="toc-text">获取域管权限</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-组策略漏洞（GPP）"><span class="toc-number">2.4.1.</span> <span class="toc-text">0x01 组策略漏洞（GPP）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0X02-MS14-068-KERBEROS漏洞"><span class="toc-number">2.4.2.</span> <span class="toc-text">0X02 MS14-068 KERBEROS漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0X03-LAPS-LOCAL-ADMINISTRATOR-PASSWORD-SOLUTION"><span class="toc-number">2.4.3.</span> <span class="toc-text">0X03 LAPS(LOCAL ADMINISTRATOR PASSWORD SOLUTION)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0X04-相同密码登录"><span class="toc-number">2.4.4.</span> <span class="toc-text">0X04 相同密码登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用漏洞配置、不当获取更多主机权限（获取敏感信息以最终控制整个域）"><span class="toc-number">2.4.5.</span> <span class="toc-text">利用漏洞配置、不当获取更多主机权限（获取敏感信息以最终控制整个域）</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
