@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">3,907</span> / Reading time: <span class="post-count">16 min</span></span>
+                        <span>Word count: <span class="post-count">4,063</span> / Reading time: <span class="post-count">17 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,7 +396,37 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>[toc]</p>
+        <!-- TOC -->
+<ul>
+<li><a href="#一java序列化与反序列化简介">一、Java序列化与反序列化简介</a></li>
+<li><a href="#二漏洞成因">二、漏洞成因</a></li>
+<li><a href="#三漏洞基本原理">三、漏洞基本原理</a><ul>
+<li><a href="#序列化">序列化</a></li>
+<li><a href="#反序列化">反序列化</a></li>
+</ul>
+</li>
+<li><a href="#四检测java反序列化漏洞">四、检测Java反序列化漏洞</a><ul>
+<li><a href="#代码审计">代码审计</a></li>
+<li><a href="#白盒审计">白盒审计</a></li>
+<li><a href="#黑盒审计">黑盒审计</a></li>
+<li><a href="#攻击检测">攻击检测</a></li>
+<li><a href="#rasp检测">RASP检测</a></li>
+<li><a href="#其他">其他</a></li>
+</ul>
+</li>
+<li><a href="#五防御java反序列化漏洞">五、防御Java反序列化漏洞</a></li>
+<li><a href="#六修复java反序列化漏洞">六、修复Java反序列化漏洞</a><ul>
+<li><a href="#1通过hook-resolveclass来校验反序列化的类">1、通过Hook resolveClass来校验反序列化的类</a></li>
+<li><a href="#2使用validatingobjectinputstream来校验反序列化的类">2.使用ValidatingObjectInputStream来校验反序列化的类</a></li>
+<li><a href="#3使用contrast-ro0防御反序列化攻击">3.使用contrast-rO0防御反序列化攻击</a></li>
+<li><a href="#4使用objectinputfilter来校验反序列化的类">4.使用ObjectInputFilter来校验反序列化的类</a></li>
+<li><a href="#5禁止jvm执行外部命令runtimeexec">5、禁止JVM执行外部命令<code>Runtime.exec</code></a></li>
+<li><a href="#6不建议使用的黑名单">6、不建议使用的黑名单</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+<!-- /TOC -->
 <h2 id="一、Java序列化与反序列化简介"><a href="#一、Java序列化与反序列化简介" class="headerlink" title="一、Java序列化与反序列化简介"></a>一、Java序列化与反序列化简介</h2><p>序列化是让Java对象脱离Java运行环境的一种手段，可以有效的实现多平台之间的通信、对象持久化存储。</p>
 <blockquote>
 <p><code>Java序列化</code>是指把Java对象转换为字节序列的过程(便于保存在内存、文件、数据库中)，<code>ObjectOutputStream</code>类的<code>writeObject()</code>方法可以实现序列化。</p>
