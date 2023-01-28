@@ -5,16 +5,16 @@
 
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
     <meta name="author" content="Ywc">
     <meta name="renderer" content="webkit">
     <meta name="copyright" content="Ywc">
     <meta name="keywords" content="Hexo | Ywc">
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>学习python中遇到的问题及总结 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
@@ -68,10 +68,10 @@
 
 </style>
 
-    <link rel="preload" href="/css/style.css?v=201807017_1502" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="/css/mobile.css?v=20180709" media="(max-width: 980px)">
+    <link rel="preload" href= /css/style.css?v=201807017_1502 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180709 media="(max-width: 980px)">
     
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -180,12 +180,12 @@
 }( typeof global !== "undefined" ? global : this ) );
 </script>
 
-    <link rel="icon" href="/assets/ywc.ico">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
-    <link rel="preload" href="/scripts/main.js" as="script">
-    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin="">
-    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin="">
+    <link rel="icon" href= "/assets/ywc.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
     
     <!-- fancybox -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
@@ -193,7 +193,7 @@
     
     <!-- 谷歌统计  -->
     
-</head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
     
         <body class="post-body">
@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">2,478</span> / Reading time: <span class="post-count">11 min</span></span>
+                        <span>Word count: <span class="post-count">2.5k</span> / Reading time: <span class="post-count">11 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -398,69 +398,76 @@ height:50vh;
     <article class="article-entry">
         <h3 id="字符串基础"><a href="#字符串基础" class="headerlink" title="字符串基础"></a>字符串基础</h3><ul>
 <li><p>连接</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s1=<span class="string">'www.baidu'</span></span><br><span class="line">s2=<span class="string">'.com'</span></span><br><span class="line">s3=s1+s2</span><br><span class="line"><span class="keyword">print</span> s3</span><br><span class="line">​</span><br></pre></td></tr></table></figure>
-<p>s3输出为<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a><br>​<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s4=s2+s1</span><br><span class="line">​</span><br></pre></td></tr></table></figure></p>
-<p>s3输出为.com<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a><br>​<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure></p>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">s1=<span class="string">&#x27;www.baidu&#x27;</span></span><br><span class="line">s2=<span class="string">&#x27;.com&#x27;</span></span><br><span class="line">s3=s1+s2</span><br><span class="line"><span class="built_in">print</span> s3</span><br><span class="line">​```</span><br><span class="line">s3输出为www.baidu.com</span><br><span class="line">​```</span><br><span class="line">s4=s2+s1</span><br><span class="line">​```</span><br><span class="line">s3输出为.comwww.baidu.com</span><br><span class="line">​```</span><br></pre></td></tr></table></figure></li>
 <li><p>重复</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;li1=[<span class="number">1</span>,<span class="string">'3'</span>,<span class="string">'23.333'</span>]</span><br><span class="line">&gt;&gt;&gt;li1</span><br><span class="line">[<span class="number">1</span>, <span class="string">'3'</span>, <span class="string">'23.333'</span>]</span><br><span class="line">&gt;&gt;&gt;li1=[<span class="number">1</span>,<span class="string">'3'</span>,<span class="string">'23.333'</span>]*<span class="number">5</span></span><br><span class="line">&gt;&gt;&gt;li1</span><br><span class="line">[<span class="number">1</span>, <span class="string">'3'</span>, <span class="string">'23.333'</span>, <span class="number">1</span>, <span class="string">'3'</span>, <span class="string">'23.333'</span>, <span class="number">1</span>, <span class="string">'3'</span>, <span class="string">'23.333'</span>]</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;li1=[<span class="number">1</span>,<span class="string">&#x27;3&#x27;</span>,<span class="string">&#x27;23.333&#x27;</span>]</span><br><span class="line">&gt;&gt;&gt;li1</span><br><span class="line">[<span class="number">1</span>, <span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;23.333&#x27;</span>]</span><br><span class="line">&gt;&gt;&gt;li1=[<span class="number">1</span>,<span class="string">&#x27;3&#x27;</span>,<span class="string">&#x27;23.333&#x27;</span>]*<span class="number">5</span></span><br><span class="line">&gt;&gt;&gt;li1</span><br><span class="line">[<span class="number">1</span>, <span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;23.333&#x27;</span>, <span class="number">1</span>, <span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;23.333&#x27;</span>, <span class="number">1</span>, <span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;23.333&#x27;</span>]</span><br></pre></td></tr></table></figure></li>
 <li><p>s[i] 索引 index </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;s1=<span class="string">'abcdefg'</span></span><br><span class="line">&gt;&gt;&gt;ch=s1[<span class="number">3</span>]</span><br><span class="line">&gt;&gt;&gt;ch</span><br><span class="line"><span class="string">'d'</span></span><br><span class="line">&gt;&gt;&gt;print(ch)</span><br><span class="line">d</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>s[i:j:step] 切片 slice  </p>
-<p>注意方向，由大到小时，step为负，由小到大时，step为正（为1时可以不写）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;s1=<span class="string">'abcdefg'</span></span><br><span class="line">&gt;&gt;&gt;sub=s1[<span class="number">2</span>:<span class="number">5</span>]</span><br><span class="line">&gt;&gt;&gt;print(sub)</span><br><span class="line">cde</span><br><span class="line">&gt;&gt;&gt;sub=s1[<span class="number">2</span>:]</span><br><span class="line">&gt;&gt;&gt;print(sub)</span><br><span class="line">cdefg</span><br><span class="line">&gt;&gt;&gt;sub=s1[:]</span><br><span class="line">&gt;&gt;&gt;print(sub)</span><br><span class="line">abcdefg</span><br><span class="line">&gt;&gt;&gt;s1[<span class="number">5</span>]</span><br><span class="line"><span class="string">'f'</span></span><br><span class="line">&gt;&gt;&gt;s1[<span class="number">-2</span>]</span><br><span class="line"><span class="string">'f'</span></span><br><span class="line">&gt;&gt;&gt;sub=s1[<span class="number">-4</span>:<span class="number">-1</span>]</span><br><span class="line">&gt;&gt;&gt;sub</span><br><span class="line"><span class="string">'def'</span></span><br><span class="line">&gt;&gt;sub=s1[<span class="number">-4</span>:<span class="number">-1</span>]</span><br><span class="line">&gt;&gt;&gt;sub</span><br><span class="line"><span class="string">'def'</span></span><br><span class="line">&gt;&gt;&gt;sub=s1[<span class="number">-1</span>:<span class="number">-4</span>]</span><br><span class="line">&gt;&gt;&gt;sub</span><br><span class="line"><span class="string">''</span></span><br><span class="line">&gt;&gt;&gt;sub=s1[<span class="number">-1</span>:<span class="number">-4</span>:<span class="number">-1</span>]</span><br><span class="line">&gt;&gt;&gt;sub</span><br><span class="line"><span class="string">'gfe'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>for 循环遍历</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="string">'www.baidu.com'</span></span><br><span class="line"><span class="keyword">for</span> ch <span class="keyword">in</span> s:</span><br><span class="line">    print(ch)</span><br><span class="line">​</span><br><span class="line">w</span><br><span class="line">w</span><br><span class="line">w</span><br><span class="line">.</span><br><span class="line">b</span><br><span class="line">a</span><br><span class="line">i</span><br><span class="line">d</span><br><span class="line">u</span><br><span class="line">.</span><br><span class="line">c</span><br><span class="line">o</span><br><span class="line">m</span><br><span class="line">​</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;s1=<span class="string">&#x27;abcdefg&#x27;</span></span><br><span class="line">&gt;&gt;&gt;ch=s1[<span class="number">3</span>]</span><br><span class="line">&gt;&gt;&gt;ch</span><br><span class="line"><span class="string">&#x27;d&#x27;</span></span><br><span class="line">&gt;&gt;&gt;<span class="built_in">print</span>(ch)</span><br><span class="line">d</span><br></pre></td></tr></table></figure></li>
+<li><p>s[i:j:step] 切片 slice</p>
 </li>
 </ul>
-<h3 id="删除字符串中的空格"><a href="#删除字符串中的空格" class="headerlink" title="删除字符串中的空格"></a>删除字符串中的空格</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;.join(a.split())</span><br></pre></td></tr></table></figure>
-<p><code>&gt;&gt;&gt;</code> a = “ a b c “<br><code>&gt;&gt;&gt;</code> b = a.split()  # 字符串按空格分割成列表<br><code>&gt;&gt;&gt;</code> b [‘a’, ‘b’, ‘c’]<br><code>&gt;&gt;&gt;</code> c = “”.join(b) # 使用一个空字符串合成列表内容生成新的字符串<br><code>&gt;&gt;&gt;</code> c ‘abc’</p>
-<h3 id="python中类似print-‘-’-end-’’-中end问题"><a href="#python中类似print-‘-’-end-’’-中end问题" class="headerlink" title="python中类似print(‘*’,end=’’)中end问题"></a>python中类似print(‘*’,end=’’)中end问题</h3><p>end是print（）函数的一个参数。end 是输出语句结束以后附加的字符串，它的默认值是换行（’\n’）<br>例如:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'*'</span>,end = <span class="string">' '</span>)<span class="comment">#end值为空格</span></span><br><span class="line">print(<span class="string">'*'</span>,end = <span class="string">''</span>)<span class="comment">#end值为空字符串</span></span><br><span class="line">print(<span class="string">'*'</span>,end = <span class="string">''</span>)<span class="comment">#end值为空字符串</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">''</span>)<span class="comment">#end值为默认值（换行\n）</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">'*'</span>,end = <span class="string">'1'</span>)<span class="comment">#end值为字符串‘1’</span></span><br><span class="line">print(<span class="string">'*'</span>,end = <span class="string">'12'</span>)<span class="comment">#end值为字符串‘12’</span></span><br></pre></td></tr></table></figure></p>
-<p>输出结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* **</span><br><span class="line">*1*12</span><br></pre></td></tr></table></figure></p>
-<h3 id="python-xrange与range的区别"><a href="#python-xrange与range的区别" class="headerlink" title="python xrange与range的区别"></a>python xrange与range的区别</h3><p>参考链接：<a href="http://www.nowamagic.net/academy/detail/1302446" target="_blank" rel="noopener">http://www.nowamagic.net/academy/detail/1302446</a></p>
+<p>  注意方向，由大到小时，step为负，由小到大时，step为正（为1时可以不写）</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;s1=<span class="string">&#x27;abcdefg&#x27;</span></span><br><span class="line">&gt;&gt;&gt;sub=s1[<span class="number">2</span>:<span class="number">5</span>]</span><br><span class="line">&gt;&gt;&gt;<span class="built_in">print</span>(sub)</span><br><span class="line">cde</span><br><span class="line">&gt;&gt;&gt;sub=s1[<span class="number">2</span>:]</span><br><span class="line">&gt;&gt;&gt;<span class="built_in">print</span>(sub)</span><br><span class="line">cdefg</span><br><span class="line">&gt;&gt;&gt;sub=s1[:]</span><br><span class="line">&gt;&gt;&gt;<span class="built_in">print</span>(sub)</span><br><span class="line">abcdefg</span><br><span class="line">&gt;&gt;&gt;s1[<span class="number">5</span>]</span><br><span class="line"><span class="string">&#x27;f&#x27;</span></span><br><span class="line">&gt;&gt;&gt;s1[-<span class="number">2</span>]</span><br><span class="line"><span class="string">&#x27;f&#x27;</span></span><br><span class="line">&gt;&gt;&gt;sub=s1[-<span class="number">4</span>:-<span class="number">1</span>]</span><br><span class="line">&gt;&gt;&gt;sub</span><br><span class="line"><span class="string">&#x27;def&#x27;</span></span><br><span class="line">&gt;&gt;sub=s1[-<span class="number">4</span>:-<span class="number">1</span>]</span><br><span class="line">&gt;&gt;&gt;sub</span><br><span class="line"><span class="string">&#x27;def&#x27;</span></span><br><span class="line">&gt;&gt;&gt;sub=s1[-<span class="number">1</span>:-<span class="number">4</span>]</span><br><span class="line">&gt;&gt;&gt;sub</span><br><span class="line"><span class="string">&#x27;&#x27;</span></span><br><span class="line">&gt;&gt;&gt;sub=s1[-<span class="number">1</span>:-<span class="number">4</span>:-<span class="number">1</span>]</span><br><span class="line">&gt;&gt;&gt;sub</span><br><span class="line"><span class="string">&#x27;gfe&#x27;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>for 循环遍历</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="string">&#x27;www.baidu.com&#x27;</span></span><br><span class="line"><span class="keyword">for</span> ch <span class="keyword">in</span> s:</span><br><span class="line">    <span class="built_in">print</span>(ch)</span><br><span class="line">​</span><br><span class="line">w</span><br><span class="line">w</span><br><span class="line">w</span><br><span class="line">.</span><br><span class="line">b</span><br><span class="line">a</span><br><span class="line">i</span><br><span class="line">d</span><br><span class="line">u</span><br><span class="line">.</span><br><span class="line">c</span><br><span class="line">o</span><br><span class="line">m</span><br><span class="line">​</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="删除字符串中的空格"><a href="#删除字符串中的空格" class="headerlink" title="删除字符串中的空格"></a>删除字符串中的空格</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;.join(a.split())</span><br></pre></td></tr></table></figure>
+
+<p><code>&gt;&gt;&gt;</code> a &#x3D; “ a b c “<br><code>&gt;&gt;&gt;</code> b &#x3D; a.split()  # 字符串按空格分割成列表<br><code>&gt;&gt;&gt;</code> b [‘a’, ‘b’, ‘c’]<br><code>&gt;&gt;&gt;</code> c &#x3D; “”.join(b) # 使用一个空字符串合成列表内容生成新的字符串<br><code>&gt;&gt;&gt;</code> c ‘abc’</p>
+<h3 id="python中类似print-‘-’-end-x3D-’’-中end问题"><a href="#python中类似print-‘-’-end-x3D-’’-中end问题" class="headerlink" title="python中类似print(‘*’,end&#x3D;’’)中end问题"></a>python中类似print(‘*’,end&#x3D;’’)中end问题</h3><p>end是print（）函数的一个参数。end 是输出语句结束以后附加的字符串，它的默认值是换行（’\n’）<br>例如:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;*&#x27;</span>,end = <span class="string">&#x27; &#x27;</span>)<span class="comment">#end值为空格</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;*&#x27;</span>,end = <span class="string">&#x27;&#x27;</span>)<span class="comment">#end值为空字符串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;*&#x27;</span>,end = <span class="string">&#x27;&#x27;</span>)<span class="comment">#end值为空字符串</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#x27;</span>)<span class="comment">#end值为默认值（换行\n）</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;*&#x27;</span>,end = <span class="string">&#x27;1&#x27;</span>)<span class="comment">#end值为字符串‘1’</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;*&#x27;</span>,end = <span class="string">&#x27;12&#x27;</span>)<span class="comment">#end值为字符串‘12’</span></span><br></pre></td></tr></table></figure>
+
+<p>输出结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* **</span><br><span class="line">*1*12</span><br></pre></td></tr></table></figure>
+
+<h3 id="python-xrange与range的区别"><a href="#python-xrange与range的区别" class="headerlink" title="python xrange与range的区别"></a>python xrange与range的区别</h3><p>参考链接：<a target="_blank" rel="noopener" href="http://www.nowamagic.net/academy/detail/1302446">http://www.nowamagic.net/academy/detail/1302446</a></p>
 <p>range(start,stop,step)</p>
 <p>xrange与range完全相同，所不同的是生成的不是一个list对象,而是一个生成器。要生成很大的数字序列的时候，用xrange会比range性能优很多，因为不需要一上来就开辟一块很大的内存空间。</p>
 <p>所以xrange做循环的性能比range好，尤其是返回很大的时候。尽量用xrange吧，除非你是要返回一个列表。</p>
-<h3 id="python中使用md5和sha1"><a href="#python中使用md5和sha1" class="headerlink" title="python中使用md5和sha1"></a>python中使用md5和sha1</h3><p>参考链接：<a href="https://www.cnblogs.com/shanys/p/5890265.html" target="_blank" rel="noopener">https://www.cnblogs.com/shanys/p/5890265.html</a><br><strong>md5使用例子</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line">data_str=<span class="string">"hello world"</span></span><br><span class="line">hash_md5=md5(data_str).hexdigest()</span><br><span class="line"><span class="keyword">print</span> hash_md5</span><br></pre></td></tr></table></figure></p>
-<p><strong>sha1使用例子</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha1</span><br><span class="line">data_str = <span class="string">"hello world"</span></span><br><span class="line">hash_sha1=sha1(data_str).hexdigest()</span><br><span class="line"><span class="keyword">print</span> hash_sha1</span><br></pre></td></tr></table></figure></p>
+<h3 id="python中使用md5和sha1"><a href="#python中使用md5和sha1" class="headerlink" title="python中使用md5和sha1"></a>python中使用md5和sha1</h3><p>参考链接：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/shanys/p/5890265.html">https://www.cnblogs.com/shanys/p/5890265.html</a><br><strong>md5使用例子</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line">data_str=<span class="string">&quot;hello world&quot;</span></span><br><span class="line">hash_md5=md5(data_str).hexdigest()</span><br><span class="line"><span class="built_in">print</span> hash_md5</span><br></pre></td></tr></table></figure>
+<p><strong>sha1使用例子</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha1</span><br><span class="line">data_str = <span class="string">&quot;hello world&quot;</span></span><br><span class="line">hash_sha1=sha1(data_str).hexdigest()</span><br><span class="line"><span class="built_in">print</span> hash_sha1</span><br></pre></td></tr></table></figure>
 <h3 id="md5-os-urandom-n-产生随机字符串"><a href="#md5-os-urandom-n-产生随机字符串" class="headerlink" title="md5+os.urandom(n)产生随机字符串"></a>md5+os.urandom(n)产生随机字符串</h3><p>有点时候我们会需要产生一个全局唯一的id，这个时候，md5 + os.urandom 就派上用场了。</p>
 <p>os.urandom(n) 是一种随机生成n个字节字符串的方法，而且每次生成的值都不相同。再加上md5的处理，就能够成内容不同长度相同的字符串了。</p>
-<p>例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    <span class="keyword">print</span> md5(os.urandom(<span class="number">24</span>)).hexdigest()</span><br></pre></td></tr></table></figure></p>
-<h3 id="urllib-unquote"><a href="#urllib-unquote" class="headerlink" title="urllib.unquote()"></a>urllib.unquote()</h3><p>把字典形式的参数进行url编码.<br>eg:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"url=%2F&amp;email=imtesting%40tempmail.com&amp;password=hereispassword"</span></span><br><span class="line"><span class="keyword">print</span> urllib.unquote(s)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>url=/&amp;email=imtesting@tempmail.com&amp;password=hereispassword</span><br></pre></td></tr></table></figure></p>
+<p>例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    <span class="built_in">print</span> md5(os.urandom(<span class="number">24</span>)).hexdigest()</span><br></pre></td></tr></table></figure>
+<h3 id="urllib-unquote"><a href="#urllib-unquote" class="headerlink" title="urllib.unquote()"></a>urllib.unquote()</h3><p>把字典形式的参数进行url编码.<br>eg:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&quot;url=%2F&amp;email=imtesting%40tempmail.com&amp;password=hereispassword&quot;</span></span><br><span class="line"><span class="built_in">print</span> urllib.unquote(s)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>url=/&amp;email=imtesting@tempmail.com&amp;password=hereispassword</span><br></pre></td></tr></table></figure>
+
 <h3 id="seek-函数"><a href="#seek-函数" class="headerlink" title="seek()函数"></a>seek()函数</h3><p>seek() 方法用于移动文件读取指针到指定位置.</p>
 <p>语法：</p>
 <pre><code>fileObject.seek(offset[, whence])
-</code></pre><ul>
+</code></pre>
+<ul>
 <li>offset – 开始的偏移量，也就是代表需要移动偏移的字节数</li>
 <li>whence：可选，默认值为 0。给offset参数一个定义，表示要从哪个位置开始偏移；0代表从文件开头开始算起，1代表从当前位置开始算起，2代表从文件末尾算起。</li>
 </ul>
-<p><a href="https://blog.csdn.net/maxthex/article/details/56484519" target="_blank" rel="noopener">https://blog.csdn.net/maxthex/article/details/56484519</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/maxthex/article/details/56484519">https://blog.csdn.net/maxthex/article/details/56484519</a></p>
 <h3 id="import-sys-与from-sys-import-argv"><a href="#import-sys-与from-sys-import-argv" class="headerlink" title="import sys 与from sys import argv"></a>import sys 与from sys import argv</h3><ul>
-<li>from sys import argv可以通过a,b,c,d……=argv来进行批量参数赋值，将argv中的参数依次赋值给左边的变量。</li>
-<li>而import sys去只能通过a=sys.argv[]这样来逐个赋值。</li>
+<li>from sys import argv可以通过a,b,c,d……&#x3D;argv来进行批量参数赋值，将argv中的参数依次赋值给左边的变量。</li>
+<li>而import sys去只能通过a&#x3D;sys.argv[]这样来逐个赋值。</li>
 <li>Sys.argv[ ]其实就是一个列表，里边的项为用户输入的参数，关键就是要明白这参数是从程序外部输入的，而非代码本身的什么地方，要想看到它的效果就应该将程序保存了，从外部来运行程序并给出参数。</li>
 </ul>
-<p><a href="https://www.cnblogs.com/aland-1415/p/6613449.html" target="_blank" rel="noopener">https://www.cnblogs.com/aland-1415/p/6613449.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/aland-1415/p/6613449.html">https://www.cnblogs.com/aland-1415/p/6613449.html</a></p>
 <h4 id="int-from-bytes和int-to-bytes函数"><a href="#int-from-bytes和int-to-bytes函数" class="headerlink" title="int.from_bytes和int.to_bytes函数"></a>int.from_bytes和int.to_bytes函数</h4><h4 id="int-from-bytes函数"><a href="#int-from-bytes函数" class="headerlink" title="int.from_bytes函数"></a>int.from_bytes函数</h4><ul>
-<li>功能:res = int.from_bytes(x)的含义是把bytes类型的变量x，转化为十进制整数，并存入res中。其中bytes类型是python3特有的类型。</li>
-<li>函数参数：int.from_bytes(bytes, byteorder, *, signed=False)。在IDLE或者命令行界面中使用help(int.from_bytes)命令可以查看具体介绍。bytes是输入的变量；byteorder主要有两种：’big’和’little’；signed=True表示需要考虑符号位。</li>
+<li>功能:res &#x3D; int.from_bytes(x)的含义是把bytes类型的变量x，转化为十进制整数，并存入res中。其中bytes类型是python3特有的类型。</li>
+<li>函数参数：int.from_bytes(bytes, byteorder, *, signed&#x3D;False)。在IDLE或者命令行界面中使用help(int.from_bytes)命令可以查看具体介绍。bytes是输入的变量；byteorder主要有两种：’big’和’little’；signed&#x3D;True表示需要考虑符号位。</li>
 </ul>
 <h4 id="int-to-bytes函数"><a href="#int-to-bytes函数" class="headerlink" title="int.to_bytes函数"></a>int.to_bytes函数</h4><ul>
 <li>功能：是int.from_bytes的逆过程，把十进制整数，转换为bytes类型的格式。</li>
 </ul>
-<h3 id="python之-s-d-f"><a href="#python之-s-d-f" class="headerlink" title="python之%s%d%f"></a>python之%s%d%f</h3><h4 id="s字符串"><a href="#s字符串" class="headerlink" title="%s字符串"></a>%s字符串</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">string=<span class="string">"hello"</span>  </span><br><span class="line">  </span><br><span class="line"><span class="comment">#%s打印时结果是hello  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%s"</span> % string      <span class="comment"># output: string=hello  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%2s意思是字符串长度为2，当原字符串的长度超过2时，按原长度打印，所以%2s的打印结果还是hello  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%2s"</span> % string     <span class="comment"># output: string=hello  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%7s意思是字符串长度为7，当原字符串的长度小于7时，在原字符串左侧补空格，  </span></span><br><span class="line"><span class="comment">#所以%7s的打印结果是  hello  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%7s"</span> % string     <span class="comment"># output: string=  hello  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%-7s意思是字符串长度为7，当原字符串的长度小于7时，在原字符串右侧补空格，  </span></span><br><span class="line"><span class="comment">#所以%-7s的打印结果是  hello  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%-7s!"</span> % string     <span class="comment"># output: string=hello  !  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%.2s意思是截取字符串的前2个字符，所以%.2s的打印结果是he  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%.2s"</span> % string    <span class="comment"># output: string=he  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%.7s意思是截取字符串的前7个字符，当原字符串长度小于7时，即是字符串本身，  </span></span><br><span class="line"><span class="comment">#所以%.7s的打印结果是hello  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%.7s"</span> % string    <span class="comment"># output: string=hello  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%a.bs这种格式是上面两种格式的综合，首先根据小数点后面的数b截取字符串，  </span></span><br><span class="line"><span class="comment">#当截取的字符串长度小于a时，还需要在其左侧补空格  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%7.2s"</span> % string   <span class="comment"># output: string=     he  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%2.7s"</span> % string   <span class="comment"># output: string=hello  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%10.7s"</span> % string  <span class="comment"># output: string=     hello  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#还可以用%*.*s来表示精度，两个*的值分别在后面小括号的前两位数值指定  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"string=%*.*s"</span> % (<span class="number">7</span>,<span class="number">2</span>,string)      <span class="comment"># output: string=     he</span></span><br></pre></td></tr></table></figure>
-<h4 id="d-整型"><a href="#d-整型" class="headerlink" title="%d 整型"></a>%d 整型</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">num=<span class="number">14</span>  </span><br><span class="line">  </span><br><span class="line"><span class="comment">#%d打印时结果是14  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%d"</span> % num            <span class="comment"># output: num=14  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%1d意思是打印结果为1位整数，当整数的位数超过1位时，按整数原值打印，所以%1d的打印结果还是14  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%1d"</span> % num           <span class="comment"># output: num=14  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%3d意思是打印结果为3位整数，当整数的位数不够3位时，在整数左侧补空格，所以%3d的打印结果是 14  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%3d"</span> % num           <span class="comment"># output: num= 14  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%-3d意思是打印结果为3位整数，当整数的位数不够3位时，在整数右侧补空格，所以%3d的打印结果是14_  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%-3d"</span> % num          <span class="comment"># output: num=14_  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%05d意思是打印结果为5位整数，当整数的位数不够5位时，在整数左侧补0，所以%05d的打印结果是00014  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%05d"</span> % num          <span class="comment"># output: num=00014  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%.3d小数点后面的3意思是打印结果为3位整数，  </span></span><br><span class="line"><span class="comment">#当整数的位数不够3位时，在整数左侧补0，所以%.3d的打印结果是014  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%.3d"</span> % num          <span class="comment"># output: num=014  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%.0003d小数点后面的0003和3一样，都表示3，意思是打印结果为3位整数，  </span></span><br><span class="line"><span class="comment">#当整数的位数不够3位时，在整数左侧补0，所以%.3d的打印结果还是014  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%.0003d"</span> % num       <span class="comment"># output: num=014  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%5.3d是两种补齐方式的综合，当整数的位数不够3时，先在左侧补0，还是不够5位时，再在左侧补空格，  </span></span><br><span class="line"><span class="comment">#规则就是补0优先，最终的长度选数值较大的那个，所以%5.3d的打印结果还是  014  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%5.3d"</span> % num         <span class="comment"># output: num=  014  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%05.3d是两种补齐方式的综合，当整数的位数不够3时，先在左侧补0，还是不够5位时，  </span></span><br><span class="line"><span class="comment">#由于是05，再在左侧补0，最终的长度选数值较大的那个，所以%05.3d的打印结果还是00014  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%05.3d"</span> % num        <span class="comment"># output: num=00014  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#还可以用%*.*d来表示精度，两个*的值分别在后面小括号的前两位数值指定  </span></span><br><span class="line"><span class="comment">#如下，不过这种方式04就失去补0的功能，只能补空格，只有小数点后面的3才能补0  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"num=%*.*d"</span> % (<span class="number">04</span>,<span class="number">3</span>,num)  <span class="comment"># output: num= 014</span></span><br></pre></td></tr></table></figure>
-<h4 id="f-浮点型"><a href="#f-浮点型" class="headerlink" title="%f 浮点型"></a>%f 浮点型</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math  </span><br><span class="line">  </span><br><span class="line"><span class="comment">#%a.bf，a表示浮点数的打印长度，b表示浮点数小数点后面的精度  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#只是%f时表示原值，默认是小数点后5位数  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"PI=%f"</span> % math.pi             <span class="comment"># output: PI=3.141593  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#只是%9f时，表示打印长度9位数，小数点也占一位，不够左侧补空格  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"PI=%9f"</span> % math.pi            <span class="comment"># output: PI=_3.141593  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#只有.没有后面的数字时，表示去掉小数输出整数，03表示不够3位数左侧补0  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"PI=%03.f"</span> % math.pi          <span class="comment"># output: PI=003  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%6.3f表示小数点后面精确到3位，总长度6位数，包括小数点，不够左侧补空格  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"PI=%6.3f"</span> % math.pi          <span class="comment"># output: PI=_3.142  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%-6.3f表示小数点后面精确到3位，总长度6位数，包括小数点，不够右侧补空格  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"PI=%-6.3f"</span> % math.pi         <span class="comment"># output: PI=3.142_  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#还可以用%*.*f来表示精度，两个*的值分别在后面小括号的前两位数值指定  </span></span><br><span class="line"><span class="comment">#如下，不过这种方式06就失去补0的功能，只能补空格  </span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"PI=%*.*f"</span> % (<span class="number">06</span>,<span class="number">3</span>,math.pi)   <span class="comment"># output: PI=_3.142</span></span><br></pre></td></tr></table></figure>
+<h3 id="python之-s-d-f"><a href="#python之-s-d-f" class="headerlink" title="python之%s%d%f"></a>python之%s%d%f</h3><h4 id="s字符串"><a href="#s字符串" class="headerlink" title="%s字符串"></a>%s字符串</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">string=<span class="string">&quot;hello&quot;</span>  </span><br><span class="line">  </span><br><span class="line"><span class="comment">#%s打印时结果是hello  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;string=%s&quot;</span> % string      <span class="comment"># output: string=hello  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%2s意思是字符串长度为2，当原字符串的长度超过2时，按原长度打印，所以%2s的打印结果还是hello  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;string=%2s&quot;</span> % string     <span class="comment"># output: string=hello  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%7s意思是字符串长度为7，当原字符串的长度小于7时，在原字符串左侧补空格，  </span></span><br><span class="line"><span class="comment">#所以%7s的打印结果是  hello  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;string=%7s&quot;</span> % string     <span class="comment"># output: string=  hello  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%-7s意思是字符串长度为7，当原字符串的长度小于7时，在原字符串右侧补空格，  </span></span><br><span class="line"><span class="comment">#所以%-7s的打印结果是  hello  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;string=%-7s!&quot;</span> % string     <span class="comment"># output: string=hello  !  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%.2s意思是截取字符串的前2个字符，所以%.2s的打印结果是he  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;string=%.2s&quot;</span> % string    <span class="comment"># output: string=he  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%.7s意思是截取字符串的前7个字符，当原字符串长度小于7时，即是字符串本身，  </span></span><br><span class="line"><span class="comment">#所以%.7s的打印结果是hello  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;string=%.7s&quot;</span> % string    <span class="comment"># output: string=hello  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%a.bs这种格式是上面两种格式的综合，首先根据小数点后面的数b截取字符串，  </span></span><br><span class="line"><span class="comment">#当截取的字符串长度小于a时，还需要在其左侧补空格  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;string=%7.2s&quot;</span> % string   <span class="comment"># output: string=     he  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;string=%2.7s&quot;</span> % string   <span class="comment"># output: string=hello  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;string=%10.7s&quot;</span> % string  <span class="comment"># output: string=     hello  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#还可以用%*.*s来表示精度，两个*的值分别在后面小括号的前两位数值指定  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;string=%*.*s&quot;</span> % (<span class="number">7</span>,<span class="number">2</span>,string)      <span class="comment"># output: string=     he  </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="d-整型"><a href="#d-整型" class="headerlink" title="%d 整型"></a>%d 整型</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">num=<span class="number">14</span>  </span><br><span class="line">  </span><br><span class="line"><span class="comment">#%d打印时结果是14  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;num=%d&quot;</span> % num            <span class="comment"># output: num=14  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%1d意思是打印结果为1位整数，当整数的位数超过1位时，按整数原值打印，所以%1d的打印结果还是14  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;num=%1d&quot;</span> % num           <span class="comment"># output: num=14  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%3d意思是打印结果为3位整数，当整数的位数不够3位时，在整数左侧补空格，所以%3d的打印结果是 14  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;num=%3d&quot;</span> % num           <span class="comment"># output: num= 14  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%-3d意思是打印结果为3位整数，当整数的位数不够3位时，在整数右侧补空格，所以%3d的打印结果是14_  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;num=%-3d&quot;</span> % num          <span class="comment"># output: num=14_  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%05d意思是打印结果为5位整数，当整数的位数不够5位时，在整数左侧补0，所以%05d的打印结果是00014  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;num=%05d&quot;</span> % num          <span class="comment"># output: num=00014  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%.3d小数点后面的3意思是打印结果为3位整数，  </span></span><br><span class="line"><span class="comment">#当整数的位数不够3位时，在整数左侧补0，所以%.3d的打印结果是014  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;num=%.3d&quot;</span> % num          <span class="comment"># output: num=014  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%.0003d小数点后面的0003和3一样，都表示3，意思是打印结果为3位整数，  </span></span><br><span class="line"><span class="comment">#当整数的位数不够3位时，在整数左侧补0，所以%.3d的打印结果还是014  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;num=%.0003d&quot;</span> % num       <span class="comment"># output: num=014  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%5.3d是两种补齐方式的综合，当整数的位数不够3时，先在左侧补0，还是不够5位时，再在左侧补空格，  </span></span><br><span class="line"><span class="comment">#规则就是补0优先，最终的长度选数值较大的那个，所以%5.3d的打印结果还是  014  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;num=%5.3d&quot;</span> % num         <span class="comment"># output: num=  014  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%05.3d是两种补齐方式的综合，当整数的位数不够3时，先在左侧补0，还是不够5位时，  </span></span><br><span class="line"><span class="comment">#由于是05，再在左侧补0，最终的长度选数值较大的那个，所以%05.3d的打印结果还是00014  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;num=%05.3d&quot;</span> % num        <span class="comment"># output: num=00014  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#还可以用%*.*d来表示精度，两个*的值分别在后面小括号的前两位数值指定  </span></span><br><span class="line"><span class="comment">#如下，不过这种方式04就失去补0的功能，只能补空格，只有小数点后面的3才能补0  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;num=%*.*d&quot;</span> % (04,<span class="number">3</span>,num)  <span class="comment"># output: num= 014  </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="f-浮点型"><a href="#f-浮点型" class="headerlink" title="%f 浮点型"></a>%f 浮点型</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math  </span><br><span class="line">  </span><br><span class="line"><span class="comment">#%a.bf，a表示浮点数的打印长度，b表示浮点数小数点后面的精度  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#只是%f时表示原值，默认是小数点后5位数  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;PI=%f&quot;</span> % math.pi             <span class="comment"># output: PI=3.141593  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#只是%9f时，表示打印长度9位数，小数点也占一位，不够左侧补空格  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;PI=%9f&quot;</span> % math.pi            <span class="comment"># output: PI=_3.141593  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#只有.没有后面的数字时，表示去掉小数输出整数，03表示不够3位数左侧补0  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;PI=%03.f&quot;</span> % math.pi          <span class="comment"># output: PI=003  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%6.3f表示小数点后面精确到3位，总长度6位数，包括小数点，不够左侧补空格  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;PI=%6.3f&quot;</span> % math.pi          <span class="comment"># output: PI=_3.142  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#%-6.3f表示小数点后面精确到3位，总长度6位数，包括小数点，不够右侧补空格  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;PI=%-6.3f&quot;</span> % math.pi         <span class="comment"># output: PI=3.142_  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#还可以用%*.*f来表示精度，两个*的值分别在后面小括号的前两位数值指定  </span></span><br><span class="line"><span class="comment">#如下，不过这种方式06就失去补0的功能，只能补空格  </span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;PI=%*.*f&quot;</span> % (06,<span class="number">3</span>,math.pi)   <span class="comment"># output: PI=_3.142  </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
-            <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/05/28/python/">https://yinwc.github.io/2018/05/28/python/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/05/28/python/">May 28th 2018, 8:52:57 pm</a>
+            <p>原文作者: <a href="https://ysec.github.io">Ywc</a>
+            <p>原文链接: <a href="https://ysec.github.io/2018/05/28/python/">https://ysec.github.io/2018/05/28/python/</a>
+            <p>发表日期: <a href="https://ysec.github.io/2018/05/28/python/">May 28th 2018, 8:52:57 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -590,7 +597,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串基础"><span class="toc-number">1.</span> <span class="toc-text">字符串基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除字符串中的空格"><span class="toc-number">2.</span> <span class="toc-text">删除字符串中的空格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python中类似print-‘-’-end-’’-中end问题"><span class="toc-number">3.</span> <span class="toc-text">python中类似print(‘*’,end=’’)中end问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python-xrange与range的区别"><span class="toc-number">4.</span> <span class="toc-text">python xrange与range的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python中使用md5和sha1"><span class="toc-number">5.</span> <span class="toc-text">python中使用md5和sha1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#md5-os-urandom-n-产生随机字符串"><span class="toc-number">6.</span> <span class="toc-text">md5+os.urandom(n)产生随机字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#urllib-unquote"><span class="toc-number">7.</span> <span class="toc-text">urllib.unquote()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#seek-函数"><span class="toc-number">8.</span> <span class="toc-text">seek()函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#import-sys-与from-sys-import-argv"><span class="toc-number">9.</span> <span class="toc-text">import sys 与from sys import argv</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#int-from-bytes和int-to-bytes函数"><span class="toc-number">9.1.</span> <span class="toc-text">int.from_bytes和int.to_bytes函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#int-from-bytes函数"><span class="toc-number">9.2.</span> <span class="toc-text">int.from_bytes函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#int-to-bytes函数"><span class="toc-number">9.3.</span> <span class="toc-text">int.to_bytes函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python之-s-d-f"><span class="toc-number">10.</span> <span class="toc-text">python之%s%d%f</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#s字符串"><span class="toc-number">10.1.</span> <span class="toc-text">%s字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#d-整型"><span class="toc-number">10.2.</span> <span class="toc-text">%d 整型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#f-浮点型"><span class="toc-number">10.3.</span> <span class="toc-text">%f 浮点型</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">字符串基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E7%A9%BA%E6%A0%BC"><span class="toc-number">2.</span> <span class="toc-text">删除字符串中的空格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python%E4%B8%AD%E7%B1%BB%E4%BC%BCprint-%E2%80%98-%E2%80%99-end-x3D-%E2%80%99%E2%80%99-%E4%B8%ADend%E9%97%AE%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">python中类似print(‘*’,end&#x3D;’’)中end问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python-xrange%E4%B8%8Erange%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">4.</span> <span class="toc-text">python xrange与range的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python%E4%B8%AD%E4%BD%BF%E7%94%A8md5%E5%92%8Csha1"><span class="toc-number">5.</span> <span class="toc-text">python中使用md5和sha1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#md5-os-urandom-n-%E4%BA%A7%E7%94%9F%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">6.</span> <span class="toc-text">md5+os.urandom(n)产生随机字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#urllib-unquote"><span class="toc-number">7.</span> <span class="toc-text">urllib.unquote()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#seek-%E5%87%BD%E6%95%B0"><span class="toc-number">8.</span> <span class="toc-text">seek()函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#import-sys-%E4%B8%8Efrom-sys-import-argv"><span class="toc-number">9.</span> <span class="toc-text">import sys 与from sys import argv</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#int-from-bytes%E5%92%8Cint-to-bytes%E5%87%BD%E6%95%B0"><span class="toc-number">9.1.</span> <span class="toc-text">int.from_bytes和int.to_bytes函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#int-from-bytes%E5%87%BD%E6%95%B0"><span class="toc-number">9.2.</span> <span class="toc-text">int.from_bytes函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#int-to-bytes%E5%87%BD%E6%95%B0"><span class="toc-number">9.3.</span> <span class="toc-text">int.to_bytes函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python%E4%B9%8B-s-d-f"><span class="toc-number">10.</span> <span class="toc-text">python之%s%d%f</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#s%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">10.1.</span> <span class="toc-text">%s字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#d-%E6%95%B4%E5%9E%8B"><span class="toc-number">10.2.</span> <span class="toc-text">%d 整型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#f-%E6%B5%AE%E7%82%B9%E5%9E%8B"><span class="toc-number">10.3.</span> <span class="toc-text">%f 浮点型</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -2086,9 +2093,84 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 95
+        Total : 98
         </div>
         <!-- search  -->
         
@@ -2104,22 +2186,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2020/02/18/一次渗透实战/" >从后台getshell到内网漫游</a>
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2020/02/18/%E4%B8%80%E6%AC%A1%E6%B8%97%E9%80%8F%E5%AE%9E%E6%88%98/" >从后台getshell到内网漫游</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/java反序列化漏洞/" >从0开始学Java反序列化漏洞</a>
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" >从0开始学Java反序列化漏洞</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2020/01/21/应急响应笔记之Linux篇/" >应急响应笔记之Linux篇</a>
+            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2020/01/21/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E7%AC%94%E8%AE%B0%E4%B9%8BLinux%E7%AF%87/" >应急响应笔记之Linux篇</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2020/01/03/Java代码审计/" >Java代码审计</a>
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2020/01/03/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" >Java代码审计</a>
         </li>
     
     
@@ -2133,37 +2215,42 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2019/12/31/WEB应用漏洞及修复汇总/" >WEB应用漏洞及修复</a>
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2019/12/31/WEB%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E%E5%8F%8A%E4%BF%AE%E5%A4%8D%E6%B1%87%E6%80%BB/" >WEB应用漏洞及修复</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2019/12/15/Python3爬虫知识梳理/" >Python3爬虫知识梳理</a>
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2019/12/15/Python3%E7%88%AC%E8%99%AB%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/" >Python3爬虫知识梳理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/20</span><a class="archive-post-title" href= "/2019/11/20/提权笔记/" >提权笔记</a>
+            <span class="archive-post-date">11/20</span><a class="archive-post-title" href= "/2019/11/20/%E6%8F%90%E6%9D%83%E7%AC%94%E8%AE%B0/" >提权笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2019/11/06/Apache-Solr-Velocity模板注入RCE漏洞复现/" >Apache Solr Velocity模板注入RCE漏洞复现</a>
+            <span class="archive-post-date">11/11</span><a class="archive-post-title" href= "/2019/11/11/Python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" >Python虚拟环境管理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2019/10/24/甲方安全/" >甲方安全建设</a>
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2019/11/06/Apache-Solr-Velocity%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5RCE%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" >Apache Solr Velocity模板注入RCE漏洞复现</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/08</span><a class="archive-post-title" href= "/2019/10/08/面试算法/" >常见算法</a>
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2019/10/24/%E7%94%B2%E6%96%B9%E5%AE%89%E5%85%A8/" >甲方安全建设</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/2019/09/29/zabbix漏洞总结/" >Zabbix漏洞总结</a>
+            <span class="archive-post-date">10/08</span><a class="archive-post-title" href= "/2019/10/08/%E9%9D%A2%E8%AF%95%E7%AE%97%E6%B3%95/" >常见算法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/2019/09/29/zabbix%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/" >Zabbix漏洞总结</a>
         </li>
     
     
@@ -2173,12 +2260,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2019/09/19/IAST安全测试技术/" >应用安全测试技术</a>
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2019/09/19/IAST%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/" >应用安全测试技术</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/2019/09/02/WebminRCE复现/" >WebminRCE复现</a>
+            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/2019/09/02/WebminRCE%E5%A4%8D%E7%8E%B0/" >WebminRCE复现</a>
         </li>
     
     
@@ -2188,7 +2275,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2019/08/14/内网渗透与后渗透/" >内网渗透</a>
+            <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2019/08/14/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B8%8E%E5%90%8E%E6%B8%97%E9%80%8F/" >内网渗透到后渗透的基本思路</a>
         </li>
     
     
@@ -2198,37 +2285,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2019/07/25/Anaconda学习笔记/" >Anaconda学习笔记</a>
+            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2019/07/25/Anaconda%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" >Anaconda学习笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/06</span><a class="archive-post-title" href= "/2019/07/06/Django学习笔记/" >Django学习笔记</a>
+            <span class="archive-post-date">07/06</span><a class="archive-post-title" href= "/2019/07/06/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" >Django学习笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/2019/06/18/App渗透测试/" >App渗透测试</a>
+            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/2019/06/18/App%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" >App渗透测试</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/2019/06/15/SDL安全开发流程/" >SDL安全开发流程</a>
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/2019/06/15/SDL%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/" >SDL安全开发流程</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/02</span><a class="archive-post-title" href= "/2019/06/02/2019国赛华东北赛区线下/" >2019国赛华东北赛区线下</a>
+            <span class="archive-post-date">06/02</span><a class="archive-post-title" href= "/2019/06/02/2019%E5%9B%BD%E8%B5%9B%E5%8D%8E%E4%B8%9C%E5%8C%97%E8%B5%9B%E5%8C%BA%E7%BA%BF%E4%B8%8B/" >2019国赛华东北赛区线下</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/21</span><a class="archive-post-title" href= "/2019/05/21/AWS搭建SS/" >AWS搭建SS</a>
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href= "/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/" >AWS搭建SS</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/2019/05/15/nps的学习/" >内网渗透--nps的学习</a>
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/2019/05/15/nps%E7%9A%84%E5%AD%A6%E4%B9%A0/" >内网渗透--nps的学习</a>
         </li>
     
     
@@ -2238,12 +2325,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/异或/" >深入理解异或操作</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/%E5%BC%82%E6%88%96/" >深入理解异或操作</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/16</span><a class="archive-post-title" href= "/2019/04/16/MySQL提权/" >MySQL提权</a>
+            <span class="archive-post-date">04/16</span><a class="archive-post-title" href= "/2019/04/16/MySQL%E6%8F%90%E6%9D%83/" >MySQL提权</a>
         </li>
     
     
@@ -2253,62 +2340,67 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/20</span><a class="archive-post-title" href= "/2019/03/20/ACM练习/" >LintCode代码练习</a>
+            <span class="archive-post-date">03/20</span><a class="archive-post-title" href= "/2019/03/20/ACM%E7%BB%83%E4%B9%A0/" >LintCode代码练习</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2019/03/18/msf常用操作/" >MSF常用操作</a>
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2019/03/18/msf%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" >MSF常用操作</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/03/07/反弹shell/" >Linux下反弹shell的方法</a>
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/03/07/%E5%8F%8D%E5%BC%B9shell/" >Linux下反弹shell的方法</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/03/06/python爬虫数据提取/" >python爬虫数据提取</a>
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/03/06/python%E7%88%AC%E8%99%AB%E6%95%B0%E6%8D%AE%E6%8F%90%E5%8F%96/" >python爬虫数据提取</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/27</span><a class="archive-post-title" href= "/2019/02/27/Ddos分布式拒绝服务攻击/" >Ddos分布式拒绝服务攻击</a>
+            <span class="archive-post-date">02/28</span><a class="archive-post-title" href= "/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/" >xss靶场练习</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2019/02/18/python爬虫/" >python爬虫</a>
+            <span class="archive-post-date">02/27</span><a class="archive-post-title" href= "/2019/02/27/Ddos%E5%88%86%E5%B8%83%E5%BC%8F%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1%E6%94%BB%E5%87%BB/" >Ddos分布式拒绝服务攻击</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href= "/2019/02/15/python爬虫实战/" >python爬虫实战</a>
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2019/02/18/python%E7%88%AC%E8%99%AB/" >python爬虫</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/02</span><a class="archive-post-title" href= "/2019/02/02/安全从业人员的职业规划/" >安全从业人员的职业规划</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href= "/2019/02/15/python%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/" >python爬虫实战</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/28</span><a class="archive-post-title" href= "/2019/01/28/渗透测试之信息收集/" >渗透测试之信息收集</a>
+            <span class="archive-post-date">02/02</span><a class="archive-post-title" href= "/2019/02/02/%E5%AE%89%E5%85%A8%E4%BB%8E%E4%B8%9A%E4%BA%BA%E5%91%98%E7%9A%84%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/" >安全从业人员的职业规划</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/26</span><a class="archive-post-title" href= "/2019/01/26/反向代理/" >反向代理</a>
+            <span class="archive-post-date">01/28</span><a class="archive-post-title" href= "/2019/01/28/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" >渗透测试之信息收集</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/2019/01/17/lvyecms后台getshell/" >某cms后台getshell</a>
+            <span class="archive-post-date">01/26</span><a class="archive-post-title" href= "/2019/01/26/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" >反向代理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/16</span><a class="archive-post-title" href= "/2019/01/16/重装系统/" >使用U盘重装系统</a>
+            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/2019/01/17/lvyecms%E5%90%8E%E5%8F%B0getshell/" >某cms后台getshell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/16</span><a class="archive-post-title" href= "/2019/01/16/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/" >使用U盘重装系统</a>
         </li>
     
     
@@ -2322,22 +2414,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2018/12/31/Ubuntu16-04本地提权漏洞-CVE-2017-16995/" >Ubuntu16.04本地提权漏洞(CVE-2017-16995)</a>
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2018/12/31/Ubuntu16-04%E6%9C%AC%E5%9C%B0%E6%8F%90%E6%9D%83%E6%BC%8F%E6%B4%9E-CVE-2017-16995/" >Ubuntu16.04本地提权漏洞(CVE-2017-16995)</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2018/12/25/安恒杯12月月赛/" >安恒杯12月月赛</a>
+            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2018/12/25/%E5%AE%89%E6%81%92%E6%9D%AF12%E6%9C%88%E6%9C%88%E8%B5%9B/" >安恒杯12月月赛</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/10</span><a class="archive-post-title" href= "/2018/12/10/CVE-2017-12617远程代码执行漏洞/" >CVE-2017-12617远程代码执行漏洞</a>
+            <span class="archive-post-date">12/10</span><a class="archive-post-title" href= "/2018/12/10/CVE-2017-12617%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" >CVE-2017-12617远程代码执行漏洞</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href= "/2018/12/06/CTF常用脚本整理/" >CTF常用脚本整理</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href= "/2018/12/06/CTF%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC%E6%95%B4%E7%90%86/" >CTF常用脚本整理</a>
         </li>
     
     
@@ -2347,12 +2439,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/24</span><a class="archive-post-title" href= "/2018/11/24/安恒11月月赛/" >安恒11月月赛Write-up</a>
+            <span class="archive-post-date">11/24</span><a class="archive-post-title" href= "/2018/11/24/%E5%AE%89%E6%81%9211%E6%9C%88%E6%9C%88%E8%B5%9B/" >安恒11月月赛Write-up</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2018/11/19/XXE漏洞学习/" >XXE漏洞总结</a>
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" >XXE漏洞总结</a>
         </li>
     
     
@@ -2362,57 +2454,57 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/vulhub漏洞复现/" >vulhub漏洞复现</a>
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/vulhub%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" >vulhub漏洞复现</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/MISC总结/" >MISC总结</a>
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/MISC%E6%80%BB%E7%BB%93/" >MISC总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href= "/2018/11/14/CRC32碰撞/" >CRC32碰撞</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href= "/2018/11/14/CRC32%E7%A2%B0%E6%92%9E/" >CRC32碰撞</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/2018/11/10/N1CTF2018题目复现/" >N1CTF2018题目复现</a>
+            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/2018/11/10/N1CTF2018%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/" >N1CTF2018题目复现</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/不包含数字和字母的webshell/" >不包含数字和字母的webshell</a>
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/%E4%B8%8D%E5%8C%85%E5%90%AB%E6%95%B0%E5%AD%97%E5%92%8C%E5%AD%97%E6%AF%8D%E7%9A%84webshell/" >不包含数字和字母的webshell</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/python沙盒逃逸/" >python沙箱逃逸</a>
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/python%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8/" >python沙箱逃逸</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2018/11/03/公钥与私钥加密/" >理解公钥与私钥</a>
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2018/11/03/%E5%85%AC%E9%92%A5%E4%B8%8E%E7%A7%81%E9%92%A5%E5%8A%A0%E5%AF%86/" >理解公钥与私钥</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/29</span><a class="archive-post-title" href= "/2018/10/29/WEB安全攻防渗透测试实战指南脑图/" >WEB安全攻防渗透测试实战指南脑图</a>
+            <span class="archive-post-date">10/29</span><a class="archive-post-title" href= "/2018/10/29/WEB%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97%E8%84%91%E5%9B%BE/" >WEB安全攻防渗透测试实战指南脑图</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/17</span><a class="archive-post-title" href= "/2018/10/17/渗透测试流程/" >渗透测试流程总结</a>
+            <span class="archive-post-date">10/17</span><a class="archive-post-title" href= "/2018/10/17/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B/" >渗透测试流程总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2018/10/14/windows-应急流程及实战演练/" >windows 应急流程及实战演练</a>
+            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2018/10/14/windows-%E5%BA%94%E6%80%A5%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%AE%9E%E6%88%98%E6%BC%94%E7%BB%83/" >windows 应急流程及实战演练</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2018/10/01/面试/" >Web安全知识整理</a>
+            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2018/10/01/%E9%9D%A2%E8%AF%95/" >Web安全知识整理</a>
         </li>
     
     
@@ -2457,7 +2549,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2018/08/06/网络安全学习/" >网络安全学习</a>
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2018/08/06/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/" >网络安全学习</a>
         </li>
     
     
@@ -2507,7 +2599,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2018/07/12/渗透基础/" >渗透基础</a>
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2018/07/12/%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" >渗透基础</a>
         </li>
     
     
@@ -2522,12 +2614,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" >java环境配置及版本共存问题</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql%E6%B3%A8%E5%85%A5%E6%80%BB%E7%BB%93/" >SQL注入总结</a>
         </li>
     
     
@@ -2537,7 +2629,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/2018/07/02/iis文件解析漏洞/" >iis文件解析漏洞</a>
+            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/2018/07/02/iis%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" >iis文件解析漏洞</a>
         </li>
     
     
@@ -2562,7 +2654,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/markdown语法总结/" >Markdown语法总结</a>
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/markdown%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/" >Markdown语法总结</a>
         </li>
     
     
@@ -2587,6 +2679,11 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">05/09</span><a class="archive-post-title" href= "/2018/05/09/Pythonlearn/" >Pythonlearn</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">03/24</span><a class="archive-post-title" href= "/2018/03/24/2018-QWB/" >2018 QWB 题目整理</a>
         </li>
     
@@ -2604,11 +2701,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     
-        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
         <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     

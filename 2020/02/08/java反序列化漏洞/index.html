@@ -5,16 +5,16 @@
 
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
     <meta name="author" content="Ywc">
     <meta name="renderer" content="webkit">
     <meta name="copyright" content="Ywc">
     <meta name="keywords" content="Hexo | Ywc">
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>从0开始学Java反序列化漏洞 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
@@ -68,10 +68,10 @@
 
 </style>
 
-    <link rel="preload" href="/css/style.css?v=201807017_1502" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="/css/mobile.css?v=20180709" media="(max-width: 980px)">
+    <link rel="preload" href= /css/style.css?v=201807017_1502 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180709 media="(max-width: 980px)">
     
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -180,12 +180,12 @@
 }( typeof global !== "undefined" ? global : this ) );
 </script>
 
-    <link rel="icon" href="/assets/ywc.ico">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
-    <link rel="preload" href="/scripts/main.js" as="script">
-    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin="">
-    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin="">
+    <link rel="icon" href= "/assets/ywc.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
     
     <!-- fancybox -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
@@ -193,7 +193,7 @@
     
     <!-- 谷歌统计  -->
     
-</head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
     
         <body class="post-body">
@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">4,063</span> / Reading time: <span class="post-count">17 min</span></span>
+                        <span>Word count: <span class="post-count">4k</span> / Reading time: <span class="post-count">16 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -397,36 +397,38 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <!-- TOC -->
+
 <ul>
-<li><a href="#一java序列化与反序列化简介">一、Java序列化与反序列化简介</a></li>
-<li><a href="#二漏洞成因">二、漏洞成因</a></li>
-<li><a href="#三漏洞基本原理">三、漏洞基本原理</a><ul>
-<li><a href="#序列化">序列化</a></li>
-<li><a href="#反序列化">反序列化</a></li>
+<li><a href="#%E4%B8%80java%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%AE%80%E4%BB%8B">一、Java序列化与反序列化简介</a></li>
+<li><a href="#%E4%BA%8C%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0">二、漏洞成因</a></li>
+<li><a href="#%E4%B8%89%E6%BC%8F%E6%B4%9E%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86">三、漏洞基本原理</a><ul>
+<li><a href="#%E5%BA%8F%E5%88%97%E5%8C%96">序列化</a></li>
+<li><a href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">反序列化</a></li>
 </ul>
 </li>
-<li><a href="#四检测java反序列化漏洞">四、检测Java反序列化漏洞</a><ul>
-<li><a href="#代码审计">代码审计</a></li>
-<li><a href="#白盒审计">白盒审计</a></li>
-<li><a href="#黑盒审计">黑盒审计</a></li>
-<li><a href="#攻击检测">攻击检测</a></li>
-<li><a href="#rasp检测">RASP检测</a></li>
-<li><a href="#其他">其他</a></li>
+<li><a href="#%E5%9B%9B%E6%A3%80%E6%B5%8Bjava%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E">四、检测Java反序列化漏洞</a><ul>
+<li><a href="#%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1">代码审计</a></li>
+<li><a href="#%E7%99%BD%E7%9B%92%E5%AE%A1%E8%AE%A1">白盒审计</a></li>
+<li><a href="#%E9%BB%91%E7%9B%92%E5%AE%A1%E8%AE%A1">黑盒审计</a></li>
+<li><a href="#%E6%94%BB%E5%87%BB%E6%A3%80%E6%B5%8B">攻击检测</a></li>
+<li><a href="#rasp%E6%A3%80%E6%B5%8B">RASP检测</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
 </ul>
 </li>
-<li><a href="#五防御java反序列化漏洞">五、防御Java反序列化漏洞</a></li>
-<li><a href="#六修复java反序列化漏洞">六、修复Java反序列化漏洞</a><ul>
-<li><a href="#1通过hook-resolveclass来校验反序列化的类">1、通过Hook resolveClass来校验反序列化的类</a></li>
-<li><a href="#2使用validatingobjectinputstream来校验反序列化的类">2.使用ValidatingObjectInputStream来校验反序列化的类</a></li>
-<li><a href="#3使用contrast-ro0防御反序列化攻击">3.使用contrast-rO0防御反序列化攻击</a></li>
-<li><a href="#4使用objectinputfilter来校验反序列化的类">4.使用ObjectInputFilter来校验反序列化的类</a></li>
-<li><a href="#5禁止jvm执行外部命令runtimeexec">5、禁止JVM执行外部命令<code>Runtime.exec</code></a></li>
-<li><a href="#6不建议使用的黑名单">6、不建议使用的黑名单</a></li>
+<li><a href="#%E4%BA%94%E9%98%B2%E5%BE%A1java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E">五、防御Java反序列化漏洞</a></li>
+<li><a href="#%E5%85%AD%E4%BF%AE%E5%A4%8Djava%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E">六、修复Java反序列化漏洞</a><ul>
+<li><a href="#1%E9%80%9A%E8%BF%87hook-resolveclass%E6%9D%A5%E6%A0%A1%E9%AA%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E7%B1%BB">1、通过Hook resolveClass来校验反序列化的类</a></li>
+<li><a href="#2%E4%BD%BF%E7%94%A8validatingobjectinputstream%E6%9D%A5%E6%A0%A1%E9%AA%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E7%B1%BB">2.使用ValidatingObjectInputStream来校验反序列化的类</a></li>
+<li><a href="#3%E4%BD%BF%E7%94%A8contrast-ro0%E9%98%B2%E5%BE%A1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%94%BB%E5%87%BB">3.使用contrast-rO0防御反序列化攻击</a></li>
+<li><a href="#4%E4%BD%BF%E7%94%A8objectinputfilter%E6%9D%A5%E6%A0%A1%E9%AA%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E7%B1%BB">4.使用ObjectInputFilter来校验反序列化的类</a></li>
+<li><a href="#5%E7%A6%81%E6%AD%A2jvm%E6%89%A7%E8%A1%8C%E5%A4%96%E9%83%A8%E5%91%BD%E4%BB%A4runtimeexec">5、禁止JVM执行外部命令<code>Runtime.exec</code></a></li>
+<li><a href="#6%E4%B8%8D%E5%BB%BA%E8%AE%AE%E4%BD%BF%E7%94%A8%E7%9A%84%E9%BB%91%E5%90%8D%E5%8D%95">6、不建议使用的黑名单</a></li>
 </ul>
 </li>
 <li><a href="#reference">Reference</a></li>
 </ul>
 <!-- /TOC -->
+
 <h2 id="一、Java序列化与反序列化简介"><a href="#一、Java序列化与反序列化简介" class="headerlink" title="一、Java序列化与反序列化简介"></a>一、Java序列化与反序列化简介</h2><p>序列化是让Java对象脱离Java运行环境的一种手段，可以有效的实现多平台之间的通信、对象持久化存储。</p>
 <blockquote>
 <p><code>Java序列化</code>是指把Java对象转换为字节序列的过程(便于保存在内存、文件、数据库中)，<code>ObjectOutputStream</code>类的<code>writeObject()</code>方法可以实现序列化。</p>
@@ -445,7 +447,9 @@ height:50vh;
 </ul>
 <p>如果想知道一个 Java 标准类是否是可序列化的，可以通过查看该类的文档,查看该类有没有实现 <code>java.io.Serializable</code>接口。</p>
 <h2 id="二、漏洞成因"><a href="#二、漏洞成因" class="headerlink" title="二、漏洞成因"></a>二、漏洞成因</h2><p>序列化和反序列化本身并不存在问题。但当输入的反序列化的数据可被用户控制，那么攻击者即可通过构造恶意输入，让反序列化产生非预期的对象，在此过程中执行构造的任意代码。</p>
-<p>漏洞代码示例:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line"><span class="comment">//读取输入流,并转换对象</span></span><br><span class="line">InputStream in=request.getInputStream();</span><br><span class="line">ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(in);</span><br><span class="line"><span class="comment">//恢复对象</span></span><br><span class="line">ois.readObject();</span><br><span class="line">ois.close();</span><br></pre></td></tr></table></figure></p>
+<p>漏洞代码示例:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line"><span class="comment">//读取输入流,并转换对象</span></span><br><span class="line">InputStream in=request.getInputStream();</span><br><span class="line"><span class="type">ObjectInputStream</span> <span class="variable">ois</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(in);</span><br><span class="line"><span class="comment">//恢复对象</span></span><br><span class="line">ois.readObject();</span><br><span class="line">ois.close();</span><br></pre></td></tr></table></figure>
+
 <p>暴露或间接暴露反序列化API，导致用户可以操作传入数据，攻击者可以精心构造反序列化对象并执行恶意代码</p>
 <p>两个或多个看似安全的模块在同一运行环境下，共同产生的安全问题。</p>
 <p><strong>触发场景</strong></p>
@@ -455,28 +459,36 @@ height:50vh;
 <li>3.JMX，一个为应用程序植入管理功能的框架</li>
 <li>4.自定义协议,用来接收与发送原始的java对象</li>
 </ul>
-<p>相关工具: <a href="https://github.com/frohoff/ysoserial/" target="_blank" rel="noopener">https://github.com/frohoff/ysoserial/</a></p>
+<p>相关工具: <a target="_blank" rel="noopener" href="https://github.com/frohoff/ysoserial/">https://github.com/frohoff/ysoserial/</a></p>
 <h2 id="三、漏洞基本原理"><a href="#三、漏洞基本原理" class="headerlink" title="三、漏洞基本原理"></a>三、漏洞基本原理</h2><h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><p>通过查看序列化后的数据，可以看到反序列化数据开头包含两字节的魔术数字，这两个字节始终为十六进制的0xAC ED。接下来是两字节的版本号0x00 05的数据。此外还包含了类名、成员变量的类型和个数等。</p>
 <p>例子：SerialObject 示例</p>
-<p>对象所属类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SerialObject</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">5754104541168322017L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SerialObject</span><span class="params">(<span class="keyword">int</span> id,String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id=id;</span><br><span class="line">        <span class="keyword">this</span>.name=name;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>序列化SerialObject实例后以二进制格式查看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">00000000: aced 0005 7372 0024 636f 6d2e 7878 7878  ....sr.$com.xxxx</span><br><span class="line">00000010: 7878 2e73 6563 2e77 6562 2e68 6f6d 652e  xx.sec.web.home.</span><br><span class="line">00000020: 5365 7269 616c 4f62 6a65 6374 4fda af97  SerialObjectO...</span><br><span class="line">00000030: f8cc c5e1 0200 0249 0002 6964 4c00 046e  .......I..idL..n</span><br><span class="line">00000040: 616d 6574 0012 4c6a 6176 612f 6c61 6e67  amet..Ljava/lang</span><br><span class="line">00000050: 2f53 7472 696e 673b 7870 0000 07e1 7400  /String;xp....t.</span><br><span class="line">00000060: 0563 7279 696e 0a                        .cryin.</span><br></pre></td></tr></table></figure></p>
-<p>序列化的数据流以魔术数字和版本号开头，这个值是在调用ObjectOutputStream序列化时，由writeStreamHeader方法写入：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">writeStreamHeader</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">     bout.writeShort(STREAM_MAGIC);<span class="comment">//STREAM_MAGIC (2 bytes) 0xACED</span></span><br><span class="line">     bout.writeShort(STREAM_VERSION);<span class="comment">//STREAM_VERSION (2 bytes) 5</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>对象所属类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SerialObject</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">5754104541168322017L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> id;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">SerialObject</span><span class="params">(<span class="type">int</span> id,String name)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.id=id;</span><br><span class="line">        <span class="built_in">this</span>.name=name;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>序列化SerialObject实例后以二进制格式查看：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">00000000: aced 0005 7372 0024 636f 6d2e 7878 7878  ....sr.$com.xxxx</span><br><span class="line">00000010: 7878 2e73 6563 2e77 6562 2e68 6f6d 652e  xx.sec.web.home.</span><br><span class="line">00000020: 5365 7269 616c 4f62 6a65 6374 4fda af97  SerialObjectO...</span><br><span class="line">00000030: f8cc c5e1 0200 0249 0002 6964 4c00 046e  .......I..idL..n</span><br><span class="line">00000040: 616d 6574 0012 4c6a 6176 612f 6c61 6e67  amet..Ljava/lang</span><br><span class="line">00000050: 2f53 7472 696e 673b 7870 0000 07e1 7400  /String;xp....t.</span><br><span class="line">00000060: 0563 7279 696e 0a                        .cryin.</span><br></pre></td></tr></table></figure>
+<p>序列化的数据流以魔术数字和版本号开头，这个值是在调用ObjectOutputStream序列化时，由writeStreamHeader方法写入：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">writeStreamHeader</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">     bout.writeShort(STREAM_MAGIC);<span class="comment">//STREAM_MAGIC (2 bytes) 0xACED</span></span><br><span class="line">     bout.writeShort(STREAM_VERSION);<span class="comment">//STREAM_VERSION (2 bytes) 5</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h3><p>Java程序中类<code>ObjectInputStream</code>的<code>readObject</code>方法被用来将数据流反序列化为对象，如果流中的对象是<code>class</code>，则它的<code>ObjectStreamClass</code>描述符会被读取，并返回相应的<code>class</code>对象，<code>ObjectStreamClass</code>包含了类的名称及<code>serialVersionUID</code>。</p>
 <p>如果类描述符是动态代理类，则调用<code>resolveProxyClass</code>方法来获取本地类。如果不是动态代理类则调用<code>resolveClass</code>方法来获取本地类。如果无法解析该类，则抛出<code>ClassNotFoundException</code>异常。</p>
 <p>如果反序列化对象不是<code>String、array、enum</code>类型，<code>ObjectStreamClass</code>包含的类会在本地被检索，如果这个本地类没有实现<code>java.io.Serializable</code>或者<code>externalizable</code>接口，则抛出<code>InvalidClassException</code>异常。因为只有实现了<code>Serializable</code>和<code>Externalizable</code>接口的类的对象才能被序列化。</p>
 <p><code>readObject()</code>方法在反序列化漏洞中它起到了关键作用,readObject()方法被重写的的话，反序列化该类时调用便是重写后的readObject()方法。如果该方法书写不当的话就有可能引发恶意代码的执行.</p>
 <h2 id="四、检测Java反序列化漏洞"><a href="#四、检测Java反序列化漏洞" class="headerlink" title="四、检测Java反序列化漏洞"></a>四、检测Java反序列化漏洞</h2><h3 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h3><p>重点关注一些反序列化操作函数并判断输入是否可控<br>基本思路：</p>
-<p><strong>1、通过检索源码中对反序列化函数的调用来静态寻找反序列化的输入点</strong><br>可以搜索以下函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ObjectInputStream.readObject</span><br><span class="line">ObjectInputStream.readUnshared</span><br><span class="line">XMLDecoder.readObject</span><br><span class="line">Yaml.load</span><br><span class="line">XStream.fromXML</span><br><span class="line">ObjectMapper.readValue</span><br><span class="line">JSON.parseObject</span><br></pre></td></tr></table></figure></p>
+<p><strong>1、通过检索源码中对反序列化函数的调用来静态寻找反序列化的输入点</strong><br>可以搜索以下函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ObjectInputStream.readObject</span><br><span class="line">ObjectInputStream.readUnshared</span><br><span class="line">XMLDecoder.readObject</span><br><span class="line">Yaml.load</span><br><span class="line">XStream.fromXML</span><br><span class="line">ObjectMapper.readValue</span><br><span class="line">JSON.parseObject</span><br></pre></td></tr></table></figure>
 <p>小数点前面是类名，后面是方法名</p>
 <p><strong>2、确定了反序列化输入点后，再考察应用的Class Path中是否包含Apache Commons Collections等危险库（ysoserial所支持的其他库亦可)</strong></p>
 <p><strong>3、若不包含危险库，则查看一些涉及命令、代码执行的代码区域，防止程序员代码不严谨，导致bug</strong></p>
 <p><strong>4、若包含危险库，则使用ysoserial进行攻击复现</strong></p>
-<p><a href="https://github.com/frohoff/ysoserial/" target="_blank" rel="noopener">https://github.com/frohoff/ysoserial/</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/frohoff/ysoserial/">https://github.com/frohoff/ysoserial/</a></p>
 <h3 id="白盒审计"><a href="#白盒审计" class="headerlink" title="白盒审计"></a>白盒审计</h3><p>大型企业的应用很多，每个都人工去审计不现实，往往都有相应的自动化静态代码审计工具，这里以ObjectInputStream.readObject()为例，其它原理也相似。在自动化检测时，可通过实现解析java源代码，检测readObject()方法调用时判断其对象是否为java.io.ObjectOutputStream。如果此时ObjectInputStream对象的初始化参数来自外部请求输入参数则基本可以确定存在反序列化漏洞了。这是只需确认是否存在相应的安全修复即可。 检测方式可参考lgtm.com对于Deserialization of user-controlled data的实现</p>
 <h3 id="黑盒审计"><a href="#黑盒审计" class="headerlink" title="黑盒审计"></a>黑盒审计</h3><p>调用ysoserial并依次生成各个第三方库的利用payload(也可以先分析依赖第三方包量，调用最多的几个库的paylaod即可)，该payload构造为访问特定url链接的payload，根据http访问请求记录判断反序列化漏洞是否利用成功。如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar ysoserial.jar CommonsCollections1 &apos;curl &quot; + URL + &quot; &apos;</span><br></pre></td></tr></table></figure>
-<p>也可通过DNS解析记录确定漏洞是否存在。现成的轮子很多，推荐NickstaDB写的<a href="https://github.com/NickstaDB/BaRMIe" target="_blank" rel="noopener">SerialBrute</a>，还有一个针对RMI的测试工具BaRMIe，也很不错。</p>
-<h3 id="攻击检测"><a href="#攻击检测" class="headerlink" title="攻击检测"></a>攻击检测</h3><p>通过查看反序列化后的数据，可以看到反序列化数据开头包含两字节的魔术数字，这两个字节始终为十六进制的0xAC ED。接下来是两字节的版本号。我只见到过版本号为5（0x00 05）的数据。考虑到zip、base64各种编码，在攻击检测时可针对该特征进行匹配请求post中是否包含反序列化数据，判断是否为反序列化漏洞攻击。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">xxxdeMacBook-Pro:demo xxx$ xxd objectexp </span><br><span class="line">    00000000: aced 0005 7372 0032 7375 6e2e 7265 666c  ....sr.2sun.refl</span><br><span class="line">    00000010: 6563 742e 616e 6e6f 7461 7469 6f6e 2e41  ect.annotation.A</span><br><span class="line">    00000020: 6e6e 6f74 6174 696f 6e49 6e76 6f63 6174  nnotationInvocat</span><br><span class="line">    00000030: 696f 6e48 616e 646c 6572 55ca f50f 15cb  ionHandlerU.....</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar ysoserial.jar CommonsCollections1 &#x27;curl &quot; + URL + &quot; &#x27;</span><br></pre></td></tr></table></figure>
+
+<p>也可通过DNS解析记录确定漏洞是否存在。现成的轮子很多，推荐NickstaDB写的<a target="_blank" rel="noopener" href="https://github.com/NickstaDB/BaRMIe">SerialBrute</a>，还有一个针对RMI的测试工具BaRMIe，也很不错。</p>
+<h3 id="攻击检测"><a href="#攻击检测" class="headerlink" title="攻击检测"></a>攻击检测</h3><p>通过查看反序列化后的数据，可以看到反序列化数据开头包含两字节的魔术数字，这两个字节始终为十六进制的0xAC ED。接下来是两字节的版本号。我只见到过版本号为5（0x00 05）的数据。考虑到zip、base64各种编码，在攻击检测时可针对该特征进行匹配请求post中是否包含反序列化数据，判断是否为反序列化漏洞攻击。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">xxxdeMacBook-Pro:demo xxx$ xxd objectexp </span><br><span class="line">    00000000: aced 0005 7372 0032 7375 6e2e 7265 666c  ....sr.2sun.refl</span><br><span class="line">    00000010: 6563 742e 616e 6e6f 7461 7469 6f6e 2e41  ect.annotation.A</span><br><span class="line">    00000020: 6e6e 6f74 6174 696f 6e49 6e76 6f63 6174  nnotationInvocat</span><br><span class="line">    00000030: 696f 6e48 616e 646c 6572 55ca f50f 15cb  ionHandlerU.....</span><br></pre></td></tr></table></figure>
+
 <p>但仅从特征匹配只能确定有攻击尝试请求，还不能确定就存在反序列化漏洞，还要结合请求响应、返回内容等综合判断是否确实存在漏洞。</p>
 <h3 id="RASP检测"><a href="#RASP检测" class="headerlink" title="RASP检测"></a>RASP检测</h3><p>Java程序中类<code>ObjectInputStream</code>的<code>readObject</code>方法被用来将数据流反序列化为对象，如果流中的对象是class，则它的ObjectStreamClass描述符会被读取，并返回相应的class对象，ObjectStreamClass包含了类的名称及serialVersionUID。</p>
 <p>类的名称及serialVersionUID的ObjectStreamClass描述符在序列化对象流的前面位置，且在<code>readObject</code>反序列化时首先会调用resolveClass读取反序列化的类名，所以RASP检测反序列化漏洞时可通过重写ObjectInputStream对象的resolveClass方法获取反序列化的类即可实现对反序列化类的黑名单校验。</p>
@@ -485,35 +497,48 @@ height:50vh;
 <p>ysoserial是一款非常好用的Java反序列化漏洞检测工具，该工具通过多种机制构造PoC，并灵活的运用了反射机制和动态代理机制，值得学习和研究。</p>
 <h2 id="五、防御Java反序列化漏洞"><a href="#五、防御Java反序列化漏洞" class="headerlink" title="五、防御Java反序列化漏洞"></a>五、防御Java反序列化漏洞</h2><p><strong>1.类白名单校验</strong></p>
 <p>在<code>ObjectInputStream</code>中resolveClass 里只是进行了class 是否能被load，自定义ObjectInputStream, 重载resolveClass的方法，对className 进行白名单校验</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span> <span class="keyword">extends</span> <span class="title">ObjectInputStream</span></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt; resolveClass(ObjectStreamClass desc)</span><br><span class="line">            <span class="keyword">throws</span> IOException, ClassNotFoundException&#123;</span><br><span class="line">         <span class="keyword">if</span>(!desc.getName().equals(<span class="string">"className"</span>))&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ClassNotFoundException(desc.getName()+<span class="string">" forbidden!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        returnsuper.resolveClass(desc);</span><br><span class="line">    &#125;</span><br><span class="line">      ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">test</span> <span class="keyword">extends</span> <span class="title class_">ObjectInputStream</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt; resolveClass(ObjectStreamClass desc)</span><br><span class="line">            <span class="keyword">throws</span> IOException, ClassNotFoundException&#123;</span><br><span class="line">         <span class="keyword">if</span>(!desc.getName().equals(<span class="string">&quot;className&quot;</span>))&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ClassNotFoundException</span>(desc.getName()+<span class="string">&quot; forbidden!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        returnsuper.resolveClass(desc);</span><br><span class="line">    &#125;</span><br><span class="line">      ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><strong>2.禁止JVM执行外部命令Runtime.exec</strong></p>
 <p>通过扩展SecurityManager可以实现:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">SecurityManager originalSecurityManager = System.getSecurityManager();</span><br><span class="line">        <span class="keyword">if</span> (originalSecurityManager == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 创建自己的SecurityManager</span></span><br><span class="line">            SecurityManager sm = <span class="keyword">new</span> SecurityManager() &#123;</span><br><span class="line">                <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">check</span><span class="params">(Permission perm)</span> </span>&#123;</span><br><span class="line">                    <span class="comment">// 禁止exec</span></span><br><span class="line">                    <span class="keyword">if</span> (perm <span class="keyword">instanceof</span> java.io.FilePermission) &#123;</span><br><span class="line">                        String actions = perm.getActions();</span><br><span class="line">                        <span class="keyword">if</span> (actions != <span class="keyword">null</span> &amp;&amp; actions.contains(<span class="string">"execute"</span>)) &#123;</span><br><span class="line">                            <span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(<span class="string">"execute denied!"</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// 禁止设置新的SecurityManager，保护自己</span></span><br><span class="line">                    <span class="keyword">if</span> (perm <span class="keyword">instanceof</span> java.lang.RuntimePermission) &#123;</span><br><span class="line">                        String name = perm.getName();</span><br><span class="line">                        <span class="keyword">if</span> (name != <span class="keyword">null</span> &amp;&amp; name.contains(<span class="string">"setSecurityManager"</span>)) &#123;</span><br><span class="line">                            <span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(<span class="string">"System.setSecurityManager denied!"</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkPermission</span><span class="params">(Permission perm)</span> </span>&#123;</span><br><span class="line">                    check(perm);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkPermission</span><span class="params">(Permission perm, Object context)</span> </span>&#123;</span><br><span class="line">                    check(perm);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">            System.setSecurityManager(sm);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">SecurityManager</span> <span class="variable">originalSecurityManager</span> <span class="operator">=</span> System.getSecurityManager();</span><br><span class="line">        <span class="keyword">if</span> (originalSecurityManager == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 创建自己的SecurityManager</span></span><br><span class="line">            <span class="type">SecurityManager</span> <span class="variable">sm</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SecurityManager</span>() &#123;</span><br><span class="line">                <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">check</span><span class="params">(Permission perm)</span> &#123;</span><br><span class="line">                    <span class="comment">// 禁止exec</span></span><br><span class="line">                    <span class="keyword">if</span> (perm <span class="keyword">instanceof</span> java.io.FilePermission) &#123;</span><br><span class="line">                        <span class="type">String</span> <span class="variable">actions</span> <span class="operator">=</span> perm.getActions();</span><br><span class="line">                        <span class="keyword">if</span> (actions != <span class="literal">null</span> &amp;&amp; actions.contains(<span class="string">&quot;execute&quot;</span>)) &#123;</span><br><span class="line">                            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">SecurityException</span>(<span class="string">&quot;execute denied!&quot;</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// 禁止设置新的SecurityManager，保护自己</span></span><br><span class="line">                    <span class="keyword">if</span> (perm <span class="keyword">instanceof</span> java.lang.RuntimePermission) &#123;</span><br><span class="line">                        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> perm.getName();</span><br><span class="line">                        <span class="keyword">if</span> (name != <span class="literal">null</span> &amp;&amp; name.contains(<span class="string">&quot;setSecurityManager&quot;</span>)) &#123;</span><br><span class="line">                            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">SecurityException</span>(<span class="string">&quot;System.setSecurityManager denied!&quot;</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">checkPermission</span><span class="params">(Permission perm)</span> &#123;</span><br><span class="line">                    check(perm);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">checkPermission</span><span class="params">(Permission perm, Object context)</span> &#123;</span><br><span class="line">                    check(perm);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">            System.setSecurityManager(sm);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
 <p>Java反序列化大多存在复杂系统间相互调用，控制，或较为底层的服务应用间交互等应用场景上，因此接口本身可能就存在一定的安全隐患。Java反序列化本身没有错，而是面对不安全的数据时，缺乏相应的防范，导致了一些安全问题。并且不容忽视的是，也许某些Java服务没有直接使用存在漏洞的Java库，但只要Lib中存在存在漏洞的Java库，依然可能会受到威胁。</p>
 <h2 id="六、修复Java反序列化漏洞"><a href="#六、修复Java反序列化漏洞" class="headerlink" title="六、修复Java反序列化漏洞"></a>六、修复Java反序列化漏洞</h2><h3 id="1、通过Hook-resolveClass来校验反序列化的类"><a href="#1、通过Hook-resolveClass来校验反序列化的类" class="headerlink" title="1、通过Hook resolveClass来校验反序列化的类"></a>1、通过Hook resolveClass来校验反序列化的类</h3><p>在使用<code>readObject()</code>反序列化时首先会调用resolveClass方法读取反序列化的类名，所以这里通过重写<code>ObjectInputStream</code>对象的resolveClass方法即可实现对反序列化类的校验。</p>
 <p>具体实现代码Demo如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AntObjectInputStream</span> <span class="keyword">extends</span> <span class="title">ObjectInputStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AntObjectInputStream</span><span class="params">(InputStream inputStream)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(inputStream);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 只允许反序列化SerialObject class</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt; resolveClass(ObjectStreamClass desc) <span class="keyword">throws</span> IOException,</span><br><span class="line">            ClassNotFoundException &#123;</span><br><span class="line">        <span class="keyword">if</span> (!desc.getName().equals(SerialObject.class.getName())) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InvalidClassException(</span><br><span class="line">                    <span class="string">"Unauthorized deserialization attempt"</span>,</span><br><span class="line">                    desc.getName());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.resolveClass(desc);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AntObjectInputStream</span> <span class="keyword">extends</span> <span class="title class_">ObjectInputStream</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">AntObjectInputStream</span><span class="params">(InputStream inputStream)</span></span><br><span class="line">            <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="built_in">super</span>(inputStream);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 只允许反序列化SerialObject class</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt; resolveClass(ObjectStreamClass desc) <span class="keyword">throws</span> IOException,</span><br><span class="line">            ClassNotFoundException &#123;</span><br><span class="line">        <span class="keyword">if</span> (!desc.getName().equals(SerialObject.class.getName())) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">InvalidClassException</span>(</span><br><span class="line">                    <span class="string">&quot;Unauthorized deserialization attempt&quot;</span>,</span><br><span class="line">                    desc.getName());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.resolveClass(desc);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>通过此方法，可灵活的设置允许反序列化类的白名单，也可设置不允许反序列化类的黑名单。但反序列化漏洞利用方法一直在不断的被发现，黑名单需要一直更新维护，且未公开的利用方法无法覆盖。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">org.apache.commons.collections.functors.InvokerTransformer</span><br><span class="line">org.apache.commons.collections.functors.InstantiateTransformer</span><br><span class="line">org.apache.commons.collections4.functors.InvokerTransformer</span><br><span class="line">org.apache.commons.collections4.functors.InstantiateTransformer</span><br><span class="line">org.codehaus.groovy.runtime.ConvertedClosure</span><br><span class="line">org.codehaus.groovy.runtime.MethodClosure</span><br><span class="line">org.springframework.beans.factory.ObjectFactory</span><br><span class="line">com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl</span><br><span class="line">org.apache.commons.fileupload</span><br><span class="line">org.apache.commons.beanutils</span><br></pre></td></tr></table></figure>
-<p>根据以上方法，有大牛实现了线程的<a href="https://github.com/ikkisoft/SerialKiller" target="_blank" rel="noopener">SerialKiller</a>包可供使用。</p>
-<h3 id="2-使用ValidatingObjectInputStream来校验反序列化的类"><a href="#2-使用ValidatingObjectInputStream来校验反序列化的类" class="headerlink" title="2.使用ValidatingObjectInputStream来校验反序列化的类"></a>2.使用ValidatingObjectInputStream来校验反序列化的类</h3><p>使用Apache Commons IO Serialization包中的ValidatingObjectInputStream类的accept方法来实现反序列化类白/黑名单控制，具体可参考ValidatingObjectInputStream介绍；示例代码如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Object <span class="title">deserialize</span><span class="params">(<span class="keyword">byte</span>[] buffer)</span> <span class="keyword">throws</span> IOException,</span></span><br><span class="line"><span class="function">ClassNotFoundException , ConfigurationException </span>&#123;</span><br><span class="line">    Object obj;</span><br><span class="line">    ByteArrayInputStream bais = <span class="keyword">new</span> ByteArrayInputStream(buffer);</span><br><span class="line">    <span class="comment">// Use ValidatingObjectInputStream instead of InputStream</span></span><br><span class="line">    ValidatingObjectInputStream ois = <span class="keyword">new</span>   ValidatingObjectInputStream(bais); </span><br><span class="line"></span><br><span class="line">    <span class="comment">//只允许反序列化SerialObject class</span></span><br><span class="line">    ois.accept(SerialObject.class);</span><br><span class="line">    obj = ois.readObject();</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-使用contrast-rO0防御反序列化攻击"><a href="#3-使用contrast-rO0防御反序列化攻击" class="headerlink" title="3.使用contrast-rO0防御反序列化攻击"></a>3.使用contrast-rO0防御反序列化攻击</h3><p>contrast-rO0是一个轻量级的agent程序，通过通过重写ObjectInputStream来防御反序列化漏洞攻击。使用其中的SafeObjectInputStream类来实现反序列化类白/黑名单控制，示例代码如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SafeObjectInputStream in = <span class="keyword">new</span> SafeObjectInputStream(inputStream, <span class="keyword">true</span>);</span><br><span class="line">in.addToWhitelist(SerialObject.class);</span><br><span class="line"></span><br><span class="line">in.readObject();</span><br></pre></td></tr></table></figure>
-<h3 id="4-使用ObjectInputFilter来校验反序列化的类"><a href="#4-使用ObjectInputFilter来校验反序列化的类" class="headerlink" title="4.使用ObjectInputFilter来校验反序列化的类"></a>4.使用ObjectInputFilter来校验反序列化的类</h3><p>Java 9包含了支持序列化数据过滤的新特性，开发人员也可以继承java.io.ObjectInputFilter类重写checkInput方法实现自定义的过滤器，，并使用ObjectInputStream对象的setObjectInputFilter设置过滤器来实现反序列化类白/黑名单控制。示例代码如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Optional;</span><br><span class="line"><span class="keyword">import</span> java.util.function.Function;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectInputFilter;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BikeFilter</span> <span class="keyword">implements</span> <span class="title">ObjectInputFilter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> maxStreamBytes = <span class="number">78</span>; <span class="comment">// Maximum allowed bytes in the stream.</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> maxDepth = <span class="number">1</span>; <span class="comment">// Maximum depth of the graph allowed.</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> maxReferences = <span class="number">1</span>; <span class="comment">// Maximum number of references in a graph.</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Status <span class="title">checkInput</span><span class="params">(FilterInfo filterInfo)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (filterInfo.references() &lt; <span class="number">0</span> || filterInfo.depth() &lt; <span class="number">0</span> || filterInfo.streamBytes() &lt; <span class="number">0</span> || filterInfo.references() &gt; maxReferences || filterInfo.depth() &gt; maxDepth|| filterInfo.streamBytes() &gt; maxStreamBytes) &#123;</span><br><span class="line">            <span class="keyword">return</span> Status.REJECTED;</span><br><span class="line">        &#125;</span><br><span class="line">        Class&lt;?&gt; clazz = filterInfo.serialClass();</span><br><span class="line">        <span class="keyword">if</span> (clazz != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (SerialObject.class == filterInfo.serialClass()) &#123;</span><br><span class="line">                <span class="keyword">return</span> Status.ALLOWED;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> Status.REJECTED;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Status.UNDECIDED;</span><br><span class="line">    &#125; <span class="comment">// end checkInput</span></span><br><span class="line">&#125; <span class="comment">// end class BikeFilter</span></span><br></pre></td></tr></table></figure></p>
+
+<p>根据以上方法，有大牛实现了线程的<a target="_blank" rel="noopener" href="https://github.com/ikkisoft/SerialKiller">SerialKiller</a>包可供使用。</p>
+<h3 id="2-使用ValidatingObjectInputStream来校验反序列化的类"><a href="#2-使用ValidatingObjectInputStream来校验反序列化的类" class="headerlink" title="2.使用ValidatingObjectInputStream来校验反序列化的类"></a>2.使用ValidatingObjectInputStream来校验反序列化的类</h3><p>使用Apache Commons IO Serialization包中的ValidatingObjectInputStream类的accept方法来实现反序列化类白&#x2F;黑名单控制，具体可参考ValidatingObjectInputStream介绍；示例代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Object <span class="title function_">deserialize</span><span class="params">(<span class="type">byte</span>[] buffer)</span> <span class="keyword">throws</span> IOException,</span><br><span class="line">ClassNotFoundException , ConfigurationException &#123;</span><br><span class="line">    Object obj;</span><br><span class="line">    <span class="type">ByteArrayInputStream</span> <span class="variable">bais</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayInputStream</span>(buffer);</span><br><span class="line">    <span class="comment">// Use ValidatingObjectInputStream instead of InputStream</span></span><br><span class="line">    <span class="type">ValidatingObjectInputStream</span> <span class="variable">ois</span> <span class="operator">=</span> <span class="keyword">new</span>   <span class="title class_">ValidatingObjectInputStream</span>(bais); </span><br><span class="line"></span><br><span class="line">    <span class="comment">//只允许反序列化SerialObject class</span></span><br><span class="line">    ois.accept(SerialObject.class);</span><br><span class="line">    obj = ois.readObject();</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-使用contrast-rO0防御反序列化攻击"><a href="#3-使用contrast-rO0防御反序列化攻击" class="headerlink" title="3.使用contrast-rO0防御反序列化攻击"></a>3.使用contrast-rO0防御反序列化攻击</h3><p>contrast-rO0是一个轻量级的agent程序，通过通过重写ObjectInputStream来防御反序列化漏洞攻击。使用其中的SafeObjectInputStream类来实现反序列化类白&#x2F;黑名单控制，示例代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">SafeObjectInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SafeObjectInputStream</span>(inputStream, <span class="literal">true</span>);</span><br><span class="line">in.addToWhitelist(SerialObject.class);</span><br><span class="line"></span><br><span class="line">in.readObject();</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-使用ObjectInputFilter来校验反序列化的类"><a href="#4-使用ObjectInputFilter来校验反序列化的类" class="headerlink" title="4.使用ObjectInputFilter来校验反序列化的类"></a>4.使用ObjectInputFilter来校验反序列化的类</h3><p>Java 9包含了支持序列化数据过滤的新特性，开发人员也可以继承java.io.ObjectInputFilter类重写checkInput方法实现自定义的过滤器，，并使用ObjectInputStream对象的setObjectInputFilter设置过滤器来实现反序列化类白&#x2F;黑名单控制。示例代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Optional;</span><br><span class="line"><span class="keyword">import</span> java.util.function.Function;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectInputFilter;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BikeFilter</span> <span class="keyword">implements</span> <span class="title class_">ObjectInputFilter</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> <span class="variable">maxStreamBytes</span> <span class="operator">=</span> <span class="number">78</span>; <span class="comment">// Maximum allowed bytes in the stream.</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> <span class="variable">maxDepth</span> <span class="operator">=</span> <span class="number">1</span>; <span class="comment">// Maximum depth of the graph allowed.</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> <span class="variable">maxReferences</span> <span class="operator">=</span> <span class="number">1</span>; <span class="comment">// Maximum number of references in a graph.</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Status <span class="title function_">checkInput</span><span class="params">(FilterInfo filterInfo)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (filterInfo.references() &lt; <span class="number">0</span> || filterInfo.depth() &lt; <span class="number">0</span> || filterInfo.streamBytes() &lt; <span class="number">0</span> || filterInfo.references() &gt; maxReferences || filterInfo.depth() &gt; maxDepth|| filterInfo.streamBytes() &gt; maxStreamBytes) &#123;</span><br><span class="line">            <span class="keyword">return</span> Status.REJECTED;</span><br><span class="line">        &#125;</span><br><span class="line">        Class&lt;?&gt; clazz = filterInfo.serialClass();</span><br><span class="line">        <span class="keyword">if</span> (clazz != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (SerialObject.class == filterInfo.serialClass()) &#123;</span><br><span class="line">                <span class="keyword">return</span> Status.ALLOWED;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> Status.REJECTED;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Status.UNDECIDED;</span><br><span class="line">    &#125; <span class="comment">// end checkInput</span></span><br><span class="line">&#125; <span class="comment">// end class BikeFilter</span></span><br></pre></td></tr></table></figure>
+
 <p>上述示例代码，仅允许反序列化SerialObject类对象。</p>
 <h3 id="5、禁止JVM执行外部命令Runtime-exec"><a href="#5、禁止JVM执行外部命令Runtime-exec" class="headerlink" title="5、禁止JVM执行外部命令Runtime.exec"></a>5、禁止JVM执行外部命令<code>Runtime.exec</code></h3><p>通过扩展SecurityManager</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">SecurityManager originalSecurityManager = System.getSecurityManager();</span><br><span class="line">        <span class="keyword">if</span> (originalSecurityManager == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 创建自己的SecurityManager</span></span><br><span class="line">            SecurityManager sm = <span class="keyword">new</span> SecurityManager() &#123;</span><br><span class="line">                <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">check</span><span class="params">(Permission perm)</span> </span>&#123;</span><br><span class="line">                    <span class="comment">// 禁止exec</span></span><br><span class="line">                    <span class="keyword">if</span> (perm <span class="keyword">instanceof</span> java.io.FilePermission) &#123;</span><br><span class="line">                        String actions = perm.getActions();</span><br><span class="line">                        <span class="keyword">if</span> (actions != <span class="keyword">null</span> &amp;&amp; actions.contains(<span class="string">"execute"</span>)) &#123;</span><br><span class="line">                            <span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(<span class="string">"execute denied!"</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// 禁止设置新的SecurityManager，保护自己</span></span><br><span class="line">                    <span class="keyword">if</span> (perm <span class="keyword">instanceof</span> java.lang.RuntimePermission) &#123;</span><br><span class="line">                        String name = perm.getName();</span><br><span class="line">                        <span class="keyword">if</span> (name != <span class="keyword">null</span> &amp;&amp; name.contains(<span class="string">"setSecurityManager"</span>)) &#123;</span><br><span class="line">                            <span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(<span class="string">"System.setSecurityManager denied!"</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkPermission</span><span class="params">(Permission perm)</span> </span>&#123;</span><br><span class="line">                    check(perm);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkPermission</span><span class="params">(Permission perm, Object context)</span> </span>&#123;</span><br><span class="line">                    check(perm);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">            System.setSecurityManager(sm);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">SecurityManager</span> <span class="variable">originalSecurityManager</span> <span class="operator">=</span> System.getSecurityManager();</span><br><span class="line">        <span class="keyword">if</span> (originalSecurityManager == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 创建自己的SecurityManager</span></span><br><span class="line">            <span class="type">SecurityManager</span> <span class="variable">sm</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SecurityManager</span>() &#123;</span><br><span class="line">                <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">check</span><span class="params">(Permission perm)</span> &#123;</span><br><span class="line">                    <span class="comment">// 禁止exec</span></span><br><span class="line">                    <span class="keyword">if</span> (perm <span class="keyword">instanceof</span> java.io.FilePermission) &#123;</span><br><span class="line">                        <span class="type">String</span> <span class="variable">actions</span> <span class="operator">=</span> perm.getActions();</span><br><span class="line">                        <span class="keyword">if</span> (actions != <span class="literal">null</span> &amp;&amp; actions.contains(<span class="string">&quot;execute&quot;</span>)) &#123;</span><br><span class="line">                            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">SecurityException</span>(<span class="string">&quot;execute denied!&quot;</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// 禁止设置新的SecurityManager，保护自己</span></span><br><span class="line">                    <span class="keyword">if</span> (perm <span class="keyword">instanceof</span> java.lang.RuntimePermission) &#123;</span><br><span class="line">                        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> perm.getName();</span><br><span class="line">                        <span class="keyword">if</span> (name != <span class="literal">null</span> &amp;&amp; name.contains(<span class="string">&quot;setSecurityManager&quot;</span>)) &#123;</span><br><span class="line">                            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">SecurityException</span>(<span class="string">&quot;System.setSecurityManager denied!&quot;</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">checkPermission</span><span class="params">(Permission perm)</span> &#123;</span><br><span class="line">                    check(perm);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">checkPermission</span><span class="params">(Permission perm, Object context)</span> &#123;</span><br><span class="line">                    check(perm);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">            System.setSecurityManager(sm);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="6、不建议使用的黑名单"><a href="#6、不建议使用的黑名单" class="headerlink" title="6、不建议使用的黑名单"></a>6、不建议使用的黑名单</h3><p>在反序列化时设置类的黑名单来防御反序列化漏洞利用及攻击，这个做法在源代码修复的时候并不是推荐的方法，因为你不能保证能覆盖所有可能的类，而且有新的利用payload出来时也需要随之更新黑名单，但有一种场景下可能黑名单是一个不错的选择。写代码的时候总会把一些经常用到的方法封装到公共类，这样其它工程中用到只需要导入jar包即可，此前已经见到很多提供反序列化操作的公共接口，使用第三方库反序列化接口就不好用白名单的方式来修复了。这个时候作为第三方库也不知道谁会调用接口，会反序列化什么类，所以这个时候可以使用黑名单的方式来禁止一些已知危险的类被反序列化，具体的黑名单类可参考contrast-rO0、ysoserial中paylaod包含的类。</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.vulbox.com/knowledge/detail/?id=11" target="_blank" rel="noopener">https://www.vulbox.com/knowledge/detail/?id=11</a><br><a href="https://xz.aliyun.com/t/2043#toc-2" target="_blank" rel="noopener">https://xz.aliyun.com/t/2043#toc-2</a><br><a href="https://xz.aliyun.com/t/2041#toc-4" target="_blank" rel="noopener">https://xz.aliyun.com/t/2041#toc-4</a><br><a href="https://xz.aliyun.com/t/6787#toc-15" target="_blank" rel="noopener">https://xz.aliyun.com/t/6787#toc-15</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzIzMzgxOTQ5NA==&amp;mid=2247484200&amp;idx=1&amp;sn=8f3201f44e6374d65589d00d91f7148e" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzIzMzgxOTQ5NA==&amp;mid=2247484200&amp;idx=1&amp;sn=8f3201f44e6374d65589d00d91f7148e</a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://www.vulbox.com/knowledge/detail/?id=11">https://www.vulbox.com/knowledge/detail/?id=11</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2043#toc-2">https://xz.aliyun.com/t/2043#toc-2</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2041#toc-4">https://xz.aliyun.com/t/2041#toc-4</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/6787#toc-15">https://xz.aliyun.com/t/6787#toc-15</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzIzMzgxOTQ5NA==&amp;mid=2247484200&amp;idx=1&amp;sn=8f3201f44e6374d65589d00d91f7148e">https://mp.weixin.qq.com/s?__biz=MzIzMzgxOTQ5NA==&amp;mid=2247484200&amp;idx=1&amp;sn=8f3201f44e6374d65589d00d91f7148e</a></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
-            <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2020/02/08/java反序列化漏洞/">https://yinwc.github.io/2020/02/08/java反序列化漏洞/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2020/02/08/java反序列化漏洞/">February 8th 2020, 7:25:59 pm</a>
+            <p>原文作者: <a href="https://ysec.github.io">Ywc</a>
+            <p>原文链接: <a href="https://ysec.github.io/2020/02/08/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">https://ysec.github.io/2020/02/08/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</a>
+            <p>发表日期: <a href="https://ysec.github.io/2020/02/08/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">February 8th 2020, 7:25:59 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -522,7 +547,7 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2020/02/18/一次渗透实战/" title= 从后台getshell到内网漫游 >
+                <a href= "/2020/02/18/%E4%B8%80%E6%AC%A1%E6%B8%97%E9%80%8F%E5%AE%9E%E6%88%98/" title= 从后台getshell到内网漫游 >
                     <div class="nextTitle">从后台getshell到内网漫游</div>
                 </a>
             
@@ -530,7 +555,7 @@ height:50vh;
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2020/01/21/应急响应笔记之Linux篇/" title= 应急响应笔记之Linux篇 >
+                <a href= "/2020/01/21/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E7%AC%94%E8%AE%B0%E4%B9%8BLinux%E7%AF%87/" title= 应急响应笔记之Linux篇 >
                     <div class="prevTitle">应急响应笔记之Linux篇</div>
                 </a>
             
@@ -643,7 +668,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、Java序列化与反序列化简介"><span class="toc-number">1.</span> <span class="toc-text">一、Java序列化与反序列化简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、漏洞成因"><span class="toc-number">2.</span> <span class="toc-text">二、漏洞成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、漏洞基本原理"><span class="toc-number">3.</span> <span class="toc-text">三、漏洞基本原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#序列化"><span class="toc-number">3.1.</span> <span class="toc-text">序列化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反序列化"><span class="toc-number">3.2.</span> <span class="toc-text">反序列化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、检测Java反序列化漏洞"><span class="toc-number">4.</span> <span class="toc-text">四、检测Java反序列化漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码审计"><span class="toc-number">4.1.</span> <span class="toc-text">代码审计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#白盒审计"><span class="toc-number">4.2.</span> <span class="toc-text">白盒审计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#黑盒审计"><span class="toc-number">4.3.</span> <span class="toc-text">黑盒审计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#攻击检测"><span class="toc-number">4.4.</span> <span class="toc-text">攻击检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RASP检测"><span class="toc-number">4.5.</span> <span class="toc-text">RASP检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-number">4.6.</span> <span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、防御Java反序列化漏洞"><span class="toc-number">5.</span> <span class="toc-text">五、防御Java反序列化漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、修复Java反序列化漏洞"><span class="toc-number">6.</span> <span class="toc-text">六、修复Java反序列化漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、通过Hook-resolveClass来校验反序列化的类"><span class="toc-number">6.1.</span> <span class="toc-text">1、通过Hook resolveClass来校验反序列化的类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-使用ValidatingObjectInputStream来校验反序列化的类"><span class="toc-number">6.2.</span> <span class="toc-text">2.使用ValidatingObjectInputStream来校验反序列化的类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-使用contrast-rO0防御反序列化攻击"><span class="toc-number">6.3.</span> <span class="toc-text">3.使用contrast-rO0防御反序列化攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-使用ObjectInputFilter来校验反序列化的类"><span class="toc-number">6.4.</span> <span class="toc-text">4.使用ObjectInputFilter来校验反序列化的类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、禁止JVM执行外部命令Runtime-exec"><span class="toc-number">6.5.</span> <span class="toc-text">5、禁止JVM执行外部命令Runtime.exec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、不建议使用的黑名单"><span class="toc-number">6.6.</span> <span class="toc-text">6、不建议使用的黑名单</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">7.</span> <span class="toc-text">Reference</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81Java%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">一、Java序列化与反序列化简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0"><span class="toc-number">2.</span> <span class="toc-text">二、漏洞成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%BC%8F%E6%B4%9E%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">三、漏洞基本原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">3.1.</span> <span class="toc-text">序列化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">3.2.</span> <span class="toc-text">反序列化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%A3%80%E6%B5%8BJava%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E"><span class="toc-number">4.</span> <span class="toc-text">四、检测Java反序列化漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1"><span class="toc-number">4.1.</span> <span class="toc-text">代码审计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BD%E7%9B%92%E5%AE%A1%E8%AE%A1"><span class="toc-number">4.2.</span> <span class="toc-text">白盒审计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%91%E7%9B%92%E5%AE%A1%E8%AE%A1"><span class="toc-number">4.3.</span> <span class="toc-text">黑盒审计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E6%A3%80%E6%B5%8B"><span class="toc-number">4.4.</span> <span class="toc-text">攻击检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RASP%E6%A3%80%E6%B5%8B"><span class="toc-number">4.5.</span> <span class="toc-text">RASP检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">4.6.</span> <span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E9%98%B2%E5%BE%A1Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E"><span class="toc-number">5.</span> <span class="toc-text">五、防御Java反序列化漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E4%BF%AE%E5%A4%8DJava%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E"><span class="toc-number">6.</span> <span class="toc-text">六、修复Java反序列化漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E9%80%9A%E8%BF%87Hook-resolveClass%E6%9D%A5%E6%A0%A1%E9%AA%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E7%B1%BB"><span class="toc-number">6.1.</span> <span class="toc-text">1、通过Hook resolveClass来校验反序列化的类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8ValidatingObjectInputStream%E6%9D%A5%E6%A0%A1%E9%AA%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E7%B1%BB"><span class="toc-number">6.2.</span> <span class="toc-text">2.使用ValidatingObjectInputStream来校验反序列化的类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8contrast-rO0%E9%98%B2%E5%BE%A1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%94%BB%E5%87%BB"><span class="toc-number">6.3.</span> <span class="toc-text">3.使用contrast-rO0防御反序列化攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8ObjectInputFilter%E6%9D%A5%E6%A0%A1%E9%AA%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E7%B1%BB"><span class="toc-number">6.4.</span> <span class="toc-text">4.使用ObjectInputFilter来校验反序列化的类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E7%A6%81%E6%AD%A2JVM%E6%89%A7%E8%A1%8C%E5%A4%96%E9%83%A8%E5%91%BD%E4%BB%A4Runtime-exec"><span class="toc-number">6.5.</span> <span class="toc-text">5、禁止JVM执行外部命令Runtime.exec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81%E4%B8%8D%E5%BB%BA%E8%AE%AE%E4%BD%BF%E7%94%A8%E7%9A%84%E9%BB%91%E5%90%8D%E5%8D%95"><span class="toc-number">6.6.</span> <span class="toc-text">6、不建议使用的黑名单</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">7.</span> <span class="toc-text">Reference</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -2139,9 +2164,84 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 95
+        Total : 98
         </div>
         <!-- search  -->
         
@@ -2157,22 +2257,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2020/02/18/一次渗透实战/" >从后台getshell到内网漫游</a>
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2020/02/18/%E4%B8%80%E6%AC%A1%E6%B8%97%E9%80%8F%E5%AE%9E%E6%88%98/" >从后台getshell到内网漫游</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/java反序列化漏洞/" >从0开始学Java反序列化漏洞</a>
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" >从0开始学Java反序列化漏洞</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2020/01/21/应急响应笔记之Linux篇/" >应急响应笔记之Linux篇</a>
+            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2020/01/21/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E7%AC%94%E8%AE%B0%E4%B9%8BLinux%E7%AF%87/" >应急响应笔记之Linux篇</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2020/01/03/Java代码审计/" >Java代码审计</a>
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2020/01/03/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" >Java代码审计</a>
         </li>
     
     
@@ -2186,37 +2286,42 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2019/12/31/WEB应用漏洞及修复汇总/" >WEB应用漏洞及修复</a>
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2019/12/31/WEB%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E%E5%8F%8A%E4%BF%AE%E5%A4%8D%E6%B1%87%E6%80%BB/" >WEB应用漏洞及修复</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2019/12/15/Python3爬虫知识梳理/" >Python3爬虫知识梳理</a>
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2019/12/15/Python3%E7%88%AC%E8%99%AB%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/" >Python3爬虫知识梳理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/20</span><a class="archive-post-title" href= "/2019/11/20/提权笔记/" >提权笔记</a>
+            <span class="archive-post-date">11/20</span><a class="archive-post-title" href= "/2019/11/20/%E6%8F%90%E6%9D%83%E7%AC%94%E8%AE%B0/" >提权笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2019/11/06/Apache-Solr-Velocity模板注入RCE漏洞复现/" >Apache Solr Velocity模板注入RCE漏洞复现</a>
+            <span class="archive-post-date">11/11</span><a class="archive-post-title" href= "/2019/11/11/Python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" >Python虚拟环境管理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2019/10/24/甲方安全/" >甲方安全建设</a>
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2019/11/06/Apache-Solr-Velocity%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5RCE%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" >Apache Solr Velocity模板注入RCE漏洞复现</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/08</span><a class="archive-post-title" href= "/2019/10/08/面试算法/" >常见算法</a>
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2019/10/24/%E7%94%B2%E6%96%B9%E5%AE%89%E5%85%A8/" >甲方安全建设</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/2019/09/29/zabbix漏洞总结/" >Zabbix漏洞总结</a>
+            <span class="archive-post-date">10/08</span><a class="archive-post-title" href= "/2019/10/08/%E9%9D%A2%E8%AF%95%E7%AE%97%E6%B3%95/" >常见算法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/2019/09/29/zabbix%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/" >Zabbix漏洞总结</a>
         </li>
     
     
@@ -2226,12 +2331,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2019/09/19/IAST安全测试技术/" >应用安全测试技术</a>
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2019/09/19/IAST%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/" >应用安全测试技术</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/2019/09/02/WebminRCE复现/" >WebminRCE复现</a>
+            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/2019/09/02/WebminRCE%E5%A4%8D%E7%8E%B0/" >WebminRCE复现</a>
         </li>
     
     
@@ -2241,7 +2346,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2019/08/14/内网渗透与后渗透/" >内网渗透</a>
+            <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2019/08/14/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B8%8E%E5%90%8E%E6%B8%97%E9%80%8F/" >内网渗透到后渗透的基本思路</a>
         </li>
     
     
@@ -2251,37 +2356,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2019/07/25/Anaconda学习笔记/" >Anaconda学习笔记</a>
+            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2019/07/25/Anaconda%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" >Anaconda学习笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/06</span><a class="archive-post-title" href= "/2019/07/06/Django学习笔记/" >Django学习笔记</a>
+            <span class="archive-post-date">07/06</span><a class="archive-post-title" href= "/2019/07/06/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" >Django学习笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/2019/06/18/App渗透测试/" >App渗透测试</a>
+            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/2019/06/18/App%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" >App渗透测试</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/2019/06/15/SDL安全开发流程/" >SDL安全开发流程</a>
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/2019/06/15/SDL%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/" >SDL安全开发流程</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/02</span><a class="archive-post-title" href= "/2019/06/02/2019国赛华东北赛区线下/" >2019国赛华东北赛区线下</a>
+            <span class="archive-post-date">06/02</span><a class="archive-post-title" href= "/2019/06/02/2019%E5%9B%BD%E8%B5%9B%E5%8D%8E%E4%B8%9C%E5%8C%97%E8%B5%9B%E5%8C%BA%E7%BA%BF%E4%B8%8B/" >2019国赛华东北赛区线下</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/21</span><a class="archive-post-title" href= "/2019/05/21/AWS搭建SS/" >AWS搭建SS</a>
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href= "/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/" >AWS搭建SS</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/2019/05/15/nps的学习/" >内网渗透--nps的学习</a>
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/2019/05/15/nps%E7%9A%84%E5%AD%A6%E4%B9%A0/" >内网渗透--nps的学习</a>
         </li>
     
     
@@ -2291,12 +2396,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/异或/" >深入理解异或操作</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/%E5%BC%82%E6%88%96/" >深入理解异或操作</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/16</span><a class="archive-post-title" href= "/2019/04/16/MySQL提权/" >MySQL提权</a>
+            <span class="archive-post-date">04/16</span><a class="archive-post-title" href= "/2019/04/16/MySQL%E6%8F%90%E6%9D%83/" >MySQL提权</a>
         </li>
     
     
@@ -2306,62 +2411,67 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/20</span><a class="archive-post-title" href= "/2019/03/20/ACM练习/" >LintCode代码练习</a>
+            <span class="archive-post-date">03/20</span><a class="archive-post-title" href= "/2019/03/20/ACM%E7%BB%83%E4%B9%A0/" >LintCode代码练习</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2019/03/18/msf常用操作/" >MSF常用操作</a>
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2019/03/18/msf%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" >MSF常用操作</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/03/07/反弹shell/" >Linux下反弹shell的方法</a>
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/03/07/%E5%8F%8D%E5%BC%B9shell/" >Linux下反弹shell的方法</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/03/06/python爬虫数据提取/" >python爬虫数据提取</a>
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/03/06/python%E7%88%AC%E8%99%AB%E6%95%B0%E6%8D%AE%E6%8F%90%E5%8F%96/" >python爬虫数据提取</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/27</span><a class="archive-post-title" href= "/2019/02/27/Ddos分布式拒绝服务攻击/" >Ddos分布式拒绝服务攻击</a>
+            <span class="archive-post-date">02/28</span><a class="archive-post-title" href= "/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/" >xss靶场练习</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2019/02/18/python爬虫/" >python爬虫</a>
+            <span class="archive-post-date">02/27</span><a class="archive-post-title" href= "/2019/02/27/Ddos%E5%88%86%E5%B8%83%E5%BC%8F%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1%E6%94%BB%E5%87%BB/" >Ddos分布式拒绝服务攻击</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href= "/2019/02/15/python爬虫实战/" >python爬虫实战</a>
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2019/02/18/python%E7%88%AC%E8%99%AB/" >python爬虫</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/02</span><a class="archive-post-title" href= "/2019/02/02/安全从业人员的职业规划/" >安全从业人员的职业规划</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href= "/2019/02/15/python%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/" >python爬虫实战</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/28</span><a class="archive-post-title" href= "/2019/01/28/渗透测试之信息收集/" >渗透测试之信息收集</a>
+            <span class="archive-post-date">02/02</span><a class="archive-post-title" href= "/2019/02/02/%E5%AE%89%E5%85%A8%E4%BB%8E%E4%B8%9A%E4%BA%BA%E5%91%98%E7%9A%84%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/" >安全从业人员的职业规划</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/26</span><a class="archive-post-title" href= "/2019/01/26/反向代理/" >反向代理</a>
+            <span class="archive-post-date">01/28</span><a class="archive-post-title" href= "/2019/01/28/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" >渗透测试之信息收集</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/2019/01/17/lvyecms后台getshell/" >某cms后台getshell</a>
+            <span class="archive-post-date">01/26</span><a class="archive-post-title" href= "/2019/01/26/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" >反向代理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/16</span><a class="archive-post-title" href= "/2019/01/16/重装系统/" >使用U盘重装系统</a>
+            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/2019/01/17/lvyecms%E5%90%8E%E5%8F%B0getshell/" >某cms后台getshell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/16</span><a class="archive-post-title" href= "/2019/01/16/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/" >使用U盘重装系统</a>
         </li>
     
     
@@ -2375,22 +2485,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2018/12/31/Ubuntu16-04本地提权漏洞-CVE-2017-16995/" >Ubuntu16.04本地提权漏洞(CVE-2017-16995)</a>
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2018/12/31/Ubuntu16-04%E6%9C%AC%E5%9C%B0%E6%8F%90%E6%9D%83%E6%BC%8F%E6%B4%9E-CVE-2017-16995/" >Ubuntu16.04本地提权漏洞(CVE-2017-16995)</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2018/12/25/安恒杯12月月赛/" >安恒杯12月月赛</a>
+            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2018/12/25/%E5%AE%89%E6%81%92%E6%9D%AF12%E6%9C%88%E6%9C%88%E8%B5%9B/" >安恒杯12月月赛</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/10</span><a class="archive-post-title" href= "/2018/12/10/CVE-2017-12617远程代码执行漏洞/" >CVE-2017-12617远程代码执行漏洞</a>
+            <span class="archive-post-date">12/10</span><a class="archive-post-title" href= "/2018/12/10/CVE-2017-12617%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" >CVE-2017-12617远程代码执行漏洞</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href= "/2018/12/06/CTF常用脚本整理/" >CTF常用脚本整理</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href= "/2018/12/06/CTF%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC%E6%95%B4%E7%90%86/" >CTF常用脚本整理</a>
         </li>
     
     
@@ -2400,12 +2510,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/24</span><a class="archive-post-title" href= "/2018/11/24/安恒11月月赛/" >安恒11月月赛Write-up</a>
+            <span class="archive-post-date">11/24</span><a class="archive-post-title" href= "/2018/11/24/%E5%AE%89%E6%81%9211%E6%9C%88%E6%9C%88%E8%B5%9B/" >安恒11月月赛Write-up</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2018/11/19/XXE漏洞学习/" >XXE漏洞总结</a>
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" >XXE漏洞总结</a>
         </li>
     
     
@@ -2415,57 +2525,57 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/vulhub漏洞复现/" >vulhub漏洞复现</a>
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/vulhub%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" >vulhub漏洞复现</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/MISC总结/" >MISC总结</a>
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/MISC%E6%80%BB%E7%BB%93/" >MISC总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href= "/2018/11/14/CRC32碰撞/" >CRC32碰撞</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href= "/2018/11/14/CRC32%E7%A2%B0%E6%92%9E/" >CRC32碰撞</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/2018/11/10/N1CTF2018题目复现/" >N1CTF2018题目复现</a>
+            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/2018/11/10/N1CTF2018%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/" >N1CTF2018题目复现</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/不包含数字和字母的webshell/" >不包含数字和字母的webshell</a>
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/%E4%B8%8D%E5%8C%85%E5%90%AB%E6%95%B0%E5%AD%97%E5%92%8C%E5%AD%97%E6%AF%8D%E7%9A%84webshell/" >不包含数字和字母的webshell</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/python沙盒逃逸/" >python沙箱逃逸</a>
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/python%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8/" >python沙箱逃逸</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2018/11/03/公钥与私钥加密/" >理解公钥与私钥</a>
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2018/11/03/%E5%85%AC%E9%92%A5%E4%B8%8E%E7%A7%81%E9%92%A5%E5%8A%A0%E5%AF%86/" >理解公钥与私钥</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/29</span><a class="archive-post-title" href= "/2018/10/29/WEB安全攻防渗透测试实战指南脑图/" >WEB安全攻防渗透测试实战指南脑图</a>
+            <span class="archive-post-date">10/29</span><a class="archive-post-title" href= "/2018/10/29/WEB%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97%E8%84%91%E5%9B%BE/" >WEB安全攻防渗透测试实战指南脑图</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/17</span><a class="archive-post-title" href= "/2018/10/17/渗透测试流程/" >渗透测试流程总结</a>
+            <span class="archive-post-date">10/17</span><a class="archive-post-title" href= "/2018/10/17/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B/" >渗透测试流程总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2018/10/14/windows-应急流程及实战演练/" >windows 应急流程及实战演练</a>
+            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2018/10/14/windows-%E5%BA%94%E6%80%A5%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%AE%9E%E6%88%98%E6%BC%94%E7%BB%83/" >windows 应急流程及实战演练</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2018/10/01/面试/" >Web安全知识整理</a>
+            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2018/10/01/%E9%9D%A2%E8%AF%95/" >Web安全知识整理</a>
         </li>
     
     
@@ -2510,7 +2620,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2018/08/06/网络安全学习/" >网络安全学习</a>
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2018/08/06/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/" >网络安全学习</a>
         </li>
     
     
@@ -2560,7 +2670,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2018/07/12/渗透基础/" >渗透基础</a>
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2018/07/12/%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" >渗透基础</a>
         </li>
     
     
@@ -2575,12 +2685,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" >java环境配置及版本共存问题</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql%E6%B3%A8%E5%85%A5%E6%80%BB%E7%BB%93/" >SQL注入总结</a>
         </li>
     
     
@@ -2590,7 +2700,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/2018/07/02/iis文件解析漏洞/" >iis文件解析漏洞</a>
+            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/2018/07/02/iis%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" >iis文件解析漏洞</a>
         </li>
     
     
@@ -2615,7 +2725,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/markdown语法总结/" >Markdown语法总结</a>
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/markdown%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/" >Markdown语法总结</a>
         </li>
     
     
@@ -2640,6 +2750,11 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">05/09</span><a class="archive-post-title" href= "/2018/05/09/Pythonlearn/" >Pythonlearn</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">03/24</span><a class="archive-post-title" href= "/2018/03/24/2018-QWB/" >2018 QWB 题目整理</a>
         </li>
     
@@ -2657,11 +2772,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     
-        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
         <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     

