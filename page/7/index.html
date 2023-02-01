@@ -442,6 +442,59 @@
         
         
             
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/">
+                
+                <span class="abstract-title-text">xss靶场练习</span>
+            </a>
+            <div class="abstract-content">
+                
+
+
+x00
+x01
+x02
+x03
+x04
+x05
+x06
+
+
+
+0x00没有丝毫的过滤措施，且最后的输出位置在标签中，所以很简单，随便甩一个xss payload:&lt;script&gt;alert(1)&lt;/script&gt;
+server code:
+123function render (input) &#123;  return &#x27;&lt;div&gt;&#x27; + input + &#x27;&lt;/div&gt;&#x27;&#125;
+
+[
+0x010x01和0x00不同的地方在于这里xss插入的位置在于标签中，闭合标签，构造payload:&...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2023/01/28">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/28</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="learn">learn</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
             
         
         <article class="index-post">
@@ -753,42 +806,6 @@
     
     
         <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2018/12/10/CVE-2017-12617%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">
-                
-                <span class="abstract-title-text">CVE-2017-12617远程代码执行漏洞</span>
-            </a>
-            <div class="abstract-content">
-                记 XJctf一道web题
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2023/01/28">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/10</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="漏洞">漏洞</a>
     
 </div>
 
@@ -1618,7 +1635,32 @@
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -3001,7 +3043,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 123
+        Total : 124
         </div>
         <!-- search  -->
         
@@ -3015,6 +3057,12 @@
             <div class="archive-year"> 2021 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/12</span>
+            <a class="archive-post-title" href="/2021/12/12/Log4j2%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">深入理解Log4j2远程命令执行漏洞</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">06/16</span>
