@@ -19,16 +19,17 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="记录一下常见的源码泄露问题，这些经常在Web渗透测试以及CTF中出现。 参考:http:&#x2F;&#x2F;www.hacksec.cn&#x2F;Penetration-test&#x2F;474.html .hg源码泄漏漏洞成因: hg init的时候会生成.hg 1http:&#x2F;&#x2F;www.example.com&#x2F;.hg&#x2F; 漏洞利用: 工具：dvcs-ripper 1rip-hg.pl -v -u http:&#x2F;&#x2F;www.examp">
+    <meta name="description" content="记录一下常见的源码泄露问题，这些经常在Web渗透测试以及CTF中出现。    .hg源码泄漏 .git源码泄露 .DS_Store文件泄露 网站备份压缩文件 SVN导致文件泄露 WEB-INF&#x2F;web.xml泄露 CVS泄露 Bazaar&#x2F;bzr Referce    .hg源码泄漏漏洞成因: hg init的时候会生成.hg 1http:&#x2F;&#x2F;www.example.com&#x2F;.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Web源码泄露总结">
 <meta property="og:url" content="https://yinwc.github.io/2018/05/29/yuanmaxielou/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="记录一下常见的源码泄露问题，这些经常在Web渗透测试以及CTF中出现。 参考:http:&#x2F;&#x2F;www.hacksec.cn&#x2F;Penetration-test&#x2F;474.html .hg源码泄漏漏洞成因: hg init的时候会生成.hg 1http:&#x2F;&#x2F;www.example.com&#x2F;.hg&#x2F; 漏洞利用: 工具：dvcs-ripper 1rip-hg.pl -v -u http:&#x2F;&#x2F;www.examp">
+<meta property="og:description" content="记录一下常见的源码泄露问题，这些经常在Web渗透测试以及CTF中出现。    .hg源码泄漏 .git源码泄露 .DS_Store文件泄露 网站备份压缩文件 SVN导致文件泄露 WEB-INF&#x2F;web.xml泄露 CVS泄露 Bazaar&#x2F;bzr Referce    .hg源码泄漏漏洞成因: hg init的时候会生成.hg 1http:&#x2F;&#x2F;www.example.com&#x2F;.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2018-05-29T03:18:58.000Z">
-<meta property="article:modified_time" content="2018-06-05T09:23:02.125Z">
+<meta property="article:modified_time" content="2023-02-02T06:23:44.339Z">
 <meta property="article:author" content="Y1ZkRA">
+<meta property="article:tag" content="漏洞">
 <meta name="twitter:card" content="summary">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -326,6 +327,8 @@
                     <div class= post-intro-tags >
     
     
+        <a class="post-tag" href="javascript:void(0);" data-tags="漏洞">漏洞</a>
+    
 </div>
 
                 
@@ -494,58 +497,65 @@
                 <main class="main post-page">
     <article class="article-entry">
         <p>记录一下常见的源码泄露问题，这些经常在Web渗透测试以及CTF中出现。</p>
-<p>参考:<a target="_blank" rel="noopener" href="http://www.hacksec.cn/Penetration-test/474.html">http://www.hacksec.cn/Penetration-test/474.html</a></p>
-<h2 id="hg源码泄漏"><a href="#hg源码泄漏" class="headerlink" title=".hg源码泄漏"></a><font color=blue>.hg源码泄漏</font></h2><p>漏洞成因:</p>
+<!-- TOC -->
+
+<ul>
+<li><a href="#font-colorbluehg%E6%BA%90%E7%A0%81%E6%B3%84%E6%BC%8Ffont"><font color="blue">.hg源码泄漏</font></a></li>
+<li><a href="#font-colorbluegit%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2font"><font color="blue">.git源码泄露</font></a></li>
+<li><a href="#font-colorblueds_store%E6%96%87%E4%BB%B6%E6%B3%84%E9%9C%B2font"><font color="blue">.DS_Store文件泄露</font></a></li>
+<li><a href="#font-colorblue%E7%BD%91%E7%AB%99%E5%A4%87%E4%BB%BD%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6font"><font color="blue">网站备份压缩文件</font></a></li>
+<li><a href="#font-colorbluesvn%E5%AF%BC%E8%87%B4%E6%96%87%E4%BB%B6%E6%B3%84%E9%9C%B2font"><font color="blue">SVN导致文件泄露</font></a></li>
+<li><a href="#font-colorblueweb-infwebxml%E6%B3%84%E9%9C%B2font"><font color="blue">WEB-INF&#x2F;web.xml泄露</font></a></li>
+<li><a href="#font-colorbluecvs%E6%B3%84%E9%9C%B2font"><font color="blue">CVS泄露</font></a></li>
+<li><a href="#font-colorbluebazaarbzrfont"><font color="blue">Bazaar&#x2F;bzr</font></a></li>
+<li><a href="#referce">Referce</a></li>
+</ul>
+<!-- /TOC -->
+
+<h2 id="hg源码泄漏"><a href="#hg源码泄漏" class="headerlink" title=".hg源码泄漏"></a><font color="blue">.hg源码泄漏</font></h2><p>漏洞成因:</p>
 <p>hg init的时候会生成.hg</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.example.com/.hg/</span><br></pre></td></tr></table></figure>
 <p>漏洞利用:</p>
 <p>工具：<a target="_blank" rel="noopener" href="https://github.com/kost/dvcs-ripper">dvcs-ripper</a></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rip-hg.pl -v -u http://www.example.com/.hg/</span><br></pre></td></tr></table></figure>
-<h2 id="git源码泄露"><a href="#git源码泄露" class="headerlink" title=".git源码泄露"></a><font color=blue>.git源码泄露</font></h2><p>漏洞成因：</p>
+<h2 id="git源码泄露"><a href="#git源码泄露" class="headerlink" title=".git源码泄露"></a><font color="blue">.git源码泄露</font></h2><p>漏洞成因：</p>
 <p>在运行git init初始化代码库的时候，会在当前目录下面产生一个.git的隐藏文件，用来记录代码的变更记录等等。在发布代码的时候，把.git这个目录没有删除，直接发布了。使用这个文件，可以用来恢复源代码。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.example.com/.git/config</span><br></pre></td></tr></table></figure>
 <p>漏洞利用：</p>
 <p>工具：</p>
 <p>  <a target="_blank" rel="noopener" href="https://github.com/lijiejie/GitHack">Githack</a><br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GitHack.py http://www.example.com/.git/</span><br></pre></td></tr></table></figure><br>  [dvcs-ripper]<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rip-git.pl -v -u http://www.example.com/.git/</span><br></pre></td></tr></table></figure></p>
-<h2 id="DS-Store文件泄露"><a href="#DS-Store文件泄露" class="headerlink" title=".DS_Store文件泄露"></a><font color=blue>.DS_Store文件泄露</font></h2><p>漏洞成因:</p>
+<h2 id="DS-Store文件泄露"><a href="#DS-Store文件泄露" class="headerlink" title=".DS_Store文件泄露"></a><font color="blue">.DS_Store文件泄露</font></h2><p>漏洞成因:</p>
 <p>在发布代码时未删除文件夹中隐藏的.DS_store，被发现后，获取了敏感的文件名等信息。<br>漏洞利用:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.example.com/.ds_store</span><br></pre></td></tr></table></figure>
 <p>注意路径检查<br>工具：<br><a target="_blank" rel="noopener" href="https://github.com/lijiejie/ds_store_exp">dsstoreexp</a></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python ds_store_exp.py http://www.example.com/.DS_Store</span><br></pre></td></tr></table></figure>
-<h2 id="网站备份压缩文件"><a href="#网站备份压缩文件" class="headerlink" title="网站备份压缩文件"></a><font color=blue>网站备份压缩文件</font></h2><p>在网站的使用过程中，往往需要对网站中的文件进行修改、升级。此时就需要对网站整站或者其中某一页面进行备份。当备份文件或者修改过程中的缓存文件因为各种原因而被留在网站web目录下，而该目录又没有设置访问权限时，便有可能导致备份文件或者编辑器的缓存文件被下载，导致敏感信息泄露，给服务器的安全埋下隐患。<br>漏洞成因及危害:</p>
+<h2 id="网站备份压缩文件"><a href="#网站备份压缩文件" class="headerlink" title="网站备份压缩文件"></a><font color="blue">网站备份压缩文件</font></h2><p>在网站的使用过程中，往往需要对网站中的文件进行修改、升级。此时就需要对网站整站或者其中某一页面进行备份。当备份文件或者修改过程中的缓存文件因为各种原因而被留在网站web目录下，而该目录又没有设置访问权限时，便有可能导致备份文件或者编辑器的缓存文件被下载，导致敏感信息泄露，给服务器的安全埋下隐患。<br>漏洞成因及危害:</p>
 <p>该漏洞的成因主要有以下两种：<br>   1.服务器管理员错误地将网站或者网页的备份文件放置到服务器web目录下<br>   2.编辑器在使用过程中自动保存的备份文件或者临时文件因为各种原因没有被删除而保存在web目录下.</p>
 <p>漏洞检测：</p>
 <p>该漏洞往往会导致服务器整站源代码或者部分页面的源代码被下载，利用。源代码中所包含的各类敏感信息，如服务器数据库连接信息，服务器配置信息等会因此而泄露，造成巨大的损失。被泄露的源代码还可能会被用于代码审计，进一步利用而对整个系统的安全埋下隐患。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.rar .zip .7z .tar.gz .bak .swp .txt .html</span><br></pre></td></tr></table></figure>
-<h2 id="SVN导致文件泄露"><a href="#SVN导致文件泄露" class="headerlink" title="SVN导致文件泄露"></a><font color=blue>SVN导致文件泄露</font></h2><p>Subversion，简称SVN，是一个开放源代码的版本控制系统，相对于的RCS、CVS，采用了分支管理系统，它的设计目标就是取代CVS。互联网上越来越多的控制服务从CVS转移Subversion。<br>Subversion使用服务端—客户端的结构，当然服务端与客户端可以都运行在同一台服务器上。在服务端是存放着所有受控制数据的Subversion仓库，另一端是Subversion的客户端程序，管理着受控数据的一部分在本地的映射（称为“工作副本”）。在这两端之间，是通过各种仓库存取层（Repository Access，简称RA）的多条通道进行访问的。这些通道中，可以通过不同的网络协议，例如HTTP、SSH等，或本地文件的方式来对仓库进行操作。</p>
+<h2 id="SVN导致文件泄露"><a href="#SVN导致文件泄露" class="headerlink" title="SVN导致文件泄露"></a><font color="blue">SVN导致文件泄露</font></h2><p>Subversion，简称SVN，是一个开放源代码的版本控制系统，相对于的RCS、CVS，采用了分支管理系统，它的设计目标就是取代CVS。互联网上越来越多的控制服务从CVS转移Subversion。<br>Subversion使用服务端—客户端的结构，当然服务端与客户端可以都运行在同一台服务器上。在服务端是存放着所有受控制数据的Subversion仓库，另一端是Subversion的客户端程序，管理着受控数据的一部分在本地的映射（称为“工作副本”）。在这两端之间，是通过各种仓库存取层（Repository Access，简称RA）的多条通道进行访问的。这些通道中，可以通过不同的网络协议，例如HTTP、SSH等，或本地文件的方式来对仓库进行操作。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">e.g.http://vote.lz.taobao.com/admin/scripts/fckeditor.266/editor/.svn/entries</span><br></pre></td></tr></table></figure>
 <p>漏洞利用:</p>
 <p>工具：<br><a target="_blank" rel="noopener" href="https://github.com/kost/dvcs-ripper">dvcs-ripper</a></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rip-svn.pl -v -u http://www.example.com/.svn/</span><br></pre></td></tr></table></figure>
-<h2 id="WEB-INF-x2F-web-xml泄露"><a href="#WEB-INF-x2F-web-xml泄露" class="headerlink" title="WEB-INF&#x2F;web.xml泄露"></a><font color=blue>WEB-INF&#x2F;web.xml泄露</font></h2><p>WEB-INF是Java的WEB应用的安全目录。如果想在页面中直接访问其中的文件，必须通过web.xml文件对要访问的文件进行相应映射才能访问。<br>WEB-INF主要包含以下文件或目录：</p>
+<h2 id="WEB-INF-x2F-web-xml泄露"><a href="#WEB-INF-x2F-web-xml泄露" class="headerlink" title="WEB-INF&#x2F;web.xml泄露"></a><font color="blue">WEB-INF&#x2F;web.xml泄露</font></h2><p>WEB-INF是Java的WEB应用的安全目录。如果想在页面中直接访问其中的文件，必须通过web.xml文件对要访问的文件进行相应映射才能访问。<br>WEB-INF主要包含以下文件或目录：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1./WEB-INF/web.xml </span><br><span class="line"> Web应用程序配置文件，描述了 servlet 和其他的应用组件配置及命名规则。</span><br><span class="line">2./WEB-INF/classes/</span><br><span class="line"> 含了站点所有用的 class 文件，包括 servlet class 和非servlet class，他们不能包含在 .jar文件中</span><br><span class="line">3./WEB-INF/lib/</span><br><span class="line"> 存放web应用需要的各种JAR文件，放置仅在这个应用中要求使用的jar文件,如数据库驱动jar文件</span><br><span class="line">4./WEB-INF/src/</span><br><span class="line"> 源码目录，按照包名结构放置各个java文件。</span><br><span class="line">5./WEB-INF/database.properties</span><br><span class="line"> 数据库配置文件</span><br></pre></td></tr></table></figure>
 <p>漏洞成因：</p>
 <p>通常一些web应用我们会使用多个web服务器搭配使用，解决其中的一个web服务器的性能缺陷以及做均衡负载的优点和完成一些分层结构的安全策略等。在使用这种架构的时候，由于对静态资源的目录或文件的映射配置不当，可能会引发一些的安全问题，导致web.xml等文件能够被读取。</p>
 <p>漏洞检测以及利用方法：<br>通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码。</p>
 <p>一般情况，jsp引擎默认都是禁止访问WEB-INF目录的，Nginx 配合Tomcat做均衡负载或集群等情况时，问题原因其实很简单，Nginx不会去考虑配置其他类型引擎（Nginx不是jsp引擎）导致的安全问题而引入到自身的安全规范中来（这样耦合性太高了），修改Nginx配置文件禁止访问WEB-INF目录就好了： location ~ ^&#x2F;WEB-INF&#x2F;* { deny all; } 或者return 404; 或者其他！</p>
-<h2 id="CVS泄露"><a href="#CVS泄露" class="headerlink" title="CVS泄露"></a><font color=blue>CVS泄露</font></h2><p>漏洞利用：</p>
+<h2 id="CVS泄露"><a href="#CVS泄露" class="headerlink" title="CVS泄露"></a><font color="blue">CVS泄露</font></h2><p>漏洞利用：</p>
 <p>测试的目录</p>
 <p><a target="_blank" rel="noopener" href="http://url/CVS/Root">http://url/CVS/Root</a> 返回根信息 <a target="_blank" rel="noopener" href="http://url/CVS/Entries">http://url/CVS/Entries</a> 返回所有文件的结构</p>
 <p>取回源码的命令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bk clone http://url/name dir</span><br></pre></td></tr></table></figure>
 <p>这个命令的意思就是把远端一个名为name的repo clone到本地名为dir的目录下。<br>查看所有的改变的命令，转到download的目录</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bk changes</span><br></pre></td></tr></table></figure>
-<h2 id="Bazaar-x2F-bzr"><a href="#Bazaar-x2F-bzr" class="headerlink" title="Bazaar&#x2F;bzr"></a><font color=blue>Bazaar&#x2F;bzr</font></h2><p>工具：<a target="_blank" rel="noopener" href="https://github.com/kost/dvcs-ripper">dvcs-ripper</a></p>
+<h2 id="Bazaar-x2F-bzr"><a href="#Bazaar-x2F-bzr" class="headerlink" title="Bazaar&#x2F;bzr"></a><font color="blue">Bazaar&#x2F;bzr</font></h2><p>工具：<a target="_blank" rel="noopener" href="https://github.com/kost/dvcs-ripper">dvcs-ripper</a></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rip-bzr.pl -v -u http://www.example.com/.bzr/</span><br></pre></td></tr></table></figure>
 
-
-
-
-
-
-
-
-
+<h2 id="Referce"><a href="#Referce" class="headerlink" title="Referce"></a>Referce</h2><p><a target="_blank" rel="noopener" href="http://www.hacksec.cn/Penetration-test/474.html">http://www.hacksec.cn/Penetration-test/474.html</a></p>
 
     </article>
     <!-- license -->
@@ -554,7 +564,7 @@
             <p>Author：<a href="https://yinwc.github.io">Y1ZkRA</a>
             <p>Link：<a href="https://yinwc.github.io/2018/05/29/yuanmaxielou/">https://yinwc.github.io/2018/05/29/yuanmaxielou/</a>
             <p>Publish date：<a href="https://yinwc.github.io/2018/05/29/yuanmaxielou/">May 29th 2018, 11:18:58 am</a>
-            <p>Update date：<a href="https://yinwc.github.io/2018/05/29/yuanmaxielou/">June 5th 2018, 5:23:02 pm</a>
+            <p>Update date：<a href="https://yinwc.github.io/2018/05/29/yuanmaxielou/">February 2nd 2023, 2:23:44 pm</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -709,7 +719,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#hg%E6%BA%90%E7%A0%81%E6%B3%84%E6%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">.hg源码泄漏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2"><span class="toc-number">2.</span> <span class="toc-text">.git源码泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DS-Store%E6%96%87%E4%BB%B6%E6%B3%84%E9%9C%B2"><span class="toc-number">3.</span> <span class="toc-text">.DS_Store文件泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%AB%99%E5%A4%87%E4%BB%BD%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6"><span class="toc-number">4.</span> <span class="toc-text">网站备份压缩文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SVN%E5%AF%BC%E8%87%B4%E6%96%87%E4%BB%B6%E6%B3%84%E9%9C%B2"><span class="toc-number">5.</span> <span class="toc-text">SVN导致文件泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB-INF-x2F-web-xml%E6%B3%84%E9%9C%B2"><span class="toc-number">6.</span> <span class="toc-text">WEB-INF&#x2F;web.xml泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CVS%E6%B3%84%E9%9C%B2"><span class="toc-number">7.</span> <span class="toc-text">CVS泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bazaar-x2F-bzr"><span class="toc-number">8.</span> <span class="toc-text">Bazaar&#x2F;bzr</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#hg%E6%BA%90%E7%A0%81%E6%B3%84%E6%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">.hg源码泄漏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2"><span class="toc-number">2.</span> <span class="toc-text">.git源码泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DS-Store%E6%96%87%E4%BB%B6%E6%B3%84%E9%9C%B2"><span class="toc-number">3.</span> <span class="toc-text">.DS_Store文件泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%AB%99%E5%A4%87%E4%BB%BD%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6"><span class="toc-number">4.</span> <span class="toc-text">网站备份压缩文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SVN%E5%AF%BC%E8%87%B4%E6%96%87%E4%BB%B6%E6%B3%84%E9%9C%B2"><span class="toc-number">5.</span> <span class="toc-text">SVN导致文件泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB-INF-x2F-web-xml%E6%B3%84%E9%9C%B2"><span class="toc-number">6.</span> <span class="toc-text">WEB-INF&#x2F;web.xml泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CVS%E6%B3%84%E9%9C%B2"><span class="toc-number">7.</span> <span class="toc-text">CVS泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bazaar-x2F-bzr"><span class="toc-number">8.</span> <span class="toc-text">Bazaar&#x2F;bzr</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Referce"><span class="toc-number">9.</span> <span class="toc-text">Referce</span></a></li></ol>
             </div>
         
         <!-- sidebar -->
@@ -1338,24 +1348,7 @@
         
         
         
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -2746,7 +2739,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 124
+        Total : 123
         </div>
         <!-- search  -->
         
@@ -3052,12 +3045,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">07/06</span>
             <a class="archive-post-title" href="/2019/07/06/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Django学习笔记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span>
-            <a class="archive-post-title" href="/2019/06/18/App%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">App渗透测试</a>
         </li>
     
         
@@ -3567,11 +3554,6 @@
                 安全评估
             </span>
         
-            <span class="sidebar-tag-name" data-tags="渗透测试">
-                <span class="iconfont-archer">&#xe606;</span>
-                渗透测试
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="安全开发">
                 <span class="iconfont-archer">&#xe606;</span>
                 安全开发
@@ -3585,6 +3567,11 @@
             <span class="sidebar-tag-name" data-tags="problem">
                 <span class="iconfont-archer">&#xe606;</span>
                 problem
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="渗透测试">
+                <span class="iconfont-archer">&#xe606;</span>
+                渗透测试
             </span>
         
             <span class="sidebar-tag-name" data-tags="Crypto">

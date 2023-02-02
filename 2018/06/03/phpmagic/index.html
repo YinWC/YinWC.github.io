@@ -522,7 +522,7 @@
 <p>变量类型：类名长度：类名：属性数量：｛属性类型：属性名长度：属性名；属性值类型：属性值长度：属性值内容｝</p>
 <p>如上面的O:5:”hello”:1:{s:5:”test4”;s:11:”hello,world”.</p>
 <h2 id="反序列化存在的问题"><a href="#反序列化存在的问题" class="headerlink" title="反序列化存在的问题"></a>反序列化存在的问题</h2><p><a target="_blank" rel="noopener" href="http://php.net/manual/zh/language.oop5.magic.php">魔术方法：官方文档中介绍</a></p>
-<p><font color=blue>__construct()， __destruct()， __call()， __callStatic()， __get()， __set()， __isset()， __unset()，<br>__sleep()， __wakeup()， __toString()， __invoke()， __set_state()， __clone() 和 __debugInfo() </font>等方法在 PHP 中被称为”魔术方法”（Magic methods）。在命名自己的类方法时不能使用这些方法名，除非是想使用其魔术功能。 </p>
+<p><font color="blue">__construct()， __destruct()， __call()， __callStatic()， __get()， __set()， __isset()， __unset()，<br>__sleep()， __wakeup()， __toString()， __invoke()， __set_state()， __clone() 和 __debugInfo() </font>等方法在 PHP 中被称为”魔术方法”（Magic methods）。在命名自己的类方法时不能使用这些方法名，除非是想使用其魔术功能。 </p>
 <p>问题原因：漏洞的根源在于unserialize()函数的参数可控。如果反序列化对象中存在魔术方法，而且魔术方法中的代码或变量用户可控，就可能产生反序列化漏洞，根据反序列化后不同的代码可以导致各种攻击，如代码注入、SQL注入、目录遍历等等。</p>
 <p>反序列化漏洞中常见到有一些魔术方法：**__construct()**：在对象创建时自动被调用； **__destruct()<strong>：在脚本运行结束时自动被调用；</strong>__sleep()<strong>：在对象序列化的时候自动被调用；</strong>__wakeup()<strong>：在反序列化为对象时自动被调用；</strong>__toString()**： 直接输出对象引用时自动被调用；</p>
 <p>魔术方法的使用方法及案列详见<a target="_blank" rel="noopener" href="http://php.net/manual/zh/language.oop5.magic.php">官方文档介绍</a></p>
@@ -1324,24 +1324,7 @@
         
         
         
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -2732,7 +2715,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 124
+        Total : 123
         </div>
         <!-- search  -->
         
@@ -3038,12 +3021,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">07/06</span>
             <a class="archive-post-title" href="/2019/07/06/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Django学习笔记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span>
-            <a class="archive-post-title" href="/2019/06/18/App%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">App渗透测试</a>
         </li>
     
         
@@ -3553,11 +3530,6 @@
                 安全评估
             </span>
         
-            <span class="sidebar-tag-name" data-tags="渗透测试">
-                <span class="iconfont-archer">&#xe606;</span>
-                渗透测试
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="安全开发">
                 <span class="iconfont-archer">&#xe606;</span>
                 安全开发
@@ -3571,6 +3543,11 @@
             <span class="sidebar-tag-name" data-tags="problem">
                 <span class="iconfont-archer">&#xe606;</span>
                 problem
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="渗透测试">
+                <span class="iconfont-archer">&#xe606;</span>
+                渗透测试
             </span>
         
             <span class="sidebar-tag-name" data-tags="Crypto">

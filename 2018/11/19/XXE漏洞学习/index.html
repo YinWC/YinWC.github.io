@@ -26,18 +26,18 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="如何检测XXE漏洞 XXE简介 XXE的攻击与防御 危害 防御方法 利用 构造外部外部实体注入的方法   xml基础知识 DTD的概念 DTD实体 blind xxe    如何检测XXE漏洞首先存在漏洞的web服务一定是存在xml传输数据的，可以在http头的content-type中查看，也可以根据url一些常见的关键字进行判断测试，例如wsdl（web服务描述语言）．或者一些常见的采用">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yinwc.github.io/6.png">
-<meta property="og:image" content="https://yinwc.github.io/4.png">
-<meta property="og:image" content="https://yinwc.github.io/5.png">
-<meta property="og:image" content="https://yinwc.github.io/1.png">
-<meta property="og:image" content="https://yinwc.github.io/2.png">
-<meta property="og:image" content="https://yinwc.github.io/3.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/6.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/4.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/5.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/1.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/2.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/3.png">
 <meta property="article:published_time" content="2018-11-19T08:42:02.000Z">
 <meta property="article:modified_time" content="2023-01-29T07:28:52.874Z">
 <meta property="article:author" content="Y1ZkRA">
 <meta property="article:tag" content="漏洞">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yinwc.github.io/6.png">
+<meta name="twitter:image" content="https://yinwc.github.io/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/6.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/ywc.ico">
@@ -572,7 +572,7 @@
 
 <p>该CASE是探测192.168.0.100的80端口，通过返回的“Connection refused”可以知道该81端口是close还是open.</p>
 <p>4.<strong>攻击内网网站</strong></p>
-<p><img src="/6.png" alt="XXE漏洞总结"></p>
+<p><img src="/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/6.png" alt="XXE漏洞总结"></p>
 <p>攻击内网struts2网站，远程执行系统命令。</p>
 <p>5.<strong>DDOS攻击</strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml  version = <span class="string">&quot;1.0&quot;</span> ？&gt; </span></span><br><span class="line"><span class="meta"> &lt;!DOCTYPE  LOLZ  [ </span></span><br><span class="line"><span class="meta"> &lt;!ENTITY  LOL  <span class="string">&quot;&gt; </span></span></span><br><span class="line"><span class="string"><span class="meta"> &lt;!ELEMENT LOLZ  (#PCDATA)&gt; </span></span></span><br><span class="line"><span class="string"><span class="meta"> &lt;!ENTITY  lol1  &quot;</span> &gt; <span class="string">&quot;LOL&quot;</span> &gt; </span></span><br><span class="line"><span class="meta"> &lt;!ENTITY  lol2  <span class="string">&quot;＆lol1;＆lol1;＆lol1;＆lol1;＆lol1;＆lol1;＆lol1;＆lol1;＆lol1;＆lol1;&quot;</span> &gt; </span></span><br><span class="line"><span class="meta"> &lt;!ENTITY  lol3  <span class="string">&quot;＆lol2;＆lol2;＆lol2;＆lol2;＆lol2;＆lol2;＆lol2;＆lol2;＆lol2;＆lol2;&quot;</span> &gt; </span></span><br><span class="line"><span class="meta"> &lt;!ENTITY  lol4  <span class="string">&quot;＆lol3;＆lol3;＆lol3;＆lol3;＆lol3;＆lol3;＆lol3;＆lol3;＆lol3;＆lol3;&quot;</span> &gt; </span></span><br><span class="line"><span class="meta"> &lt;!ENTITY  lol4  <span class="string">&quot;＆lol4;＆lol4;＆lol4;＆lol4;＆lol4;＆lol4;＆lol4;＆lol4;＆lol4;＆lol4;&quot;</span> &gt; </span></span><br><span class="line"><span class="meta"> &lt;!ENTITY  lol6  <span class="string">&quot;＆lol5;＆lol5;＆lol5;＆lol5;＆lol5;＆lol5;＆lol5;＆lol5;＆lol5;＆lol5;&quot;</span> &gt; </span></span><br><span class="line"><span class="meta"> &lt;!ENTITY  lol7  <span class="string">&quot;＆lol6;＆lol6;＆lol6;＆lol6;＆lol6;＆lol6;＆lol6;＆lol6;＆lol6;＆lol6;&quot;</span> &gt; </span></span><br><span class="line"><span class="meta"> &lt;!ENTITY  lol8  <span class="string">&quot;＆lol7;＆lol7;＆lol7;＆lol7;＆lol7;＆lol7;＆lol7;＆lol7;＆lol7;＆lol7;&quot;</span> &gt; </span></span><br><span class="line"><span class="meta"> &lt;!ENTITY  lol9  <span class="string">&quot;＆lol8;＆lol8;＆lol8;＆lol8;＆lol8;＆lol8;＆lol8;＆lol8;＆lol8;＆lol8;&quot;</span> &gt; </span></span><br><span class="line"><span class="meta"> ]&gt; </span></span><br><span class="line"><span class="meta"> &lt;lolz &gt; ＆lol9; &lt;/ lolz &gt;</span></span><br></pre></td></tr></table></figure>
@@ -591,25 +591,25 @@
 <p>DTD文件内容</p>
 <p><code>&lt;!ENTITY b SYSTEM &quot;file:///etc/passwd&quot;&gt;</code></p>
 <p>支持的协议有：</p>
-<p><img src="/4.png" alt="XXE漏洞总结"></p>
+<p><img src="/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/4.png" alt="XXE漏洞总结"></p>
 <p>PHP在安装扩展以后还能支持的协议：</p>
-<p><img src="/5.png" alt="XXE漏洞总结"></p>
+<p><img src="/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/5.png" alt="XXE漏洞总结"></p>
 <h2 id="xml基础知识"><a href="#xml基础知识" class="headerlink" title="xml基础知识"></a>xml基础知识</h2><ul>
 <li>XML用于标记电子文件使其具有结构性的标记语言，可以用来标记数据、定义数据类型，是一种允许用户对自己的标记语言进行定义的源语言。</li>
 <li>XML文档结构包括XML声明、DTD文档类型定义（可选）、文档元素</li>
 </ul>
-<p><img src="/1.png" alt="XXE漏洞总结"></p>
+<p><img src="/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/1.png" alt="XXE漏洞总结"></p>
 <p>简单的实例：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=”1.0″?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">note</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">to</span>&gt;</span>Tove<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">from</span>&gt;</span>Jani<span class="tag">&lt;/<span class="name">from</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">heading</span>&gt;</span>Reminder<span class="tag">&lt;/<span class="name">heading</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span>Don’t forget me this weekend!<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">note</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>文档的第一行是一个应该经常包含的XML申明，它定义了XML文档的版本号，在这个例子中表示文档将使用XML1.0的规范<code>&lt;?xml version=”1.0″?&gt;</code></p>
-<p>下一行定义了文档里面的第一个元素(element)，也称第一个元素为根元素:  <note></p>
+<p>下一行定义了文档里面的第一个元素(element)，也称第一个元素为根元素:  <note></note></p>
 <p>再下面定义了根元素的四个子元素(分别是to, from, heading,和body): <to>Tove</to> <from>Jani</from> <heading>Reminder</heading> <body>Don’t forget me this weekend!</body></p>
-<p>最后一行定义了根元素的结束标志</note> ，所有的XML元素都必须要有一个结束标志。</p>
+<p>最后一行定义了根元素的结束标志 ，所有的XML元素都必须要有一个结束标志。</p>
 <h2 id="DTD的概念"><a href="#DTD的概念" class="headerlink" title="DTD的概念"></a>DTD的概念</h2><p>DTD文档类型定义，是一类可定义合法的XML文档构建模块。可以认为DTD定义了一种针对XML的格式描述，任何一个XML文件都可以引用。</p>
-<p><img src="/2.png" alt="XXE漏洞总结"></p>
+<p><img src="/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/2.png" alt="XXE漏洞总结"></p>
 <p>XML提供了一个独立的运用程序的方法来共享数据.。使用DTD，不同的组中的人就能够使用共同的DTD来交换数据。你的应用程序可以使用这个标准的DTD来验证你接受到的数据是有效的。</p>
 <p>上面引用过的那个XML转换成DTD的样式是这样：</p>
-<p><img src="/3.png" alt="XXE漏洞总结"></p>
+<p><img src="/2018/11/19/XXE%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/3.png" alt="XXE漏洞总结"></p>
 <p>DTD 可以在 XML 文档内声明，也可以外部引用。</p>
 <p>1.内部声明：<code>&lt;!DOCTYPE 根元素 [元素声明]&gt;</code> eg: <!DOCTYOE test any></p>
 <p>完整实例：</p>
@@ -1443,24 +1443,7 @@
         
         
         
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -2851,7 +2834,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 124
+        Total : 123
         </div>
         <!-- search  -->
         
@@ -3157,12 +3140,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">07/06</span>
             <a class="archive-post-title" href="/2019/07/06/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Django学习笔记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span>
-            <a class="archive-post-title" href="/2019/06/18/App%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">App渗透测试</a>
         </li>
     
         
@@ -3672,11 +3649,6 @@
                 安全评估
             </span>
         
-            <span class="sidebar-tag-name" data-tags="渗透测试">
-                <span class="iconfont-archer">&#xe606;</span>
-                渗透测试
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="安全开发">
                 <span class="iconfont-archer">&#xe606;</span>
                 安全开发
@@ -3690,6 +3662,11 @@
             <span class="sidebar-tag-name" data-tags="problem">
                 <span class="iconfont-archer">&#xe606;</span>
                 problem
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="渗透测试">
+                <span class="iconfont-archer">&#xe606;</span>
+                渗透测试
             </span>
         
             <span class="sidebar-tag-name" data-tags="Crypto">

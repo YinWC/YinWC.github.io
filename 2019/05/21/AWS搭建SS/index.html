@@ -19,31 +19,31 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="Hao🐑🐱网址：http:&#x2F;&#x2F;ctuair.com&#x2F; (现在似乎凉了)最新网址：https:&#x2F;&#x2F;2vcc.com&#x2F; 涨价了2333之前可以成功购买，现在一直在用：购买后，使用AWS卡号注册国际版的账户（网址：https:&#x2F;&#x2F;aws.amazon.com&#x2F;）用户名用英文像真名一样才行最后将购买的卡作为默认卡号，如果不行还可以去联系管理员（官网上有QQ号） 搭建SS登录进去点击首页菜单-&gt;服">
+    <meta name="description" content="Hao🐑🐱 搭建SS 配置安全策略组    Hao🐑🐱网址：http:&#x2F;&#x2F;ctuair.com&#x2F; (现在似乎凉了)最新网址：https:&#x2F;&#x2F;2vcc.com&#x2F; 涨价了2333之前可以成功购买，现在一直在用：购买后，使用AWS卡号注册国际版的账户（网址：https:&#x2F;&#x2F;aws.amazon.com&#x2F;）用户名用英文像真名一样才行最后将购买的卡作为默认卡号，如果不行还可以去联系管理员（官网">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AWS搭建SS">
 <meta property="og:url" content="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Hao🐑🐱网址：http:&#x2F;&#x2F;ctuair.com&#x2F; (现在似乎凉了)最新网址：https:&#x2F;&#x2F;2vcc.com&#x2F; 涨价了2333之前可以成功购买，现在一直在用：购买后，使用AWS卡号注册国际版的账户（网址：https:&#x2F;&#x2F;aws.amazon.com&#x2F;）用户名用英文像真名一样才行最后将购买的卡作为默认卡号，如果不行还可以去联系管理员（官网上有QQ号） 搭建SS登录进去点击首页菜单-&gt;服">
+<meta property="og:description" content="Hao🐑🐱 搭建SS 配置安全策略组    Hao🐑🐱网址：http:&#x2F;&#x2F;ctuair.com&#x2F; (现在似乎凉了)最新网址：https:&#x2F;&#x2F;2vcc.com&#x2F; 涨价了2333之前可以成功购买，现在一直在用：购买后，使用AWS卡号注册国际版的账户（网址：https:&#x2F;&#x2F;aws.amazon.com&#x2F;）用户名用英文像真名一样才行最后将购买的卡作为默认卡号，如果不行还可以去联系管理员（官网">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yinwc.github.io/1.png">
-<meta property="og:image" content="https://yinwc.github.io/2.png">
-<meta property="og:image" content="https://yinwc.github.io/3.png">
-<meta property="og:image" content="https://yinwc.github.io/4.png">
-<meta property="og:image" content="https://yinwc.github.io/5.png">
-<meta property="og:image" content="https://yinwc.github.io/6.png">
-<meta property="og:image" content="https://yinwc.github.io/7.png">
-<meta property="og:image" content="https://yinwc.github.io/8.png">
-<meta property="og:image" content="https://yinwc.github.io/9.png">
-<meta property="og:image" content="https://yinwc.github.io/10.png">
-<meta property="og:image" content="https://yinwc.github.io/11.png">
-<meta property="og:image" content="https://yinwc.github.io/12.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/1.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/2.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/3.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/4.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/5.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/6.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/7.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/8.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/9.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/10.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/11.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/12.png">
 <meta property="article:published_time" content="2019-05-21T06:39:18.000Z">
-<meta property="article:modified_time" content="2023-01-29T06:47:04.879Z">
+<meta property="article:modified_time" content="2023-02-02T06:31:26.564Z">
 <meta property="article:author" content="Y1ZkRA">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yinwc.github.io/1.png">
+<meta name="twitter:image" content="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/1.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/ywc.ico">
@@ -348,7 +348,7 @@
                 <!-- 文章字数统计 -->
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">566</span>Reading time: <span class="post-count reading-time">2 min</span></span>
+                        <span>Word count: <span class="post-count word-count">577</span>Reading time: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -509,10 +509,19 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <h2 id="Hao🐑🐱"><a href="#Hao🐑🐱" class="headerlink" title="Hao🐑🐱"></a>Hao🐑🐱</h2><p>网址：<code>http://ctuair.com/</code> (现在似乎凉了)<br>最新网址：<code>https://2vcc.com/</code> 涨价了2333<br>之前可以成功购买，现在一直在用：<br><img src="/1.png" alt="AWS搭建SS"><br>购买后，使用AWS卡号注册国际版的账户（网址：<code>https://aws.amazon.com/</code>）<br>用户名用英文像真名一样才行<br>最后将购买的卡作为默认卡号，如果不行还可以去联系管理员（官网上有QQ号）<br><img src="/2.png" alt="AWS搭建SS"></p>
-<h2 id="搭建SS"><a href="#搭建SS" class="headerlink" title="搭建SS"></a>搭建SS</h2><p>登录进去点击首页菜单-&gt;服务-&gt;EC2,注意选择“东京”的节点。<br><img src="/3.png" alt="AWS搭建SS"><br>然后选择一个系统映像，实例类型用推荐的，点击审核并且启动。<br><img src="/4.png" alt="AWS搭建SS"><br><img src="/5.png" alt="AWS搭建SS"><br>之后会弹出来一个创建密匙对的框，在第一个下拉框中，选择“创建新密匙对”。在第二个框中输入你的密匙对的名字，这里取名叫“ywc1”。点“下载密匙对”，会下载一个叫“ywc1.pem”的文件，把文件保存在一个绝对安全的地方。</p>
-<p>此时我们已经创建了一个实例了.下面我们启动实例, 服务器就已经创建并启动了.<br><img src="/6.png" alt="AWS搭建SS"><br>点击连接，会出现：<br><img src="/7.png" alt="AWS搭建SS"><br>可以看到服务器地址：<a href="mailto:&#x75;&#x62;&#117;&#110;&#x74;&#x75;&#x40;&#101;&#x63;&#x32;&#x2d;&#x31;&#51;&#45;&#50;&#51;&#x30;&#x2d;&#50;&#x32;&#53;&#45;&#x31;&#49;&#x35;&#x2e;&#x61;&#112;&#x2d;&#110;&#111;&#114;&#116;&#104;&#101;&#97;&#x73;&#116;&#45;&#x31;&#x2e;&#x63;&#111;&#109;&#x70;&#x75;&#116;&#x65;&#46;&#97;&#109;&#x61;&#x7a;&#111;&#x6e;&#97;&#x77;&#x73;&#x2e;&#x63;&#x6f;&#x6d;">&#x75;&#x62;&#117;&#110;&#x74;&#x75;&#x40;&#101;&#x63;&#x32;&#x2d;&#x31;&#51;&#45;&#50;&#51;&#x30;&#x2d;&#50;&#x32;&#53;&#45;&#x31;&#49;&#x35;&#x2e;&#x61;&#112;&#x2d;&#110;&#111;&#114;&#116;&#104;&#101;&#97;&#x73;&#116;&#45;&#x31;&#x2e;&#x63;&#111;&#109;&#x70;&#x75;&#116;&#x65;&#46;&#97;&#109;&#x61;&#x7a;&#111;&#x6e;&#97;&#x77;&#x73;&#x2e;&#x63;&#x6f;&#x6d;</a><br>账户：ubuntu<br>使用MobaXterm连接服务器<br><img src="/8.png" alt="AWS搭建SS"><br>直接连接，会发现有错误<br><img src="/9.png" alt="AWS搭建SS"><br>导入密钥即可解决：Use private key-&gt;选择保存的pem文件<br><img src="/10.png" alt="AWS搭建SS"><br>即可连接服务器<br>使用SS脚本：<code>ss脚本 wget --no-check-certificate -O shadowsocks-libev.sh https://raw.githubusercontent.com/uxh/shadowsocks_bash/master/shadowsocks-libev.sh &amp;&amp; bash shadowsocks-libev.sh</code><br>会显示<code>[Error] This script need to run as root!</code><br><code>sudo bash shadowsocks-libev.sh</code>即可<br>下面就是选择端口、设置密码等配置SS的常规操作了，一般除了密码默认即可。</p>
-<h2 id="配置安全策略组"><a href="#配置安全策略组" class="headerlink" title="配置安全策略组"></a>配置安全策略组</h2><p><img src="/11.png" alt="AWS搭建SS"><br>点击实例-&gt;安全组-&gt;launch-wizard-3 编辑入站<br><img src="/12.png" alt="AWS搭建SS"><br>新增加SS端口2199和所有流量入站（虽然不太安全，这里我主要为了ping的通2333）</p>
+        <!-- TOC -->
+
+<ul>
+<li><a href="#hao">Hao🐑🐱</a></li>
+<li><a href="#%E6%90%AD%E5%BB%BAss">搭建SS</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE%E5%AE%89%E5%85%A8%E7%AD%96%E7%95%A5%E7%BB%84">配置安全策略组</a></li>
+</ul>
+<!-- /TOC -->
+
+<h2 id="Hao🐑🐱"><a href="#Hao🐑🐱" class="headerlink" title="Hao🐑🐱"></a>Hao🐑🐱</h2><p>网址：<code>http://ctuair.com/</code> (现在似乎凉了)<br>最新网址：<code>https://2vcc.com/</code> 涨价了2333<br>之前可以成功购买，现在一直在用：<br><img src="/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/1.png" alt="AWS搭建SS"><br>购买后，使用AWS卡号注册国际版的账户（网址：<code>https://aws.amazon.com/</code>）<br>用户名用英文像真名一样才行<br>最后将购买的卡作为默认卡号，如果不行还可以去联系管理员（官网上有QQ号）<br><img src="/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/2.png" alt="AWS搭建SS"></p>
+<h2 id="搭建SS"><a href="#搭建SS" class="headerlink" title="搭建SS"></a>搭建SS</h2><p>登录进去点击首页菜单-&gt;服务-&gt;EC2,注意选择“东京”的节点。<br><img src="/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/3.png" alt="AWS搭建SS"><br>然后选择一个系统映像，实例类型用推荐的，点击审核并且启动。<br><img src="/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/4.png" alt="AWS搭建SS"><br><img src="/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/5.png" alt="AWS搭建SS"><br>之后会弹出来一个创建密匙对的框，在第一个下拉框中，选择“创建新密匙对”。在第二个框中输入你的密匙对的名字，这里取名叫“ywc1”。点“下载密匙对”，会下载一个叫“ywc1.pem”的文件，把文件保存在一个绝对安全的地方。</p>
+<p>此时我们已经创建了一个实例了.下面我们启动实例, 服务器就已经创建并启动了.<br><img src="/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/6.png" alt="AWS搭建SS"><br>点击连接，会出现：<br><img src="/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/7.png" alt="AWS搭建SS"><br>可以看到服务器地址：<a href="mailto:&#117;&#98;&#x75;&#110;&#116;&#117;&#x40;&#101;&#99;&#50;&#x2d;&#49;&#x33;&#x2d;&#x32;&#51;&#x30;&#x2d;&#x32;&#50;&#53;&#x2d;&#49;&#49;&#53;&#x2e;&#x61;&#x70;&#x2d;&#x6e;&#111;&#114;&#x74;&#104;&#101;&#x61;&#x73;&#x74;&#x2d;&#49;&#46;&#x63;&#x6f;&#x6d;&#112;&#117;&#116;&#x65;&#x2e;&#97;&#x6d;&#97;&#122;&#x6f;&#110;&#97;&#x77;&#x73;&#x2e;&#99;&#x6f;&#109;">&#117;&#98;&#x75;&#110;&#116;&#117;&#x40;&#101;&#99;&#50;&#x2d;&#49;&#x33;&#x2d;&#x32;&#51;&#x30;&#x2d;&#x32;&#50;&#53;&#x2d;&#49;&#49;&#53;&#x2e;&#x61;&#x70;&#x2d;&#x6e;&#111;&#114;&#x74;&#104;&#101;&#x61;&#x73;&#x74;&#x2d;&#49;&#46;&#x63;&#x6f;&#x6d;&#112;&#117;&#116;&#x65;&#x2e;&#97;&#x6d;&#97;&#122;&#x6f;&#110;&#97;&#x77;&#x73;&#x2e;&#99;&#x6f;&#109;</a><br>账户：ubuntu<br>使用MobaXterm连接服务器<br><img src="/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/8.png" alt="AWS搭建SS"><br>直接连接，会发现有错误<br><img src="/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/9.png" alt="AWS搭建SS"><br>导入密钥即可解决：Use private key-&gt;选择保存的pem文件<br><img src="/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/10.png" alt="AWS搭建SS"><br>即可连接服务器<br>使用SS脚本：<code>ss脚本 wget --no-check-certificate -O shadowsocks-libev.sh https://raw.githubusercontent.com/uxh/shadowsocks_bash/master/shadowsocks-libev.sh &amp;&amp; bash shadowsocks-libev.sh</code><br>会显示<code>[Error] This script need to run as root!</code><br><code>sudo bash shadowsocks-libev.sh</code>即可<br>下面就是选择端口、设置密码等配置SS的常规操作了，一般除了密码默认即可。</p>
+<h2 id="配置安全策略组"><a href="#配置安全策略组" class="headerlink" title="配置安全策略组"></a>配置安全策略组</h2><p><img src="/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/11.png" alt="AWS搭建SS"><br>点击实例-&gt;安全组-&gt;launch-wizard-3 编辑入站<br><img src="/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/12.png" alt="AWS搭建SS"><br>新增加SS端口2199和所有流量入站（虽然不太安全，这里我主要为了ping的通2333）</p>
 <p>参考文章：<br><code>https://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html#create-a-base-security-group</code><br><code>https://www.cnblogs.com/luosiding/p/8480184.html</code></p>
 
     </article>
@@ -522,7 +531,7 @@
             <p>Author：<a href="https://yinwc.github.io">Y1ZkRA</a>
             <p>Link：<a href="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/">https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/</a>
             <p>Publish date：<a href="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/">May 21st 2019, 2:39:18 pm</a>
-            <p>Update date：<a href="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/">January 29th 2023, 2:47:04 pm</a>
+            <p>Update date：<a href="https://yinwc.github.io/2019/05/21/AWS%E6%90%AD%E5%BB%BASS/">February 2nd 2023, 2:31:26 pm</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1306,24 +1315,7 @@
         
         
         
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -2714,7 +2706,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 124
+        Total : 123
         </div>
         <!-- search  -->
         
@@ -3020,12 +3012,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">07/06</span>
             <a class="archive-post-title" href="/2019/07/06/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Django学习笔记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span>
-            <a class="archive-post-title" href="/2019/06/18/App%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">App渗透测试</a>
         </li>
     
         
@@ -3535,11 +3521,6 @@
                 安全评估
             </span>
         
-            <span class="sidebar-tag-name" data-tags="渗透测试">
-                <span class="iconfont-archer">&#xe606;</span>
-                渗透测试
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="安全开发">
                 <span class="iconfont-archer">&#xe606;</span>
                 安全开发
@@ -3553,6 +3534,11 @@
             <span class="sidebar-tag-name" data-tags="problem">
                 <span class="iconfont-archer">&#xe606;</span>
                 problem
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="渗透测试">
+                <span class="iconfont-archer">&#xe606;</span>
+                渗透测试
             </span>
         
             <span class="sidebar-tag-name" data-tags="Crypto">

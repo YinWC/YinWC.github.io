@@ -26,18 +26,18 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="x00 x01 x02 x03 x04 x05 x06    0x00没有丝毫的过滤措施，且最后的输出位置在标签中，所以很简单，随便甩一个xss payload:&lt;script&gt;alert(1)&lt;&#x2F;script&gt; server code: 123function render (input) &amp;#123;  return &amp;#x27;&lt;div&gt;&amp;#x27;">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yinwc.github.io/1.png">
-<meta property="og:image" content="https://yinwc.github.io/2.png">
-<meta property="og:image" content="https://yinwc.github.io/3.png">
-<meta property="og:image" content="https://yinwc.github.io/4.png">
-<meta property="og:image" content="https://yinwc.github.io/5.png">
-<meta property="og:image" content="https://yinwc.github.io/6.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/1.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/2.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/3.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/4.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/5.png">
+<meta property="og:image" content="https://yinwc.github.io/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/6.png">
 <meta property="article:published_time" content="2019-02-28T02:37:18.000Z">
 <meta property="article:modified_time" content="2023-01-28T08:16:49.091Z">
 <meta property="article:author" content="Y1ZkRA">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yinwc.github.io/1.png">
+<meta name="twitter:image" content="https://yinwc.github.io/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/1.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/ywc.ico">
@@ -520,29 +520,29 @@
 <p>server code:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function render (input) &#123;</span><br><span class="line">  return &#x27;&lt;div&gt;&#x27; + input + &#x27;&lt;/div&gt;&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>[<img src="/1.png" alt="xss靶场练习"></p>
+<p>[<img src="/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/1.png" alt="xss靶场练习"></p>
 <h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><p>0x01和0x00不同的地方在于这里xss插入的位置在于标签中，闭合标签，构造payload:<br><code>&lt;/textarea&gt;&lt;script&gt;alert(1)&lt;/script&gt;</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function render (input) &#123;</span><br><span class="line">  return &#x27;&lt;textarea&gt;&#x27; + input + &#x27;&lt;/textarea&gt;&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2.png" alt="xss靶场练习"></p>
+<p><img src="/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/2.png" alt="xss靶场练习"></p>
 <h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><p>server code:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function render (input) &#123;</span><br><span class="line">  return &#x27;&lt;input type=&quot;name&quot; value=&quot;&#x27; + input + &#x27;&quot;&gt;&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>闭合<code>&lt;input&gt;</code>标签，再构造xss语句,payload:<br><code>&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;&quot;</code></p>
-<p><img src="/3.png" alt="xss靶场练习"></p>
+<p><img src="/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/3.png" alt="xss靶场练习"></p>
 <h2 id="0x03"><a href="#0x03" class="headerlink" title="0x03"></a>0x03</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function render (input) &#123;</span><br><span class="line">  const stripBracketsRe = /[()]/g</span><br><span class="line">  input = input.replace(stripBracketsRe, &#x27;&#x27;)</span><br><span class="line">  return input</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>0x03中代码主要的作用就是将()替换成为空字符<br>这里其实可以使用模版字符串来绕过。在Es6中，模版字符串可以紧跟在一个函数名后面，该函数将被调用来处理这个模板字符串，这被称为“标签模板”功能。<br>使用反引号来代替括号，最后的payload为：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert`1`&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/4.png" alt="xss靶场练习"></p>
+<p><img src="/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/4.png" alt="xss靶场练习"></p>
 <h2 id="0x04"><a href="#0x04" class="headerlink" title="0x04"></a>0x04</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function render (input) &#123;</span><br><span class="line">  const stripBracketsRe = /[()`]/g</span><br><span class="line">  input = input.replace(stripBracketsRe, &#x27;&#x27;)</span><br><span class="line">  return input</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>从代码中来看，过滤了<code>()</code>和反引号，所以这里构造xss的话可以使用<code>&lt;svg&gt;</code>标签，**<code>&lt;svg&gt;</code>标签中可以直接执行实体字符**</p>
 <p>又或者可以H5中iframe的特点，因为h5中iframe的srcdoc属性，srcdoc里的代码会作为iframe中的内容显示出来，srcdoc中可以直接去写转译后的html片段。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg&gt;&lt;script&gt;alert&amp;#40;1&amp;#41;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/5.png" alt="xss靶场练习"></p>
+<p><img src="/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/5.png" alt="xss靶场练习"></p>
 <h2 id="0x05"><a href="#0x05" class="headerlink" title="0x05"></a>0x05</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function render (input) &#123;</span><br><span class="line">  input = input.replace(/--&gt;/g, &#x27;笑脸&#x27;)</span><br><span class="line">  return &#x27;&lt;!-- &#x27; + input + &#x27; --&gt;&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>代码将将html的–&gt;注释符替换成笑脸，并输出在html的注释中。</p>
@@ -554,7 +554,7 @@
 <p>所以payload如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--!&gt;&lt;script&gt;alert(1)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/6.png" alt="xss靶场练习"></p>
+<p><img src="/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/6.png" alt="xss靶场练习"></p>
 <h2 id="0x06"><a href="#0x06" class="headerlink" title="0x06"></a>0x06</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function render (input) &#123;</span><br><span class="line">  input = input.replace(/auto|on.*=|&gt;/ig, &#x27;_&#x27;)</span><br><span class="line">  return `&lt;input value=1 $&#123;input&#125; type=&quot;text&quot;&gt;`</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>过滤以auto开头或者on开头，&#x3D;等号结尾的标签属性并替换成_，且忽略大小写，虽然看起来好像无解了。但是这里我们可以通过换行来绕过正则的检查</p>
@@ -1350,24 +1350,7 @@
         
         
         
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -2758,7 +2741,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 124
+        Total : 123
         </div>
         <!-- search  -->
         
@@ -3064,12 +3047,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">07/06</span>
             <a class="archive-post-title" href="/2019/07/06/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Django学习笔记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span>
-            <a class="archive-post-title" href="/2019/06/18/App%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">App渗透测试</a>
         </li>
     
         
@@ -3579,11 +3556,6 @@
                 安全评估
             </span>
         
-            <span class="sidebar-tag-name" data-tags="渗透测试">
-                <span class="iconfont-archer">&#xe606;</span>
-                渗透测试
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="安全开发">
                 <span class="iconfont-archer">&#xe606;</span>
                 安全开发
@@ -3597,6 +3569,11 @@
             <span class="sidebar-tag-name" data-tags="problem">
                 <span class="iconfont-archer">&#xe606;</span>
                 problem
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="渗透测试">
+                <span class="iconfont-archer">&#xe606;</span>
+                渗透测试
             </span>
         
             <span class="sidebar-tag-name" data-tags="Crypto">

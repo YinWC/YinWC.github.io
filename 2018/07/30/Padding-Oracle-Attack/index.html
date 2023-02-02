@@ -26,19 +26,19 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Writeup参考文章：文章1 文章2 进入题目后可以知道这是一个博客系统，那猜测应该会有后台，扫一下目录或者猜一下可以知道存在login.php, admin.php两个文件，访问admin.php可以发现有权限控制，访问login.php是一个登录界面。 通过尝试可以发现如果随便输入账号密码的话页面返回是Login failed.，但是账号密码都输入admin的话会跳转到admin.php，猜">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yinwc.github.io/1.jpg">
-<meta property="og:image" content="https://yinwc.github.io/2.jpg">
-<meta property="og:image" content="https://yinwc.github.io/3.jpg">
-<meta property="og:image" content="https://yinwc.github.io/4.jpg">
-<meta property="og:image" content="https://yinwc.github.io/5.jpg">
-<meta property="og:image" content="https://yinwc.github.io/6.jpg">
-<meta property="og:image" content="https://yinwc.github.io/7.jpg">
+<meta property="og:image" content="https://yinwc.github.io/2018/07/30/Padding-Oracle-Attack/1.jpg">
+<meta property="og:image" content="https://yinwc.github.io/2018/07/30/Padding-Oracle-Attack/2.jpg">
+<meta property="og:image" content="https://yinwc.github.io/2018/07/30/Padding-Oracle-Attack/3.jpg">
+<meta property="og:image" content="https://yinwc.github.io/2018/07/30/Padding-Oracle-Attack/4.jpg">
+<meta property="og:image" content="https://yinwc.github.io/2018/07/30/Padding-Oracle-Attack/5.jpg">
+<meta property="og:image" content="https://yinwc.github.io/2018/07/30/Padding-Oracle-Attack/6.jpg">
+<meta property="og:image" content="https://yinwc.github.io/2018/07/30/Padding-Oracle-Attack/7.jpg">
 <meta property="article:published_time" content="2018-07-30T01:13:42.000Z">
-<meta property="article:modified_time" content="2018-07-30T02:07:56.147Z">
+<meta property="article:modified_time" content="2023-02-02T06:03:35.512Z">
 <meta property="article:author" content="Y1ZkRA">
 <meta property="article:tag" content="漏洞">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yinwc.github.io/1.jpg">
+<meta name="twitter:image" content="https://yinwc.github.io/2018/07/30/Padding-Oracle-Attack/1.jpg">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/ywc.ico">
@@ -514,15 +514,15 @@
 <h2 id="Pading-Oracle-Attack攻击"><a href="#Pading-Oracle-Attack攻击" class="headerlink" title="Pading Oracle Attack攻击"></a>Pading Oracle Attack攻击</h2><p>参考文章：<a target="_blank" rel="noopener" href="http://f1sh.site/2017/08/04/%E5%88%9D%E5%AD%A6padding-oracle-attack/">链接</a></p>
 <h3 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h3><p>Padding Oracle Attack是一种针对CBC模式分组加密算法的攻击。它可以在不知道密钥（key）的情况下，通过对padding bytes的尝试，还原明文，或者构造出任意明文的密文。</p>
 <h3 id="0x02-原理"><a href="#0x02-原理" class="headerlink" title="0x02 原理"></a>0x02 原理</h3><p>在密码学中，分组加密（Block cipher），又称分块加密或块密码，是一种对称密钥算法。它将明文分成多个等长的模块（block），使用确定的算法和对称密钥对每组分别加密解密，block的大小常见的有64bit、128bit、256bit等。在分组加密的CBC模式中，每个明文块先与前一个密文块进行异或后，再进行加密。加密过程大致如下图所示：</p>
-<p><img src="/1.jpg" alt="Padding-Oracle-Attack"></p>
+<p><img src="/2018/07/30/Padding-Oracle-Attack/1.jpg" alt="Padding-Oracle-Attack"></p>
 <p>在这个过程中，如果最后一个分组的消息长度没有达到block的大小，则需要填充一些字节，被称为padding。以16个字节一个block为例，如果明文是I_am_Bob，长度为八个字节，则剩下的八个字节被填充了0x08，0x08，0x08，0x08，0x08，0x08，0x08，0x08这八个相同的字节，每个字节的值等于需要填充的字节长度。</p>
 <p>以aes-128-cbc加密模式为例，加密I_am_Bob的过程大致如下：</p>
-<p><img src="/2.jpg" alt="Padding-Oracle-Attack"></p>
+<p><img src="/2018/07/30/Padding-Oracle-Attack/2.jpg" alt="Padding-Oracle-Attack"></p>
 <p>类似的，解密过程大致如下:</p>
-<p><img src="/3.jpg" alt="Padding-Oracle-Attack"></p>
+<p><img src="/2018/07/30/Padding-Oracle-Attack/3.jpg" alt="Padding-Oracle-Attack"></p>
 <p>在解密完成后，如果最后的padding值不正确，解密程序往往会抛出异常(padding error)。而利用应用的错误回显，攻击者往往可以判断出padding是否正确，这就是Padding Oracle Attack的前提。</p>
 <h2 id="0x03-攻击"><a href="#0x03-攻击" class="headerlink" title="0x03 攻击"></a>0x03 攻击</h2><p>如果攻击者已知并可以控制IV的值，那么攻击者就可以进行Padding Oracle Attack。还是以I_am_Bob和aes-128-cbc加密模式为例。攻击者构造IV为16个0字节，那么此时在解密时的padding是不正确的。</p>
-<p><img src="/4.jpg" alt="Padding-Oracle-Attack"></p>
+<p><img src="/2018/07/30/Padding-Oracle-Attack/4.jpg" alt="Padding-Oracle-Attack"></p>
 <p>正确的padding值只可能为：</p>
 <p>1个字节的padding为0x01</p>
 <p>2个字节的padding为0x02,0x02</p>
@@ -531,10 +531,10 @@
 <p>……</p>
 <p>因为慢慢调整IV的值，以希望解密后，最后一个字节的值为正确的padding byte，比如一个0x01。</p>
 <p>因为middle是固定的（此时我们不知道middle的值），所以从0x00到0xFF之间，只可能有一个值与middle的最后一个字节异或后，结果是0x01。通过遍历这255个值，可以找出IV需要的最后一个字节。</p>
-<p><img src="/5.jpg" alt="Padding-Oracle-Attack"></p>
+<p><img src="/2018/07/30/Padding-Oracle-Attack/5.jpg" alt="Padding-Oracle-Attack"></p>
 <p>此时根据异或的性质，使用0x5e和0x01进行异或就可以得到middle的最后一个值0x5f。</p>
 <p>在正确匹配了padding “0x01” 后，需要做的是继续推导出剩下的middle。根据padding的标准，当需要padding两个字节时，其值应该为0x02,0x02。而我们已经知道了middle的最后一个字节为0x5f，因此可以更新IV的最后一个字节为0x5f^0x02&#x3D;0x5d，此时可以开始遍历IV的倒数第二个字节。</p>
-<p><img src="/6.jpg" alt="Padding-Oracle-Attack"></p>
+<p><img src="/2018/07/30/Padding-Oracle-Attack/6.jpg" alt="Padding-Oracle-Attack"></p>
 <p>由此可得middle的倒数第二个字节为0x3c^0x02&#x3D;0x3e。以此类推，可以推导出所有的middle。</p>
 <p>获得middle后，与原来的IV进行异或，便可得到明文。在这个过程中，仅仅用到了密文和IV，通过对padding的推导，即可还原出明文，而不需要知道密钥(key)是什么。而IV并不需要保密，它往往是以明文形式发送的。</p>
 <p>而获得middle后，还可以通过改变IV，使密文解密为任意明文。根据异或的性质，有：</p>
@@ -551,7 +551,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if($u = openssl_decrypt($c, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $token)</span><br></pre></td></tr></table></figure>
 <p>所以在解第一位成功时为if(NULL)，依然不满足if条件，无法进入验证成功逻辑，所以要对第一位进行爆破而不是Padding Oracle Attack。</p>
 <p>最后攻击结果如图：</p>
-<p><img src="/7.jpg" alt="Padding-Oracle-Attack"></p>
+<p><img src="/2018/07/30/Padding-Oracle-Attack/7.jpg" alt="Padding-Oracle-Attack"></p>
 <h2 id="0x05预防"><a href="#0x05预防" class="headerlink" title="0x05预防"></a>0x05预防</h2><p>Padding Oracle Attack的关键在于：</p>
 <p>1.攻击者能够获知并修改IV</p>
 <p>2.攻击者能够获知解密的结果是否符合padding</p>
@@ -564,7 +564,7 @@
             <p>Author：<a href="https://yinwc.github.io">Y1ZkRA</a>
             <p>Link：<a href="https://yinwc.github.io/2018/07/30/Padding-Oracle-Attack/">https://yinwc.github.io/2018/07/30/Padding-Oracle-Attack/</a>
             <p>Publish date：<a href="https://yinwc.github.io/2018/07/30/Padding-Oracle-Attack/">July 30th 2018, 9:13:42 am</a>
-            <p>Update date：<a href="https://yinwc.github.io/2018/07/30/Padding-Oracle-Attack/">July 30th 2018, 10:07:56 am</a>
+            <p>Update date：<a href="https://yinwc.github.io/2018/07/30/Padding-Oracle-Attack/">February 2nd 2023, 2:03:35 pm</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1348,24 +1348,7 @@
         
         
         
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -2756,7 +2739,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 124
+        Total : 123
         </div>
         <!-- search  -->
         
@@ -3062,12 +3045,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">07/06</span>
             <a class="archive-post-title" href="/2019/07/06/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Django学习笔记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span>
-            <a class="archive-post-title" href="/2019/06/18/App%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">App渗透测试</a>
         </li>
     
         
@@ -3577,11 +3554,6 @@
                 安全评估
             </span>
         
-            <span class="sidebar-tag-name" data-tags="渗透测试">
-                <span class="iconfont-archer">&#xe606;</span>
-                渗透测试
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="安全开发">
                 <span class="iconfont-archer">&#xe606;</span>
                 安全开发
@@ -3595,6 +3567,11 @@
             <span class="sidebar-tag-name" data-tags="problem">
                 <span class="iconfont-archer">&#xe606;</span>
                 problem
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="渗透测试">
+                <span class="iconfont-archer">&#xe606;</span>
+                渗透测试
             </span>
         
             <span class="sidebar-tag-name" data-tags="Crypto">

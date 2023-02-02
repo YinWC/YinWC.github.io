@@ -19,12 +19,12 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="Web - boring_code源代码提示，flag在index.php，源代码在&#x2F;code&#x2F;index.php。 去访问&#x2F;code&#x2F;index.php，看到源代码。 123456789101112131415161718192021222324252627282930313233&lt;?phpfunction is_valid_url($url) &amp;#123;    if (filter_v">
+    <meta name="description" content="Web - boring_code Web - EzCMS Web - rss     Web - boring_code源代码提示，flag在index.php，源代码在&#x2F;code&#x2F;index.php。 去访问&#x2F;code&#x2F;index.php，看到源代码。 123456789101112131415161718192021222324252627282930313233&lt;?phpfun">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ByteCTF2019">
 <meta property="og:url" content="https://yinwc.github.io/2019/09/26/ByteCTF/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Web - boring_code源代码提示，flag在index.php，源代码在&#x2F;code&#x2F;index.php。 去访问&#x2F;code&#x2F;index.php，看到源代码。 123456789101112131415161718192021222324252627282930313233&lt;?phpfunction is_valid_url($url) &amp;#123;    if (filter_v">
+<meta property="og:description" content="Web - boring_code Web - EzCMS Web - rss     Web - boring_code源代码提示，flag在index.php，源代码在&#x2F;code&#x2F;index.php。 去访问&#x2F;code&#x2F;index.php，看到源代码。 123456789101112131415161718192021222324252627282930313233&lt;?phpfun">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.loli.net/2019/09/08/NYOfPol53Q1X8vA.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/08/SMcR3OvfxUahKWy.png">
@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/08/3OSXxW26jbHrouC.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/08/Ix9W6E1JVZbriNB.png">
 <meta property="article:published_time" content="2019-09-26T02:37:54.000Z">
-<meta property="article:modified_time" content="2019-10-21T02:39:58.975Z">
+<meta property="article:modified_time" content="2023-02-02T06:26:11.422Z">
 <meta property="article:author" content="Y1ZkRA">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
@@ -503,7 +503,17 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <h1 id="Web-boring-code"><a href="#Web-boring-code" class="headerlink" title="Web - boring_code"></a>Web - boring_code</h1><p>源代码提示，flag在index.php，源代码在<code>/code/index.php</code>。</p>
+        <!-- TOC -->
+
+<ul>
+<li><a href="#web---boring_code">Web - boring_code</a></li>
+<li><a href="#web---ezcms">Web - EzCMS</a></li>
+<li><a href="#web---rss">Web - rss</a></li>
+</ul>
+<!-- /TOC -->
+
+
+<h1 id="Web-boring-code"><a href="#Web-boring-code" class="headerlink" title="Web - boring_code"></a>Web - boring_code</h1><p>源代码提示，flag在index.php，源代码在<code>/code/index.php</code>。</p>
 <p>去访问<code>/code/index.php</code>，看到源代码。</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">is_valid_url</span>(<span class="params"><span class="variable">$url</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">filter_var</span>(<span class="variable">$url</span>, FILTER_VALIDATE_URL)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/data:\/\//i&#x27;</span>, <span class="variable">$url</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>]))&#123;</span><br><span class="line">    <span class="variable">$url</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">is_valid_url</span>(<span class="variable">$url</span>)) &#123;</span><br><span class="line">        <span class="variable">$r</span> = <span class="title function_ invoke__">parse_url</span>(<span class="variable">$url</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/baidu\.com$/&#x27;</span>, <span class="variable">$r</span>[<span class="string">&#x27;host&#x27;</span>])) &#123;</span><br><span class="line">            <span class="variable">$code</span> = <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$url</span>);</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">&#x27;;&#x27;</span> === <span class="title function_ invoke__">preg_replace</span>(<span class="string">&#x27;/[a-z]+\((?R)?\)/&#x27;</span>, <span class="literal">NULL</span>, <span class="variable">$code</span>)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/et|na|nt|strlen|info|path|rand|dec|bin|hex|oct|pi|exp|log/i&#x27;</span>, <span class="variable">$code</span>)) &#123;</span><br><span class="line">                    <span class="keyword">echo</span> <span class="string">&#x27;bye~&#x27;</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">eval</span>(<span class="variable">$code</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;error: host not allowed&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;error: invalid url&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -564,7 +574,7 @@
             <p>Author：<a href="https://yinwc.github.io">Y1ZkRA</a>
             <p>Link：<a href="https://yinwc.github.io/2019/09/26/ByteCTF/">https://yinwc.github.io/2019/09/26/ByteCTF/</a>
             <p>Publish date：<a href="https://yinwc.github.io/2019/09/26/ByteCTF/">September 26th 2019, 10:37:54 am</a>
-            <p>Update date：<a href="https://yinwc.github.io/2019/09/26/ByteCTF/">October 21st 2019, 10:39:58 am</a>
+            <p>Update date：<a href="https://yinwc.github.io/2019/09/26/ByteCTF/">February 2nd 2023, 2:26:11 pm</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1348,24 +1358,7 @@
         
         
         
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -2756,7 +2749,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 124
+        Total : 123
         </div>
         <!-- search  -->
         
@@ -3062,12 +3055,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">07/06</span>
             <a class="archive-post-title" href="/2019/07/06/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Django学习笔记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span>
-            <a class="archive-post-title" href="/2019/06/18/App%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">App渗透测试</a>
         </li>
     
         
@@ -3577,11 +3564,6 @@
                 安全评估
             </span>
         
-            <span class="sidebar-tag-name" data-tags="渗透测试">
-                <span class="iconfont-archer">&#xe606;</span>
-                渗透测试
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="安全开发">
                 <span class="iconfont-archer">&#xe606;</span>
                 安全开发
@@ -3595,6 +3577,11 @@
             <span class="sidebar-tag-name" data-tags="problem">
                 <span class="iconfont-archer">&#xe606;</span>
                 problem
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="渗透测试">
+                <span class="iconfont-archer">&#xe606;</span>
+                渗透测试
             </span>
         
             <span class="sidebar-tag-name" data-tags="Crypto">

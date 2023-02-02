@@ -456,7 +456,7 @@
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2023/01/29">
+                <div class="abstract-date" title="Last updated: 2023/02/02">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/06/16</span>
                 </div>
                 <!-- tags -->
@@ -492,7 +492,7 @@
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2023/01/28">
+                <div class="abstract-date" title="Last updated: 2023/02/02">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/06/06</span>
                 </div>
                 <!-- tags -->
@@ -528,7 +528,7 @@
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2023/01/28">
+                <div class="abstract-date" title="Last updated: 2023/02/02">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/05/12</span>
                 </div>
                 <!-- tags -->
@@ -564,7 +564,7 @@
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2023/01/28">
+                <div class="abstract-date" title="Last updated: 2023/02/02">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/21</span>
                 </div>
                 <!-- tags -->
@@ -629,15 +629,26 @@
                 <span class="abstract-title-text">CVE-2020-1938:Tomcat AJP文件包含漏洞分析</span>
             </a>
             <div class="abstract-content">
-                漏洞概述由于Tomcat在处理AJP请求时,未对请求做任何验证,通过设置AJP连接器封装的request对象的属性, 导致产生任意文件读取漏洞和代码执行漏洞
-CVE-2020-1938 又名GhostCat， 之前引起了一场风雨，由e长亭科技安全研究员发现的存在于Tomcat中的安全漏洞，由于Tomcat AJP协议设计上存在缺陷，攻击者通过 Tomcat AJP Connector 可以读取或包含 Tomcat 上所有 webapp 目录下的任意文件，例如可以读取 webapp 配置文件或源代码。此外在目标应用有文件上传功能的情况下，配合文件包含的利用还可以达到远程代码执行的危害。
-影...
+                
+
+
+漏洞概述
+任意文件读取
+任意代码执行
+Tomcat AJP Connector以及AJP协议
+漏洞修复
+Reference
+
+
+
+漏洞概述由于Tomcat在处理AJP请求时,未对请求做任何验证,通过设置AJP连接器封装的request对象的属性, 导致产生任意文件读取漏洞和代码执行漏洞
+CVE-2020-1938 又名GhostCat， 之前引起了一场风雨，由e长亭科技安全研究员发现的存在于Tomcat中的安全漏洞，由于Tomcat AJP协议设计上存在缺陷，攻击者通过 Tomcat AJP Connector 可以读取或包含 Tomcat 上所有 webapp 目录下的任意文件，...
             </div>
             <!-- read more -->
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2023/01/28">
+                <div class="abstract-date" title="Last updated: 2023/02/02">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/01</span>
                 </div>
                 <!-- tags -->
@@ -673,7 +684,7 @@ CVE-2020-1938 又名GhostCat， 之前引起了一场风雨，由e长亭科技�
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2020/02/19">
+                <div class="abstract-date" title="Last updated: 2023/02/02">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/18</span>
                 </div>
                 <!-- tags -->
@@ -1626,24 +1637,7 @@ CVE-2020-1938 又名GhostCat， 之前引起了一场风雨，由e长亭科技�
         
         
         
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -3034,7 +3028,7 @@ CVE-2020-1938 又名GhostCat， 之前引起了一场风雨，由e长亭科技�
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 124
+        Total : 123
         </div>
         <!-- search  -->
         
@@ -3340,12 +3334,6 @@ CVE-2020-1938 又名GhostCat， 之前引起了一场风雨，由e长亭科技�
         <li class="archive-post-item">
             <span class="archive-post-date">07/06</span>
             <a class="archive-post-title" href="/2019/07/06/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Django学习笔记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span>
-            <a class="archive-post-title" href="/2019/06/18/App%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">App渗透测试</a>
         </li>
     
         
@@ -3855,11 +3843,6 @@ CVE-2020-1938 又名GhostCat， 之前引起了一场风雨，由e长亭科技�
                 安全评估
             </span>
         
-            <span class="sidebar-tag-name" data-tags="渗透测试">
-                <span class="iconfont-archer">&#xe606;</span>
-                渗透测试
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="安全开发">
                 <span class="iconfont-archer">&#xe606;</span>
                 安全开发
@@ -3873,6 +3856,11 @@ CVE-2020-1938 又名GhostCat， 之前引起了一场风雨，由e长亭科技�
             <span class="sidebar-tag-name" data-tags="problem">
                 <span class="iconfont-archer">&#xe606;</span>
                 problem
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="渗透测试">
+                <span class="iconfont-archer">&#xe606;</span>
+                渗透测试
             </span>
         
             <span class="sidebar-tag-name" data-tags="Crypto">

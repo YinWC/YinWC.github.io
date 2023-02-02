@@ -19,22 +19,22 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="前言git回溯版本可以得到一些隐藏的信息。 发现.git文件后，可以进行回溯版本。进入.git文件后进行操作。 SUCTF git回溯版本Padding 的秘密,需要用git恢复回溯版本得到其中的源码 查看版本历史记录1git log --reflog  恢复到指定版本1git reset --hard 781ff0d1771d3b9aab550624a73de2b0f94e3bc9  回到文件目">
+    <meta name="description" content="前言 SUCTF git回溯版本 查看版本历史记录 恢复到指定版本 回到文件目录下即可得到版本下的文件。   RCTF git回溯版本    前言git回溯版本可以得到一些隐藏的信息。 发现.git文件后，可以进行回溯版本。进入.git文件后进行操作。 SUCTF git回溯版本Padding 的秘密,需要用git恢复回溯版本得到其中的源码 查看版本历史记录1git log --reflog">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git learn">
 <meta property="og:url" content="https://yinwc.github.io/2018/06/01/git/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="前言git回溯版本可以得到一些隐藏的信息。 发现.git文件后，可以进行回溯版本。进入.git文件后进行操作。 SUCTF git回溯版本Padding 的秘密,需要用git恢复回溯版本得到其中的源码 查看版本历史记录1git log --reflog  恢复到指定版本1git reset --hard 781ff0d1771d3b9aab550624a73de2b0f94e3bc9  回到文件目">
+<meta property="og:description" content="前言 SUCTF git回溯版本 查看版本历史记录 恢复到指定版本 回到文件目录下即可得到版本下的文件。   RCTF git回溯版本    前言git回溯版本可以得到一些隐藏的信息。 发现.git文件后，可以进行回溯版本。进入.git文件后进行操作。 SUCTF git回溯版本Padding 的秘密,需要用git恢复回溯版本得到其中的源码 查看版本历史记录1git log --reflog">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yinwc.github.io/1.jpg">
-<meta property="og:image" content="https://yinwc.github.io/2.jpg">
-<meta property="og:image" content="https://yinwc.github.io/3.jpg">
+<meta property="og:image" content="https://yinwc.github.io/2018/06/01/git/1.jpg">
+<meta property="og:image" content="https://yinwc.github.io/2018/06/01/git/2.jpg">
+<meta property="og:image" content="https://yinwc.github.io/2018/06/01/git/3.jpg">
 <meta property="article:published_time" content="2018-06-01T02:12:05.000Z">
-<meta property="article:modified_time" content="2023-01-29T02:53:02.831Z">
+<meta property="article:modified_time" content="2023-02-02T06:14:51.074Z">
 <meta property="article:author" content="Y1ZkRA">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yinwc.github.io/1.jpg">
+<meta name="twitter:image" content="https://yinwc.github.io/2018/06/01/git/1.jpg">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/ywc.ico">
@@ -339,7 +339,7 @@
                 <!-- 文章字数统计 -->
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">171</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                        <span>Word count: <span class="post-count word-count">217</span>Reading time: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -500,18 +500,32 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>git回溯版本可以得到一些隐藏的信息。</p>
+        <!-- TOC -->
+
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#suctf-git%E5%9B%9E%E6%BA%AF%E7%89%88%E6%9C%AC">SUCTF git回溯版本</a><ul>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E7%89%88%E6%9C%AC%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95">查看版本历史记录</a></li>
+<li><a href="#%E6%81%A2%E5%A4%8D%E5%88%B0%E6%8C%87%E5%AE%9A%E7%89%88%E6%9C%AC">恢复到指定版本</a></li>
+<li><a href="#%E5%9B%9E%E5%88%B0%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%8D%B3%E5%8F%AF%E5%BE%97%E5%88%B0%E7%89%88%E6%9C%AC%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6">回到文件目录下即可得到版本下的文件。</a></li>
+</ul>
+</li>
+<li><a href="#rctf-git%E5%9B%9E%E6%BA%AF%E7%89%88%E6%9C%AC">RCTF git回溯版本</a></li>
+</ul>
+<!-- /TOC -->
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>git回溯版本可以得到一些隐藏的信息。</p>
 <p>发现.git文件后，可以进行回溯版本。进入.git文件后进行操作。</p>
 <h2 id="SUCTF-git回溯版本"><a href="#SUCTF-git回溯版本" class="headerlink" title="SUCTF git回溯版本"></a>SUCTF git回溯版本</h2><p>Padding 的秘密,需要用git恢复回溯版本得到其中的源码</p>
 <h3 id="查看版本历史记录"><a href="#查看版本历史记录" class="headerlink" title="查看版本历史记录"></a>查看版本历史记录</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --reflog</span><br></pre></td></tr></table></figure>
-<p><img src="/1.jpg" alt="git"></p>
+<p><img src="/2018/06/01/git/1.jpg" alt="git"></p>
 <h3 id="恢复到指定版本"><a href="#恢复到指定版本" class="headerlink" title="恢复到指定版本"></a>恢复到指定版本</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard 781ff0d1771d3b9aab550624a73de2b0f94e3bc9</span><br></pre></td></tr></table></figure>
-<p><img src="/2.jpg" alt="git"></p>
+<p><img src="/2018/06/01/git/2.jpg" alt="git"></p>
 <h3 id="回到文件目录下即可得到版本下的文件。"><a href="#回到文件目录下即可得到版本下的文件。" class="headerlink" title="回到文件目录下即可得到版本下的文件。"></a>回到文件目录下即可得到版本下的文件。</h3><h2 id="RCTF-git回溯版本"><a href="#RCTF-git回溯版本" class="headerlink" title="RCTF git回溯版本"></a>RCTF git回溯版本</h2><ul>
 <li>git reflog查看日志</li>
 <li>git checkout f4d0f6d恢复flag.txt</li>
 </ul>
-<p><img src="/3.jpg" alt="git"></p>
+<p><img src="/2018/06/01/git/3.jpg" alt="git"></p>
 <p>参考链接：</p>
 <p><a target="_blank" rel="noopener" href="https://git-scm.com/book/tr/v2">https://git-scm.com/book/tr/v2</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.oschina.net/translate/10-tips-git-next-level">https://www.oschina.net/translate/10-tips-git-next-level</a></p>
@@ -526,7 +540,7 @@
             <p>Author：<a href="https://yinwc.github.io">Y1ZkRA</a>
             <p>Link：<a href="https://yinwc.github.io/2018/06/01/git/">https://yinwc.github.io/2018/06/01/git/</a>
             <p>Publish date：<a href="https://yinwc.github.io/2018/06/01/git/">June 1st 2018, 10:12:05 am</a>
-            <p>Update date：<a href="https://yinwc.github.io/2018/06/01/git/">January 29th 2023, 10:53:02 am</a>
+            <p>Update date：<a href="https://yinwc.github.io/2018/06/01/git/">February 2nd 2023, 2:14:51 pm</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1310,24 +1324,7 @@
         
         
         
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -2718,7 +2715,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 124
+        Total : 123
         </div>
         <!-- search  -->
         
@@ -3024,12 +3021,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">07/06</span>
             <a class="archive-post-title" href="/2019/07/06/Django%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Django学习笔记</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/18</span>
-            <a class="archive-post-title" href="/2019/06/18/App%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">App渗透测试</a>
         </li>
     
         
@@ -3539,11 +3530,6 @@
                 安全评估
             </span>
         
-            <span class="sidebar-tag-name" data-tags="渗透测试">
-                <span class="iconfont-archer">&#xe606;</span>
-                渗透测试
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="安全开发">
                 <span class="iconfont-archer">&#xe606;</span>
                 安全开发
@@ -3557,6 +3543,11 @@
             <span class="sidebar-tag-name" data-tags="problem">
                 <span class="iconfont-archer">&#xe606;</span>
                 problem
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="渗透测试">
+                <span class="iconfont-archer">&#xe606;</span>
+                渗透测试
             </span>
         
             <span class="sidebar-tag-name" data-tags="Crypto">
