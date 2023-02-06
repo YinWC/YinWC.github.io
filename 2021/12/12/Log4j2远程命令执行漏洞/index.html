@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://yinwc.github.io/2021/12/12/Log4j2%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/1.jpg">
 <meta property="article:published_time" content="2021-12-12T02:46:33.000Z">
-<meta property="article:modified_time" content="2023-02-06T09:36:01.052Z">
+<meta property="article:modified_time" content="2023-02-06T09:45:48.174Z">
 <meta property="article:author" content="Y1ZkRA">
 <meta property="article:tag" content="漏洞">
 <meta name="twitter:card" content="summary">
@@ -552,12 +552,16 @@
 </ol>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xfeiyun/p/15999955.html">Log4j和Log4j2的区别</a></p>
 <h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><h4 id="JNDI"><a href="#JNDI" class="headerlink" title="JNDI"></a>JNDI</h4><ul>
-<li>总结：JNDI是Java提供的Java命名和目录接口。通过调用JNDI的API可以定位资源和其他程序对象。<ul>
+<li><p>总结：JNDI是Java提供的Java命名和目录接口。通过调用JNDI的API可以定位资源和其他程序对象。</p>
+<ul>
 <li>JNDI是Java EE的重要部分，JNDI可访问的现有的目录及服务有:JDBC、LDAP、RMI、DNS、NIS、CORBA。</li>
 </ul>
 </li>
+<li><p><code>JNDI</code>全称 Java Naming and Directory Interface（Java命名和目录接口）。JNDI是Java平台的一个标准扩展，提供了一组接口、类和关于命名空间的概念。JDNI是provider-based的技术(如同其它很多Java技术一样)，暴露了一个API和一个<strong>服务供应接口（SPI）</strong>。这意味着任何基于名字的技术都能通过JNDI而提供服务，只要JNDI支持这项技术。很多J2EE技术，包括EJB都依靠JNDI来组织和定位实体。</p>
+</li>
+<li><p><code>JDNI通过绑定的概念将对象和名称联系起来</code>。在一个文件系统中，文件名被绑定给文件。在DNS中，一个IP地址绑定一个URL。在目录服务中，一个对象名被绑定给一个对象实体。</p>
+</li>
 </ul>
-<p><code>JNDI</code>全称 Java Naming and Directory Interface（Java命名和目录接口）。JNDI是Java平台的一个标准扩展，提供了一组接口、类和关于命名空间的概念。JDNI是provider-based的技术(如同其它很多Java技术一样)，暴露了一个API和一个<strong>服务供应接口（SPI）</strong>。这意味着任何基于名字的技术都能通过JNDI而提供服务，只要JNDI支持这项技术。很多J2EE技术，包括EJB都依靠JNDI来组织和定位实体。<br><code>JDNI通过绑定的概念将对象和名称联系起来</code>。在一个文件系统中，文件名被绑定给文件。在DNS中，一个IP地址绑定一个URL。在目录服务中，一个对象名被绑定给一个对象实体。</p>
 <p>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xdp-gacl/p/3951952.html">JNDI学习总结(一)——JNDI数据源的配置</a></p>
 <h4 id="LDAP"><a href="#LDAP" class="headerlink" title="LDAP"></a>LDAP</h4><p><code>LDAP</code>全称 Light Directory Access Protocol（轻型目录访问协议），是基于X.500标准的轻量级目录访问协议。</p>
 <ul>
@@ -666,17 +670,32 @@
 </li>
 </ul>
 <h2 id="补丁分析"><a href="#补丁分析" class="headerlink" title="补丁分析"></a>补丁分析</h2><h3 id="rc1"><a href="#rc1" class="headerlink" title="rc1"></a>rc1</h3><p>2.15.0-rc1</p>
-<p>总结：rc1补丁通过对JNDI Lookup增加白名单的方式，限制默认可以访问的主机为本地IP，限制默认支持的协议类型为java、ldap、ldaps，限制LDAP协议默认可以使用的Java类型为少数基础类型，从而大大减少了默认的攻击面。</p>
-<p>具体分析：<br>通过比较2.15.0-rc1和该版本之前最后一个版本2.14.1之间的差异，可以发现Log4j2团队在12月5日提交了一个名为Restrict LDAP access via JNDI (#608)的commit。该commit的详细内容如下链接：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/apache/logging-log4j2/commit/c77b3cb39312b83b053d23a2158b99ac7de44dd3</span><br></pre></td></tr></table></figure>
-<p>除去一些测试代码和辅助代码，该commit最主要内容是在3.5章节中提到的 JndiManager.lookup()方法增加了几种限制，分别是<code>allowedHosts</code>、<code>allowedClasses</code>、<code>allowedProtocols</code>。</p>
-<p>各个限制的内容分别如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">allowedHosts</span><br><span class="line"></span><br><span class="line">allowedClasses</span><br><span class="line"></span><br><span class="line">allowedProtocols</span><br></pre></td></tr></table></figure>
-<p>可以看到，rc1补丁通过对JNDI Lookup增加白名单的方式，限制默认可以访问的主机为本地IP，限制默认支持的协议类型为java、ldap、ldaps，限制LDAP协议默认可以使用的Java类型为少数基础类型，从而大大减少了默认的攻击面。</p>
-<h4 id="rc1-绕过"><a href="#rc1-绕过" class="headerlink" title="rc1 绕过"></a>rc1 绕过</h4><p>发生原因：rc1默认不对URISyntaxException异常做任何处理，</p>
-<p>绕过方法：通过构建一个简单的带空格的异形URI地址（127.0.0.1:8888&#x2F; 和exp之间）</p>
+<ul>
+<li><p>总结：rc1补丁通过对JNDI Lookup增加白名单的方式，限制默认可以访问的主机为本地IP，限制默认支持的协议类型为java、ldap、ldaps，限制LDAP协议默认可以使用的Java类型为少数基础类型，从而大大减少了默认的攻击面。</p>
+</li>
+<li><p>具体分析：</p>
+<ul>
+<li><p>通过比较2.15.0-rc1和该版本之前最后一个版本2.14.1之间的差异，可以发现Log4j2团队在12月5日提交了一个名为Restrict LDAP access via JNDI (#608)的commit。该commit的详细内容如下链接：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/apache/logging-log4j2/commit/c77b3cb39312b83b053d23a2158b99ac7de44dd3</span><br></pre></td></tr></table></figure></li>
+<li><p>除去一些测试代码和辅助代码，该commit最主要内容是在3.5章节中提到的 JndiManager.lookup()方法增加了几种限制，分别是<code>allowedHosts</code>、<code>allowedClasses</code>、<code>allowedProtocols</code>。</p>
+</li>
+<li><p>各个限制的内容分别如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">allowedHosts</span><br><span class="line"></span><br><span class="line">allowedClasses</span><br><span class="line"></span><br><span class="line">allowedProtocols</span><br></pre></td></tr></table></figure></li>
+<li><p>可以看到，rc1补丁通过对JNDI Lookup增加白名单的方式，限制默认可以访问的主机为本地IP，限制默认支持的协议类型为java、ldap、ldaps，限制LDAP协议默认可以使用的Java类型为少数基础类型，从而大大减少了默认的攻击面。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="rc1-绕过"><a href="#rc1-绕过" class="headerlink" title="rc1 绕过"></a>rc1 绕过</h4><ul>
+<li><p>发生原因：rc1默认不对URISyntaxException异常做任何处理，</p>
+</li>
+<li><p>绕过方法：通过构建一个简单的带空格的异形URI地址（127.0.0.1:8888&#x2F; 和exp之间）</p>
+</li>
+</ul>
 <h3 id="rc2"><a href="#rc2" class="headerlink" title="rc2"></a>rc2</h3><p>2.15.0-rc2</p>
-<p>通过比较2.15.0-rc1和2.15.0-rc2之间的差异，可以发现Log4j2团队在12月10日提交了一个名为Handle URI exception的commit。该commit的详细内容如下链接：</p>
+<ul>
+<li>通过比较2.15.0-rc1和2.15.0-rc2之间的差异，可以发现Log4j2团队在12月10日提交了一个名为Handle URI exception的commit。该commit的详细内容如下链接：</li>
+</ul>
 <p><a target="_blank" rel="noopener" href="https://github.com/apache/logging-log4j2/commit/bac0d8a35c7e354a0d3f706569116dff6c6bd658">https://github.com/apache/logging-log4j2/commit/bac0d8a35c7e354a0d3f706569116dff6c6bd658</a></p>
 <p>该commit主要内容是对rc1中JndiManager.lookup()方法里的catch代码块进行了修改：</p>
 <ul>
@@ -694,7 +713,7 @@
             <p>Author：<a href="https://yinwc.github.io">Y1ZkRA</a>
             <p>Link：<a href="https://yinwc.github.io/2021/12/12/Log4j2%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">https://yinwc.github.io/2021/12/12/Log4j2%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/</a>
             <p>Publish date：<a href="https://yinwc.github.io/2021/12/12/Log4j2%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">December 12th 2021, 10:46:33 am</a>
-            <p>Update date：<a href="https://yinwc.github.io/2021/12/12/Log4j2%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">February 6th 2023, 5:36:01 pm</a>
+            <p>Update date：<a href="https://yinwc.github.io/2021/12/12/Log4j2%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">February 6th 2023, 5:45:48 pm</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
