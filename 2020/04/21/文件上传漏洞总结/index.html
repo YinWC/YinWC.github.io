@@ -19,12 +19,12 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="123456789101112131415POST &#x2F;upload.php HTTP&#x2F;1.1Host: localhostContent-Length: 274Cache-Control: max-age&#x3D;0Origin: http:&#x2F;&#x2F;localhostUpgrade-Insecure-Requests: 1Content-Type: multipart&#x2F;form-data; boundary">
+    <meta name="description" content="文件上传校验姿势 客户端javascript校验（一般只校验后缀名） 服务端校验 文件头content-type字段校验（image&#x2F;gif） 文件内容头校验（GIF89a） 后缀名黑名单校验 后缀名白名单校验 自定义正则校验   WAF设备校验（根据不同的WAF产品而定） 其他   文件上传绕过校验姿势 利用工具进行FUZZ 客户端绕过 服务端绕过 文件类型绕过 文件头绕过 文件">
 <meta property="og:type" content="article">
 <meta property="og:title" content="文件上传漏洞总结">
 <meta property="og:url" content="https://yinwc.github.io/2020/04/21/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="123456789101112131415POST &#x2F;upload.php HTTP&#x2F;1.1Host: localhostContent-Length: 274Cache-Control: max-age&#x3D;0Origin: http:&#x2F;&#x2F;localhostUpgrade-Insecure-Requests: 1Content-Type: multipart&#x2F;form-data; boundary">
+<meta property="og:description" content="文件上传校验姿势 客户端javascript校验（一般只校验后缀名） 服务端校验 文件头content-type字段校验（image&#x2F;gif） 文件内容头校验（GIF89a） 后缀名黑名单校验 后缀名白名单校验 自定义正则校验   WAF设备校验（根据不同的WAF产品而定） 其他   文件上传绕过校验姿势 利用工具进行FUZZ 客户端绕过 服务端绕过 文件类型绕过 文件头绕过 文件">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://yinwc.github.io/2020/04/21/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/1.png">
 <meta property="og:image" content="https://yinwc.github.io/2020/04/21/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/4.png">
@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://yinwc.github.io/2020/04/21/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/2.png">
 <meta property="og:image" content="https://yinwc.github.io/2020/04/21/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/3.png">
 <meta property="article:published_time" content="2020-04-21T07:50:38.000Z">
-<meta property="article:modified_time" content="2023-02-02T06:37:35.777Z">
+<meta property="article:modified_time" content="2023-02-17T03:49:31.067Z">
 <meta property="article:author" content="Y1ZkRA">
 <meta property="article:tag" content="漏洞">
 <meta name="twitter:card" content="summary">
@@ -341,7 +341,7 @@
                 <!-- 文章字数统计 -->
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">3.1k</span>Reading time: <span class="post-count reading-time">12 min</span></span>
+                        <span>Word count: <span class="post-count word-count">3.6k</span>Reading time: <span class="post-count reading-time">15 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -502,7 +502,85 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <p><img src="/2020/04/21/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/1.png" alt="文件上传漏洞总结"></p>
+        <!-- TOC -->
+
+<ul>
+<li><a href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%A0%A1%E9%AA%8C%E5%A7%BF%E5%8A%BF">文件上传校验姿势</a><ul>
+<li><a href="#%E5%AE%A2%E6%88%B7%E7%AB%AFjavascript%E6%A0%A1%E9%AA%8C%E4%B8%80%E8%88%AC%E5%8F%AA%E6%A0%A1%E9%AA%8C%E5%90%8E%E7%BC%80%E5%90%8D">客户端javascript校验（一般只校验后缀名）</a></li>
+<li><a href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%A0%A1%E9%AA%8C">服务端校验</a><ul>
+<li><a href="#%E6%96%87%E4%BB%B6%E5%A4%B4content-type%E5%AD%97%E6%AE%B5%E6%A0%A1%E9%AA%8Cimagegif">文件头content-type字段校验（image&#x2F;gif）</a></li>
+<li><a href="#%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%A4%B4%E6%A0%A1%E9%AA%8Cgif89a">文件内容头校验（GIF89a）</a></li>
+<li><a href="#%E5%90%8E%E7%BC%80%E5%90%8D%E9%BB%91%E5%90%8D%E5%8D%95%E6%A0%A1%E9%AA%8C">后缀名黑名单校验</a></li>
+<li><a href="#%E5%90%8E%E7%BC%80%E5%90%8D%E7%99%BD%E5%90%8D%E5%8D%95%E6%A0%A1%E9%AA%8C">后缀名白名单校验</a></li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%AD%A3%E5%88%99%E6%A0%A1%E9%AA%8C">自定义正则校验</a></li>
+</ul>
+</li>
+<li><a href="#waf%E8%AE%BE%E5%A4%87%E6%A0%A1%E9%AA%8C%E6%A0%B9%E6%8D%AE%E4%B8%8D%E5%90%8C%E7%9A%84waf%E4%BA%A7%E5%93%81%E8%80%8C%E5%AE%9A">WAF设备校验（根据不同的WAF产品而定）</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
+</ul>
+</li>
+<li><a href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%A0%A1%E9%AA%8C%E5%A7%BF%E5%8A%BF">文件上传绕过校验姿势</a><ul>
+<li><a href="#%E5%88%A9%E7%94%A8%E5%B7%A5%E5%85%B7%E8%BF%9B%E8%A1%8Cfuzz">利用工具进行FUZZ</a></li>
+<li><a href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BB%95%E8%BF%87">客户端绕过</a></li>
+<li><a href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%BB%95%E8%BF%87">服务端绕过</a><ul>
+<li><a href="#%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B%E7%BB%95%E8%BF%87">文件类型绕过</a></li>
+<li><a href="#%E6%96%87%E4%BB%B6%E5%A4%B4%E7%BB%95%E8%BF%87">文件头绕过</a></li>
+<li><a href="#%E6%96%87%E4%BB%B6%E5%90%8D%E5%90%8E%E7%BC%80%E7%BB%95%E8%BF%87">文件名&#x2F;后缀绕过</a><ul>
+<li><a href="#%E6%88%AA%E6%96%AD">截断</a></li>
+<li><a href="#windows%E7%89%B9%E6%80%A7">windows特性</a></li>
+<li><a href="#asp">ASP</a></li>
+<li><a href="#jsp">JSP</a></li>
+<li><a href="#php">PHP</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E9%85%8D%E5%90%88%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E">配合文件包含漏洞</a></li>
+<li><a href="#%E9%85%8D%E5%90%88%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E">配合服务器解析漏洞</a><ul>
+<li><a href="#iis-5x60%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E">IIS 5.x&#x2F;6.0解析漏洞</a></li>
+<li><a href="#apache%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E">Apache解析漏洞</a></li>
+<li><a href="#nginx%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E">Nginx解析漏洞</a></li>
+</ul>
+</li>
+<li><a href="#%E9%85%8D%E5%90%88%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E5%91%BD%E4%BB%A4%E8%A7%84%E5%88%99">配合操作系统文件命令规则</a><ul>
+<li><a href="#%E4%B8%8A%E4%BC%A0%E4%B8%8D%E7%AC%A6%E5%90%88windows%E6%96%87%E4%BB%B6%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99%E7%9A%84%E6%96%87%E4%BB%B6%E5%90%8D">上传不符合windows文件命名规则的文件名</a></li>
+<li><a href="#linux%E4%B8%8B%E5%90%8E%E7%BC%80%E5%90%8D%E5%A4%A7%E5%B0%8F%E5%86%99">linux下后缀名大小写</a></li>
+</ul>
+</li>
+<li><a href="#cms%E7%BC%96%E8%BE%91%E5%99%A8%E6%BC%8F%E6%B4%9E">CMS、编辑器漏洞</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96%E8%A7%84%E5%88%99">其他规则</a><ul>
+<li><a href="#%E5%88%A9%E7%94%A8waf%E7%89%B9%E6%80%A7">利用WAF特性</a></li>
+<li><a href="#%E5%88%A9%E7%94%A8ntfs-ads%E7%89%B9%E6%80%A7">利用NTFS ADS特性</a></li>
+<li><a href="#%E5%88%A9%E7%94%A8rtlo">利用RTLO</a></li>
+<li><a href="#%E7%89%B9%E6%AE%8A%E7%9A%84%E9%95%BF%E6%96%87%E4%BB%B6%E5%90%8D%E7%BB%95%E8%BF%87">特殊的长文件名绕过</a></li>
+<li><a href="#%E5%8F%8D%E5%88%A0%E9%99%A4">反删除</a></li>
+<li><a href="#%E5%9B%BE%E7%89%87%E8%BD%AC%E6%8D%A2%E4%BA%8C%E6%AC%A1%E6%B8%B2%E6%9F%93%E6%96%87%E4%BB%B6%E5%B9%BB%E6%95%B0%E6%A3%80%E6%B5%8B">图片转换&#x2F;二次渲染&#x2F;文件幻数检测</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#waf-bypass">WAF Bypass</a><ul>
+<li><a href="#%E5%9E%83%E5%9C%BE%E6%95%B0%E6%8D%AE">垃圾数据</a></li>
+<li><a href="#%E5%A4%9A%E4%B8%AAfilename">多个filename</a></li>
+<li><a href="#%E4%BA%A4%E6%8D%A2name%E5%92%8Cfilename%E7%9A%84%E9%A1%BA%E5%BA%8F">交换name和filename的顺序</a></li>
+<li><a href="#%E5%8E%BB%E6%8E%89%E5%BC%95%E5%8F%B7%E5%8F%8C%E5%BC%95%E5%8F%B7%E5%8F%98%E6%88%90%E5%8D%95%E5%BC%95%E5%8F%B7">去掉引号,双引号变成单引号</a></li>
+<li><a href="#%E5%A4%A7%E5%B0%8F%E5%86%99">大小写</a></li>
+<li><a href="#%E7%A9%BA%E6%A0%BC">空格</a></li>
+<li><a href="#%E5%8E%BB%E6%8E%89%E6%88%96%E4%BF%AE%E6%94%B9content-disposition%E5%80%BC">去掉或修改Content-Disposition值</a></li>
+<li><a href="#%E5%A4%9A%E4%B8%AAboundary">多个boundary</a></li>
+<li><a href="#%E5%A4%9A%E4%B8%AA%E5%88%86%E5%8F%B7">多个分号</a></li>
+<li><a href="#header%E5%9C%A8boundary%E5%89%8D%E6%B7%BB%E5%8A%A0%E4%BB%BB%E6%84%8F%E5%AD%97%E7%AC%A6">Header在boundary前添加任意字符</a></li>
+<li><a href="#filename%E6%8D%A2%E8%A1%8C">filename换行</a></li>
+<li><a href="#name%E5%92%8Cfilename%E6%B7%BB%E5%8A%A0%E4%BB%BB%E6%84%8F%E5%AD%97%E7%AC%A6%E4%B8%B2">name和filename添加任意字符串</a></li>
+<li><a href="#postget">POST&#x2F;GET</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+<!-- /TOC -->
+
+
+<p><img src="/2020/04/21/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/1.png" alt="文件上传漏洞总结"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">POST /upload.php HTTP/1.1</span><br><span class="line">Host: localhost</span><br><span class="line">Content-Length: 274</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Origin: http://localhost</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryuKS18BporicXJfTx</span><br><span class="line">User-Agent: Mozilla/5.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,de;q=0.6,en;q=0.4,fr;q=0.2</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">------WebKitFormBoundaryuKS18BporicXJfTx</span><br><span class="line">Content-Disposition: form-data; name=&quot;file_x&quot;; filename=&quot;xx.php&quot;</span><br></pre></td></tr></table></figure>
 
 <p>请求Header中Content-Type存在以下特征：</p>
@@ -545,12 +623,19 @@
 <p>访问如图中的地址文件，可以看到上传成功：</p>
 <p><img src="/2020/04/21/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/5.png" alt="文件上传漏洞总结"></p>
 <h3 id="客户端绕过"><a href="#客户端绕过" class="headerlink" title="客户端绕过"></a>客户端绕过</h3><p>可以利用burp等抓包改包，先上传一个gif类型的木马，然后通过burp将其改为asp&#x2F;php&#x2F;jsp后缀名即可。</p>
-<h3 id="服务端绕过"><a href="#服务端绕过" class="headerlink" title="服务端绕过"></a>服务端绕过</h3><h4 id="文件类型绕过"><a href="#文件类型绕过" class="headerlink" title="文件类型绕过"></a>文件类型绕过</h4><p>抓包改Content-type字段<br>比如通过抓包，将content-type字段改为image&#x2F;gif</p>
+<h3 id="服务端绕过"><a href="#服务端绕过" class="headerlink" title="服务端绕过"></a>服务端绕过</h3><h4 id="文件类型绕过"><a href="#文件类型绕过" class="headerlink" title="文件类型绕过"></a>文件类型绕过</h4><p>抓包改Content-type字段<br>如通过抓包，将content-type字段改为image&#x2F;gif，即可上传gif图片</p>
+<p>常见的Content-Type：</p>
+<ul>
+<li>1、text开头<br>  text&#x2F;html： HTML格式<br>  text&#x2F;plain：纯文本格式<br>  text&#x2F;xml： XML格式</li>
+<li>2、图片格式<br>  image&#x2F;gif ：gif 图片格式<br>  image&#x2F;jpeg ：jpg 图片格式<br>  image&#x2F;png：png 图片格式</li>
+<li>3、application开头<br>  application&#x2F;xhtml+xml：XHTML 格式<br>  application&#x2F;xml：XML 数据格式<br>  application&#x2F;atom+xml：Atom XML 聚合格式<br>  application&#x2F;json：JSON 数据格式<br>  application&#x2F;pdf：pdf 格式<br>  application&#x2F;msword：Word 文档格式<br>  application&#x2F;octet-stream：二进制流数据（如常见的文件下载）<br>  application&#x2F;x-www-form-urlencoded：表单发送默认格式</li>
+<li>4、媒体文件<br>  audio&#x2F;x-wav：wav文件<br>  audio&#x2F;x-ms-wma：w文件<br>  audio&#x2F;mp3：mp3文件<br>  video&#x2F;x-ms-wmv：wmv文件<br>  video&#x2F;mpeg4：mp4文件<br>  video&#x2F;avi：avi文件</li>
+</ul>
 <h4 id="文件头绕过"><a href="#文件头绕过" class="headerlink" title="文件头绕过"></a>文件头绕过</h4><p>在木马文件内容开头加上一些文件头信息</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GIF89a&lt;?php phpinfo(); ?&gt;</span><br></pre></td></tr></table></figure>
 
 <p>判断文件头内容是否符合要求，这里举几个常见的文件头对应关系：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">（1） .JPEG;.JPE;.JPG，”JPGGraphic File”</span><br><span class="line">（2） .gif，”GIF 89A”</span><br><span class="line">（3） .zip，”Zip Compressed”</span><br><span class="line">（4） .doc;.xls;.xlt;.ppt;.apr，”MS Compound Document v1 or Lotus Approach APRfile”</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">（1） `.JPEG;.JPE;.JPG`，”JPGGraphic File”</span><br><span class="line">（2） `.gif`，”GIF 89A”</span><br><span class="line">（3） `.zip`，”Zip Compressed”</span><br><span class="line">（4） `.doc;.xls;.xlt;.ppt;.apr`，”MS Compound Document v1 or Lotus Approach APRfile”</span><br></pre></td></tr></table></figure>
 
 <h4 id="文件名-x2F-后缀绕过"><a href="#文件名-x2F-后缀绕过" class="headerlink" title="文件名&#x2F;后缀绕过"></a>文件名&#x2F;后缀绕过</h4><h5 id="截断"><a href="#截断" class="headerlink" title="截断"></a>截断</h5><p>test.php%00.jpg,test.php0xoo.jpg</p>
 <h5 id="windows特性"><a href="#windows特性" class="headerlink" title="windows特性"></a>windows特性</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ADS流：test.php::$DATA(见下)</span><br><span class="line">test.php.</span><br><span class="line">test.php_</span><br><span class="line">test.php(空格)</span><br><span class="line">*=.</span><br><span class="line">&lt;=*</span><br><span class="line">&gt;=?</span><br><span class="line">test.&lt;&lt;&lt;</span><br><span class="line">test.php:1.jpg会生成一个test.php的空文件</span><br></pre></td></tr></table></figure>
@@ -658,7 +743,7 @@
             <p>Author：<a href="https://yinwc.github.io">Y1ZkRA</a>
             <p>Link：<a href="https://yinwc.github.io/2020/04/21/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">https://yinwc.github.io/2020/04/21/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/</a>
             <p>Publish date：<a href="https://yinwc.github.io/2020/04/21/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">April 21st 2020, 3:50:38 pm</a>
-            <p>Update date：<a href="https://yinwc.github.io/2020/04/21/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">February 2nd 2023, 2:37:35 pm</a>
+            <p>Update date：<a href="https://yinwc.github.io/2020/04/21/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">February 17th 2023, 11:49:31 am</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
