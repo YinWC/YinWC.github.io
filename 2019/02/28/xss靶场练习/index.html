@@ -19,12 +19,12 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="x00 x01 x02 x03 x04 x05 x06    0x00没有丝毫的过滤措施，且最后的输出位置在标签中，所以很简单，随便甩一个xss payload:&lt;script&gt;alert(1)&lt;&#x2F;script&gt; server code: 123function render (input) &amp;#123;  return &amp;#x27;&lt;div&gt;&amp;#x27;">
+    <meta name="description" content="0x00 0x01 0x02 0x03 0x04 0x05 0x06    0x00没有丝毫的过滤措施，且最后的输出位置在标签中，所以很简单，随便甩一个xss payload:&lt;script&gt;alert(1)&lt;&#x2F;script&gt; server code: 123function render (input) &amp;#123;  return &amp;#x27;&lt;div&amp;gt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="xss靶场练习">
 <meta property="og:url" content="https://yinwc.github.io/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="x00 x01 x02 x03 x04 x05 x06    0x00没有丝毫的过滤措施，且最后的输出位置在标签中，所以很简单，随便甩一个xss payload:&lt;script&gt;alert(1)&lt;&#x2F;script&gt; server code: 123function render (input) &amp;#123;  return &amp;#x27;&lt;div&gt;&amp;#x27;">
+<meta property="og:description" content="0x00 0x01 0x02 0x03 0x04 0x05 0x06    0x00没有丝毫的过滤措施，且最后的输出位置在标签中，所以很简单，随便甩一个xss payload:&lt;script&gt;alert(1)&lt;&#x2F;script&gt; server code: 123function render (input) &amp;#123;  return &amp;#x27;&lt;div&amp;gt">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://yinwc.github.io/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/1.png">
 <meta property="og:image" content="https://yinwc.github.io/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/2.png">
@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://yinwc.github.io/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/5.png">
 <meta property="og:image" content="https://yinwc.github.io/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/6.png">
 <meta property="article:published_time" content="2019-02-28T02:37:18.000Z">
-<meta property="article:modified_time" content="2023-01-28T08:16:49.091Z">
+<meta property="article:modified_time" content="2023-03-01T02:33:15.648Z">
 <meta property="article:author" content="Y1ZkRA">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -506,13 +506,13 @@
         <!-- TOC -->
 
 <ul>
-<li><a href="#x00">x00</a></li>
-<li><a href="#x01">x01</a></li>
-<li><a href="#x02">x02</a></li>
-<li><a href="#x03">x03</a></li>
-<li><a href="#x04">x04</a></li>
-<li><a href="#x05">x05</a></li>
-<li><a href="#x06">x06</a></li>
+<li><a href="#0x00">0x00</a></li>
+<li><a href="#0x01">0x01</a></li>
+<li><a href="#0x02">0x02</a></li>
+<li><a href="#0x03">0x03</a></li>
+<li><a href="#0x04">0x04</a></li>
+<li><a href="#0x05">0x05</a></li>
+<li><a href="#0x06">0x06</a></li>
 </ul>
 <!-- /TOC -->
 
@@ -566,7 +566,7 @@
             <p>Author：<a href="https://yinwc.github.io">Y1ZkRA</a>
             <p>Link：<a href="https://yinwc.github.io/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/">https://yinwc.github.io/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/</a>
             <p>Publish date：<a href="https://yinwc.github.io/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/">February 28th 2019, 10:37:18 am</a>
-            <p>Update date：<a href="https://yinwc.github.io/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/">January 28th 2023, 4:16:49 pm</a>
+            <p>Update date：<a href="https://yinwc.github.io/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/">March 1st 2023, 10:33:15 am</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1350,7 +1350,26 @@
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2741,7 +2760,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 123
+        Total : 124
         </div>
         <!-- search  -->
         
@@ -2777,6 +2796,12 @@
         <li class="archive-post-item">
             <span class="archive-post-date">04/30</span>
             <a class="archive-post-title" href="/2021/04/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JSONP%E6%BC%8F%E6%B4%9E/">深入理解JSONP漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/15</span>
+            <a class="archive-post-title" href="/2021/03/15/CSP%E4%B8%8E%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/">CSP、同源策略与跨域请求(JSONP/CORS)</a>
         </li>
     
         
@@ -3584,6 +3609,11 @@
             <span class="sidebar-tag-name" data-tags="应急响应">
                 <span class="iconfont-archer">&#xe606;</span>
                 应急响应
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="前端安全">
+                <span class="iconfont-archer">&#xe606;</span>
+                前端安全
             </span>
         
     </div>
