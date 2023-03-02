@@ -19,15 +19,15 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="CSP CSP简介 CSP的进化–nonce script CSP和strict-dynamic nonce script CSP strict-dynamic   CSP Bypass的方法总结 url跳转 &lt;link&gt;标签预加载 利用浏览器补全 利用DOM XSS 利用CSS 静态xss 获取nonce值 利用跨域传输数据 利用文件上传执行JS base标签     同源策略">
+    <meta name="description" content="CSP CSP简介 原理 启用   CSP的进化–nonce script CSP和strict-dynamic nonce script CSP strict-dynamic   CSP Bypass的方法总结 url跳转 &lt;link&gt;标签预加载 利用浏览器补全 利用DOM XSS 利用CSS 静态xss 获取nonce值 利用跨域传输数据 利用文件上传执行JS base标签">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSP、同源策略与跨域请求(JSONP&#x2F;CORS)">
 <meta property="og:url" content="https://yinwc.github.io/2021/03/15/CSP%E4%B8%8E%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="CSP CSP简介 CSP的进化–nonce script CSP和strict-dynamic nonce script CSP strict-dynamic   CSP Bypass的方法总结 url跳转 &lt;link&gt;标签预加载 利用浏览器补全 利用DOM XSS 利用CSS 静态xss 获取nonce值 利用跨域传输数据 利用文件上传执行JS base标签     同源策略">
+<meta property="og:description" content="CSP CSP简介 原理 启用   CSP的进化–nonce script CSP和strict-dynamic nonce script CSP strict-dynamic   CSP Bypass的方法总结 url跳转 &lt;link&gt;标签预加载 利用浏览器补全 利用DOM XSS 利用CSS 静态xss 获取nonce值 利用跨域传输数据 利用文件上传执行JS base标签">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-03-15T02:57:04.000Z">
-<meta property="article:modified_time" content="2023-03-01T08:03:25.770Z">
+<meta property="article:modified_time" content="2023-03-02T02:23:40.131Z">
 <meta property="article:author" content="Y1ZkRA">
 <meta property="article:tag" content="前端安全">
 <meta name="twitter:card" content="summary">
@@ -500,7 +500,11 @@
 
 <ul>
 <li><a href="#csp">CSP</a><ul>
-<li><a href="#csp%E7%AE%80%E4%BB%8B">CSP简介</a></li>
+<li><a href="#csp%E7%AE%80%E4%BB%8B">CSP简介</a><ul>
+<li><a href="#%E5%8E%9F%E7%90%86">原理</a></li>
+<li><a href="#%E5%90%AF%E7%94%A8">启用</a></li>
+</ul>
+</li>
 <li><a href="#csp%E7%9A%84%E8%BF%9B%E5%8C%96nonce-script-csp%E5%92%8Cstrict-dynamic">CSP的进化–nonce script CSP和strict-dynamic</a><ul>
 <li><a href="#nonce-script-csp">nonce script CSP</a></li>
 <li><a href="#strict-dynamic">strict-dynamic</a></li>
@@ -508,7 +512,7 @@
 </li>
 <li><a href="#csp-bypass%E7%9A%84%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93">CSP Bypass的方法总结</a><ul>
 <li><a href="#url%E8%B7%B3%E8%BD%AC">url跳转</a></li>
-<li><a href="#link%E6%A0%87%E7%AD%BE%E9%A2%84%E5%8A%A0%E8%BD%BD">&lt;link&gt;标签预加载</a></li>
+<li><a href="#%5Clink%E6%A0%87%E7%AD%BE%E9%A2%84%E5%8A%A0%E8%BD%BD">&lt;link&gt;标签预加载</a></li>
 <li><a href="#%E5%88%A9%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A1%A5%E5%85%A8">利用浏览器补全</a></li>
 <li><a href="#%E5%88%A9%E7%94%A8dom-xss">利用DOM XSS</a></li>
 <li><a href="#%E5%88%A9%E7%94%A8css-%E9%9D%99%E6%80%81xss-%E8%8E%B7%E5%8F%96nonce%E5%80%BC">利用CSS 静态xss 获取nonce值</a></li>
@@ -519,8 +523,8 @@
 </li>
 </ul>
 </li>
-<li><a href="#%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5sop">同源策略(SOP)</a><ul>
-<li><a href="#sop%E5%9F%BA%E7%A1%80">SOP基础</a></li>
+<li><a href="#%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5sop">同源策略SOP</a><ul>
+<li><a href="#%E5%9F%BA%E7%A1%80">基础</a></li>
 <li><a href="#%E8%A7%84%E9%81%BF%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5">规避同源策略</a><ul>
 <li><a href="#jsonp">JSONP</a></li>
 <li><a href="#cors">CORS</a></li>
@@ -537,16 +541,11 @@
 <!-- /TOC -->
 
 
-<h2 id="CSP"><a href="#CSP" class="headerlink" title="CSP"></a>CSP</h2><h3 id="CSP简介"><a href="#CSP简介" class="headerlink" title="CSP简介"></a>CSP简介</h3><ol>
+<h2 id="CSP"><a href="#CSP" class="headerlink" title="CSP"></a>CSP</h2><h3 id="CSP简介"><a href="#CSP简介" class="headerlink" title="CSP简介"></a>CSP简介</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><ul>
 <li>CSP（Content-Security-Policy）内容安全策略,用来防御XSS攻击的技术。CSP是一种白名单策略，通过CSP指定可信的内容来源，让WEB处于一个安全的运行环境中。</li>
-</ol>
-<ul>
 <li>CSP的实质就是白名单策略，预先设定好哪些资源能被加载执行而哪些不能。除了普通的CSP还有个<code>CSPRO</code>(Content-Security-Policy-Report-Only)，区别是后者不限制执行，而是记录违反限制的行为，需要与<code>report-uri</code>一起使用。</li>
 </ul>
-<ol start="2">
-<li>启用CSP</li>
-</ol>
-<ul>
+<h4 id="启用"><a href="#启用" class="headerlink" title="启用"></a>启用</h4><ul>
 <li>通过 HTTP 头信息的Content-Security-Policy的字段</li>
 <li>通过网页的<code>&lt;meta</code>&gt;标签<ul>
 <li><code>&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;script-src &#39;self&#39;&quot;&gt;</code></li>
@@ -694,7 +693,7 @@
 <p>这个字符串可以在后端实现，每次请求都重新生成，这样就可以无视哪个域是可信的，保证所加载的任何资源都是可信的，并且还能拦截后面插入的script。</p>
 <h4 id="strict-dynamic"><a href="#strict-dynamic" class="headerlink" title="strict-dynamic"></a>strict-dynamic</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: default-src &#x27;self&#x27;; script-src &#x27;strict-dynamic&#x27;</span><br></pre></td></tr></table></figure>
 
-<p>SD意味着可信js生成的js代码是可信的。</p>
+<p><code>strict-dynamic</code>意味着可信js,生成的js代码是可信的。</p>
 <p>这个CSP规则主要是用来适应各种各样的现代前端框架，通过这个规则，可以大幅度避免因为适应框架而变得松散的CSP规则。</p>
 <h3 id="CSP-Bypass的方法总结"><a href="#CSP-Bypass的方法总结" class="headerlink" title="CSP Bypass的方法总结"></a>CSP Bypass的方法总结</h3><p>CSP对前端攻击的防御主要有两个：</p>
 <ol>
@@ -738,7 +737,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://lorexxar.cn/2017/05/16/nonce-bypass-script/</span><br></pre></td></tr></table></figure>
 
 <p>如果有DOM操作可以插入HTML并且可以控制插入的HTML内容，那么也可以绕过CSP</p>
-<h4 id="利用CSS-静态xss-获取nonce值"><a href="#利用CSS-静态xss-获取nonce值" class="headerlink" title="利用CSS 静态xss 获取nonce值"></a>利用CSS 静态xss 获取nonce值</h4><p>利用CSS选择器来逐字节获取信息，^&#x3D;从头部判断</p>
+<h4 id="利用CSS-静态xss-获取nonce值"><a href="#利用CSS-静态xss-获取nonce值" class="headerlink" title="利用CSS 静态xss 获取nonce值"></a>利用CSS 静态xss 获取nonce值</h4><p>利用CSS选择器来逐字节获取信息，<code>^=</code>从头部判断</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">*[attribute^=&quot;a&quot;]&#123;background:url(&quot;record?match=a&quot;)&#125;</span><br><span class="line">*[attribute^=&quot;b&quot;]&#123;background:url(&quot;record?match=b&quot;)&#125;</span><br><span class="line">*[attribute^=&quot;c&quot;]&#123;background:url(&quot;record?match=c&quot;)&#125;</span><br></pre></td></tr></table></figure>
 
 <p>比如确定第一位为c，那么就会继续下面的步骤</p>
@@ -758,26 +757,26 @@
 <p>可以参考前几天梅子酒师傅写的上传Wave文件绕过CSP，执行JS</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://mp.weixin.qq.com/s/ljBB5jStB7fcJq4cgdWnnw</span><br></pre></td></tr></table></figure>
 
-<h4 id="base标签"><a href="#base标签" class="headerlink" title="base标签"></a>base标签</h4><p>利用base标签改变资源加载的域，从而引入恶意的js，造成js执行</p>
-<h2 id="同源策略-SOP"><a href="#同源策略-SOP" class="headerlink" title="同源策略(SOP)"></a>同源策略(SOP)</h2><h3 id="SOP基础"><a href="#SOP基础" class="headerlink" title="SOP基础"></a>SOP基础</h3><p>SOP(Same-Origin-Policy)同源策略是浏览器的一个安全限制，它阻止了不同域之间进行的数据交互，A 网页设置的 Cookie，B 网页不能打开，除非这两个网页同源，所谓同源，是指：两个网页，协议（protocol）、端口（port）、和主机（host）都相同，如果非同源，以下三种行为受到限制：</p>
+<h4 id="base标签"><a href="#base标签" class="headerlink" title="base标签"></a>base标签</h4><p>利用base标签改变资源加载的域，从而引入恶意的js，造成js执行。</p>
+<h2 id="同源策略-SOP"><a href="#同源策略-SOP" class="headerlink" title="同源策略(SOP)"></a>同源策略(SOP)</h2><h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><p>SOP(Same-Origin-Policy)同源策略是浏览器的一个安全限制，它阻止了不同域之间进行的数据交互，A 网页设置的 Cookie，B 网页不能打开，除非这两个网页同源，所谓同源，是指：协议（protocol）、端口（port）、和主机（host）都相同，如果非同源，Cookie，LocalStorage，IndexDB 无法读取：</p>
 <ol>
-<li><p>Cookie，LocalStorage，IndexDB 无法读取</p>
+<li><p>LocalStorage</p>
 <blockquote>
-<p>LocalStorage 是 HTML5 本地存储 Web Storage 特性的 API 之一，用于将大量数据（最大 5 M）保存在浏览器中，保存后数据永远存在不会失效过期，除非用 Js 手动清除，它不参与网络传输，一般用于性能优化，可以保存图片、Js、CSS、HTML 模板、大量数据，IndexDB 也是用于储存的东西</p>
+<p>LocalStorage 是 HTML5 本地存储 Web Storage 特性的 API 之一，用于将大量数据（最大 5 M）保存在浏览器中，保存后数据永远存在不会失效过期，除非用 Js 手动清除，它不参与网络传输，一般用于性能优化，可以保存图片、Js、CSS、HTML 模板、大量数据，IndexDB 也是用于储存的东西。</p>
 </blockquote>
 </li>
 <li><p>DOM 无法获取</p>
 <blockquote>
-<p>DOM（Document Object Model）译为文档对象模型，是 HTML 和 XML 文档的编程接口，HTML DOM 定义了访问和操作 HTML 文档的标准方法，DOM 以树结构表达 HTML 文档</p>
+<p>DOM（Document Object Model）译为文档对象模型，是 HTML 和 XML 文档的编程接口，HTML DOM 定义了访问和操作 HTML 文档的标准方法，DOM 以树结构表达 HTML 文档。</p>
 </blockquote>
 </li>
 <li><p>AJAX 请求不能发送</p>
 <blockquote>
-<p>AJAX &#x3D; Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。 AJAX 不是新的编程语言，而是一种使用现有标准的新方法。 AJAX 最大的优点是在不重新加载整个页面的情况下，可以与服务器交换数据并更新部分网页内容，AJAX 请求只能发给同源的网址</p>
+<p>AJAX &#x3D; Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。 AJAX 不是新的编程语言，而是一种使用现有标准的新方法。 AJAX 最大的优点是在不重新加载整个页面的情况下，可以与服务器交换数据并更新部分网页内容，AJAX 请求只能发给同源的网址。</p>
 </blockquote>
 </li>
 </ol>
-<h3 id="规避同源策略"><a href="#规避同源策略" class="headerlink" title="规避同源策略"></a>规避同源策略</h3><p>主要有以下三种方法规避同源策略的限制：JSONP，WebSocket，CORS</p>
+<h3 id="规避同源策略"><a href="#规避同源策略" class="headerlink" title="规避同源策略"></a>规避同源策略</h3><p>主要有以下三种方法规避同源策略的限制：<code>JSONP</code>，<code>WebSocket</code>，<code>CORS</code></p>
 <h4 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h4><ul>
 <li><a href="https://yinwc.github.io/2021/04/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JSONP%E6%BC%8F%E6%B4%9E/">深入理解JSONP漏洞</a></li>
 <li>JSONP是JSON with padding（填充式JSON或参数式JSON）的简写。是为了解决跨域资源请求而产生的一种解决方案，动态创建<code>&lt;script&gt;</code>标签，然后利用<code>&lt;script&gt;</code>的<code>src</code>标签不受同源策略约束来跨域获取数据。</li>
@@ -803,7 +802,7 @@
             <p>Author：<a href="https://yinwc.github.io">Y1ZkRA</a>
             <p>Link：<a href="https://yinwc.github.io/2021/03/15/CSP%E4%B8%8E%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/">https://yinwc.github.io/2021/03/15/CSP%E4%B8%8E%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/</a>
             <p>Publish date：<a href="https://yinwc.github.io/2021/03/15/CSP%E4%B8%8E%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/">March 15th 2021, 10:57:04 am</a>
-            <p>Update date：<a href="https://yinwc.github.io/2021/03/15/CSP%E4%B8%8E%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/">March 1st 2023, 4:03:25 pm</a>
+            <p>Update date：<a href="https://yinwc.github.io/2021/03/15/CSP%E4%B8%8E%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/">March 2nd 2023, 10:23:40 am</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -958,7 +957,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CSP"><span class="toc-number">1.</span> <span class="toc-text">CSP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CSP%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">CSP简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSP%E7%9A%84%E8%BF%9B%E5%8C%96%E2%80%93nonce-script-CSP%E5%92%8Cstrict-dynamic"><span class="toc-number">1.2.</span> <span class="toc-text">CSP的进化–nonce script CSP和strict-dynamic</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#nonce-script-CSP"><span class="toc-number">1.2.1.</span> <span class="toc-text">nonce script CSP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#strict-dynamic"><span class="toc-number">1.2.2.</span> <span class="toc-text">strict-dynamic</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSP-Bypass%E7%9A%84%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93"><span class="toc-number">1.3.</span> <span class="toc-text">CSP Bypass的方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#url%E8%B7%B3%E8%BD%AC"><span class="toc-number">1.3.1.</span> <span class="toc-text">url跳转</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lt-link-gt-%E6%A0%87%E7%AD%BE%E9%A2%84%E5%8A%A0%E8%BD%BD"><span class="toc-number">1.3.2.</span> <span class="toc-text">&lt;link&gt;标签预加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A1%A5%E5%85%A8"><span class="toc-number">1.3.3.</span> <span class="toc-text">利用浏览器补全</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8DOM-XSS"><span class="toc-number">1.3.4.</span> <span class="toc-text">利用DOM XSS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8CSS-%E9%9D%99%E6%80%81xss-%E8%8E%B7%E5%8F%96nonce%E5%80%BC"><span class="toc-number">1.3.5.</span> <span class="toc-text">利用CSS 静态xss 获取nonce值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E8%B7%A8%E5%9F%9F%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE"><span class="toc-number">1.3.6.</span> <span class="toc-text">利用跨域传输数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%89%A7%E8%A1%8CJS"><span class="toc-number">1.3.7.</span> <span class="toc-text">利用文件上传执行JS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#base%E6%A0%87%E7%AD%BE"><span class="toc-number">1.3.8.</span> <span class="toc-text">base标签</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-SOP"><span class="toc-number">2.</span> <span class="toc-text">同源策略(SOP)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SOP%E5%9F%BA%E7%A1%80"><span class="toc-number">2.1.</span> <span class="toc-text">SOP基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E9%81%BF%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5"><span class="toc-number">2.2.</span> <span class="toc-text">规避同源策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JSONP"><span class="toc-number">2.2.1.</span> <span class="toc-text">JSONP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CORS"><span class="toc-number">2.2.2.</span> <span class="toc-text">CORS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WebSocket"><span class="toc-number">2.2.3.</span> <span class="toc-text">WebSocket</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#CORS%E4%B8%8EJSONP%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">CORS与JSONP的比较</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">3.</span> <span class="toc-text">Reference</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CSP"><span class="toc-number">1.</span> <span class="toc-text">CSP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CSP%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">CSP简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E7%94%A8"><span class="toc-number">1.1.2.</span> <span class="toc-text">启用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSP%E7%9A%84%E8%BF%9B%E5%8C%96%E2%80%93nonce-script-CSP%E5%92%8Cstrict-dynamic"><span class="toc-number">1.2.</span> <span class="toc-text">CSP的进化–nonce script CSP和strict-dynamic</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#nonce-script-CSP"><span class="toc-number">1.2.1.</span> <span class="toc-text">nonce script CSP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#strict-dynamic"><span class="toc-number">1.2.2.</span> <span class="toc-text">strict-dynamic</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSP-Bypass%E7%9A%84%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93"><span class="toc-number">1.3.</span> <span class="toc-text">CSP Bypass的方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#url%E8%B7%B3%E8%BD%AC"><span class="toc-number">1.3.1.</span> <span class="toc-text">url跳转</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lt-link-gt-%E6%A0%87%E7%AD%BE%E9%A2%84%E5%8A%A0%E8%BD%BD"><span class="toc-number">1.3.2.</span> <span class="toc-text">&lt;link&gt;标签预加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A1%A5%E5%85%A8"><span class="toc-number">1.3.3.</span> <span class="toc-text">利用浏览器补全</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8DOM-XSS"><span class="toc-number">1.3.4.</span> <span class="toc-text">利用DOM XSS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8CSS-%E9%9D%99%E6%80%81xss-%E8%8E%B7%E5%8F%96nonce%E5%80%BC"><span class="toc-number">1.3.5.</span> <span class="toc-text">利用CSS 静态xss 获取nonce值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E8%B7%A8%E5%9F%9F%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE"><span class="toc-number">1.3.6.</span> <span class="toc-text">利用跨域传输数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%89%A7%E8%A1%8CJS"><span class="toc-number">1.3.7.</span> <span class="toc-text">利用文件上传执行JS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#base%E6%A0%87%E7%AD%BE"><span class="toc-number">1.3.8.</span> <span class="toc-text">base标签</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5-SOP"><span class="toc-number">2.</span> <span class="toc-text">同源策略(SOP)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80"><span class="toc-number">2.1.</span> <span class="toc-text">基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E9%81%BF%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5"><span class="toc-number">2.2.</span> <span class="toc-text">规避同源策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JSONP"><span class="toc-number">2.2.1.</span> <span class="toc-text">JSONP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CORS"><span class="toc-number">2.2.2.</span> <span class="toc-text">CORS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WebSocket"><span class="toc-number">2.2.3.</span> <span class="toc-text">WebSocket</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#CORS%E4%B8%8EJSONP%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">CORS与JSONP的比较</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">3.</span> <span class="toc-text">Reference</span></a></li></ol>
             </div>
         
         <!-- sidebar -->
