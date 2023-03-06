@@ -427,6 +427,59 @@
         
         
             
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2019/02/28/xss%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/">
+                
+                <span class="abstract-title-text">xss靶场练习</span>
+            </a>
+            <div class="abstract-content">
+                
+
+
+0x00
+0x01
+0x02
+0x03
+0x04
+0x05
+0x06
+
+
+
+0x00没有丝毫的过滤措施，且最后的输出位置在标签中，所以很简单，随便甩一个xss payload:&lt;script&gt;alert(1)&lt;/script&gt;
+server code:
+123function render (input) &#123;  return &#x27;&lt;div&gt;&#x27; + input + &#x27;&lt;/div&gt;&#x27;&#125;
+
+[
+0x010x01和0x00不同的地方在于这里xss插入的位置在于标签中，闭合标签，构造pa...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2023/03/01">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/28</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="learn">learn</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
             
         
         <article class="index-post">
@@ -740,42 +793,6 @@
     
     
         <a class="post-tag" href="javascript:void(0);" data-tags="漏洞">漏洞</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2018/12/25/%E5%AE%89%E6%81%92%E6%9D%AF12%E6%9C%88%E6%9C%88%E8%B5%9B/">
-                
-                <span class="abstract-title-text">安恒杯12月月赛</span>
-            </a>
-            <div class="abstract-content">
-                安恒杯12月赛 web writeup
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2023/02/02">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/25</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
     
 </div>
 
@@ -1508,7 +1525,24 @@
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2921,7 +2955,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 124
+        Total : 125
         </div>
         <!-- search  -->
         
@@ -2931,6 +2965,21 @@
     
         
             
+            
+            <div class="archive-year"> 2023 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/06</span>
+            <a class="archive-post-title" href="/2023/03/06/%E8%87%AA%E5%BE%8B/">自律，决定一生！</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
             
             <div class="archive-year"> 2021 </div>
             <ul class="year-list">
