@@ -19,12 +19,12 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="前言 GitLab配置ssh key Git提交修改内容 常用指令    前言Git现在在各大公司的应用越来越多，学一波git是很有必要的..之前学过一波，好久没用忘了….现在记录下，以防忘记。 GitLab配置ssh key1.打开本地git bash,使用如下命令生成ssh公钥和私钥对  ssh-keygen -t rsa -C ‘&amp;#x78;&amp;#x78;&amp;#x78;&amp;#x40;&amp;#12">
+    <meta name="description" content="前言 GitLab配置ssh key Git提交修改内容 常用指令    前言Git现在在各大公司的应用越来越多，学一波git是很有必要的..之前学过一波，好久没用忘了….现在记录下，以防忘记。 GitLab配置ssh key1.打开本地git bash,使用如下命令生成ssh公钥和私钥对  ssh-keygen -t rsa -C ‘&amp;#120;&amp;#x78;&amp;#120;&amp;#64;&amp;#120">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git learn">
 <meta property="og:url" content="https://yinwc.github.io/2018/12/03/Git-learn/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="前言 GitLab配置ssh key Git提交修改内容 常用指令    前言Git现在在各大公司的应用越来越多，学一波git是很有必要的..之前学过一波，好久没用忘了….现在记录下，以防忘记。 GitLab配置ssh key1.打开本地git bash,使用如下命令生成ssh公钥和私钥对  ssh-keygen -t rsa -C ‘&amp;#x78;&amp;#x78;&amp;#x78;&amp;#x40;&amp;#12">
+<meta property="og:description" content="前言 GitLab配置ssh key Git提交修改内容 常用指令    前言Git现在在各大公司的应用越来越多，学一波git是很有必要的..之前学过一波，好久没用忘了….现在记录下，以防忘记。 GitLab配置ssh key1.打开本地git bash,使用如下命令生成ssh公钥和私钥对  ssh-keygen -t rsa -C ‘&amp;#120;&amp;#x78;&amp;#120;&amp;#64;&amp;#120">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2018-12-03T08:42:31.000Z">
 <meta property="article:modified_time" content="2023-02-02T07:03:59.415Z">
@@ -509,7 +509,7 @@
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Git现在在各大公司的应用越来越多，学一波git是很有必要的..之前学过一波，好久没用忘了….现在记录下，以防忘记。</p>
 <h2 id="GitLab配置ssh-key"><a href="#GitLab配置ssh-key" class="headerlink" title="GitLab配置ssh key"></a>GitLab配置ssh key</h2><p>1.打开本地git bash,使用如下命令生成ssh公钥和私钥对</p>
 <ul>
-<li>ssh-keygen -t rsa -C ‘<a href="mailto:&#x78;&#x78;&#x78;&#x40;&#120;&#120;&#120;&#46;&#x63;&#x6f;&#x6d;">&#x78;&#x78;&#x78;&#x40;&#120;&#120;&#120;&#46;&#x63;&#x6f;&#x6d;</a>‘ 然后一路回车(-C 参数是你的邮箱地址)</li>
+<li>ssh-keygen -t rsa -C ‘<a href="mailto:&#120;&#x78;&#120;&#64;&#120;&#x78;&#120;&#x2e;&#x63;&#x6f;&#109;">&#120;&#x78;&#120;&#64;&#120;&#x78;&#120;&#x2e;&#x63;&#x6f;&#109;</a>‘ 然后一路回车(-C 参数是你的邮箱地址)</li>
 </ul>
 <p>2.然后打开<del>&#x2F;.ssh&#x2F;id_rsa.pub文件(</del>表示用户目录，比如我的windows就是C:\Users\Administrator)，复制其中的内容</p>
 <p>3.打开gitlab,找到Profile Settings–&gt;SSH Keys—&gt;Add SSH Key,并把上一步中复制的内容粘贴到Key所对应的文本框，在Title对应的文本框中给这个sshkey设置一个名字，点击Add key按钮</p>
@@ -1334,6 +1334,8 @@
         
         
     
+        
+        
         
         
         
@@ -3582,14 +3584,14 @@
                 python
             </span>
         
-            <span class="sidebar-tag-name" data-tags="安全评估">
-                <span class="iconfont-archer">&#xe606;</span>
-                安全评估
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="漏洞">
                 <span class="iconfont-archer">&#xe606;</span>
                 漏洞
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="安全评估">
+                <span class="iconfont-archer">&#xe606;</span>
+                安全评估
             </span>
         
             <span class="sidebar-tag-name" data-tags="前端安全">
@@ -3597,14 +3599,14 @@
                 前端安全
             </span>
         
-            <span class="sidebar-tag-name" data-tags="安全开发">
-                <span class="iconfont-archer">&#xe606;</span>
-                安全开发
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="代码审计">
                 <span class="iconfont-archer">&#xe606;</span>
                 代码审计
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="安全开发">
+                <span class="iconfont-archer">&#xe606;</span>
+                安全开发
             </span>
         
             <span class="sidebar-tag-name" data-tags="problem">
