@@ -41,6 +41,28 @@
   </entry>
   
   <entry>
+    <title>shiro 权限绕过系列汇总</title>
+    <link href="https://yinwc.github.io/2022/01/13/shiro-%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E7%B3%BB%E5%88%97%E6%B1%87%E6%80%BB/"/>
+    <id>https://yinwc.github.io/2022/01/13/shiro-%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E7%B3%BB%E5%88%97%E6%B1%87%E6%80%BB/</id>
+    <published>2022-01-13T07:18:58.000Z</published>
+    <updated>2023-04-11T07:48:12.178Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="权限绕过原理"><a href="#权限绕过原理" class="headerlink" title="权限绕过原理"></a>权限绕过原理</h2><p>配置<code>shiroConfig-Filter</code>里的URL是<code>ant</code>格式，路径支持通配符表示。具体逻辑在<code>AntPathMatcher#doMatch</code></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?：匹配一个字符</span><br><span class="line">*：匹配零个或多个字符串</span><br><span class="line">**：匹配路径中的零个或多个路径</span><br></pre></td></tr></table></figure><h2 id="payload总结"><a href="#payload总结" class="headerlink" title="payload总结"></a>payload总结</h2><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li><p><code>CVE-2016-6802</code> 在访问路径前加上&#x2F;任意目录名&#x2F;..&#x2F;，即可绕过访问</p></li><li><p><code>CVE-2020-1957</code> &#x2F;demo&#x2F;..;&#x2F;admin&#x2F;index,其中demo为授权路径，admin&#x2F;index为鉴权路径 &#x2F;.;&#x2F;hello&#x2F;aaaa</p></li><li><p><code>CVE-2020-11989</code> admin&#x2F;page%252fABCDEFG其中admin&#x2F;page为鉴权路径，ABCDEFG为随意字符串 &#x2F;hello&#x2F;a%25%32%66a &#x2F;;&#x2F;test&#x2F;hello&#x2F;aaa</p></li><li><p><code>CVE-2020-13933</code> admin&#x2F;%3BABCDEFG，其中admin为鉴权路径，ABCDEFG为随意字符串</p></li><li><p><code>CVE-2020-17510</code> admin&#x2F;%2e</p></li><li><p><code>CVE-2020-17523</code> admin&#x2F;%20，其中admin为鉴权路径</p></li><li><p><code>CVE-2022-32532</code> 特定条件下的漏洞利用：当shiro使用了RegExPatternMatcher进行路由匹配时，由于Java的正则Pattern.matches解析.默认是不匹配r或者n的，因此当path中带有%0a时可绕过正则匹配 &#x2F;permit&#x2F;a%0any</p></li></ul><h2 id="四个CVE分析"><a href="#四个CVE分析" class="headerlink" title="四个CVE分析"></a>四个CVE分析</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul><li><a href="https://yagsheg.com/2021/08/02/shiro-%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E7%B3%BB%E5%88%97%E6%B1%87%E6%80%BB/">shiro 权限绕过系列汇总</a></li><li><a href="https://github.com/Threezh1/JSFinder">shiro权限绕过总结</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;权限绕过原理&quot;&gt;&lt;a href=&quot;#权限绕过原理&quot; class=&quot;headerlink&quot; title=&quot;权限绕过原理&quot;&gt;&lt;/a&gt;权限绕过原理&lt;/h2&gt;&lt;p&gt;配置&lt;code&gt;shiroConfig-Filter&lt;/code&gt;里的URL是&lt;code&gt;ant&lt;/code</summary>
+      
+    
+    
+    
+    
+    <category term="shiro" scheme="https://yinwc.github.io/tags/shiro/"/>
+    
+  </entry>
+  
+  <entry>
     <title>深入理解Log4j2远程命令执行漏洞</title>
     <link href="https://yinwc.github.io/2021/12/12/Log4j2%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/"/>
     <id>https://yinwc.github.io/2021/12/12/Log4j2%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/</id>
@@ -507,33 +529,6 @@
     
     
     <category term="python" scheme="https://yinwc.github.io/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MQTT安全初探</title>
-    <link href="https://yinwc.github.io/2020/06/16/MQTT%E5%AE%89%E5%85%A8%E5%88%9D%E6%8E%A2/"/>
-    <id>https://yinwc.github.io/2020/06/16/MQTT%E5%AE%89%E5%85%A8%E5%88%9D%E6%8E%A2/</id>
-    <published>2020-06-16T08:08:26.000Z</published>
-    <updated>2023-02-02T06:06:57.407Z</updated>
-    
-    <content type="html"><![CDATA[<!-- TOC --><ul><li><a href="#%E5%89%8D%E8%A8%80">前言</a></li><li><a href="#mqtt%E7%AE%80%E4%BB%8B">MQTT简介</a></li><li><a href="#mqtt%E7%9A%84%E7%89%B9%E7%82%B9">MQTT的特点</a></li><li><a href="#mqtt%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95">MQTT安全测试</a><ul><li><a href="#mqtt%E7%9A%84%E6%94%BB%E5%87%BB%E7%82%B9">MQTT的攻击点</a></li><li><a href="#mqtt%E7%9A%84%E5%88%A9%E7%94%A8">MQTT的利用</a></li><li><a href="#mqtt%E9%98%B2%E5%BE%A1">MQTT防御</a></li></ul></li><li><a href="#reference">Reference</a></li></ul><!-- /TOC --><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在做安全测试，在测试的过程中遇到MQTT的测试项目，以前没了解过emmm学一波～</p><p>项目背景：<br>某项目的设备端有MQTT消息转发服务<br>端口：1883 &#x2F; 8883 端口 （QMTT over TCP）<br>版本：eclipse mosquitto 1.6.8， MQTT v3.1.1版本协议</p><h2 id="MQTT简介"><a href="#MQTT简介" class="headerlink" title="MQTT简介"></a>MQTT简介</h2><p>MQTT消息队列遥测传输（英语：Message Queuing Telemetry Transport）是ISO 标准（ISO&#x2F;IEC PRF 20922）下基于发布 (Publish)&#x2F;订阅 (Subscribe)范式的消息协议，可视为“数据传递的桥梁”它工作在 TCP&#x2F;IP协议族上，是为硬件性能低下的远程设备以及网络状况糟糕的情况下而设计的发布&#x2F;订阅型消息协议，为此，它需要一个消息中间件，以解决当前繁重的数据传输协议，如：HTTP。</p><p>MQTT 相较于HTTP， 能节省更多的资源，带来较多的传输负担，也因为这样，在制造业中，让更多人发现 IoT 在设备、厂房的无限可能，发现原来要取机台的温度这么容易，要了解厂区的产量这么方便…</p><h2 id="MQTT的特点"><a href="#MQTT的特点" class="headerlink" title="MQTT的特点"></a>MQTT的特点</h2><ol><li>使用发布&#x2F;订阅的消息模式，支持一对多的消息发布；</li><li>消息是通过TCP&#x2F;IP协议传输；</li><li>简单的数据包格式；</li><li>默认端口为TCP的1883，websocket端口8083，默认消息不加密。8883端口默认是通过TLS加密的MQTT协议。</li></ol><h2 id="MQTT安全测试"><a href="#MQTT安全测试" class="headerlink" title="MQTT安全测试"></a>MQTT安全测试</h2><h3 id="MQTT的攻击点"><a href="#MQTT的攻击点" class="headerlink" title="MQTT的攻击点"></a>MQTT的攻击点</h3><ul><li><p>授权：匿名连接问题，匿名访问则代表任何人都可以发布或订阅消息。如果存在敏感数据或指令，将导致信息泄漏或者被恶意攻击者发起恶意指令；</p></li><li><p>传输：默认未加密，则可被中间人攻击。可获取其验证的用户名和密码；</p></li><li><p>认证：弱口令问题，由于可被爆破，设置了弱口令，同样也会存在安全风险；</p></li><li><p>应用：订阅端明文配置导致泄漏其验证的用户名和密码；</p></li><li><p>漏洞：服务端软件自身存在缺陷可被利用，或者订阅端或服务端解析内容不当产生安全漏洞，这将导致整个系统。历史漏洞汇总如下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1、Eclipse Mosquitto 1.0～1.5.5 存在授权问题漏洞</span><br><span class="line">漏洞公告：https://www.anquanke.com/vul/id/1514742</span><br><span class="line"></span><br><span class="line">1、Eclipse Mosquitto &lt;= 1.4.15 存在拒绝服务漏洞</span><br><span class="line">漏洞公告：http://www.nsfocus.net/vulndb/40015</span><br><span class="line"></span><br><span class="line">2、 Eclipse Mosquitto 1.0～1.5.5存在访问控制漏洞</span><br><span class="line">漏洞公告：https://www.anquanke.com/vul/id/1514740</span><br><span class="line"></span><br><span class="line">3、 MQTT 3.4.6之前版本和4.0.5之前的4.0.x版本存在拒绝服务漏洞</span><br><span class="line">漏洞公告：https://www.anquanke.com/vul/id/1132531</span><br><span class="line"></span><br><span class="line">4、 MQTT protocol 3.1.1版本中存在安全漏洞</span><br><span class="line">漏洞公告：https://www.anquanke.com/vul/id/2051251</span><br></pre></td></tr></table></figure></li></ul><h3 id="MQTT的利用"><a href="#MQTT的利用" class="headerlink" title="MQTT的利用"></a>MQTT的利用</h3><p>目前已经有针对MQTT的开源利用工具，这里主要以mqtt-pwn这块工具为主。mqtt-pwn这块工具功能强大易用。</p><p>github地址为<code>https://github.com/akamai-threat-research/mqtt-pwn</code></p><p>使用文档地址为<code>https://mqtt-pwn.readthedocs.io/en/latest/</code></p><p><strong>MQTT匿名访问</strong></p><p>有一些MQTT的服务端软件默认是开启匿名访问，只要对公网开放，任何人都可以直接访问。</p><p>对于开启匿名的服务,使用MQTT-pwn测试:<br><code>connect -o host</code><br>如果没有显示连接异常，就表示连接成功。连接成功后，可使用system_info 查看系统信息</p><p><strong>MQTT用户名密码爆破</strong><br>metasploit带有MQTT的爆破模块，但效果不理想</p><p>mqtt-pwn具有bruteforce功能，并带了一个简单的字典，可以爆破MQTT的用户名和密码。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bruteforce --host host --port -uf user_dic -pf pass_dic</span><br></pre></td></tr></table></figure><p>端口默认是1883，用户和密码字典默认会在mqtt-pwn的resources&#x2F;wordlists 文件夹下。</p><p>例如执行bruteforce –host 127.0.0.1爆破。爆破成功后就可以使用上面将到的内容进行连接进行操作，在连接时加上用户名和密码选项即可。</p><h3 id="MQTT防御"><a href="#MQTT防御" class="headerlink" title="MQTT防御"></a>MQTT防御</h3><ol><li>请勿启用匿名访问，对服务端（BROKER）设置认证，增加用户名密码验证。</li><li>根据实际情况，优先使用加密传输数据，防止中间人攻击。</li><li>加密payload后在进行安全传输。</li><li>使用最新的服务端程序架设服务。</li><li>不要将实现的代码上传到github等代码公开平台。</li></ol><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://bacde.me/post/mqtt-security-part-one/">物联网安全之MQTT协议安全</a><br><a href="https://qastack.cn/iot/452/what-simple-security-tests-can-i-perform-on-my-mqtt-network">在MQTT网络上进行安全测试</a><br><a href="http://rui0.cn/archives/975">浅析MQTT安全</a><br><a href="https://cloud.tencent.com/document/product/634/14630">MQTT.fx 接入指南</a><br><a href="https://zh.wikipedia.org/wiki/MQTT">维基百科</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;!-- TOC --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#%E5%89%8D%E8%A8%80&quot;&gt;前言&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#mqtt%E7%AE%80%E4%BB%8B&quot;&gt;MQTT简介&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#mqtt%E7</summary>
-      
-    
-    
-    
-    
-    <category term="learn" scheme="https://yinwc.github.io/tags/learn/"/>
     
   </entry>
   
