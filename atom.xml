@@ -45,7 +45,7 @@
     <link href="https://yinwc.github.io/2022/01/13/shiro-%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E7%B3%BB%E5%88%97%E6%B1%87%E6%80%BB/"/>
     <id>https://yinwc.github.io/2022/01/13/shiro-%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E7%B3%BB%E5%88%97%E6%B1%87%E6%80%BB/</id>
     <published>2022-01-13T07:18:58.000Z</published>
-    <updated>2023-04-11T07:48:12.178Z</updated>
+    <updated>2023-04-21T06:10:36.394Z</updated>
     
     <content type="html"><![CDATA[<h2 id="权限绕过原理"><a href="#权限绕过原理" class="headerlink" title="权限绕过原理"></a>权限绕过原理</h2><p>配置<code>shiroConfig-Filter</code>里的URL是<code>ant</code>格式，路径支持通配符表示。具体逻辑在<code>AntPathMatcher#doMatch</code></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?：匹配一个字符</span><br><span class="line">*：匹配零个或多个字符串</span><br><span class="line">**：匹配路径中的零个或多个路径</span><br></pre></td></tr></table></figure><h2 id="payload总结"><a href="#payload总结" class="headerlink" title="payload总结"></a>payload总结</h2><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li><p><code>CVE-2016-6802</code> 在访问路径前加上&#x2F;任意目录名&#x2F;..&#x2F;，即可绕过访问</p></li><li><p><code>CVE-2020-1957</code> &#x2F;demo&#x2F;..;&#x2F;admin&#x2F;index,其中demo为授权路径，admin&#x2F;index为鉴权路径 &#x2F;.;&#x2F;hello&#x2F;aaaa</p></li><li><p><code>CVE-2020-11989</code> admin&#x2F;page%252fABCDEFG其中admin&#x2F;page为鉴权路径，ABCDEFG为随意字符串 &#x2F;hello&#x2F;a%25%32%66a &#x2F;;&#x2F;test&#x2F;hello&#x2F;aaa</p></li><li><p><code>CVE-2020-13933</code> admin&#x2F;%3BABCDEFG，其中admin为鉴权路径，ABCDEFG为随意字符串</p></li><li><p><code>CVE-2020-17510</code> admin&#x2F;%2e</p></li><li><p><code>CVE-2020-17523</code> admin&#x2F;%20，其中admin为鉴权路径</p></li><li><p><code>CVE-2022-32532</code> 特定条件下的漏洞利用：当shiro使用了RegExPatternMatcher进行路由匹配时，由于Java的正则Pattern.matches解析.默认是不匹配r或者n的，因此当path中带有%0a时可绕过正则匹配 &#x2F;permit&#x2F;a%0any</p></li></ul><h2 id="四个CVE分析"><a href="#四个CVE分析" class="headerlink" title="四个CVE分析"></a>四个CVE分析</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul><li><a href="https://yagsheg.com/2021/08/02/shiro-%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E7%B3%BB%E5%88%97%E6%B1%87%E6%80%BB/">shiro 权限绕过系列汇总</a></li><li><a href="https://github.com/Threezh1/JSFinder">shiro权限绕过总结</a></li></ul>]]></content>
     
@@ -58,7 +58,7 @@
     
     
     
-    <category term="shiro" scheme="https://yinwc.github.io/tags/shiro/"/>
+    <category term="漏洞" scheme="https://yinwc.github.io/tags/%E6%BC%8F%E6%B4%9E/"/>
     
   </entry>
   
