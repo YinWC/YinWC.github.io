@@ -427,6 +427,63 @@
         
         
             
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2020/06/28/XSS%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">
+                
+                <span class="abstract-title-text">XSS漏洞总结</span>
+            </a>
+            <div class="abstract-content">
+                
+
+
+漏洞原理
+漏洞测试
+反射型XSS
+存储型xss
+DOM xss
+一些技巧
+XSS_Cheat_Sheet_2020_Edition
+
+
+
+
+漏洞修复
+Reference
+
+
+
+漏洞原理XSS的漏洞主要成因是后端接收参数时未经过滤，导致参数改变了HTML的结构，从而被浏览器或后端代码执行。
+漏洞测试手动检测一个简单的思路为：
+找到一个存在问题的地方，提交一下代码，如果出现弹窗或者打开开发者，发现报错，即为XSS漏洞如果没有字数限制，可以将XSS的payloads一起发过去，会更好进行测试。XSS payloads攻击代码：
+123456789101112&lt;script&gt; ...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2023/01/28">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/06/28</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="漏洞">漏洞</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
             
         
         <article class="index-post">
@@ -750,42 +807,6 @@ CVE-2020-1938 又名GhostCat， 之前引起了一场风雨，由e长亭科技�
     
     
         <a class="post-tag" href="javascript:void(0);" data-tags="代码审计">代码审计</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2020/02/01/Python%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
-                
-                <span class="abstract-title-text">Python多线程</span>
-            </a>
-            <div class="abstract-content">
-                Python多线程
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2023/01/28">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/01</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="python">python</a>
     
 </div>
 
@@ -1533,11 +1554,12 @@ CVE-2020-1938 又名GhostCat， 之前引起了一场风雨，由e长亭科技�
         
         
         
+        
+        
+        
+        
+        
     
-        
-        
-        
-        
         
         
         
@@ -2982,7 +3004,7 @@ CVE-2020-1938 又名GhostCat， 之前引起了一场风雨，由e长亭科技�
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 127
+        Total : 128
         </div>
         <!-- search  -->
         
@@ -3036,6 +3058,12 @@ CVE-2020-1938 又名GhostCat， 之前引起了一场风雨，由e长亭科技�
         <li class="archive-post-item">
             <span class="archive-post-date">12/12</span>
             <a class="archive-post-title" href="/2021/12/12/Log4j2%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">深入理解Log4j2远程命令执行漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span>
+            <a class="archive-post-title" href="/2021/08/06/PHP%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">PHP弱类型漏洞总结</a>
         </li>
     
         
