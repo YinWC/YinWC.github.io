@@ -19,15 +19,15 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="PHP弱类型简介​		PHP属于弱类型语言，PHP不必声明该变量的数据类型，PHP会根据变量的值自动把变量的值转换为所需的数据类型，但在这个自动转换过程中可能存在安全问题。 ​		常见可能导致弱类型漏洞的有： PHP弱类型安全问题总结 12345671)&#x3D;&#x3D; 2)switch() 3)in_array() 4)array_search() 5)is_number() 6)strcmp() 7)Ma">
+    <meta name="description" content="PHP弱类型简介​		PHP属于弱类型语言，PHP不必声明该变量的数据类型，PHP会根据变量的值自动把变量的值转换为所需的数据类型，但在这个自动转换过程中可能存在安全问题。 ​		常见可能导致弱类型漏洞的有： 12345671)&#x3D;&#x3D; 2)switch() 3)in_array() 4)array_search() 5)is_number() 6)strcmp() 7)Magic Hashes  类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP弱类型漏洞总结">
 <meta property="og:url" content="https://yinwc.github.io/2021/08/06/PHP%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="PHP弱类型简介​		PHP属于弱类型语言，PHP不必声明该变量的数据类型，PHP会根据变量的值自动把变量的值转换为所需的数据类型，但在这个自动转换过程中可能存在安全问题。 ​		常见可能导致弱类型漏洞的有： PHP弱类型安全问题总结 12345671)&#x3D;&#x3D; 2)switch() 3)in_array() 4)array_search() 5)is_number() 6)strcmp() 7)Ma">
+<meta property="og:description" content="PHP弱类型简介​		PHP属于弱类型语言，PHP不必声明该变量的数据类型，PHP会根据变量的值自动把变量的值转换为所需的数据类型，但在这个自动转换过程中可能存在安全问题。 ​		常见可能导致弱类型漏洞的有： 12345671)&#x3D;&#x3D; 2)switch() 3)in_array() 4)array_search() 5)is_number() 6)strcmp() 7)Magic Hashes  类">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-08-06T03:27:34.000Z">
-<meta property="article:modified_time" content="2023-04-23T03:48:45.275Z">
+<meta property="article:modified_time" content="2023-04-23T05:42:42.422Z">
 <meta property="article:author" content="Y1ZkRA">
 <meta property="article:tag" content="漏洞">
 <meta name="twitter:card" content="summary">
@@ -497,7 +497,7 @@
                 <main class="main post-page">
     <article class="article-entry">
         <h2 id="PHP弱类型简介"><a href="#PHP弱类型简介" class="headerlink" title="PHP弱类型简介"></a>PHP弱类型简介</h2><p>​		PHP属于弱类型语言，PHP不必声明该变量的数据类型，PHP会根据变量的值自动把变量的值转换为所需的数据类型，但在这个自动转换过程中可能存在安全问题。</p>
-<p>​		常见可能导致弱类型漏洞的有： <a target="_blank" rel="noopener" href="https://blog.spoock.com/2016/06/25/weakly-typed-security/">PHP弱类型安全问题总结</a></p>
+<p>​		常见可能导致弱类型漏洞的有：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1)== </span><br><span class="line">2)switch() </span><br><span class="line">3)in_array() </span><br><span class="line">4)array_search() </span><br><span class="line">5)is_number() </span><br><span class="line">6)strcmp() </span><br><span class="line">7)Magic Hashes</span><br></pre></td></tr></table></figure>
 
 <h2 id="类型转换问题"><a href="#类型转换问题" class="headerlink" title="类型转换问题"></a>类型转换问题</h2><p>​		类型转换是无法避免的问题。例如需要将GET或者是POST的参数转换为int类型，或者是两个变量不匹配的时候，PHP会自动地进行变量转换。但是PHP是一个弱类型的语言，导致在进行类型转换的时候会存在很多意想不到的问题。</p>
@@ -556,7 +556,7 @@
             <p>Author：<a href="https://yinwc.github.io">Y1ZkRA</a>
             <p>Link：<a href="https://yinwc.github.io/2021/08/06/PHP%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">https://yinwc.github.io/2021/08/06/PHP%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/</a>
             <p>Publish date：<a href="https://yinwc.github.io/2021/08/06/PHP%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">August 6th 2021, 11:27:34 am</a>
-            <p>Update date：<a href="https://yinwc.github.io/2021/08/06/PHP%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">April 23rd 2023, 11:48:45 am</a>
+            <p>Update date：<a href="https://yinwc.github.io/2021/08/06/PHP%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">April 23rd 2023, 1:42:42 pm</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
