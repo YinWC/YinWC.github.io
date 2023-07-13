@@ -19,17 +19,18 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="安全威胁分析 APP安全评估大概分类 使用Burp抓取手机app的包（手机无需root） app在什么情况下无法抓包（无法进行安全测试） Reference    安全威胁分析app面临的威胁主要来自这三方面  客户端：  反编译 调试 加密&#x2F;签名破解 输入记录 导出组件 进程注入  数据传输：  信息泄露 传输数据篡改 重放攻击  服务端  心血 ST2 注入 跨站 越权执行 上">
+    <meta name="description" content="App安全威胁分析 App常见漏洞 权限滥用 https验证 Log敏感信息泄漏 不安全的配置 组件安全漏洞   App安全评估大概分类 使用Burp抓取手机app的包（手机无需root） app在什么情况下无法抓包（无法进行安全测试） Reference    App安全威胁分析app面临的威胁主要来自这三方面  客户端：  反编译 调试 加密&#x2F;签名破解 输入记录 导出组件 进程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="App安全评估思路总结">
 <meta property="og:url" content="https://yinwc.github.io/2020/09/09/App%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="安全威胁分析 APP安全评估大概分类 使用Burp抓取手机app的包（手机无需root） app在什么情况下无法抓包（无法进行安全测试） Reference    安全威胁分析app面临的威胁主要来自这三方面  客户端：  反编译 调试 加密&#x2F;签名破解 输入记录 导出组件 进程注入  数据传输：  信息泄露 传输数据篡改 重放攻击  服务端  心血 ST2 注入 跨站 越权执行 上">
+<meta property="og:description" content="App安全威胁分析 App常见漏洞 权限滥用 https验证 Log敏感信息泄漏 不安全的配置 组件安全漏洞   App安全评估大概分类 使用Burp抓取手机app的包（手机无需root） app在什么情况下无法抓包（无法进行安全测试） Reference    App安全威胁分析app面临的威胁主要来自这三方面  客户端：  反编译 调试 加密&#x2F;签名破解 输入记录 导出组件 进程">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://yinwc.github.io/2020/09/09/App%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/1.png">
+<meta property="og:image" content="https://yinwc.github.io/2020/09/09/App%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/app%E6%BC%8F%E6%B4%9E.png">
 <meta property="og:image" content="https://yinwc.github.io/2020/09/09/App%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/2.png">
 <meta property="article:published_time" content="2020-09-09T08:36:19.000Z">
-<meta property="article:modified_time" content="2023-02-02T07:03:59.415Z">
+<meta property="article:modified_time" content="2023-07-13T02:25:59.037Z">
 <meta property="article:author" content="V1ZkRA">
 <meta property="article:tag" content="安全评估">
 <meta name="twitter:card" content="summary">
@@ -338,7 +339,7 @@
                 <!-- 文章字数统计 -->
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">616</span>Reading time: <span class="post-count reading-time">2 min</span></span>
+                        <span>Word count: <span class="post-count word-count">1.2k</span>Reading time: <span class="post-count reading-time">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -502,15 +503,23 @@
         <!-- TOC -->
 
 <ul>
-<li><a href="#%E5%AE%89%E5%85%A8%E5%A8%81%E8%83%81%E5%88%86%E6%9E%90">安全威胁分析</a></li>
-<li><a href="#app%E5%AE%89%E5%85%A8%E8%AF%84%E4%BC%B0%E5%A4%A7%E6%A6%82%E5%88%86%E7%B1%BB">APP安全评估大概分类</a></li>
+<li><a href="#app%E5%AE%89%E5%85%A8%E5%A8%81%E8%83%81%E5%88%86%E6%9E%90">App安全威胁分析</a></li>
+<li><a href="#app%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E">App常见漏洞</a><ul>
+<li><a href="#%E6%9D%83%E9%99%90%E6%BB%A5%E7%94%A8">权限滥用</a></li>
+<li><a href="#https%E9%AA%8C%E8%AF%81">https验证</a></li>
+<li><a href="#log%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E6%BC%8F">Log敏感信息泄漏</a></li>
+<li><a href="#%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%E9%85%8D%E7%BD%AE">不安全的配置</a></li>
+<li><a href="#%E7%BB%84%E4%BB%B6%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E">组件安全漏洞</a></li>
+</ul>
+</li>
+<li><a href="#app%E5%AE%89%E5%85%A8%E8%AF%84%E4%BC%B0%E5%A4%A7%E6%A6%82%E5%88%86%E7%B1%BB">App安全评估大概分类</a></li>
 <li><a href="#%E4%BD%BF%E7%94%A8burp%E6%8A%93%E5%8F%96%E6%89%8B%E6%9C%BAapp%E7%9A%84%E5%8C%85%E6%89%8B%E6%9C%BA%E6%97%A0%E9%9C%80root">使用Burp抓取手机app的包（手机无需root）</a></li>
 <li><a href="#app%E5%9C%A8%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85%E6%97%A0%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95">app在什么情况下无法抓包（无法进行安全测试）</a></li>
 <li><a href="#reference">Reference</a></li>
 </ul>
 <!-- /TOC -->
 
-<h2 id="安全威胁分析"><a href="#安全威胁分析" class="headerlink" title="安全威胁分析"></a>安全威胁分析</h2><p>app面临的威胁主要来自这三方面</p>
+<h2 id="App安全威胁分析"><a href="#App安全威胁分析" class="headerlink" title="App安全威胁分析"></a>App安全威胁分析</h2><p>app面临的威胁主要来自这三方面</p>
 <p><img src="/2020/09/09/App%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/1.png" alt="app安全测试"></p>
 <p><strong>客户端：</strong></p>
 <ul>
@@ -537,7 +546,43 @@
 <li>上传下载</li>
 <li>弱口令</li>
 </ul>
-<h2 id="APP安全评估大概分类"><a href="#APP安全评估大概分类" class="headerlink" title="APP安全评估大概分类"></a>APP安全评估大概分类</h2><p>1、从数据的本地存储到数据的传输、处理以及远程访问等各个环节，基于相应的安全标准&#x2F;行业标准评估APP的安全特性</p>
+<h2 id="App常见漏洞"><a href="#App常见漏洞" class="headerlink" title="App常见漏洞"></a>App常见漏洞</h2><p><img src="/2020/09/09/App%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/app%E6%BC%8F%E6%B4%9E.png" alt="app安全测试"></p>
+<h3 id="1-权限滥用"><a href="#1-权限滥用" class="headerlink" title="1. 权限滥用"></a>1. 权限滥用</h3><ul>
+<li><p>权限为normal权限,可能导致敏感信息泄露；</p>
+</li>
+<li><p>如果程序具有root权限，且没有对调用做限制的话，可能被恶意利用；</p>
+</li>
+<li><p>同源绕过漏洞，activity接收使用file:&#x2F;&#x2F;路径的协议，却没有禁用Javascript的执行，通过此漏洞可以读取应用的任意内部私有文件，造成信息泄露。</p>
+</li>
+</ul>
+<h3 id="2-https验证"><a href="#2-https验证" class="headerlink" title="2.https验证"></a>2.https验证</h3><ul>
+<li>漏洞可导致中间人攻击，应用没有校验服务器证书，可导致中间人攻击，泄露通信内容.</li>
+</ul>
+<h3 id="3-Log敏感信息泄漏"><a href="#3-Log敏感信息泄漏" class="headerlink" title="3. Log敏感信息泄漏"></a>3. Log敏感信息泄漏</h3><ul>
+<li><p>android应用程序在程序运行期间打印了用户的敏感信息，然后这些记录被存储在操作系统中，一般的存储路径为&#x2F;data&#x2F;data&#x2F;应用程序名。</p>
+<p>这些信息可以被其他程序非法读取。尤其是这些数据是敏感的信息如用户名&#x2F;密码，传输的数据等。这些Log造成敏感信息泄露。</p>
+</li>
+</ul>
+<h3 id="4-不安全的配置"><a href="#4-不安全的配置" class="headerlink" title="4. 不安全的配置"></a>4. 不安全的配置</h3><ul>
+<li>全局可读文件，应用内存在其它任何应用都可以读取的私有文件，可能造成信息泄漏，app调试风险，允许程序被调试；</li>
+<li>私有文件存在敏感文件泄露风险；</li>
+<li>app备份风险，允许程序备份，可能导致用户信息泄露。</li>
+</ul>
+<h3 id="5-组件安全漏洞"><a href="#5-组件安全漏洞" class="headerlink" title="5. 组件安全漏洞"></a>5. 组件安全漏洞</h3><ul>
+<li><p>ContentResolver暴露漏洞，通过暴露的ContentResolver可以绕过provider的权限限制；</p>
+</li>
+<li><p>Activity安全漏洞，Activity存在崩溃或者异常，任意其它应用可导致存在此漏洞的应用崩溃或者功能调用；</p>
+</li>
+<li><p>Service安全漏洞，Service存在崩溃或者异常，任意其它应用可导致存在此漏洞的应用崩溃或者功能调用；</p>
+</li>
+<li><p>Receiver安全漏洞，BroadcastReceiver存在崩溃或者异常，任意其它应用可导致存在此漏洞的应用崩溃或者功能调用；</p>
+</li>
+<li><p>Activity组件暴露风险，Activity接口可被其它应用调用，用于执行特定的敏感操作或钓鱼欺骗；</p>
+</li>
+<li><p>广播信息泄露风险，广播可以被其他恶意程序进行接收，导致用户信息泄露或者终止广播。</p>
+</li>
+</ul>
+<h2 id="App安全评估大概分类"><a href="#App安全评估大概分类" class="headerlink" title="App安全评估大概分类"></a>App安全评估大概分类</h2><p>1、从数据的本地存储到数据的传输、处理以及远程访问等各个环节，基于相应的安全标准&#x2F;行业标准评估APP的安全特性</p>
 <p>2、借鉴在Web App和网络安全测试的一些成功经验在智能终端APP测试中进行测试或适配</p>
 <p>3、检测APP的用户授权级别，数据泄露，非法授权访问等；</p>
 <p>4、对APP的输入有效性校验、认证、授权、敏感数据存储、数据加密等方面进行检测，以发现潜在的安全问题</p>
@@ -560,7 +605,8 @@
 <li>一是APP截取的数据报文处于加密状态，在无法解密的情况下无法对数据包进行安全测试</li>
 <li>二是基于各类SSL的安全配置导致数据包无法抓取</li>
 </ul>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/shuryuu/article/details/103084983">移动安全app渗透测试要点</a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p> <a target="_blank" rel="noopener" href="https://ayesawyer.github.io/2019/08/21/Android-App%E5%B8%B8%E8%A7%81%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E/">Android App常见安全漏洞</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/shuryuu/article/details/103084983">移动安全app渗透测试要点</a></p>
 <p><a target="_blank" rel="noopener" href="http://blog.nsfocus.net/mobile-app-security-security-test/">绿盟：移动APP安全测试要点</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/211562">H5页面漏洞挖掘之路-加密篇</a></p>
 <p><a target="_blank" rel="noopener" href="https://misakikata.github.io/2020/04/APP%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E6%A3%80%E6%B5%8B/">APP应用安全检测</a></p>
@@ -574,7 +620,7 @@
             <p>Author：<a href="https://yinwc.github.io">V1ZkRA</a>
             <p>Link：<a href="https://yinwc.github.io/2020/09/09/App%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/">https://yinwc.github.io/2020/09/09/App%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/</a>
             <p>Publish date：<a href="https://yinwc.github.io/2020/09/09/App%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/">September 9th 2020, 4:36:19 pm</a>
-            <p>Update date：<a href="https://yinwc.github.io/2020/09/09/App%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/">February 2nd 2023, 3:03:59 pm</a>
+            <p>Update date：<a href="https://yinwc.github.io/2020/09/09/App%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/">July 13th 2023, 10:25:59 am</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -729,7 +775,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E5%A8%81%E8%83%81%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">安全威胁分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#APP%E5%AE%89%E5%85%A8%E8%AF%84%E4%BC%B0%E5%A4%A7%E6%A6%82%E5%88%86%E7%B1%BB"><span class="toc-number">2.</span> <span class="toc-text">APP安全评估大概分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Burp%E6%8A%93%E5%8F%96%E6%89%8B%E6%9C%BAapp%E7%9A%84%E5%8C%85%EF%BC%88%E6%89%8B%E6%9C%BA%E6%97%A0%E9%9C%80root%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">使用Burp抓取手机app的包（手机无需root）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#app%E5%9C%A8%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85%EF%BC%88%E6%97%A0%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">app在什么情况下无法抓包（无法进行安全测试）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#App%E5%AE%89%E5%85%A8%E5%A8%81%E8%83%81%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">App安全威胁分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#App%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E"><span class="toc-number">2.</span> <span class="toc-text">App常见漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9D%83%E9%99%90%E6%BB%A5%E7%94%A8"><span class="toc-number">2.1.</span> <span class="toc-text">1. 权限滥用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-https%E9%AA%8C%E8%AF%81"><span class="toc-number">2.2.</span> <span class="toc-text">2.https验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Log%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E6%BC%8F"><span class="toc-number">2.3.</span> <span class="toc-text">3. Log敏感信息泄漏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-number">2.4.</span> <span class="toc-text">4. 不安全的配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%BB%84%E4%BB%B6%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E"><span class="toc-number">2.5.</span> <span class="toc-text">5. 组件安全漏洞</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#App%E5%AE%89%E5%85%A8%E8%AF%84%E4%BC%B0%E5%A4%A7%E6%A6%82%E5%88%86%E7%B1%BB"><span class="toc-number">3.</span> <span class="toc-text">App安全评估大概分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Burp%E6%8A%93%E5%8F%96%E6%89%8B%E6%9C%BAapp%E7%9A%84%E5%8C%85%EF%BC%88%E6%89%8B%E6%9C%BA%E6%97%A0%E9%9C%80root%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">使用Burp抓取手机app的包（手机无需root）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#app%E5%9C%A8%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85%EF%BC%88%E6%97%A0%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">app在什么情况下无法抓包（无法进行安全测试）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">6.</span> <span class="toc-text">Reference</span></a></li></ol>
             </div>
         
         <!-- sidebar -->
